@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('razlog_zatvaranja_rezervacije', function (Blueprint $table) {
             $table->id();
-            $table->string("naziv",256);
+            $table->string("name",256);
             $table->timestamps();
         });
     }

@@ -13,10 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('status_knjige', function (Blueprint $table) {
+        Schema::create('korisnik_logins', function (Blueprint $table) {
             $table->id();
-            $table->string("name",256);
-            $table->timestamps();
+            $table->unsignedBigInteger("user_id");
+            $table->foreign("user_id")
+            ->references("id")
+            ->on("korisnik")
+            ->onUpdate("Cascade")
+            ->onDelete("Restrict");
+            $table->dateTime("time");
         });
     }
 
@@ -27,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('status_knjige');
+        Schema::dropIfExists('korisnik_logins');
     }
 };

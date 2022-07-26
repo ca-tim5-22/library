@@ -13,9 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('status_knjige', function (Blueprint $table) {
+        Schema::create('izdavanjes', function (Blueprint $table) {
             $table->id();
-            $table->string("name",256);
+
+            $table->unsignedBigInteger("book_id");
+            $table->foreign("book_id")
+            ->references("id")
+            ->on("knjigas")
+            ->onUpdate("Cascade")
+            ->onDelete("Restrict");
+            //izdao korisnik pozajmio korisnik 
+
             $table->timestamps();
         });
     }
@@ -27,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('status_knjige');
+        Schema::dropIfExists('izdavanjes');
     }
 };

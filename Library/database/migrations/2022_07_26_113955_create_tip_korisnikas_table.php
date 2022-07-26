@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tip_korisnika', function (Blueprint $table) {
             $table->id();
-            $table->string("naziv",256);
+            $table->string("name",256);
             $table->timestamps();
         });
     }

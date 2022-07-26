@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('kategorija', function (Blueprint $table) {
             $table->id();
-            $table->string("naziv",256);
-            $table->string("ikonica",256);
-            $table->string("opis",2048);
+            $table->string("name",256);
+            $table->string("icon",256);
+            $table->string("description",2048);
             $table->timestamps();
         });
     }
