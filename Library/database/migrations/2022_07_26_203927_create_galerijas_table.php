@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('galerijas', function (Blueprint $table) {
+        Schema::create('gallery', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger("book_id");
             $table->foreign("book_id")
             ->references("id")
-            ->on("knjigas")
+            ->on("books")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('galerijas');
+        Schema::dropIfExists('gallery');
     }
 };

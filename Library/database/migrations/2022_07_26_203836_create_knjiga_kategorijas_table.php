@@ -13,19 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('knjiga_kategorijas', function (Blueprint $table) {
+        Schema::create('book_categories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("book_id");
             $table->foreign("book_id")
             ->references("id")
-            ->on("knjigas")
+            ->on("books")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
             $table->unsignedBigInteger("category_id");
             $table->foreign("category_id")
             ->references("id")
-            ->on("kategorija")
+            ->on("categories")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
             $table->timestamps();
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('knjiga_kategorijas');
+        Schema::dropIfExists('book_categories');
     }
 };

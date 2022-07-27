@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rezervacijas', function (Blueprint $table) {
+        Schema::create('reservations', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger("book_id");
             $table->foreign("book_id")
             ->references("id")
-            ->on("knjigas")
+            ->on("books")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
@@ -27,14 +27,14 @@ return new class extends Migration
             $table->unsignedBigInteger("foruser_id");
             $table->foreign("foruser_id")
             ->references("id")
-            ->on("korisnik")
+            ->on("users")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
             $table->unsignedBigInteger("user_that_reserved_id");
             $table->foreign("user_that_reserved_id")
             ->references("id")
-            ->on("korisnik")
+            ->on("users")
             ->onUpdate("Cascade")
             ->onDelete("Cascade");
 
@@ -44,7 +44,7 @@ return new class extends Migration
             $table->unsignedBigInteger("reason_of_closing_id");
             $table->foreign("reason_of_closing_id")
             ->references("id")
-            ->on("razlog_zatvaranja_rezervacije")
+            ->on("reason_for_closing_reservations")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
@@ -59,6 +59,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rezervacijas');
+        Schema::dropIfExists('reservations');
     }
 };

@@ -13,19 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rezervacija_statuses', function (Blueprint $table) {
+        Schema::create('reservation_statuses', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("reservation_id");
             $table->foreign("reservation_id")
             ->references("id")
-            ->on("rezervacijas")
+            ->on("reservations")
             ->onUpdate("Cascade")
             ->onDelete("Cascade");
 
             $table->unsignedBigInteger("reservation_status_id");
             $table->foreign("reservation_status_id")
             ->references("id")
-            ->on("status_rezervacijes")
+            ->on("reservation_statuses")
             ->onUpdate("Cascade")
             ->onDelete("Cascade");
             $table->timestamps();
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rezervacija_statuses');
+        Schema::dropIfExists('reservation_statuses');
     }
 };

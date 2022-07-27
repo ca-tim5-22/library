@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('knjigas', function (Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string("title",256);
             $table->integer("number_of_pages");
@@ -21,28 +21,28 @@ return new class extends Migration
             $table->unsignedBigInteger("alphabet_id");
             $table->foreign("alphabet_id")
             ->references("id")
-            ->on("pismos")
+            ->on("alphabets")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
-            $table->unsignedBigInteger("lang_id");
-            $table->foreign("lang_id")
+            $table->unsignedBigInteger("language_id");
+            $table->foreign("language_id")
             ->references("id")
-            ->on("jeziks")
+            ->on("languages")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
             $table->unsignedBigInteger("binding_id");
             $table->foreign("binding_id")
             ->references("id")
-            ->on("povezs")
+            ->on("bindings")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
-            $table->unsignedBigInteger("izdavac_id");
-            $table->foreign("izdavac_id")
+            $table->unsignedBigInteger("publisher_id");
+            $table->foreign("publisher_id")
             ->references("id")
-            ->on("izdavac")
+            ->on("publishers")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
@@ -63,6 +63,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('knjigas');
+        Schema::dropIfExists('book');
     }
 };

@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('izdavanjes', function (Blueprint $table) {
+        Schema::create('rents', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger("book_id");
             $table->foreign("book_id")
             ->references("id")
-            ->on("knjigas")
+            ->on("books")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
             //izdao korisnik pozajmio korisnik 
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('izdavanjes');
+        Schema::dropIfExists('rents');
     }
 };

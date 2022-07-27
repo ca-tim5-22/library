@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('razlog_zatvaranja_rezervacije', function (Blueprint $table) {
+        Schema::create('reason_for_closing_reservations', function (Blueprint $table) {
             $table->id();
             $table->string("name",256);
             $table->timestamps();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('razlog_zatvaranja_rezervacije');
+        Schema::dropIfExists('reason_for_closing_reservations');
     }
 };
