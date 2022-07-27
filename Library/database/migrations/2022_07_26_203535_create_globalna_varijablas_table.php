@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('global_variable', function (Blueprint $table) {
+        Schema::create('global_variables', function (Blueprint $table) {
             $table->id();
             $table->string("variable",256);
             $table->string("value",256);
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('global_variable');
+        Schema::dropIfExists('global_variables');
     }
 };
