@@ -42,6 +42,25 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('dashboard');
 });
+Route::get('dashboardAktivnost',function(){
+    return view('dashboardAktivnost');
+});
+Route::get('bibliotekari',function(){
+    return view('bibliotekari');
+});
+Route::get('bibliotekarprofile',function(){
+    return view('bibliotekarProfile');
+});
+Route::get('ucenik',function(){
+    return view('ucenik');
+});
+Route::get('autori',function(){
+    return view('autori');
+});
+Route::get('settingspolisa',function(){
+    return view('settingsPolisa');
+});
+
 Route::resource('alphabet',AlphabetController::class);
 Route::resource('author',AuthorController::class);
 Route::resource('binding',BindingController::class);

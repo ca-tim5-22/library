@@ -48,7 +48,7 @@
                             <nav class="w-full rounded">
                                 <ol class="flex list-reset">
                                 <li>
-                                        <a href="settingsPolisa.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('settingspolisa');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Settings
                                         </a>
                                     </li>
@@ -56,7 +56,7 @@
                                         <span class="mx-2">/</span>
                                     </li>
                                     <li>
-                                        <a href="settingsPovez.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('binding.index');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Povezi
                                         </a>
                                     </li>

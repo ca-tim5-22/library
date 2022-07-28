@@ -15,7 +15,7 @@ class FormatController extends Controller
      */
     public function index()
     {
-        //
+        return view("settingsFormat");
     }
 
     /**
@@ -25,7 +25,7 @@ class FormatController extends Controller
      */
     public function create()
     {
-        //
+        return view("noviFormat");
     }
 
     /**
@@ -58,7 +58,7 @@ class FormatController extends Controller
      */
     public function edit(Format $format)
     {
-        //
+        return view("editFormat");
     }
 
     /**

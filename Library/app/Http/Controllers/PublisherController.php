@@ -15,7 +15,7 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        //
+        return view("settingsIzdavac");
     }
 
     /**
@@ -25,7 +25,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        //
+        return view("noviIzdavac");
     }
 
     /**
@@ -58,7 +58,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        //
+        return view("editIzdavac");
     }
 
     /**

@@ -15,7 +15,7 @@ class GenreController extends Controller
      */
     public function index()
     {
-        //
+        return view("settingsZanrovi");
     }
 
     /**
@@ -25,7 +25,7 @@ class GenreController extends Controller
      */
     public function create()
     {
-        //
+        return view("noviZanr");
     }
 
     /**
@@ -58,7 +58,7 @@ class GenreController extends Controller
      */
     public function edit(Genre $genre)
     {
-        //
+        return view("editZanr");
     }
 
     /**

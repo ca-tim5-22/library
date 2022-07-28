@@ -1,4 +1,3 @@
-import './bootstrap';
 
 //Open and close hamburger menu
 $(function () {

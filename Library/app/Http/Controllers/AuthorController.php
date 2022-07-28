@@ -15,7 +15,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+        return view("settingsIzdavac");
     }
 
     /**
@@ -25,7 +25,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        //
+        return view("noviAutor");
     }
 
     /**
@@ -58,7 +58,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        //
+        return view("editAutor");
     }
 
     /**
