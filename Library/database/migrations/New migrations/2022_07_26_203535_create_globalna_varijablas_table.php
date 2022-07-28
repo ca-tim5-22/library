@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('book_genres', function (Blueprint $table) {
+        Schema::create('global_variables', function (Blueprint $table) {
             $table->id();
+            $table->string("variable",256);
+            $table->string("value",256);
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('book_genres');
+        Schema::dropIfExists('global_variables');
     }
 };

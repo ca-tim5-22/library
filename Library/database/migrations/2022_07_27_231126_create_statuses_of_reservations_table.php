@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('global_variables', function (Blueprint $table) {
+        Schema::create('statuses_of_reservations', function (Blueprint $table) {
             $table->id();
+            $table->string("name",256);
+            
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('global_variables');
+        Schema::dropIfExists('statuses_of_reservations');
     }
 };

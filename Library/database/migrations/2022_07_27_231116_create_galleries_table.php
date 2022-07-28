@@ -13,8 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bindings', function (Blueprint $table) {
+        Schema::create('galleries', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger("book_id");
+            $table->foreign("book_id")
+            ->references("id")
+            ->on("books")
+            ->onUpdate("Cascade")
+            ->onDelete("Restrict");
+
+            $table->string("photo",256);
+            $table->integer("headline");
             $table->timestamps();
         });
     }
@@ -26,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bindings');
+        Schema::dropIfExists('galleries');
     }
 };

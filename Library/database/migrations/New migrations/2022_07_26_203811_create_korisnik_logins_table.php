@@ -15,7 +15,13 @@ return new class extends Migration
     {
         Schema::create('user_logins', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger("user_id");
+            $table->foreign("user_id")
+            ->references("id")
+            ->on("users")
+            ->onUpdate("Cascade")
+            ->onDelete("Restrict");
+            $table->dateTime("time");
         });
     }
 
