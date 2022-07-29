@@ -1,0 +1,47 @@
+C:\Users\padza/.ssh
+
+
+
+
+
+Your identification has been saved in C:\Users\padza/.ssh/id_rsa.
+Your public key has been saved in C:\Users\padza/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:3PuQiAqiH0GyiVUig8No/ZcISOm68tejcmQ6kU7dW1M padza\padza@Padza
+The key's randomart image is:
++---[RSA 3072]----+
+|B.= .            |
+|+B =             |
+|+.o o . .        |
+|.B   o + .E      |
+|= .o .. S..      |
+|. +.+ ..o. o     |
+|.+o= ..o..+      |
+|+.=oo.+    o     |
+|ooo=o. .    .    |
++----[SHA256]-----+
+
+1.TipKorisnika-  php artisan make:model UserType -a  
+2.StatusKnjige-  php artisan make:model BookStatus -a
+3.RazlogZatvaranjaRezervacije-  php artisan make:model ReasonForClosingReservation -a
+4.Izdavac-  php artisan make:model Publisher -a
+5.Kategorija-  php artisan make:model Category -a
+6.Format-  php artisan make:model Format -a
+7.GlobalnaVarijabla-  php artisan make:model GlobalVariable -a
+8.Autor-  php artisan make:model Author -a
+9.Zanr-  php artisan make:model Genre -a
+10.Pismo-  php artisan make:model Alphabet -a
+11.Jezik-  php artisan make:model Language -a
+12.Povez-  php artisan make:model Binding -a
+13.Korisnik-  php artisan make:model Users -a
+14.KorisnikLogin-  php artisan make:model UserLogin -a
+15.Knjiga-  php artisan make:model Book -a
+16.KnjigaKategorija-  php artisan make:model BookCategory -a
+17.KnjigaAutor-  php artisan make:model BookAuthor -a
+18.KnjigaZanr-  php artisan make:model BookGenre -a
+19.Rezervacija-   php artisan make:model Reservation -a
+20.Izdavanje-    php artisan make:model Rent -a
+21.IzdavanjeStatus-    php artisan make:model RentStatus -a
+22.Galerija-    php artisan make:model Gallery -a
+23.StatusRezervacije-    php artisan make:model StatusesOfReservations -a
+24.RezervacijaStatus-  php artisan make:model ReservationStatus -a

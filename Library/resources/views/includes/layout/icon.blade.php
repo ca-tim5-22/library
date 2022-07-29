@@ -1,0 +1,1 @@
+<link rel = "shortcut icon" href = "{{asset('img/library-favicon.ico');}}">
