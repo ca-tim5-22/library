@@ -653,11 +653,11 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="bibliotekarProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Tom Sojer </span>
-                                        <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Peru Perovicu
                                         </a>
                                         dana <span class="font-medium">21.02.2021.</span>
@@ -683,11 +683,11 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="bibliotekarProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Robinson Kruso</span>
-                                        <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Petru Njegosu
                                         </a>
                                         dana <span class="font-medium">12.03.2020.</span>
@@ -713,11 +713,11 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="bibliotekarProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Tom Sojer </span>
-                                        <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Peru Perovicu
                                         </a>
                                         dana <span class="font-medium">21.02.2021.</span>
@@ -743,11 +743,11 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="bibliotekarProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Robinson Kruso</span>
-                                        <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Petru Njegosu
                                         </a>
                                         dana <span class="font-medium">12.03.2020.</span>
@@ -773,11 +773,11 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="bibliotekarProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Tom Sojer </span>
-                                        <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Peru Perovicu
                                         </a>
                                         dana <span class="font-medium">21.02.2021.</span>
@@ -803,11 +803,11 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="bibliotekarProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Robinson Kruso</span>
-                                        <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Petru Njegosu
                                         </a>
                                         dana <span class="font-medium">12.03.2020.</span>
@@ -833,11 +833,11 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="bibliotekarProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Tom Sojer </span>
-                                        <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Peru Perovicu
                                         </a>
                                         dana <span class="font-medium">21.02.2021.</span>
@@ -863,11 +863,11 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="bibliotekarProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Robinson Kruso</span>
-                                        <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Petru Njegosu
                                         </a>
                                         dana <span class="font-medium">12.03.2020.</span>
@@ -893,11 +893,11 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="bibliotekarProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Tom Sojer </span>
-                                        <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Peru Perovicu
                                         </a>
                                         dana <span class="font-medium">21.02.2021.</span>
@@ -923,11 +923,11 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="bibliotekarProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Robinson Kruso</span>
-                                        <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Petru Njegosu
                                         </a>
                                         dana <span class="font-medium">12.03.2020.</span>

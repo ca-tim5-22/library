@@ -50,7 +50,7 @@
                             autocomplete="current-password" />
                     </div>
                     <div class="flex items-center justify-between">
-                        <a href="dashboard.php"
+                        <a href="{{url('dashboard');}}"
                             class="inline-block px-4 py-2 text-white bg-blue-500 rounded shadow-lg btn-animation hover:bg-blue-600 focus:bg-blue-700"
                             type="submit">Sign In</a>
                         <a class="inline-block text-sm font-normal text-blue-500 align-baseline hover:text-blue-800"
