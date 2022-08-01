@@ -15,7 +15,7 @@ class AlphabetController extends Controller
      */
     public function index()
     {
-        return view("settingsPismo");
+        return view("index.settingsPismo");
     }
 
     /**
@@ -25,7 +25,7 @@ class AlphabetController extends Controller
      */
     public function create()
     {
-        return view("novoPismo");
+        return view("create.novoPismo");
     }
 
     /**

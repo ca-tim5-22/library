@@ -48,7 +48,7 @@
                             <nav class="w-full rounded">
                                 <ol class="flex list-reset">
                                     <li>
-                                        <a href="evidencijaKnjiga.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('book.index');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Evidencija knjiga
                                         </a>
                                     </li>
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="border-b-[2px] py-4 text-gray-500 border-gray-300 pl-[30px]">
-                        <a href="novaKnjiga.php" class="inline hover:text-blue-800">
+                        <a href="{{route('book.create');}}" class="inline hover:text-blue-800">
                             Osnovni detalji
                         </a>
                         <a href="#" class="inline active-book-nav ml-[70px] hover:text-blue-800 ">

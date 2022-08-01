@@ -48,7 +48,7 @@
                             <nav class="w-full rounded">
                                 <ol class="flex list-reset">
                                     <li>
-                                        <a href="autori.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('author.index');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Evidencija autora
                                         </a>
                                     </li>
@@ -56,7 +56,7 @@
                                         <span class="mx-2">/</span>
                                     </li>
                                     <li>
-                                        <a href="autorProfile.php" class="text-gray-400 hover:text-blue-600">
+                                        <a href="{{route('author.show');}}" class="text-gray-400 hover:text-blue-600">
                                             AUTOR-124
                                         </a>
                                     </li>

@@ -13,7 +13,7 @@
     <!-- End Meta -->
 
     <!-- Title -->
-    <title>Edit book | Library - ICT Cortex student project</title>
+    <title>New book | Library - ICT Cortex student project</title>
     @include('includes\layout\icon')
     <!-- End Title -->
 
@@ -41,14 +41,14 @@
                     <div class="pl-[30px] py-[10px] flex flex-col">
                         <div>
                             <h1>
-                                Izmijeni podatke
+                                Nova knjiga
                             </h1>
                         </div>
                         <div>
                             <nav class="w-full rounded">
                                 <ol class="flex list-reset">
                                     <li>
-                                        <a href="evidencijaKnjiga.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('book.index');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Evidencija knjiga
                                         </a>
                                     </li>
@@ -56,8 +56,8 @@
                                         <span class="mx-2">/</span>
                                     </li>
                                     <li>
-                                        <a href="#" class="text-gray-400 hover:text-blue-600">
-                                            Izmijeni podatke
+                                        <a href="#" class="text-[#2196f3] hover:text-blue-600">
+                                            Nova knjiga
                                         </a>
                                     </li>
                                 </ol>
@@ -70,10 +70,10 @@
                 <a href="#" class="inline active-book-nav hover:text-blue-800">
                     Osnovni detalji
                 </a>
-                <a href="editKnjigaSpecifikacija.php" class="inline ml-[70px] hover:text-blue-800 ">
+                <a href="novaKnjigaSpecifikacija.php" class="inline ml-[70px] hover:text-blue-800 ">
                     Specifikacija
                 </a>
-                <a href="editKnjigaMultimedija.php" class="inline ml-[70px] hover:text-blue-800">
+                <a href="novaKnjigaMultimedija.php" class="inline ml-[70px] hover:text-blue-800">
                     Multimedija
                 </a>
             </div>
@@ -84,35 +84,35 @@
                         <div class="w-[50%]">
                             <div class="mt-[20px]">
                                 <p>Naziv knjige <span class="text-red-500">*</span></p>
-                                <input type="text" name="nazivKnjigaEdit" id="nazivKnjigaEdit" value="Tom Sojer"
+                                <input type="text" name="nazivKnjiga" id="nazivKnjiga"
                                     class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
-                                    onkeydown="clearErrorsNazivKnjigaEdit()" />
-                                <div id="validateNazivKnjigaEdit"></div>
+                                    onkeydown="clearErrorsNazivKnjiga()" />
+                                <div id="validateNazivKnjiga"></div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <p class="inline-block mb-2">Kratki sadrzaj</p>
-                                <textarea name="kratki_sadrzaj_edit"
+                                <textarea name="kratki_sadrzaj"
                                     class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]">
-                                    Tom Sojer je roman koji možemo da smatramo i autobiografijom jer je utemeljen na doživljajima samog Marka Tvena. Autor ga je pisao u nekoliko navrata: prvi deo napisan je u zimu 1872. godine, drugi deo u proljeće 1875. godine, a treći na leto te iste godine. Napisan je jednostavnim stilom i uz mnogo pripovedanja i humora pa je jednako interesantan i deci i odraslima. Tven je ovim romanom hteo da odrasle čitaoce podseti na detinjstvo.Pripovedanje u romanu Tom Sojer odvija se linearno, bez paralelnih radnji. Sva dešavanja u romanu vrte se oko jednog lika, a to je Tom Sojer. On se ističe svojom inteligencijom, neobuzdanošću i humorističnom naravi. 
+
                                 </textarea>
                             </div>
 
                             <div class="mt-[20px]">
                                 <p>Izaberite kategorije <span class="text-red-500">*</span></p>
-                                <select x-cloak id="kategorijaEdit">
+                                <select x-cloak id="kategorija">
                                     <option value="1">Udzbenici</option>
                                     <option value="2">Romani</option>
                                 </select>
 
-                                <div x-data="dropdown()" x-init="loadOptionsEdit()" class="flex flex-col w-[90%]">
-                                    <input name="values" id="kategorijaInputEdit" type="hidden"
-                                        x-bind:value="selectedValuesKategorijaEdit()">
+                                <div x-data="dropdown()" x-init="loadOptions()" class="flex flex-col w-[90%]">
+                                    <input name="values" id="kategorijaInput" type="hidden"
+                                        x-bind:value="selectedValues()">
                                     <div class="relative inline-block w-[100%]">
                                         <div class="relative flex flex-col items-center">
                                             <div x-on:click="open" class="w-full svelte-1l8159u">
                                                 <div class="flex p-1 my-2 bg-white border border-gray-300 shadow-sm svelte-1l8159u focus-within:ring-2 focus-within:ring-[#576cdf]"
-                                                    onclick="clearErrorsKategorijaEdit()">
+                                                    onclick="clearErrorsKategorija()">
                                                     <div class="flex flex-wrap flex-auto">
                                                         <template x-for="(option,index) in selected"
                                                             :key="options[option].value">
@@ -138,7 +138,7 @@
                                                     <div x-show="selected.length    == 0" class="flex-1">
                                                         <input
                                                             class="w-full h-full p-1 px-2 text-gray-800 bg-transparent outline-none appearance-none"
-                                                            x-bind:value="selectedValuesKategorijaEdit()">
+                                                            x-bind:value="selectedValues()">
                                                     </div>
                                                 </div>
                                                 <div
@@ -189,24 +189,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="validateKategorijaEdit"></div>
+                            <div id="validateKategorija"></div>
                         </div>
 
                         <div class="mt-[20px]">
                             <p>Izaberite zanrove <span class="text-red-500">*</span></p>
-                            <select x-cloak id="zanrEdit">
+                            <select x-cloak id="zanr">
                                 <option value="1">Poezija</option>
                                 <option value="2">Strucna literatura</option>
-                                <option value="2">Knjige za djecu</option>
                             </select>
 
-                            <div x-data="dropdown()" x-init="loadOptionsZanroviEdit()" class="flex flex-col w-[90%]">
-                                <input name="values" id="zanroviInputEdit" type="hidden" x-bind:value="selectedValuesZanrEdit()">
+                            <div x-data="dropdown()" x-init="loadOptionsZanrovi()" class="flex flex-col w-[90%]">
+                                <input name="values" id="zanroviInput" type="hidden" x-bind:value="selectedValues()">
                                 <div class="relative inline-block w-[100%]">
                                     <div class="relative flex flex-col items-center">
                                         <div x-on:click="open" class="w-full svelte-1l8159u">
                                             <div class="flex p-1 my-2 bg-white border border-gray-300 shadow-sm svelte-1l8159u focus-within:ring-2 focus-within:ring-[#576cdf]"
-                                                onclick="clearErrorsZanrEdit()">
+                                                onclick="clearErrorsZanr()">
                                                 <div class="flex flex-wrap flex-auto">
                                                     <template x-for="(option,index) in selected"
                                                         :key="options[option].value">
@@ -232,7 +231,7 @@
                                                 <div x-show="selected.length    == 0" class="flex-1">
                                                     <input
                                                         class="w-full h-full p-1 px-2 text-gray-800 bg-transparent outline-none appearance-none"
-                                                        x-bind:value="selectedValuesZanrEdit()">
+                                                        x-bind:value="selectedValues()">
                                                 </div>
                                             </div>
                                             <div
@@ -283,25 +282,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="validateZanrEdit"></div>
+                        <div id="validateZanr"></div>
                     </div>
             </div>
 
             <div class="w-[50%]">
                 <div class="mt-[20px]">
                     <p>Izaberite autore <span class="text-red-500">*</span></p>
-                    <select x-cloak id="autoriEdit">
+                    <select x-cloak id="autori">
                         <option value="1">Mark Twain</option>
                         <option value="2">Pero Peric</option>
                     </select>
 
-                    <div x-data="dropdown()" x-init="loadOptionsAutoriEdit()" class="flex flex-col w-[90%]">
-                        <input name="values" id="autoriInputEdit" type="hidden" x-bind:value="selectedValuesAutoriEdit()">
+                    <div x-data="dropdown()" x-init="loadOptionsAutori()" class="flex flex-col w-[90%]">
+                        <input name="values" id="autoriInput" type="hidden" x-bind:value="selectedValues()">
                         <div class="relative inline-block w-[100%]">
                             <div class="relative flex flex-col items-center">
                                 <div x-on:click="open" class="w-full svelte-1l8159u">
                                     <div class="flex p-1 my-2 bg-white border border-gray-300 shadow-sm svelte-1l8159u focus-within:ring-2 focus-within:ring-[#576cdf]"
-                                        onclick="clearErrorsAutoriEdit()">
+                                        onclick="clearErrorsAutori()">
                                         <div class="flex flex-wrap flex-auto">
                                             <template x-for="(option,index) in selected" :key="options[option].value">
                                                 <div
@@ -326,7 +325,7 @@
                                         <div x-show="selected.length    == 0" class="flex-1">
                                             <input
                                                 class="w-full h-full p-1 px-2 text-gray-800 bg-transparent outline-none appearance-none"
-                                                x-bind:value="selectedValuesAutoriEdit()">
+                                                x-bind:value="selectedValues()">
                                         </div>
                                     </div>
                                     <div class="flex items-center w-8 py-1 pl-2 pr-1 text-gray-300 svelte-1l8159u">
@@ -376,47 +375,41 @@
                         </div>
                     </div>
                 </div>
-                <div id="validateAutoriEdit"></div>
+                <div id="validateAutori"></div>
             </div>
 
             <div class="mt-[20px]">
                 <p>Izdavac <span class="text-red-500">*</span></p>
                 <select
                     class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
-                    name="izdavacEdit" id="izdavacEdit" onclick="clearErrorsIzdavacEdit()">
-                    <option disabled></option>
+                    name="izdavac" id="izdavac" onclick="clearErrorsIzdavac()">
+                    <option disabled selected></option>
                     <option value="">
                         Izdavac 1
                     </option>
-                    <option selected value="">
-                        Delfi knjizare
-                    </option>
                 </select>
-                <div id="validateIzdavacEdit"></div>
+                <div id="validateIzdavac"></div>
             </div>
 
             <div class="mt-[20px]">
                 <p>Godina izdavanja <span class="text-red-500">*</span></p>
                 <select
                     class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
-                    name="godinaIzdavanjaEdit" id="godinaIzdavanjaEdit" onclick="clearErrorsGodinaIzdavanjaEdit()">
-                    <option disabled></option>
+                    name="godinaIzdavanja" id="godinaIzdavanja" onclick="clearErrorsGodinaIzdavanja()">
+                    <option disabled selected></option>
                     <option value="">
                         Godina izdavanja 1
                     </option>
-                    <option selected value="">
-                        30.03.2011
-                    </option>
                 </select>
-                <div id="validateGodinaIzdavanjaEdit"></div>
+                <div id="validateGodinaIzdavanja"></div>
             </div>
 
             <div class="mt-[20px]">
                 <p>Kolicina <span class="text-red-500">*</span></p>
-                <input type="text" name="knjigaKolicinaEdit" id="knjigaKolicinaEdit" value="30"
+                <input type="text" name="knjigaKolicina" id="knjigaKolicina"
                     class="flex w-[45%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
-                    onkeydown="clearErrorsKnjigaKolicinaEdit()" />
-                <div id="validateKnjigaKolicinaEdit"></div>
+                    onkeydown="clearErrorsKnjigaKolicina()" />
+                <div id="validateKnjigaKolicina"></div>
             </div>
             </div>
             </div>
@@ -428,9 +421,9 @@
                             class="btn-animation shadow-lg mr-[15px] w-[150px] focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
                             Ponisti <i class="fas fa-times ml-[4px]"></i>
                         </button>
-                        <button id="sacuvajKnjiguEdit" type="submit"
+                        <button id="sacuvajKnjigu" type="submit"
                             class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]"
-                            onclick="validacijaKnjigaEdit()">
+                            onclick="validacijaKnjiga()">
                             Sacuvaj <i class="fas fa-check ml-[4px]"></i>
                         </button>
                     </div>
@@ -452,7 +445,7 @@
     <!-- End Scripts -->
 
     <script>
-    CKEDITOR.replace('kratki_sadrzaj_edit', {
+    CKEDITOR.replace('kratki_sadrzaj', {
         width: "90%",
         height: "150px"
     });
