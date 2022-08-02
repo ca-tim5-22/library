@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="py-4 text-gray-500 border-b-[1px] border-[#e4dfdf] pl-[30px]">
-                <a href="{{url('settingspolisa');}}" class="inline hover:text-blue-800 active-book-nav">
+                <a href="{{route('globalvariable.index');}}" class="inline hover:text-blue-800 active-book-nav">
                     Polisa
                 </a>
                 <a href="{{route('category.index');}}" class="inline ml-[70px] hover:text-blue-800">
@@ -67,6 +67,10 @@
                     Pismo
                 </a>
             </div>
+            <?php $globalVariable="";?>
+            <form method="POST" action="{{route('globalvariable.update',$globalVariable);}}">
+                @csrf
+                @method('PUT')
             <div class="height-ucenikProfile pb-[30px] scroll">
                 <!-- Space for content -->
                 <div class="section- mt-[20px]">
@@ -77,15 +81,19 @@
                                     Rok za rezervaciju
                                 </h3>
                                 <p class="pt-[15px] max-w-[400px]">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum eligendi nihil, vel
-                                    necessitatibus saepe laboriosam! Perspiciatis laboriosam culpa veritatis ea
-                                    voluptatum commodi tempora unde, dolorum debitis quia id dicta vitae.
+                                    Opis za rok za rezervaciju
                                 </p>
                             </div>
+                            <?php 
+
+
+
+
+?>
                             <div class="relative flex ml-[60px] mt-[20px]">
                                 <input type="text"
                                     class="h-[50px] flex-1 w-full px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-white border-[1px]  border-[#e4dfdf]  rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                    placeholder="..." />
+                                    value="{{$ddl_for_reservation->value}}" />
                                 <p class="ml-[10px] mt-[10px]">dana</p>
                             </div>
                         </div>
@@ -95,15 +103,13 @@
                                     Rok vracanja
                                 </h3>
                                 <p class="pt-[15px] max-w-[400px]">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum eligendi nihil, vel
-                                    necessitatibus saepe laboriosam! Perspiciatis laboriosam culpa veritatis ea
-                                    voluptatum commodi tempora unde, dolorum debitis quia id dicta vitae.
+                                    Opis za rok vracanja
                                 </p>
                             </div>
                             <div class="relative flex ml-[60px] mt-[20px]">
                                 <input type="text"
                                     class="h-[50px] flex-1 w-full px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-white border-[1px]  border-[#e4dfdf]  rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                    placeholder="..." />
+                                    value="{{$ddl_for_return->value}}" />
                                 <p class="ml-[10px] mt-[10px]">dana</p>
                             </div>
                         </div>
@@ -113,15 +119,13 @@
                                     Rok konflikta
                                 </h3>
                                 <p class="pt-[15px] max-w-[400px]">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum eligendi nihil, vel
-                                    necessitatibus saepe laboriosam! Perspiciatis laboriosam culpa veritatis ea
-                                    voluptatum commodi tempora unde, dolorum debitis quia id dicta vitae.
+                                    Opis za rok konflikta
                                 </p>
                             </div>
                             <div class="relative flex ml-[60px] mt-[20px]">
                                 <input type="text"
                                     class="h-[50px] flex-1 w-full px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-white border-[1px]  border-[#e4dfdf]  rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                    placeholder="..." />
+                                    value="{{$ddl_for_conflict->value}}"  />
                                 <p class="ml-[10px] mt-[10px]">dana</p>
                             </div>
                         </div>

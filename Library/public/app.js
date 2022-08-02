@@ -1003,6 +1003,9 @@ function validacijaKategorija() {
 
   if (nazivKategorije.length == 0) {
     $('#validateNazivKategorije').append('<p style="color:red;font-size:13px;">Morate unijeti naziv kategorije!</p>');
+    return false;
+  }else{
+    return true;
   }
 }
 
@@ -1010,12 +1013,16 @@ function clearErrorsNazivKategorije() {
   $("#validateNazivKategorije").empty();
 }
 
-$("#sacuvajKategoriju").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaKategorija();
-    return false;
+$("#sacuvajKategoriju").click(function () {
+  
+    if(validacijaKategorija() == false){
+      return false;
+    }else{
+      return true;
+    }
+    
   }
-});
+);
 
 // Form validation for editing category info
 function validacijaKategorijaEdit() {
