@@ -27,7 +27,7 @@ use App\Http\Controllers\UserTypeController;
 use App\Models\ReasonForClosingReservation;
 use App\Models\StatusesOfReservations;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,7 +40,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view("evidencijaKnjigaMultimedija");
+    return view("login");
 });
 
 Route::get('bibliotekari',function(){
@@ -96,3 +96,8 @@ Route::resource('statusesofreservations',StatusesOfReservationsController::class
 Route::resource('userlogin',UserLoginController::class);
 Route::resource('users',UsersController::class);
 Route::resource('usertype',UserTypeController::class);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

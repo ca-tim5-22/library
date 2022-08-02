@@ -15,10 +15,20 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->unsignedBigInteger("user_type_id");
+            $table->foreign("user_type_id")
+            ->references("id")
+            ->on("type_of_users")
+            ->onUpdate("Cascade")
+            ->onDelete("Cascade");
+            $table->string("first_name",128);
+            $table->string("last_name",128);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string("username",64);
+            $table->string("PIN",50);
+            $table->string("photo",256);
+            $table->string('password',256);
             $table->rememberToken();
             $table->timestamps();
         });

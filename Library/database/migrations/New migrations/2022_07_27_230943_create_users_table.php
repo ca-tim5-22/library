@@ -23,6 +23,7 @@ return new class extends Migration
             ->onDelete("Cascade");
             $table->string("first_name",128);
             $table->string("last_name",128);
+            $table->string("email",128);
             $table->string("PIN",50);#JMBG LJUDI KOJI NISU ODAVDE A IMAJU CRNOGORSKO DRŽAVLJANSTVO
             $table->string("username",64);
             $table->string("password",256);

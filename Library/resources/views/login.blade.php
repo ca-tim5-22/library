@@ -32,8 +32,9 @@
     <main class="h-screen small:hidden bg-login">
         <div class="flex items-center justify-center pt-[13%]">
             <div class="w-full max-w-md">
-                <form class="px-12 pt-6 pb-4 mb-4 bg-white rounded shadow-lg">
-                    <!-- @csrf -->
+                <form class="px-12 pt-6 pb-4 mb-4 bg-white rounded shadow-lg" method="POST" action="{{ route('login') }}">
+                     @csrf 
+                     @method('POST')
                     <div class="flex justify-center py-2 mb-4 text-2xl text-gray-800 border-b-2">
                         Online Biblioteka
                     </div>
@@ -55,9 +56,10 @@
                             autocomplete="current-password" />
                     </div>
                     <div class="flex items-center justify-between">
-                        <a href="{{url('dashboard');}}"
+                        <button type="submit" name="submit"
                             class="inline-block px-4 py-2 text-white bg-blue-500 rounded shadow-lg btn-animation hover:bg-blue-600 focus:bg-blue-700"
-                            type="submit">Sign In</a>
+                            >Sign In</button>
+                            
                         <a class="inline-block text-sm font-normal text-blue-500 align-baseline hover:text-blue-800"
                             href="#">
                             Forgot Password?
