@@ -13,7 +13,7 @@ class Users extends Model
     use HasFactory;
 
     protected $fillable = [
-   
+        'first_name', 'last_name', 'PIN', 'username', 
         'email',
         'password',
     ];
@@ -22,4 +22,7 @@ class Users extends Model
         'password',
         
     ];
+    public function type(){
+    return $this->hasOne(UserType::class);
+    }
 }

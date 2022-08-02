@@ -23,7 +23,7 @@ return new class extends Migration
             ->onDelete("Cascade");
             $table->string("first_name",128);
             $table->string("last_name",128);
-            $table->string('email')->unique();
+            $table->string('email',128)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string("username",64);
             $table->string("PIN",50);
