@@ -372,7 +372,7 @@
                                         <td>
                                         </td>
                                         <td class="px-2 py-2">
-                                            <a href="{{route('book.show');}}">
+                                            <a href="">
                                             Ep o Gilgamesu
                                             </a>
                                         </td>
@@ -396,7 +396,7 @@
                                         <td>
                                         </td>
                                         <td class="px-2 py-2">
-                                            <a href="{{route('book.show');}}">
+                                            <a href="">
                                                 Tom Sojer
                                             </a>
                                         </td>
@@ -420,7 +420,7 @@
                                         <td>
                                         </td>
                                         <td class="px-2 py-2">
-                                            <a href="{{route('book.show');}}">
+                                            <a href="">
                                                 Ilijada
                                             </a>
                                         </td>
@@ -444,7 +444,7 @@
                                         <td>
                                         </td>
                                         <td class="px-2 py-2">
-                                            <a href="{{route('book.show');}}">
+                                            <a href="">
                                                 Tom Sojer
                                             </a>          
                                         </td>
