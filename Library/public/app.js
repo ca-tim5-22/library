@@ -1003,6 +1003,9 @@ function validacijaKategorija() {
 
   if (nazivKategorije.length == 0) {
     $('#validateNazivKategorije').append('<p style="color:red;font-size:13px;">Morate unijeti naziv kategorije!</p>');
+    return false;
+  }else{
+    return true;
   }
 }
 
@@ -1010,11 +1013,14 @@ function clearErrorsNazivKategorije() {
   $("#validateNazivKategorije").empty();
 }
 
-$("#sacuvajKategoriju").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaKategorija();
+$("#sacuvajKategoriju").click(function () {
+
+  if(validacijaKategorija() == false){
     return false;
+  }else{
+    return true;
   }
+
 });
 
 // Form validation for editing category info
@@ -1026,18 +1032,18 @@ function validacijaKategorijaEdit() {
 
   if (nazivKategorijeEdit.length == 0) {
     $('#validateNazivKategorijeEdit').append('<p style="color:red;font-size:13px;">Morate unijeti naziv kategorije!</p>');
-  }
+    return false;
+  }else { return true;}
 }
 
 function clearErrorsNazivKategorijeEdit() {
   $("#validateNazivKategorijeEdit").empty();
 }
 
-$("#sacuvajKategorijuEdit").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaKategorijaEdit();
+$("#sacuvajKategorijuEdit").click(function () {
+   if(validacijaKategorijaEdit()==false) {
     return false;
-  }
+  }else {return true;}
 });
 
 // Form validation for new author

@@ -15,7 +15,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view("index.settingsKategorije");
+
+        $category=Category::all();
+        
+       /*  $categories=Category::orderBy('created_at','desc')->paginate(4,"*","Page");*/
+
+        return view('index.settingsKategorije',compact("category"));
     }
 
     /**
@@ -36,7 +41,20 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+    if($file=$request->file('icon')){
+    $name=$file->getClientOriginalName();
+    $file->move('category_icon',$name);
+    $input=$name;
+    }
+
+    Category::create([
+            'name'             =>      $request->name,
+            'description'      =>      $request->description, 
+            'icon'             =>      $input
+        ]); 
+         
+      
+         return redirect('/category');  
     }
 
     /**
@@ -56,9 +74,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($category)
     {
-        
+        $c=Category::findOrFail($category);
+        return view('edit.editKategorija',compact('c'));
     }
 
     /**
@@ -68,9 +87,27 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, $id)
     {
-        //
+        
+    $c=Category::findOrFail($id);
+    
+    $old=$c->icon;
+    
+    
+    $c->name=$request->name;
+    $c->description=$request->description;
+
+    $file=$request->file('icon');
+    if(!is_null($file)){
+    $name=$file->getClientOriginalName();
+    $file->move('category_icon',$name);
+    $input=$name;
+    @unlink( 'category_icon/'.$old);
+    $c->icon=$input;}
+    $c->save();
+
+return redirect('/category');  
     }
 
     /**
@@ -79,8 +116,11 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($category)
     {
-        //
+        $c=Category::findOrFail($category);
+    //@unlink( 'category_icon/'.$c->icon); 
+    $c->delete();
+     return redirect('/category');
     }
 }

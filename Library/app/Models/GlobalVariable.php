@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class GlobalVariable extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['value'];
 }
