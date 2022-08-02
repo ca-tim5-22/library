@@ -52,7 +52,7 @@
                                 <nav class="w-full rounded">
                                     <ol class="flex list-reset">
                                         <li>
-                                            <a href="evidencijaKnjiga.php" class="text-[#2196f3] hover:text-blue-600">
+                                            <a href="{{route('book.index');}}" class="text-[#2196f3] hover:text-blue-600">
                                                 Evidencija knjiga
                                             </a>
                                         </li>
@@ -180,7 +180,7 @@
                                 <td class="flex flex-row items-center px-4 py-4">
                                     <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
                                         alt="" />
-                                    <a href="ucenikProfile.php">
+                                    <a href="{{url('ucenikprofile');}}">
                                         <span class="font-medium text-center">Pero Perovic</span>
                                     </a>
                                 </td>
@@ -202,7 +202,7 @@
                                 <td class="flex flex-row items-center px-4 py-4">
                                     <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
                                         alt="" />
-                                    <a href="ucenikProfile.php">
+                                    <a href="{{url('ucenikprofile');}}">
                                         <span class="font-medium text-center">Pero Perovic</span>
                                     </a>
                                 </td>
@@ -224,7 +224,7 @@
                                 <td class="flex flex-row items-center px-4 py-4">
                                     <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
                                         alt="" />
-                                    <a href="ucenikProfile.php">
+                                    <a href="{{url('ucenikprofile');}}">
                                         <span class="font-medium text-center">Pero Perovic</span>
                                     </a>
                                 </td>
@@ -246,7 +246,7 @@
                                 <td class="flex flex-row items-center px-4 py-4">
                                     <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
                                         alt="" />
-                                    <a href="ucenikProfile.php">
+                                    <a href="{{url('ucenikprofile');}}">
                                         <span class="font-medium text-center">Pero Perovic</span>
                                     </a>
                                 </td>
@@ -268,7 +268,7 @@
                                 <td class="flex flex-row items-center px-4 py-4">
                                     <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
                                         alt="" />
-                                    <a href="ucenikProfile.php">
+                                    <a href="{{url('ucenikprofile');}}">
                                         <span class="font-medium text-center">Pero Perovic</span>
                                     </a>
                                 </td>

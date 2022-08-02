@@ -48,7 +48,7 @@
                             <nav class="w-full rounded">
                                 <ol class="flex list-reset">
                                     <li>
-                                        <a href="ucenik.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('ucenik');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Svi ucenici
                                         </a>
                                     </li>
@@ -56,7 +56,7 @@
                                         <span class="mx-2">/</span>
                                     </li>
                                     <li>
-                                        <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                             ID-354
                                         </a>
                                     </li>
@@ -94,7 +94,7 @@
                 </div>
             </div>
             <div class="border-b-[1px] py-4 text-gray-500 border-[#e4dfdf] pl-[30px]">
-                <a href="ucenikProfile.php" class="inline hover:text-blue-800">
+                <a href="{{url('ucenikprofile');}}" class="inline hover:text-blue-800">
                     Osnovni detalji
                 </a>
                 <a href="ucenikIzdate.php" class="inline ml-[70px] active-book-nav">

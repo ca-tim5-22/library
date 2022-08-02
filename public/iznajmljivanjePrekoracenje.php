@@ -52,7 +52,7 @@
                                 <nav class="w-full rounded">
                                     <ol class="flex list-reset">
                                         <li>
-                                            <a href="evidencijaKnjiga.php" class="text-[#2196f3] hover:text-blue-600">
+                                            <a href="{{route('book.index');}}" class="text-[#2196f3] hover:text-blue-600">
                                                 Evidencija knjiga
                                             </a>
                                         </li>
@@ -901,11 +901,11 @@
                             </div>
                             <div>
                                 <p>
-                                    <a href="bibliotekarProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                         Valentina K.
                                     </a>
                                     je izdala knjigu
-                                    <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                         Peru Perovicu
                                     </a>
                                     dana
@@ -931,11 +931,11 @@
                             </div>
                             <div>
                                 <p>
-                                    <a href="bibliotekarProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                         Valentina K.
                                     </a>
                                     je izdala knjigu
-                                    <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                         Peru Perovicu
                                     </a>
                                     dana
@@ -961,11 +961,11 @@
                             </div>
                             <div>
                                 <p>
-                                    <a href="bibliotekarProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                         Valentina K.
                                     </a>
                                     je izdala knjigu
-                                    <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
                                         Peru Perovicu
                                     </a>
                                     dana

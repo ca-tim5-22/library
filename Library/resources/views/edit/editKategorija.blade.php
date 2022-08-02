@@ -76,12 +76,14 @@
             </div>
             <!-- Space for content -->
             <div class="scroll height-content section-content">
-                <form class="text-gray-700 forma">
+                <form method="post" class="text-gray-700" action="{{ route('category.update',$c->id);}}"  enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="_method" value="PUT">
                     <div class="flex flex-row ml-[30px]">
                         <div class="w-[50%] mb-[100px]">
                             <div class="mt-[20px]">
                                 <p>Naziv kategorije <span class="text-red-500">*</span></p>
-                                <input type="text" name="nazivKategorijeEdit" id="nazivKategorijeEdit" value="Hrana i pice"
+                                <input type="text" name="name" id="nazivKategorijeEdit" value="{{$c->name}}"
                                     class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
                                     onkeydown="clearErrorsNazivKategorijeEdit()" />
                                 <div id="validateNazivKategorijeEdit"></div>
@@ -94,18 +96,18 @@
                                     <div class="bg-gray-300 h-[40px] w-[102px] px-[20px] pt-[10px]">
                                         <label class="cursor-pointer">
                                             <p class="leading-normal">Browse...</p>
-                                            <input id="icon-upload" type='file' class="hidden" :multiple="multiple"
+                                            <input id="icon-upload" type='file' name="icon" class="hidden" :multiple="multiple"
                                                 :accept="accept" />
                                         </label>
                                     </div>
-                                    <div id="icon-output" class="h-[40px] px-[20px] pt-[7px]">hranaipice.jpg</div>
+                                    <div id="icon-output" class="h-[40px] px-[20px] pt-[7px]">{{$c->icon}}</div>
                                 </div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <p class="inline-block">Opis</p>
-                                <textarea name="opisKategorije" rows="10"
-                                    class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]">Lorem ipsum dolor sit amet consectetur adipisicing elit
+                                <textarea name="description" rows="10"
+                                    class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]">{{$c->description}}
                                 </textarea>
                             </div>
                         </div>
