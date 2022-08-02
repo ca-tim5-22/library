@@ -27,7 +27,7 @@ use App\Http\Controllers\UserTypeController;
 use App\Models\ReasonForClosingReservation;
 use App\Models\StatusesOfReservations;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,27 +40,38 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
-});
-Route::get('dashboardAktivnost',function(){
-    return view('dashboardAktivnost');
-});
-Route::get('bibliotekari',function(){
-    return view('bibliotekari');
-});
-Route::get('bibliotekarprofile',function(){
-    return view('bibliotekarProfile');
-});
-Route::get('ucenik',function(){
-    return view('ucenik');
-});
-Route::get('autori',function(){
-    return view('autori');
-});
-Route::get('settingspolisa',function(){
-    return view('settingsPolisa');
+    return view("login");
 });
 
+Route::get('bibliotekari',function(){
+    return view('the_librarian.bibliotekari');
+});
+Route::get('bibliotekarprofile',function(){
+    return view('the_librarian.bibliotekarProfile');
+});
+Route::get('novibibliotekar',function(){
+    return view('create.noviBibliotekar');
+});
+Route::get('ucenik',function(){
+    return view('student.ucenik');
+});
+Route::get('ucenikprofile',function(){
+    return view('student.ucenikProfile');
+});
+Route::get('noviucenik',function(){
+    return view('create.noviUcenik');
+});
+
+Route::get('settingspolisa',function(){
+    return view('index.settingsPolisa');
+});
+Route::get('dashboard',function(){
+    return view('dashboard.dashboard');
+
+});
+Route::get('dashboardaktivnost',function(){
+    return view('dashboard.dashboardAktivnost');
+});
 Route::resource('alphabet',AlphabetController::class);
 Route::resource('author',AuthorController::class);
 Route::resource('binding',BindingController::class);
@@ -85,3 +96,8 @@ Route::resource('statusesofreservations',StatusesOfReservationsController::class
 Route::resource('userlogin',UserLoginController::class);
 Route::resource('users',UsersController::class);
 Route::resource('usertype',UserTypeController::class);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

@@ -60,7 +60,7 @@
                                             <span class="mx-2">/</span>
                                         </li>
                                         <li>
-                                            <a href="knjigaOsnovniDetalji.php"
+                                            <a href="{{route('book.show');}}"
                                                 class="text-[#2196f3] hover:text-blue-600">
                                                 KNJIGA-467
                                             </a>
@@ -117,7 +117,7 @@
             <div class="flex flex-row height-iznajmljivanje scroll">
                 <div class="w-[80%]">
                     <div class="border-b-[1px] border-[#e4dfdf] py-4  border-gray-300 pl-[30px]">
-                        <a href="knjigaOsnovniDetalji.php" class="inline hover:text-blue-800">
+                        <a href="{{route('book.show');}}" class="inline hover:text-blue-800">
                             Osnovni detalji
                         </a>
                         <a href="knjigaSpecifikacija.php" class="inline ml-[70px] hover:text-blue-800 ">

@@ -15,7 +15,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        return view("book.evidencijaKnjiga");
     }
 
     /**
@@ -25,7 +25,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view("create.novaKnjiga");
     }
 
     /**
@@ -47,7 +47,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return view("book.knjigaOsnovniDetalji");
     }
 
     /**

@@ -15,7 +15,7 @@ class BindingController extends Controller
      */
     public function index()
     {
-        return view("settingsPovez");
+        return view("index.settingsPovez");
     }
 
     /**
@@ -25,7 +25,7 @@ class BindingController extends Controller
      */
     public function create()
     {
-        return view("noviPovez");
+        return view("create.noviPovez");
     }
 
     /**
