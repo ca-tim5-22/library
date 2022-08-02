@@ -20,7 +20,7 @@ return new class extends Migration
             ->references("id")
             ->on("users")
             ->onUpdate("Cascade")
-            ->onDelete("Restrict");
+            ->onDelete("Cascade");
             $table->dateTime("time");
         });
     }

@@ -52,7 +52,7 @@
                                 <nav class="w-full rounded">
                                     <ol class="flex list-reset">
                                         <li>
-                                            <a href="evidencijaKnjiga.php" class="text-[#2196f3] hover:text-blue-600">
+                                            <a href="{{route('book.index');}}" class="text-[#2196f3] hover:text-blue-600">
                                                 Evidencija knjiga
                                             </a>
                                         </li>
@@ -60,7 +60,7 @@
                                             <span class="mx-2">/</span>
                                         </li>
                                         <li>
-                                            <a href="knjigaOsnovniDetalji.php"
+                                            <a href="{{route('book.show');}}"
                                                 class="text-[#2196f3] hover:text-blue-600">
                                                 KNJIGA-467
                                             </a>
@@ -150,13 +150,13 @@
                                 </div>
                                 <div class="mt-[40px]">
                                     <span class="text-gray-500">Bibliotekar</span>
-                                    <a href="bibliotekarProfile.php"
+                                    <a href="{{url('bibliotekarprofile');}}"
                                         class="block font-medium text-[#2196f3] hover:text-blue-600">Valentina
                                         Kascelan</a>
                                 </div>
                                 <div class="mt-[40px]">
                                     <span class="text-gray-500">Ucenik</span>
-                                    <a href="ucenikProfile.php"
+                                    <a href="{{url('ucenikprofile');}}"
                                         class="block font-medium text-[#2196f3] hover:text-blue-600">Milos Milosevic</a>
                                 </div>
                             </div>
