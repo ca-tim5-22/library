@@ -40,7 +40,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view("index.settingsKategorije");
+    return view("dashboard.dashboard");
 });
 
 Route::get('bibliotekari',function(){
@@ -95,9 +95,9 @@ Route::resource('userlogin',UserLoginController::class);
 Route::resource('users',UsersController::class);
 Route::resource('usertype',UserTypeController::class);
 
+
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-
