@@ -1023,6 +1023,8 @@ $("#sacuvajKategoriju").click(function () {
 
 });
 
+
+
 // Form validation for editing category info
 function validacijaKategorijaEdit() {
 
