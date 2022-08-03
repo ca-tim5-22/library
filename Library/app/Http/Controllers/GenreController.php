@@ -58,11 +58,12 @@ class GenreController extends Controller
      */
     public function edit(Genre $genre)
     {
-        return view("editZanr");
+        
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource i
+     * n storage.
      *
      * @param  \App\Http\Requests\UpdateGenreRequest  $request
      * @param  \App\Models\Genre  $genre

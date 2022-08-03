@@ -385,6 +385,7 @@
                             <p class="inline text-md">
                                 Rows per page:
                             </p>
+                            <!-- FIXATI PAGINACIJU -->
                             <select
                                 class=" text-gray-700 bg-white rounded-md w-[46px] focus:outline-none focus:ring-primary-500 focus:border-primary-500 text-md"
                                 name="ucenici">

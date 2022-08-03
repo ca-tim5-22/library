@@ -67,10 +67,8 @@
                     Pismo
                 </a>
             </div>
-            <?php $globalVariable="";?>
-            <form method="POST" action="{{route('globalvariable.update',$globalVariable);}}">
-                @csrf
-                @method('PUT')
+            
+            
             <div class="height-ucenikProfile pb-[30px] scroll">
                 <!-- Space for content -->
                 <div class="section- mt-[20px]">
@@ -84,20 +82,23 @@
                                     Opis za rok za rezervaciju
                                 </p>
                             </div>
-                            <?php 
-
-
-
-
-?>
+                           
                             <div class="relative flex ml-[60px] mt-[20px]">
-                                <input type="text"
+                            <form class="flex" style="gap:20px;" method="POST" action="{{url('globalvariable/'.$ddl_for_reservation->id);}}">
+                @csrf
+                @method('PUT')
+                                <input type="text" name="value"
                                     class="h-[50px] flex-1 w-full px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-white border-[1px]  border-[#e4dfdf]  rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                     value="{{$ddl_for_reservation->value}}" />
                                 <p class="ml-[10px] mt-[10px]">dana</p>
+
+                                <button style="max-height:50px;"  type="submit" name="submit" class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]">Sačuvaj</button>
+                            </form>
                             </div>
                         </div>
                         <div class="pl-[30px] flex border-b-[1px] border-[#e4dfdf]  py-[20px]">
+
+                        
                             <div>
                                 <h3>
                                     Rok vracanja
@@ -107,13 +108,19 @@
                                 </p>
                             </div>
                             <div class="relative flex ml-[60px] mt-[20px]">
-                                <input type="text"
+                            <form class="flex" style="gap:20px;" method="POST" action="{{url('globalvariable/'.$ddl_for_return->id)}}">
+                @csrf
+                @method('PUT')
+                                <input  type="text" name="value"
                                     class="h-[50px] flex-1 w-full px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-white border-[1px]  border-[#e4dfdf]  rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                     value="{{$ddl_for_return->value}}" />
-                                <p class="ml-[10px] mt-[10px]">dana</p>
+                                <p   class="ml-[10px] mt-[10px]">dana</p>
+                                <button style="max-height:50px;"  type="submit" name="submit" class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]">Sačuvaj</button>
+                            </form>
                             </div>
                         </div>
                         <div class="pl-[30px] flex border-b-[1px] border-[#e4dfdf]  py-[20px]">
+                        
                             <div>
                                 <h3>
                                     Rok konflikta
@@ -123,15 +130,22 @@
                                 </p>
                             </div>
                             <div class="relative flex ml-[60px] mt-[20px]">
-                                <input type="text"
-                                    class="h-[50px] flex-1 w-full px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-white border-[1px]  border-[#e4dfdf]  rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                            <form class="flex" style="gap:20px;" method="POST" action="{{url('globalvariable/'.$ddl_for_conflict->id);}}">
+                @csrf
+                @method('PUT')
+                                <input  type="text" name="value"
+                                    class="h-[50px] flex-1 w-full px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-white border-[1px] border-[#e4dfdf]  rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                     value="{{$ddl_for_conflict->value}}"  />
-                                <p class="ml-[10px] mt-[10px]">dana</p>
+                                <p  class="ml-[10px] mt-[10px]">dana</p>
+                                <button style="max-height:50px;"  type="submit" name="submit" class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]">Sačuvaj</button>
+                            </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            </form>
         </section>
         <!-- End Content -->
     </main>
