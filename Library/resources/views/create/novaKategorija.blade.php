@@ -76,9 +76,9 @@
             </div>
             <!-- Space for content -->
             <div class="scroll height-content section-content">
-                <form class="text-gray-700 " method="POST" action="{{route('category.store');}}">
+                <form method="post" action="{{ route('category.store');}}" class="text-gray-700" enctype="multipart/form-data">
                     @csrf
-                    @method('POST')
+                    @method('post')
                     <div class="flex flex-row ml-[30px]">
                         <div class="w-[50%] mb-[100px]">
                             <div class="mt-[20px]">
@@ -96,8 +96,7 @@
                                     <div class="bg-gray-300 h-[40px] w-[102px] px-[20px] pt-[10px]">
                                         <label class="cursor-pointer">
                                             <p class="leading-normal">Browse...</p>
-                                            <input name="icon" id="icon-upload" type='file' class="hidden" :multiple="multiple"
-                                                :accept="accept" />
+                                            <input name="icon" id="icon-upload" type='file' class="hidden" :multiple="multiple" :accept="accept" />
                                         </label>
                                     </div>
                                     <div id="icon-output" class="h-[40px] px-[20px] pt-[7px]"></div>
@@ -107,18 +106,20 @@
                             <div class="mt-[20px]">
                                 <p class="inline-block">Opis</p>
                                 <textarea name="description" rows="10"
-                                    class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]">
-                                </textarea>
+                                    class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="absolute bottom-0 w-full">
                         <div class="flex flex-row">
                             <div class="inline-block w-full text-white text-right py-[7px] mr-[100px]">
-                                <button type="reset" name="reset"
+                               
+                                <button type="button"
                                     class="btn-animation shadow-lg mr-[15px] w-[150px] focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
                                     Ponisti <i class="fas fa-times ml-[4px]"></i>
                                 </button>
+<!-- FIXATI SACUVAJ DUGME(CUVA VISE PUTA KAD KLIKNES VISE PUTA)  -->
+                                
                                 <button id="sacuvajKategoriju" type="submit" name="submit"
                                     class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]"
                                     onclick="validacijaKategorija()">
