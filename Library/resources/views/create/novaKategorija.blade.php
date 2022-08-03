@@ -96,8 +96,7 @@
                                     <div class="bg-gray-300 h-[40px] w-[102px] px-[20px] pt-[10px]">
                                         <label class="cursor-pointer">
                                             <p class="leading-normal">Browse...</p>
-                                            <input id="icon-upload" type='file' name='icon' class="hidden" :multiple="multiple"
-                                                :accept="accept" />
+                                            <input name="icon" id="icon-upload" type='file' class="hidden" :multiple="multiple" :accept="accept" />
                                         </label>
                                     </div>
                                     <div id="icon-output" class="h-[40px] px-[20px] pt-[7px]"></div>
