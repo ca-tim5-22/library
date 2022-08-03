@@ -79,9 +79,15 @@ class GlobalVariableController extends Controller
      * @param  \App\Models\GlobalVariable  $globalVariable
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateGlobalVariableRequest $request, GlobalVariable $globalVariable)
+    public function update(UpdateGlobalVariableRequest $request, GlobalVariable $globalVariable,$id)
     {
-        //
+             
+             
+    $c=GlobalVariable::findOrFail($id);
+    $c->value=$request->value;
+    $c->save();
+
+return redirect('/globalvariable');  
     }
 
     /**

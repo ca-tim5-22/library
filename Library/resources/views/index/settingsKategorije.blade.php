@@ -120,8 +120,12 @@
 <<<<<<< HEAD
                                                 <a href="{{url('/category/'.$c->id).'/edit'}}" tabindex="0"
 =======
+<<<<<<< HEAD
+                                                <a href="{{url('/category/'.$c->id).'/edit'}}" tabindex="0"
+=======
                                                 <a href="" tabindex="0"
 >>>>>>> b6f89902a4c7211f0dfa298b2bb69b7ab4da7dae
+>>>>>>> 593e89c97647ced65740578547003866e1b045e3
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
@@ -389,6 +393,7 @@
                             <p class="inline text-md">
                                 Rows per page:
                             </p>
+                            <!-- FIXATI PAGINACIJU -->
                             <select
                                 class=" text-gray-700 bg-white rounded-md w-[46px] focus:outline-none focus:ring-primary-500 focus:border-primary-500 text-md"
                                 name="ucenici">

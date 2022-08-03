@@ -1014,16 +1014,15 @@ function clearErrorsNazivKategorije() {
 }
 
 $("#sacuvajKategoriju").click(function () {
-
-  if(validacijaKategorija() == false){
-    return false;
-  }else{
-    return true;
+  
+    if(validacijaKategorija() == false){
+      return false;
+    }else{
+      return true;
+    }
+    
   }
-
-});
-
-
+);
 
 // Form validation for editing category info
 function validacijaKategorijaEdit() {

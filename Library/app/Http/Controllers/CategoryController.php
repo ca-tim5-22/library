@@ -45,12 +45,17 @@ class CategoryController extends Controller
     $name=$file->getClientOriginalName();
     $file->move('category_icon',$name);
     $input=$name;
-    }
 
     Category::create([
             'name'             =>      $request->name,
             'description'      =>      $request->description, 
             'icon'             =>      $input
+        ]); 
+    }
+
+    Category::create([
+            'name'             =>      $request->name,
+            'description'      =>      $request->description
         ]); 
          
       
@@ -104,7 +109,9 @@ class CategoryController extends Controller
     $file->move('category_icon',$name);
     $input=$name;
     @unlink( 'category_icon/'.$old);
-    $c->icon=$input;}
+    $c->icon=$input;
+}
+
     $c->save();
 
 return redirect('/category');  

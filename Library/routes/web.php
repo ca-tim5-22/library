@@ -40,7 +40,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view("index.settingsKategorije");
+    return view("login");
 });
 
 Route::get('bibliotekari',function(){
