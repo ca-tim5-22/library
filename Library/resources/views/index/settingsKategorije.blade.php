@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="py-4 text-gray-500 border-b-[1px] border-[#e4dfdf] pl-[30px]">
-                <a href="{{url('settingspolisa');}}" class="inline hover:text-blue-800">
+                <a href="{{route('globalvariable.index');}}" class="inline hover:text-blue-800">
                     Polisa
                 </a>
                 <a href="{{route('category.index');}}" class="inline ml-[70px] hover:text-blue-800 active-book-nav">
@@ -117,7 +117,11 @@
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             
                                             <div class="py-1">
+<<<<<<< HEAD
                                                 <a href="{{url('/category/'.$c->id).'/edit'}}" tabindex="0"
+=======
+                                                <a href="" tabindex="0"
+>>>>>>> b6f89902a4c7211f0dfa298b2bb69b7ab4da7dae
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>

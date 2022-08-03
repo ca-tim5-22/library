@@ -40,7 +40,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view("login");
+    return view("index.settingsKategorije");
 });
 
 Route::get('bibliotekari',function(){
@@ -62,9 +62,7 @@ Route::get('noviucenik',function(){
     return view('create.noviUcenik');
 });
 
-Route::get('settingspolisa',function(){
-    return view('index.settingsPolisa');
-});
+
 Route::get('dashboard',function(){
     return view('dashboard.dashboard');
 
