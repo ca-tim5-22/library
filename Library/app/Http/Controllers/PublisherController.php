@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Publisher;
 use App\Http\Requests\StorePublisherRequest;
 use App\Http\Requests\UpdatePublisherRequest;
-
+use Illuminate\Support\Facades\DB;
 class PublisherController extends Controller
 {
     /**
@@ -15,9 +15,15 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        return view("index.settingsIzdavac");
+        $publishers=DB::select(DB::raw("SELECT * FROM `publishers` ORDER BY `publishers`.`name` ASC"));
+
+        return view("index.settingsIzdavac",compact("publishers"));
     }
 
+    public function sort(){
+        $publishers=DB::select(DB::raw("SELECT * FROM `publishers` ORDER BY `publishers`.`name` DESC"));
+        return view("index.settingsIzdavac",compact("publishers"));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -36,7 +42,12 @@ class PublisherController extends Controller
      */
     public function store(StorePublisherRequest $request)
     {
-        //
+  
+        Publisher::create([
+            "name" => $request->name
+        ]);
+        
+        return redirect("/publisher");
     }
 
     /**
@@ -58,7 +69,10 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        return view("editIzdavac");
+        
+        $publisher = Publisher::findOrFail($publisher->id);
+        
+        return view("edit.editIzdavac",compact("publisher"));
     }
 
     /**
@@ -70,7 +84,14 @@ class PublisherController extends Controller
      */
     public function update(UpdatePublisherRequest $request, Publisher $publisher)
     {
-        //
+        $publisher=Publisher::findOrFail($publisher->id);
+    
+        $publisher->name=$request->name;
+        
+        
+        $publisher->save();
+
+        return redirect('/publisher');
     }
 
     /**
@@ -81,6 +102,10 @@ class PublisherController extends Controller
      */
     public function destroy(Publisher $publisher)
     {
-        //
+        $publisher = Publisher::findOrFail($publisher->id);
+
+        $publisher->delete();
+
+        return redirect('/publisher');
     }
 }
