@@ -1308,17 +1308,27 @@ function validacijaPismo() {
 
   if (nazivPismo.length == 0) {
     $('#validateNazivPismo').append('<p style="color:red;font-size:13px;">Morate unijeti naziv pisma!</p>');
+    return false;
+  }
+  else{
+    return true;
   }
 }
+
+
+
 
 function clearErrorsNazivPismo() {
   $("#validateNazivPismo").empty();
 }
 
-$("#sacuvajPismo").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaPismo();
+$("#sacuvajPismo").click(function() {
+  if (validacijaPismo() == false) {
+  
     return false;
+  }
+  else{
+    return true;
   }
 });
 
@@ -1331,6 +1341,10 @@ function validacijaPismoEdit() {
 
   if (nazivPismoEdit.length == 0) {
     $('#validateNazivPismoEdit').append('<p style="color:red;font-size:13px;">Morate unijeti naziv pisma!</p>');
+    return false;
+  }
+  else {
+    return true;
   }
 }
 
@@ -1338,10 +1352,12 @@ function clearErrorsNazivPismoEdit() {
   $("#validateNazivPismoEdit").empty();
 }
 
-$("#sacuvajPismoEdit").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaPismoEdit();
+$("#sacuvajPismoEdit").click(function () {
+  if (validacijaPismoEdit() == false) {
     return false;
+  }
+  else {
+    return true;
   }
 });
 

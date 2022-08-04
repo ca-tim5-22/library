@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Alphabet;
 use App\Http\Requests\StoreAlphabetRequest;
 use App\Http\Requests\UpdateAlphabetRequest;
+use Illuminate\Support\Facades\DB;
 
 class AlphabetController extends Controller
 {
@@ -15,7 +16,9 @@ class AlphabetController extends Controller
      */
     public function index()
     {
-        return view("index.settingsPismo");
+        $pisma = alphabet::all();
+        return view('index.settingsPismo',compact('pisma'));
+        
     }
 
     /**
@@ -36,7 +39,11 @@ class AlphabetController extends Controller
      */
     public function store(StoreAlphabetRequest $request)
     {
-        //
+        Alphabet::create([
+            'name'             =>      $request->name
+            
+        ]); 
+        return redirect("/alphabet");
     }
 
     /**
@@ -47,7 +54,7 @@ class AlphabetController extends Controller
      */
     public function show(Alphabet $alphabet)
     {
-        //
+        
     }
 
     /**
@@ -58,7 +65,8 @@ class AlphabetController extends Controller
      */
     public function edit(Alphabet $alphabet)
     {
-        return view("editPismo");
+        $pismo=Alphabet::findOrFail($alphabet->id);
+        return view("edit.editPismo", compact('pismo'));
     }
 
     /**
@@ -70,7 +78,10 @@ class AlphabetController extends Controller
      */
     public function update(UpdateAlphabetRequest $request, Alphabet $alphabet)
     {
-        //
+        $pismo=Alphabet::findOrFail($alphabet->id);
+        $pismo->name=$request->name;
+        $pismo->save();
+        return redirect('/alphabet');
     }
 
     /**
@@ -81,6 +92,8 @@ class AlphabetController extends Controller
      */
     public function destroy(Alphabet $alphabet)
     {
-        //
+        $pismo=Alphabet::findOrFail($alphabet->id);
+        $pismo->delete();
+        return redirect('/alphabet');
     }
 }
