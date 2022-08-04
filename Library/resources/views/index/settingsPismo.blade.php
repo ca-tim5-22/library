@@ -52,7 +52,7 @@
                 <a href="{{route('category.index');}}" class="inline ml-[70px] hover:text-blue-800">
                     Kategorije
                 </a>
-                <a href="{{route('genre.index');}}" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('alphabet.index');}}" class="inline ml-[70px] hover:text-blue-800">
                     Zanrovi
                 </a>
                 <a href="{{route('publisher.index');}}" class="inline ml-[70px] hover:text-blue-800">
@@ -86,8 +86,27 @@
                                         <input type="checkbox" class="form-checkbox">
                                     </label>
                                 </th>
-                                <th class="px-4 py-4 leading-4 tracking-wider text-left">Naziv pisma<a href="#"><i
-                                            class="ml-3 fa-lg fas fa-long-arrow-alt-down" onclick="sortTable()"></i></a>
+                                <th class="px-4 py-4 leading-4 tracking-wider text-left">Naziv pisma
+
+                                <a 
+                                @if (Route::current()->getName() == "alphabet.index")
+                                    href="{{route('alphabet.sort');}}"
+                                    @elseif(Route::current()->getName() == "alphabet.sort")
+                                    href="{{route('alphabet.index');}}"
+                                @endif
+                                >
+
+                                @if (Route::current()->getName() == "alphabet.index")
+                                    <i class="ml-3 fa-lg fas fa-long-arrow-alt-down"></i>
+
+                                    @elseif(Route::current()->getName() == "alphabet.sort")
+                                     <i class="ml-3 fa-lg fas fa-long-arrow-alt-up"></i>
+                                @endif
+                                
+                                
+                                
+                                </a>
+
                                 </th>
                                 <th class="px-4 py-4"> </th>
                             </tr>

@@ -48,7 +48,7 @@
                             <nav class="w-full rounded">
                                 <ol class="flex list-reset">
                                     <li>
-                                        <a href="{{url('ucenik');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('student.index');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Svi ucenici
                                         </a>
                                     </li>
@@ -68,51 +68,55 @@
             </div>
             <!-- Space for content -->
             <div class="scroll height-content section-content">
-                <form class="text-gray-700 text-[14px] forma">
+                <form class="text-gray-700 text-[14px]" method="POST" action="{{route('student.update',$student->id)}}">
+                @csrf
+                @method('PUT')
                     <div class="flex flex-row ml-[30px]">
                         <div class="w-[50%] mb-[100px]">
                             <div class="mt-[20px]">
                                 <span>Ime i prezime <span class="text-red-500">*</span></span>
-                                <input type="text" name="imePrezimeUcenikEdit" id="imePrezimeUcenikEdit" value="Pero Perovic" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsNameUcenikEdit()"/>
+                                <input type="text" name="first_and_last_name" id="imePrezimeUcenikEdit" value="{{$student->first_and_last_name}}" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsNameUcenikEdit()"/>
                                 <div id="validateNameUcenikEdit"></div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <span>Tip korisnika</span>
-                                <select class="flex w-[90%] mt-2 px-2 py-2 border bg-gray-300 border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="tip_korisnika" disabled>
-                                    <option value="">
-                                        Ucenik
+                                <select class="flex w-[90%] mt-2 px-2 py-2 border bg-gray-300 border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="user_type_id" >
+                                   @foreach ($user_types as $user_type)
+                                    <option value="{{$user_type->id}}">
+                                        {{$user_type->name}}
                                     </option>
+                                @endforeach
                                 </select>
                             </div>
 
                             <div class="mt-[20px]">
                                 <span>JMBG <span class="text-red-500">*</span></span>
-                                <input type="text" name="jmbgUcenikEdit" id="jmbgUcenikEdit" value="1345687815462" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsJmbgUcenikEdit()"/>
+                                <input type="text" name="PIN" id="jmbgUcenikEdit" value="{{$student->PIN}}" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsJmbgUcenikEdit()"/>
                                 <div id="validateJmbgUcenikEdit"></div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <span>E-mail <span class="text-red-500">*</span></span>
-                                <input type="email" name="emailUcenikEdit" id="emailUcenikEdit" value="pero.perovic@domain.net" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsEmailUcenikEdit()"/>
+                                <input type="email" name="email" id="emailUcenikEdit" value="{{$student->email}}" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsEmailUcenikEdit()"/>
                                 <div id="validateEmailUcenikEdit"></div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <span>Korisnicko ime <span class="text-red-500">*</span></span>
-                                <input type="text" name="usernameUcenikEdit" id="usernameUcenikEdit" value="pero.perovic" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsUsernameUcenikEdit()"/>
+                                <input type="text" name="username" id="usernameUcenikEdit" value="{{$student->username}}" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsUsernameUcenikEdit()"/>
                                 <div id="validateUsernameUcenikEdit"></div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <span>Sifra <span class="text-red-500">*</span></span>
-                                <input type="password" name="pwUcenikEdit" id="pwUcenikEdit" value="123456" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsPwUcenikEdit()"/>
+                                <input type="password" name="password" id="pwUcenikEdit" value="{{$student->password}}" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsPwUcenikEdit()"/>
                                 <div id="validatePwUcenikEdit"></div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <span>Ponovi sifru <span class="text-red-500">*</span></span>
-                                <input type="password" name="pw2UcenikEdit" id="pw2UcenikEdit" value="123456" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsPw2UcenikEdit()"/>
+                                <input type="password" name="password2" id="pw2UcenikEdit" value="{{$student->password}}" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsPw2UcenikEdit()"/>
                                 <div id="validatePw2UcenikEdit"></div>
                             </div>
                         </div>
@@ -129,7 +133,12 @@
                                         <span class="px-4 py-2 mt-2 leading-normal">Add photo</span>
                                         <input type='file' class="hidden" :accept="accept" onchange="loadFileStudent(event)" />
                                     </div>
-                                    <img src="img/profileStudent.jpg" id="image-output-student" class="absolute w-48 h-[188px] bottom-0" />	
+                                    @if (empty($student->photo))
+                                            <img image-output-student class="absolute w-48 h-[188px] bottom-0" src="img/profileStudent.jpg" alt=""/>
+
+                                           @else <img class="absolute w-48 h-[188px] bottom-0" src="{{asset('category_icon/'.$student->photo)}}" image-output-student alt=""/>
+                                        @endif
+                                    
                                 </div>
                             </label>  
                         </div>
@@ -138,11 +147,11 @@
                     <div class="absolute bottom-0 w-full">
                         <div class="flex flex-row">
                             <div class="inline-block w-full text-right py-[7px] mr-[100px] text-white">
-                                <button type="button"
+                                <button type="reset" name="reset"
                                         class="btn-animation shadow-lg mr-[15px] w-[150px] focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
                                             Ponisti <i class="fas fa-times ml-[4px]"></i> 
                                 </button>
-                                <button id="sacuvajUcenikaEdit" type="submit"
+                                <button id="sacuvajUcenikaEdit" type="submit" name="submit"
                                         class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]" onclick="validacijaUcenikEdit()">
                                             Sacuvaj <i class="fas fa-check ml-[4px]"></i> 
                                 </button>

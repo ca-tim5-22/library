@@ -21,6 +21,11 @@ class AlphabetController extends Controller
         
     }
 
+    public function sort(){
+        $pisma=DB::select(DB::raw("SELECT * FROM `alphabets` ORDER BY `alphabets`.`name` DESC"));
+        return view("index.settingsPismo",compact("pisma"));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

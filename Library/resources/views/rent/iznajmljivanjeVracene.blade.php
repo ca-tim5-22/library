@@ -872,7 +872,7 @@
                                         Valentina K.
                                     </a>
                                     je izdala knjigu
-                                    <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                         Peru Perovicu
                                     </a>
                                     dana
@@ -902,7 +902,7 @@
                                         Valentina K.
                                     </a>
                                     je izdala knjigu
-                                    <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                         Peru Perovicu
                                     </a>
                                     dana
@@ -932,7 +932,7 @@
                                         Valentina K.
                                     </a>
                                     je izdala knjigu
-                                    <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                         Peru Perovicu
                                     </a>
                                     dana
