@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+
+
+
+
+//Postaviti uslov kako bi izbjegli gresku sa varijablama
+
+
+
+
+
+
+
 <head>
     <!-- Meta -->
     <meta charset="UTF-8" />
