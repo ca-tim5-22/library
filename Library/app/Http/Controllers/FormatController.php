@@ -15,7 +15,8 @@ class FormatController extends Controller
      */
     public function index()
     {
-        return view("index.settingsFormat");
+        $format=Format::all();
+        return view("index.settingsFormat",compact('format'));
     }
 
     /**
@@ -36,7 +37,12 @@ class FormatController extends Controller
      */
     public function store(StoreFormatRequest $request)
     {
-        //
+      
+        Format::create([
+        'name'             =>      $request->name,
+        ]); 
+                 
+         return redirect('/format');  
     }
 
     /**
@@ -56,9 +62,10 @@ class FormatController extends Controller
      * @param  \App\Models\Format  $format
      * @return \Illuminate\Http\Response
      */
-    public function edit(Format $format)
+    public function edit($format)
     {
-        return view("editFormat");
+        $f=Format::findOrFail($format);
+        return view('edit.editFormat',compact('f'));
     }
 
     /**
@@ -68,9 +75,15 @@ class FormatController extends Controller
      * @param  \App\Models\Format  $format
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFormatRequest $request, Format $format)
+    public function update(UpdateFormatRequest $request,$format)
     {
-        //
+        $f=Format::findOrFail($format);
+    
+        $f->name=$request->name;
+        
+        $f->save();
+    
+    return redirect('/format');  
     }
 
     /**
@@ -79,8 +92,10 @@ class FormatController extends Controller
      * @param  \App\Models\Format  $format
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Format $format)
+    public function destroy($format)
     {
-        //
+        $f=Format::findOrFail($format);
+        $f->delete();
+        return redirect('/format');
     }
 }
