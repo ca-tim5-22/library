@@ -29,7 +29,7 @@ use App\Models\StatusesOfReservations;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\StudentController;
-
+use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,7 +56,9 @@ Route::get('novibibliotekar',function(){
 });
 
 Route::get('dashboard',function(){
-    return view('dashboard.dashboard');
+    $student=DB::select(DB::raw("SELECT * FROM `students`"));
+
+    return view('dashboard.dashboard',compact("student"));
 
 });
 Route::get('dashboardaktivnost',function(){
