@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
-
+use Illuminate\Support\Facades\DB;
 class CategoryController extends Controller
 {
     /**
@@ -16,11 +16,16 @@ class CategoryController extends Controller
     public function index()
     {
 
-        $category=Category::all();
+        $categories=DB::select(DB::raw("SELECT * FROM `categories` ORDER BY `categories`.`name` ASC"));
         
        /*  $categories=Category::orderBy('created_at','desc')->paginate(4,"*","Page");*/
 
-        return view('index.settingsKategorije',compact("category"));
+        return view('index.settingsKategorije',compact("categories"));
+    }
+
+    public function sort(){
+        $categories=DB::select(DB::raw("SELECT * FROM `categories` ORDER BY `categories`.`name` DESC"));
+        return view("index.settingsKategorije",compact("categories"));
     }
 
     /**
