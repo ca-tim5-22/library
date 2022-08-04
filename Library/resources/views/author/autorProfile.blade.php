@@ -56,8 +56,8 @@
                                         <span class="mx-2">/</span>
                                     </li>
                                     <li>
-                                        <a href="{{route('author.show');}}" class="text-gray-400 hover:text-blue-600">
-                                            AUTOR-124
+                                        <a href="{{route('author.show',$a->id);}}" class="text-gray-400 hover:text-blue-600">
+                                            {{$a->first_and_last_name}}
                                         </a>
                                     </li>
                                 </ol>
@@ -74,18 +74,31 @@
                             <div class="absolute right-0 w-56 mt-[2px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                 aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                 <div class="py-1">
-                                    <a href="editAutor.php" tabindex="0"
+                                    <a href="{{route('author.edit',$a->id);}}" tabindex="0"
                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                         role="menuitem">
                                         <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
                                         <span class="px-4 py-0">Izmijeni autora</span>
                                     </a>
+                                    
+                                        <form action="{{route('author.destroy',$a->id)}}" method="POST"class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
+                                            role="menuitem" >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit">
+                                            <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
+                                            <span class="px-4 py-0">Izbrisi autora</span>
+                                            </button>
+                                        </form>
+                                    
+                                    
+                                  {{--    
                                     <a href="#" tabindex="0"
                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                         role="menuitem">
                                         <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
                                         <span class="px-4 py-0">Izbrisi autora</span>
-                                    </a>
+                                    </a>  --}}
                                 </div>
                             </div>
                         </div>
@@ -98,19 +111,12 @@
                 <div class="mr-[30px]">
                     <div class="mt-[20px]">
                         <span class="text-gray-500">Ime i prezime</span>
-                        <p class="font-medium">Mark Twain</p>
+                        <p class="font-medium"> {{$a->first_and_last_name}}</p>
                     </div>
                     <div class="mt-[40px]">
                         <span class="text-gray-500">Opis</span>
                         <p class="font-medium max-w-[550px]">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque non aperiam voluptas
-                            expedita, laborum deleniti sit ipsum quam!
-                            Quis architecto aliquid deleniti ipsum labore ipsa mollitia aspernatur consequatur incidunt
-                            nesciunt.
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque non aperiam voluptas
-                            expedita, laborum deleniti sit ipsum quam!
-                            Quis architecto aliquid deleniti ipsum labore ipsa mollitia aspernatur consequatur incidunt
-                            nesciunt.
+                            {!! $a->biography !!}
                         </p>
                     </div>
                 </div>

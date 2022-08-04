@@ -15,7 +15,8 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return view("author.autori");
+        $author=Author::all();
+        return view("author.autori",compact('author'));
     }
 
     /**
@@ -36,7 +37,13 @@ class AuthorController extends Controller
      */
     public function store(StoreAuthorRequest $request)
     {
-        //
+        Author::create([
+            'first_and_last_name'       =>      $request->first_and_last_name,
+            'biography'                 =>      $request->biography       
+            ]); 
+                     
+                  
+            return redirect('/author');  
     }
 
     /**
@@ -45,9 +52,10 @@ class AuthorController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function show(Author $author)
+    public function show($author)
     {
-        return view('author.autorProfile');
+        $a=Author::findOrFail($author);
+        return view('author.autorProfile',compact('a'));
     }
 
     /**
@@ -56,9 +64,10 @@ class AuthorController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function edit(Author $author)
+    public function edit($author)
     {
-        return view("editAutor");
+        $a=Author::findOrFail($author);
+        return view("edit.editAutor",compact('a'));
     }
 
     /**
@@ -68,9 +77,16 @@ class AuthorController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAuthorRequest $request, Author $author)
+    public function update(UpdateAuthorRequest $request,$author)
     {
-        //
+        $a=Author::findOrFail($author);
+    
+        $a->first_and_last_name=$request->name;
+        $a->biography=$request->biography;
+        
+        $a->save();
+    
+    return redirect('/author');  
     }
 
     /**
@@ -79,8 +95,10 @@ class AuthorController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Author $author)
+    public function destroy($author)
     {
-        //
+        $a=Author::findOrFail($author);
+        $a->delete();
+        return redirect('/author');
     }
 }
