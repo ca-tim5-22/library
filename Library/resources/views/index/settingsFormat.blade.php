@@ -93,6 +93,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white">
+                            @foreach ($format as $f)
                             <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-4 whitespace-no-wrap">
                                     <label class="inline-flex items-center">
@@ -100,7 +101,7 @@
                                     </label>
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-4">
-                                    <p>A1</p>
+                                    <p>{{$f->name}}</p>
                                 </td>
                                 <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
                                     <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsFormat hover:text-[#606FC7]">
@@ -111,24 +112,37 @@
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="{{route('format.edit');}}" tabindex="0"
+                                                <a href="{{url('/format/'.$f->id.'/edit');}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
                                                     <span class="px-4 py-0">Izmijeni format</span>
                                                 </a>
-                                                <a href="#" tabindex="0"
+
+                                                <form action="{{route('format.destroy',$f->id)}}" method="POST"class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
+                                                    role="menuitem" >
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit">
+                                                    <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
+                                                    <span class="px-4 py-0">Izbrisi format</span>
+                                                    </button>
+                                                </form>
+
+
+                                               {{--   <a href="#" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
                                                     <span class="px-4 py-0">Izbrisi format</span>
-                                                </a>
+                                                </a>  --}}
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
-                            <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
+                            @endforeach
+                            {{--  <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-4 whitespace-no-wrap">
                                     <label class="inline-flex items-center">
                                         <input type="checkbox" class="form-checkbox">
@@ -302,7 +316,7 @@
                                         </div>
                                     </div>
                                 </td>
-                            </tr>
+                            </tr>  --}}
                         </tbody>
                     </table>
 
