@@ -20,6 +20,7 @@ class GenreController extends Controller
     }
     
     public function sort(){
+        
         $genres=DB::select(DB::raw("SELECT * FROM `genres` ORDER BY `genres`.`name` DESC"));
         return view("index.settingsZanrovi",compact("genres"));
     }

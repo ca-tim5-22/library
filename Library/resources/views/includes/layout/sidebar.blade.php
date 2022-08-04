@@ -9,14 +9,13 @@
         <div class="mt-[30px]">
             <ul class="text-[#2D3B48] sidebar-nav">
                 <!-- Dashboard Icon -->
-                <li class="bg-[#EAEAEA] pt-[18px] pb-[14px] mb-[4px] group hover:bg-[#EAEAEA]">
+                <li id="dashboard-li" class="bg-[#EAEAEA] pt-[18px] pb-[14px] mb-[4px] group hover:bg-[#EAEAEA]">
                     <div class="ml-[25px]">
                         <span class="flex justify-between w-full fill-current whitespace-nowrap">
-                            <div class="transition duration-300 ease-in group-hover:text-[#576cdf]">
-                                <a href="{{url('dashboard');}}" aria-label="Dashboard">
-                                    <i
-                                        class="text-white bg-[#3F51B5] px-[5px] pt-[4px] pb-[5px] fas fa-tachometer-alt text-[19px] rounded-[3px]"></i>
-                                    <div class="hidden sidebar-item">
+                            <div style="display:flex;" id="dashboard-div" >
+                                <a style="display:flex;" href="{{url('dashboard');}}" aria-label="Dashboard">
+                                    <i id="dashboard-i" class="text-white bg-[#3F51B5] px-[5px] pt-[4px] pb-[5px] fas fa-tachometer-alt text-[19px] rounded-[3px] "></i>
+                                    <div class="hidden sidebar-item align-self-center">
                                         <p class="inline text-[15px] ml-[15px]">Dashboard</p>
                                     </div>
                                 </a>
@@ -25,16 +24,15 @@
                     </div>
                 </li>
                 <!-- Bibliotekari Icon -->
-                <li class="pt-[18px] pb-[14px] mb-[4px] group hover:bg-[#EAEAEA] h-[60px]">
-                    <div class="ml-[30px]">
+                <li id="bibliotekari-li" class="pt-[18px] pb-[14px] mb-[4px] group hover:bg-[#EAEAEA] h-[60px]">
+                    <div class="ml-[25px]">
                         <span class="flex justify-between w-full whitespace-nowrap">
-                            <div>
-                                <a href="{{url('bibliotekari');}}" aria-label="Bibliotekari">
-                                    <i
-                                        class="text-[25px] text-[#707070] far fa-address-book transition duration-300 ease-in group-hover:text-[#576cdf]"></i>
-                                    <div class="hidden sidebar-item">
-                                        <p
-                                            class=" inline text-[15px] ml-[20px] transition duration-300 ease-in group-hover:text-[#576cdf]">
+                            <div style="display:flex;" id="bibliotekari-div">
+                                <a style="display:flex;" href="{{url('bibliotekari');}}" aria-label="Bibliotekari">
+                                    <i style="padding:4px 5px 5px 5px;" id="bibliotekari-i" class="text-[25px] text-[#707070] far fa-address-book transition duration-300 ease-in group-hover:text-[#576cdf]"></i>
+                                    <div class="hidden sidebar-item align-self-center">
+                                        <p 
+                                            class=" inline text-[15px] ml-[15px]">
                                             Bibliotekari
                                         </p>
                                     </div>
@@ -44,16 +42,15 @@
                     </div>
                 </li>
                 <!-- Ucenici Icon -->
-                <li class="pt-[18px] pb-[14px] mb-[4px] group hover:bg-[#EAEAEA] h-[60px]">
-                    <div class="ml-[30px]">
+                <li id="ucenici-li" class="pt-[18px] pb-[14px] mb-[4px] group hover:bg-[#EAEAEA] h-[60px]">
+                    <div class="ml-[25px]">
                         <span class="flex justify-between w-full whitespace-nowrap">
-                            <div>
-                                <a href="{{route('student.index');}}" aria-label="Ucenici">
-                                    <i
-                                        class="text-[18px] transition duration-300 ease-in group-hover:text-[#576cdf] text-[#707070] fas fa-users"></i>
-                                    <div class="hidden sidebar-item">
+                            <div style="display:flex;" id="ucenici-div">
+                                <a style="display:flex;" href="{{route('student.index');}}" aria-label="Ucenici">
+                                    <i style="padding:4px 5px 5px 5px;"  id="ucenici-i" class="text-[18px] transition duration-300 ease-in group-hover:text-[#576cdf] text-[#707070] fas fa-users"></i>
+                                    <div class="hidden sidebar-item align-self-center">
                                         <p
-                                            class="transition duration-300 ease-in group-hover:text-[#576cdf] inline text-[15px] ml-[20px]">
+                                            class="inline text-[15px] ml-[15px]">
                                             Ucenici</p>
                                     </div>
                                 </a>
@@ -62,16 +59,15 @@
                     </div>
                 </li>
                 <!-- Knjige Icon -->
-                <li class="pt-[18px] pb-[14px] mb-[4px] group hover:bg-[#EAEAEA] h-[60px]">
-                    <div class="ml-[30px]">
+                <li id="knjige-li" class="pt-[18px] pb-[14px] mb-[4px] group hover:bg-[#EAEAEA] h-[60px]">
+                    <div class="ml-[25px]">
                         <span class="flex justify-between w-full whitespace-nowrap">
-                            <div>
-                                <a href="{{route('book.index');}}" aria-label="Knjige">
-                                    <i
-                                        class="text-[25px] transition duration-300 ease-in group-hover:text-[#576cdf] text-[#707070] far fa-copy"></i>
-                                    <div class="hidden sidebar-item">
+                            <div style="display:flex;" id="knjige-div">
+                                <a style="display:flex;" href="{{route('book.index');}}" aria-label="Knjige">
+                                    <i style="padding:4px 5px 5px 5px;"  id="knjige-i" class="text-[25px] transition duration-300 ease-in group-hover:text-[#576cdf] text-[#707070] far fa-copy"></i>
+                                    <div class="hidden sidebar-item align-self-center">
                                         <p
-                                            class="transition duration-300 ease-in group-hover:text-[#576cdf] inline text-[15px] ml-[20px]">
+                                            class=" inline text-[15px] ml-[15px]">
                                             Knjige</p>
                                     </div>
                                 </a>
@@ -80,16 +76,15 @@
                     </div>
                 </li>
                 <!-- Autori Icon -->
-                <li class="pt-[18px] pb-[14px] mb-[4px] group hover:bg-[#EAEAEA] h-[60px]">
-                    <div class="ml-[30px]">
+                <li id="autori-li" class="pt-[18px] pb-[14px] mb-[4px] group hover:bg-[#EAEAEA] h-[60px]">
+                    <div class="ml-[25px]">
                         <span class="flex justify-between w-full whitespace-nowrap">
-                            <div>
-                                <a href="{{route('author.index')}}" aria-label="Knjige">
-                                    <i
-                                        class="text-[25px] transition duration-300 ease-in group-hover:text-[#576cdf] text-[#707070] far fa-address-book"></i>
-                                    <div class="hidden sidebar-item">
+                            <div style="display:flex;" id="autori-div">
+                                <a style="display:flex;" href="{{route('author.index')}}" aria-label="Knjige">
+                                    <i style="padding:4px 5px 5px 5px;"  id="autori-i" class="text-[25px] transition duration-300 ease-in group-hover:text-[#576cdf] text-[#707070] far fa-address-book"></i>
+                                    <div class="hidden sidebar-item align-self-center">
                                         <p
-                                            class="transition duration-300 ease-in group-hover:text-[#576cdf] inline text-[15px] ml-[20px]">
+                                            class="inline text-[15px] ml-[15px]">
                                             Autori</p>
                                     </div>
                                 </a>
@@ -98,16 +93,15 @@
                     </div>
                 </li>
                 <!-- Izdavanje Icon -->
-                <li class="pt-[18px] pb-[14px] mb-[4px] group hover:bg-[#EAEAEA] h-[60px]">
-                    <div class="ml-[30px]">
+                <li id="izdavanjeknjige-li" class="pt-[18px] pb-[14px] mb-[4px] group hover:bg-[#EAEAEA] h-[60px]">
+                    <div class="ml-[25px]">
                         <span class="flex justify-between w-full whitespace-nowrap">
-                            <div>
-                                <a href="izdateKnjige.php" aria-label="Knjige">
-                                    <i
-                                        class="text-[22px] transition duration-300 ease-in group-hover:text-[#576cdf] text-[#707070] fas fa-exchange-alt"></i>
-                                    <div class="hidden sidebar-item">
+                            <div style="display:flex;" id="izdavanjeknjige-div">
+                                <a style="display:flex;" href="izdateKnjige.php" aria-label="Knjige">
+                                    <i style="padding:4px 5px 5px 5px;"  id="izdavanjeknjiga-i" class="text-[22px] transition duration-300 ease-in group-hover:text-[#576cdf] text-[#707070] fas fa-exchange-alt"></i>
+                                    <div class="hidden sidebar-item align-self-center">
                                         <p
-                                            class="transition duration-300 ease-in group-hover:text-[#576cdf] inline text-[15px] ml-[20px]">
+                                            class=" inline text-[15px] ml-[15px]">
                                             Izdavanje
                                             knjiga
                                         </p>
@@ -118,14 +112,13 @@
                     </div>
                 </li>
                 <!-- Expand menu example -->
-                <li class="pt-[18px] pb-[14px] mb-[4px] group hover:bg-[#EAEAEA]">
-                    <div class="mx-[30px]">
+                <li id="-li" class="pt-[18px] pb-[14px] mb-[4px] group hover:bg-[#EAEAEA]">
+                    <div style="margin-left:25px;">
                         <span class="flex justify-between w-full whitespace-nowrap">
-                            <div>
-                                <a href="#" aria-label="Dashboard">
-                                    <i
-                                        class="transition duration-300 ease-in group-hover:text-[#576cdf] text-[25px] text-[#707070] fas fa-expand"></i>
-                                    <div class="hidden sidebar-item">
+                            <div style="display:flex;" >
+                                <a style="display:flex;" href="#" aria-label="Dashboard">
+                                    <i style="padding:4px 5px 5px 5px;"  id="ex-i" class="transition duration-300 ease-in group-hover:text-[#576cdf] text-[25px] text-[#707070] fas fa-expand"></i>
+                                    <div class="hidden sidebar-item align-self-center">
                                         <p
                                             class="transition duration-300 ease-in group-hover:text-[#576cdf] inline text-[15px] ml-[20px]">
                                             Expand example</p>

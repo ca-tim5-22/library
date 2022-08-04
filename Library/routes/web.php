@@ -56,7 +56,7 @@ Route::get('novibibliotekar',function(){
 });
 
 Route::get('dashboard',function(){
-    $student=DB::select(DB::raw("SELECT * FROM `students`"));
+    $student=DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=1"));
 
     return view('dashboard.dashboard',compact("student"));
 
@@ -96,12 +96,12 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get("genreSort",[GenreController::class,"sort"])->name("genre.sort");
+Route::get("genresort",[GenreController::class,"sort"])->name("genre.sort");
 
-Route::get("publisherSort",[PublisherController::class,"sort"])->name("publisher.sort");
+Route::get("publishersort",[PublisherController::class,"sort"])->name("publisher.sort");
 
-Route::get("categorySort",[CategoryController::class,"sort"])->name("category.sort");
+Route::get("categorysort",[CategoryController::class,"sort"])->name("category.sort");
 
-Route::get("alphabetSort",[AlphabetController::class,"sort"])->name("alphabet.sort");
+Route::get("alphabetsort",[AlphabetController::class,"sort"])->name("alphabet.sort");
 
-Route::get("bindingSort",[BindingController::class,"sort"])->name("binding.sort");
+Route::get("bindingsort",[BindingController::class,"sort"])->name("binding.sort");

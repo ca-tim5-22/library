@@ -94,7 +94,7 @@
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-3">
                                     <img class="object-cover w-8 mr-2 h-11" src="img/profileStudent.jpg" alt="" />
-                                    <a href="{{route('author.show');}}">
+                                    <a href="">
                                         <span class="mr-2 font-medium text-center">Mark Twain</span>
                                     </a>
                                 </td>
@@ -109,7 +109,7 @@
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="{{route('author.show');}}" tabindex="0"
+                                                <a href="" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>
@@ -140,7 +140,7 @@
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-3">
                                 <img class="object-cover w-8 mr-2 h-11" src="img/profileStudent.jpg" alt="" />
-                                    <a href="{{route('author.show');}}">
+                                    <a href="">
                                         <span class="mr-2 font-medium text-center">Danijel Defoe</span>
                                     </a>
                                 </td>
@@ -154,7 +154,7 @@
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="{{route('author.show');}}" tabindex="0"
+                                                <a href="" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>
@@ -185,7 +185,7 @@
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-3">
                                 <img class="object-cover w-8 mr-2 h-11" src="img/profileStudent.jpg" alt="" />
-                                    <a href="{{route('author.show');}}">
+                                    <a href="">
                                         <span class="mr-2 font-medium text-center">Danka Maksimovic</span>
                                     </a>
                                 </td>
@@ -199,7 +199,7 @@
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="{{route('author.show');}}" tabindex="0"
+                                                <a href="" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>
@@ -230,7 +230,7 @@
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-3">
                                 <img class="object-cover w-8 mr-2 h-11" src="img/profileStudent.jpg" alt="" />
-                                    <a href="{{route('author.show');}}">
+                                    <a href="">
                                         <span class="mr-2 font-medium text-center">Bubalo Zivkovic</span>
                                     </a>
                                 </td>
@@ -244,7 +244,7 @@
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="{{route('author.show');}}" tabindex="0"
+                                                <a href="" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>
@@ -275,7 +275,7 @@
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-3">
                                 <img class="object-cover w-8 mr-2 h-11" src="img/profileStudent.jpg" alt="" />
-                                    <a href="{{route('author.show');}}">
+                                    <a href="">
                                         <span class="font-medium text-center">Ivo Andric</span>
                                     </a>
                                 </td>
@@ -289,7 +289,7 @@
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="{{route('author.show');}}" tabindex="0"
+                                                <a href="" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>
@@ -320,7 +320,7 @@
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-3">
                                 <img class="object-cover w-8 mr-2 h-11" src="img/profileStudent.jpg" alt="" />
-                                    <a href="{{route('author.show');}}">
+                                    <a href="">
                                         <span class="mr-2 font-medium text-center">Mark Twain</span>
                                     </a>
                                 </td>
@@ -334,7 +334,7 @@
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="{{route('author.show');}}" tabindex="0"
+                                                <a href="" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>
@@ -365,7 +365,7 @@
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-3">
                                 <img class="object-cover w-8 mr-2 h-11" src="img/profileStudent.jpg" alt="" />
-                                    <a href="{{route('author.show');}}">
+                                    <a href="">
                                         <span class="mr-2 font-medium text-center">Danka Maksimovic</span>
                                     </a>
                                 </td>
@@ -379,7 +379,7 @@
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="{{route('author.show');}}" tabindex="0"
+                                                <a href="" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>
@@ -410,7 +410,7 @@
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-3">
                                 <img class="object-cover w-8 mr-2 h-11" src="img/profileStudent.jpg" alt="" />
-                                    <a href="{{route('author.show');}}">
+                                    <a href="">
                                         <span class="mr-2 font-medium text-center">Bubalo Zivkovic</span>
                                     </a>
                                 </td>
@@ -424,7 +424,7 @@
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="{{route('author.show');}}" tabindex="0"
+                                                <a href="" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>
