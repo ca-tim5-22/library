@@ -102,4 +102,4 @@ Route::get("categorySort",[CategoryController::class,"sort"])->name("category.so
 
 Route::get("alphabetSort",[AlphabetController::class,"sort"])->name("alphabet.sort");
 
-
+Route::get("bindingSort",[BindingController::class,"sort"])->name("binding.sort");

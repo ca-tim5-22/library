@@ -16,7 +16,7 @@ class AlphabetController extends Controller
      */
     public function index()
     {
-        $pisma = alphabet::all();
+        $pisma=DB::select(DB::raw("SELECT * FROM `alphabets` ORDER BY `alphabets`.`name` ASC"));
         return view('index.settingsPismo',compact('pisma'));
         
     }
