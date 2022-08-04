@@ -1102,6 +1102,10 @@ function validacijaZanr() {
 
   if (nazivZanra.length == 0) {
     $('#validateNazivZanra').append('<p style="color:red;font-size:13px;">Morate unijeti naziv zanra!</p>');
+    return false;
+  }
+  else{
+    return true;
   }
 }
 
@@ -1109,10 +1113,12 @@ function clearErrorsNazivZanra() {
   $("#validateNazivZanra").empty();
 }
 
-$("#sacuvajZanr").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaZanr();
+$("#sacuvajZanr").click(function () {
+  if(validacijaZanr()== false) {
+  
     return false;
+  }else{
+    return true;
   }
 });
 
@@ -1125,6 +1131,10 @@ function validacijaZanrEdit() {
 
   if (nazivZanraEdit.length == 0) {
     $('#validateNazivZanraEdit').append('<p style="color:red;font-size:13px;">Morate unijeti naziv zanra!</p>');
+    return false;
+
+  }else{
+    return true;
   }
 }
 
@@ -1132,10 +1142,12 @@ function clearErrorsNazivZanraEdit() {
   $("#validateNazivZanraEdit").empty();
 }
 
-$("#sacuvajZanrEdit").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaZanrEdit();
+$("#sacuvajZanrEdit").click(function () {
+  if (validacijaZanrEdit() == false) {
+    
     return false;
+  }else{
+    return true;
   }
 });
 
@@ -1148,6 +1160,9 @@ function validacijaIzdavac() {
 
   if (nazivIzdavac.length == 0) {
     $('#validateNazivIzdavac').append('<p style="color:red;font-size:13px;">Morate unijeti naziv izdavaca!</p>');
+    return false;
+  }else{
+    return true;
   }
 }
 
@@ -1155,10 +1170,12 @@ function clearErrorsNazivIzdavac() {
   $("#validateNazivIzdavac").empty();
 }
 
-$("#sacuvajIzdavac").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaIzdavac();
+$("#sacuvajIzdavac").click(function () {
+  if (validacijaIzdavac() == false) {
+   
     return false;
+  }else{
+    return true;
   }
 });
 
@@ -1171,6 +1188,9 @@ function validacijaIzdavacEdit() {
 
   if (nazivIzdavacEdit.length == 0) {
     $('#validateNazivIzdavacEdit').append('<p style="color:red;font-size:13px;">Morate unijeti naziv izdavaca!</p>');
+    return false;
+  }else{
+    return true;
   }
 }
 
@@ -1178,10 +1198,12 @@ function clearErrorsNazivIzdavacEdit() {
   $("#validateNazivIzdavacEdit").empty();
 }
 
-$("#sacuvajIzdavacEdit").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaIzdavacEdit();
+$("#sacuvajIzdavacEdit").click(function () {
+  if (validacijaIzdavacEdit() == false) {
+    
     return false;
+  }else{
+    return true;
   }
 });
 

@@ -101,3 +101,9 @@ Route::resource('usertype',UserTypeController::class);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get("genreSort",[GenreController::class,"sort"])->name("genre.sort");
+
+Route::get("publisherSort",[PublisherController::class,"sort"])->name("publisher.sort");
+
+Route::get("categorySort",[CategoryController::class,"sort"])->name("category.sort");
