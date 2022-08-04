@@ -105,3 +105,7 @@ Route::get("categorysort",[CategoryController::class,"sort"])->name("category.so
 Route::get("alphabetsort",[AlphabetController::class,"sort"])->name("alphabet.sort");
 
 Route::get("bindingsort",[BindingController::class,"sort"])->name("binding.sort");
+
+Route::get("authorsort",[AuthorController::class,"sort"])->name("author.sort");
+
+Route::get("formatsort",[FormatController::class,"sort"])->name("format.sort");

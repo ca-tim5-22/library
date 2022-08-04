@@ -69,9 +69,9 @@
             
             <!-- Space for content -->
             <div class="scroll height-content section-content">
-                <form class="text-gray-700" method="post" action="{{route('author.update',$a->id);}}>
+                <form class="text-gray-700" method="post" action="{{route('author.update',$a->id);}}">
                     @csrf
-                    <input type="hidden" name="_method" value="PUT">
+                    @method("PUT")
                     <div class="flex flex-row ml-[30px]">
                         <div class="w-[50%] mb-[150px]">
                             <div class="mt-[20px]">
@@ -96,7 +96,7 @@
                                     class="btn-animation shadow-lg mr-[15px] w-[150px] focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
                                     Ponisti <i class="fas fa-times ml-[4px]"></i>
                                 </button>
-                                <button id="sacuvajAutoraEdit" type="submit"
+                                <button id="sacuvajAutoraEdit" type="submit" name="submit"
                                     class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]" onclick="validacijaAutorEdit()">
                                     Sacuvaj <i class="fas fa-check ml-[4px]"></i>
                                 </button>

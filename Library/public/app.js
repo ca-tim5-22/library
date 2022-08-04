@@ -1101,6 +1101,7 @@ function validacijaAutorEdit() {
 
   if (imePrezimeAutorEdit.length == 0) {
     $('#validateImePrezimeAutorEdit').append('<p style="color:red;font-size:13px;">Morate unijeti ime i prezime autora!</p>');
+    return false
   }
 }
 
@@ -1108,10 +1109,12 @@ function clearErrorsImePrezimeAutorEdit() {
   $("#validateImePrezimeAutorEdit").empty();
 }
 
-$("#sacuvajAutoraEdit").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaAutorEdit();
+$("#sacuvajAutoraEdit").click(function (e) {
+  if (validacijaAutorEdit() == false) {
+
     return false;
+  }else{
+    return true;
   }
 });
 

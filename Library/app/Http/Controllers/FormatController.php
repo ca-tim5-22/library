@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Format;
 use App\Http\Requests\StoreFormatRequest;
 use App\Http\Requests\UpdateFormatRequest;
-
+use Illuminate\Support\Facades\DB;
 class FormatController extends Controller
 {
     /**
@@ -15,10 +15,14 @@ class FormatController extends Controller
      */
     public function index()
     {
-        $format=Format::all();
+        $format=DB::select(DB::raw("SELECT * FROM `formats` ORDER BY `formats`.`name` ASC"));
         return view("index.settingsFormat",compact('format'));
     }
 
+    public function sort(){
+        $format=DB::select(DB::raw("SELECT * FROM `formats` ORDER BY `formats`.`name` DESC"));
+        return view("index.settingsFormat",compact("format"));
+    }
     /**
      * Show the form for creating a new resource.
      *
