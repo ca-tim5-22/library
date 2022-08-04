@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
-
+use Illuminate\Support\Facades\DB;
 class AuthorController extends Controller
 {
     /**
@@ -15,10 +15,14 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $author=Author::all();
+        $author=DB::select(DB::raw("SELECT * FROM `authors` ORDER BY `authors`.`first_and_last_name` ASC"));
         return view("author.autori",compact('author'));
     }
 
+    public function sort(){
+        $author=DB::select(DB::raw("SELECT * FROM `authors` ORDER BY `authors`.`first_and_last_name` DESC"));
+        return view("author.autori",compact("author"));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -81,7 +85,7 @@ class AuthorController extends Controller
     {
         $a=Author::findOrFail($author);
     
-        $a->first_and_last_name=$request->name;
+        $a->first_and_last_name=$request->first_and_last_name;
         $a->biography=$request->biography;
         
         $a->save();

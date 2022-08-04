@@ -6,7 +6,7 @@
 
 
 
-//Postaviti uslov kako bi izbjegli gresku sa varijablama
+<!-- Postaviti uslov kako bi izbjegli gresku sa varijablama -->
 
 
 
