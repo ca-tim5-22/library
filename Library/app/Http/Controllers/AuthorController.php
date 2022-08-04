@@ -38,8 +38,8 @@ class AuthorController extends Controller
     public function store(StoreAuthorRequest $request)
     {
         Author::create([
-            'name'             =>      $request->name,
-            'biography'        =>      $request->biography       
+            'first_and_last_name'       =>      $request->first_and_last_name,
+            'biography'                 =>      $request->biography       
             ]); 
                      
                   
@@ -81,7 +81,7 @@ class AuthorController extends Controller
     {
         $a=Author::findOrFail($author);
     
-        $a->name=$request->name;
+        $a->first_and_last_name=$request->name;
         $a->biography=$request->biography;
         
         $a->save();
@@ -95,7 +95,7 @@ class AuthorController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Author $author)
+    public function destroy($author)
     {
         $a=Author::findOrFail($author);
         $a->delete();
