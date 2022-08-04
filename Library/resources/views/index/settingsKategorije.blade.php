@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="py-4 text-gray-500 border-b-[1px] border-[#e4dfdf] pl-[30px]">
-                <a href="{{url('settingspolisa');}}" class="inline hover:text-blue-800">
+                <a href="{{route('globalvariable.index');}}" class="inline hover:text-blue-800">
                     Polisa
                 </a>
                 <a href="{{route('category.index');}}" class="inline ml-[70px] hover:text-blue-800 active-book-nav">
@@ -86,15 +86,32 @@
                                         <input type="checkbox" class="form-checkbox">
                                     </label>
                                 </th>
-                                <th class="px-4 py-4 leading-4 tracking-wider text-left">Naziv kategorije<a href="#"><i
-                                            class="ml-3 fa-lg fas fa-long-arrow-alt-down" onclick="sortTable()"></i></a>
+                                <th class="px-4 py-4 leading-4 tracking-wider text-left">Naziv kategorije
+                                <a 
+                                @if (Route::current()->getName() == "category.index")
+                                    href="{{route('category.sort');}}"
+                                    @elseif(Route::current()->getName() == "category.sort")
+                                    href="{{route('category.index');}}"
+                                @endif
+                                >
+
+                                @if (Route::current()->getName() == "category.index")
+                                    <i class="ml-3 fa-lg fas fa-long-arrow-alt-down"></i>
+
+                                    @elseif(Route::current()->getName() == "category.sort")
+                                     <i class="ml-3 fa-lg fas fa-long-arrow-alt-up"></i>
+                                @endif
+                                
+                                
+                                
+                                </a>
                                 </th>
                                 <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Opis</th>
                                 <th class="px-4 py-4"> </th>
                             </tr>
                         </thead>
                         <tbody class="bg-white">
-                            @foreach($category as $c)
+                            @foreach($categories as $c)
                             <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-4 whitespace-no-wrap">
                                     <label class="inline-flex items-center">
@@ -108,16 +125,23 @@
                                 </td>
                                 <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$c->description}}</td>
                                 <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
-                                    <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsCategory hover:text-[#606FC7]">
+                                    <p style="position:relative;" class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsCategory hover:text-[#606FC7]">
                                         <i class="fas fa-ellipsis-v"></i>
                                     </p>
-                                    <div
-                                        class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-category">
+                                    <div style="position:absolute;right:80px;"
+                                        class=" z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-category">
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             
                                             <div class="py-1">
-                                                <a href="{{url('/category/'.$c->id).'/edit'}}" tabindex="0"
+
+                                                <a href="{{url('/category/'.$c->id).'/edit'}}" tabindex="0">
+
+
+                                                
+
+                                                <a href="" tabindex="0"
+
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
@@ -149,234 +173,7 @@
                                 </td>
                             </tr>
                             @endforeach
-                            {{--  <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
-                                <td class="px-4 py-4 whitespace-no-wrap">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
-                                    </label>
-                                </td>
-                                <td class="flex flex-row items-center px-4 py-4">
-                                    <i class="text-[#707070] fas fa-child fa-lg"></i>
-                                    <p class="ml-4 text-center">Djecije knjige</p>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Lorem ipsum dolor sit amet
-                                    consectetur adipisicing elit,</td>
-                                <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
-                                    <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsCategory hover:text-[#606FC7]">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </p>
-                                    <div
-                                        class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-category">
-                                        <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
-                                            aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
-                                            <div class="py-1">
-                                                <a href="" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izmijeni kategoriju</span>
-                                                </a>
-                                                <a href="#" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izbrisi kategoriju</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
-                                <td class="px-4 py-4 whitespace-no-wrap">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
-                                    </label>
-                                </td>
-                                <td class="flex flex-row items-center px-4 py-4">
-                                    <i class="text-[#707070] far fa-clock fa-lg"></i>
-                                    <p class="ml-3 text-center">Istorija</p>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Lorem ipsum dolor sit amet
-                                    consectetur adipisicing elit,</td>
-                                <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
-                                    <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsCategory hover:text-[#606FC7]">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </p>
-                                    <div
-                                        class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-category">
-                                        <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
-                                            aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
-                                            <div class="py-1">
-                                                <a href="" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izmijeni kategoriju</span>
-                                                </a>
-                                                <a href="#" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izbrisi kategoriju</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
-                                <td class="px-4 py-4 whitespace-no-wrap">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
-                                    </label>
-                                </td>
-                                <td class="flex flex-row items-center px-4 py-4">
-                                    <i class="text-[#707070] fas fa-book fa-lg"></i>
-                                    <p class="ml-4 text-center">Skolske knjige</p>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Lorem ipsum dolor sit amet
-                                    consectetur adipisicing elit,</td>
-                                <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
-                                    <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsCategory hover:text-[#606FC7]">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </p>
-                                    <div
-                                        class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-category">
-                                        <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
-                                            aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
-                                            <div class="py-1">
-                                                <a href="" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izmijeni kategoriju</span>
-                                                </a>
-                                                <a href="#" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izbrisi kategoriju</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
-                                <td class="px-4 py-4 whitespace-no-wrap">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
-                                    </label>
-                                </td>
-                                <td class="flex flex-row items-center px-4 py-4">
-                                    <i class="text-[#707070] fas fa-sort-numeric-down fa-lg"></i>
-                                    <p class="ml-4 text-center">Nauka, priroda i matematika</p>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Lorem ipsum dolor sit amet
-                                    consectetur adipisicing elit,</td>
-                                <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
-                                    <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsCategory hover:text-[#606FC7]">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </p>
-                                    <div
-                                        class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-category">
-                                        <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
-                                            aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
-                                            <div class="py-1">
-                                                <a href="" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izmijeni kategoriju</span>
-                                                </a>
-                                                <a href="#" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izbrisi kategoriju</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
-                                <td class="px-4 py-4 whitespace-no-wrap">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
-                                    </label>
-                                </td>
-                                <td class="flex flex-row items-center px-4 py-4">
-                                    <i class="text-[#707070] fas fa-balance-scale fa-lg"></i>
-                                    <p class="ml-2 text-center">Pravo</p>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Lorem ipsum dolor sit amet
-                                    consectetur adipisicing elit,</td>
-                                <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
-                                    <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsCategory hover:text-[#606FC7]">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </p>
-                                    <div
-                                        class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-category">
-                                        <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
-                                            aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
-                                            <div class="py-1">
-                                                <a href="" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izmijeni kategoriju</span>
-                                                </a>
-                                                <a href="#" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izbrisi kategoriju</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
-                                <td class="px-4 py-4 whitespace-no-wrap">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
-                                    </label>
-                                </td>
-                                <td class="flex flex-row items-center px-4 py-4">
-                                    <i class="text-[#707070] fas fa-utensils fa-lg"></i>
-                                    <span class="ml-4 text-center">Hrana i pice</span>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Lorem ipsum dolor sit amet
-                                    consectetur adipisicing elit,</td>
-                                <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
-                                    <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsCategory hover:text-[#606FC7]">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </p>
-                                    <div
-                                        class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-category">
-                                        <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
-                                            aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
-                                            <div class="py-1">
-                                                <a href="" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izmijeni kategoriju</span>
-                                                </a>
-                                                <a href="#" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izbrisi kategoriju</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>  --}}
+
                         </tbody>
                     </table>
 
@@ -385,6 +182,7 @@
                             <p class="inline text-md">
                                 Rows per page:
                             </p>
+                            <!-- FIXATI PAGINACIJU -->
                             <select
                                 class=" text-gray-700 bg-white rounded-md w-[46px] focus:outline-none focus:ring-primary-500 focus:border-primary-500 text-md"
                                 name="ucenici">

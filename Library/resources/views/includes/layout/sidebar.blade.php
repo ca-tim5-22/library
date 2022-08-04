@@ -13,7 +13,7 @@
                     <div class="ml-[25px]">
                         <span class="flex justify-between w-full fill-current whitespace-nowrap">
                             <div class="transition duration-300 ease-in group-hover:text-[#576cdf]">
-                                <a href="{{url('');}}" aria-label="Dashboard">
+                                <a href="{{url('dashboard');}}" aria-label="Dashboard">
                                     <i
                                         class="text-white bg-[#3F51B5] px-[5px] pt-[4px] pb-[5px] fas fa-tachometer-alt text-[19px] rounded-[3px]"></i>
                                     <div class="hidden sidebar-item">
@@ -48,7 +48,7 @@
                     <div class="ml-[30px]">
                         <span class="flex justify-between w-full whitespace-nowrap">
                             <div>
-                                <a href="{{url('ucenik');}}" aria-label="Ucenici">
+                                <a href="{{route('student.index');}}" aria-label="Ucenici">
                                     <i
                                         class="text-[18px] transition duration-300 ease-in group-hover:text-[#576cdf] text-[#707070] fas fa-users"></i>
                                     <div class="hidden sidebar-item">
@@ -175,7 +175,7 @@
     </div>
     <div class="sidebar-nav py-[10px] border-t-[1px] border-[#e4dfdf] pt-[23px] pb-[29px]  group hover:bg-[#EFF3F6]">
         <!-- Settings Icon -->
-        <a href="{{url('settingspolisa')}}" aria-label="Settings" class="ml-[30px]">
+        <a href="{{route('globalvariable.index');}}" aria-label="Settings" class="ml-[30px]">
             <span class="whitespace-nowrap">
                 <i
                     class="transition duration-300 ease-in group-hover:text-[#576cdf] text-[22px] text-[#707070] fas fa-cog"></i>

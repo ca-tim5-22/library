@@ -48,7 +48,7 @@
                             <nav class="w-full rounded">
                                 <ol class="flex list-reset">
                                     <li>
-                                        <a href="ucenik.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('student.index');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Svi ucenici
                                         </a>
                                     </li>

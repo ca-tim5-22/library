@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Binding;
 use App\Http\Requests\StoreBindingRequest;
 use App\Http\Requests\UpdateBindingRequest;
-
+use Illuminate\Support\Facades\DB;
 class BindingController extends Controller
 {
     /**
@@ -16,10 +16,13 @@ class BindingController extends Controller
     public function index()
     {
 
-        $binding=Binding::all();
+        $binding=DB::select(DB::raw("SELECT * FROM `bindings` ORDER BY `bindings`.`name` ASC"));
         return view("index.settingsPovez",compact("binding"));
     }
-
+    public function sort(){
+        $binding=DB::select(DB::raw("SELECT * FROM `bindings` ORDER BY `bindings`.`name` DESC"));
+        return view("index.settingsPovez",compact("binding"));
+    }
     /**
      * Show the form for creating a new resource.
      *

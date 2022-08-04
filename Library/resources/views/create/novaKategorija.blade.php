@@ -48,7 +48,7 @@
                             <nav class="w-full rounded">
                                 <ol class="flex list-reset">
                                     <li>
-                                        <a href="{{url('settingspolisa');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('globalvariable.index');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Settings
                                         </a>
                                     </li>
@@ -96,8 +96,7 @@
                                     <div class="bg-gray-300 h-[40px] w-[102px] px-[20px] pt-[10px]">
                                         <label class="cursor-pointer">
                                             <p class="leading-normal">Browse...</p>
-                                            <input id="icon-upload" type='file' name='icon' class="hidden" :multiple="multiple"
-                                                :accept="accept" />
+                                            <input name="icon" id="icon-upload" type='file' class="hidden" :multiple="multiple" :accept="accept" />
                                         </label>
                                     </div>
                                     <div id="icon-output" class="h-[40px] px-[20px] pt-[7px]"></div>
@@ -119,7 +118,7 @@
                                     class="btn-animation shadow-lg mr-[15px] w-[150px] focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
                                     Ponisti <i class="fas fa-times ml-[4px]"></i>
                                 </button>
-
+<!-- FIXATI SACUVAJ DUGME(CUVA VISE PUTA KAD KLIKNES VISE PUTA)  -->
                                 
                                 <button id="sacuvajKategoriju" type="submit" name="submit"
                                     class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]"

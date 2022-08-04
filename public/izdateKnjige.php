@@ -51,7 +51,7 @@
                                 placeholder="Pretrazi knjige..." autocomplete="off">
                         </div>
                     </div>
-                    <a href="novaKnjiga.php"
+                    <a href="{{route('book.create');}}"
                         class="btn-animation inline-flex items-center text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] tracking-wider text-white bg-[#3f51b5] rounded hover:bg-[#4558BE]">Pretrazi
                     </a>
                 </div>

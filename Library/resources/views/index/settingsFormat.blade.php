@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="py-4 text-gray-500 border-b-[1px] border-[#e4dfdf] pl-[30px]">
-                <a href="{{url('settingspolisa');}}" class="inline hover:text-blue-800">
+                <a href="{{route('globalvariable.index');}}" class="inline hover:text-blue-800">
                     Polisa
                 </a>
                 <a href="{{route('category.index');}}" class="inline ml-[70px] hover:text-blue-800">

@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="py-4 text-gray-500 border-b-[1px] border-[#e4dfdf] pl-[30px]">
-                <a href="{{url('settingspolisa');}}" class="inline hover:text-blue-800 active-book-nav">
+                <a href="{{route('globalvariable.index');}}" class="inline hover:text-blue-800 active-book-nav">
                     Polisa
                 </a>
                 <a href="{{route('category.index');}}" class="inline ml-[70px] hover:text-blue-800">
@@ -67,6 +67,8 @@
                     Pismo
                 </a>
             </div>
+            
+            
             <div class="height-ucenikProfile pb-[30px] scroll">
                 <!-- Space for content -->
                 <div class="section- mt-[20px]">
@@ -77,57 +79,73 @@
                                     Rok za rezervaciju
                                 </h3>
                                 <p class="pt-[15px] max-w-[400px]">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum eligendi nihil, vel
-                                    necessitatibus saepe laboriosam! Perspiciatis laboriosam culpa veritatis ea
-                                    voluptatum commodi tempora unde, dolorum debitis quia id dicta vitae.
+                                    Opis za rok za rezervaciju
                                 </p>
                             </div>
+                           
                             <div class="relative flex ml-[60px] mt-[20px]">
-                                <input type="text"
+                            <form class="flex" style="gap:20px;" method="POST" action="{{url('globalvariable/'.$ddl_for_reservation->id);}}">
+                @csrf
+                @method('PUT')
+                                <input type="text" name="value"
                                     class="h-[50px] flex-1 w-full px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-white border-[1px]  border-[#e4dfdf]  rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                    placeholder="..." />
+                                    value="{{$ddl_for_reservation->value}}" />
                                 <p class="ml-[10px] mt-[10px]">dana</p>
+
+                                <button style="max-height:50px;"  type="submit" name="submit" class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]">Sačuvaj</button>
+                            </form>
                             </div>
                         </div>
                         <div class="pl-[30px] flex border-b-[1px] border-[#e4dfdf]  py-[20px]">
+
+                        
                             <div>
                                 <h3>
                                     Rok vracanja
                                 </h3>
                                 <p class="pt-[15px] max-w-[400px]">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum eligendi nihil, vel
-                                    necessitatibus saepe laboriosam! Perspiciatis laboriosam culpa veritatis ea
-                                    voluptatum commodi tempora unde, dolorum debitis quia id dicta vitae.
+                                    Opis za rok vracanja
                                 </p>
                             </div>
                             <div class="relative flex ml-[60px] mt-[20px]">
-                                <input type="text"
+                            <form class="flex" style="gap:20px;" method="POST" action="{{url('globalvariable/'.$ddl_for_return->id)}}">
+                @csrf
+                @method('PUT')
+                                <input  type="text" name="value"
                                     class="h-[50px] flex-1 w-full px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-white border-[1px]  border-[#e4dfdf]  rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                    placeholder="..." />
-                                <p class="ml-[10px] mt-[10px]">dana</p>
+                                    value="{{$ddl_for_return->value}}" />
+                                <p   class="ml-[10px] mt-[10px]">dana</p>
+                                <button style="max-height:50px;"  type="submit" name="submit" class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]">Sačuvaj</button>
+                            </form>
                             </div>
                         </div>
                         <div class="pl-[30px] flex border-b-[1px] border-[#e4dfdf]  py-[20px]">
+                        
                             <div>
                                 <h3>
                                     Rok konflikta
                                 </h3>
                                 <p class="pt-[15px] max-w-[400px]">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum eligendi nihil, vel
-                                    necessitatibus saepe laboriosam! Perspiciatis laboriosam culpa veritatis ea
-                                    voluptatum commodi tempora unde, dolorum debitis quia id dicta vitae.
+                                    Opis za rok konflikta
                                 </p>
                             </div>
                             <div class="relative flex ml-[60px] mt-[20px]">
-                                <input type="text"
-                                    class="h-[50px] flex-1 w-full px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-white border-[1px]  border-[#e4dfdf]  rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                    placeholder="..." />
-                                <p class="ml-[10px] mt-[10px]">dana</p>
+                            <form class="flex" style="gap:20px;" method="POST" action="{{url('globalvariable/'.$ddl_for_conflict->id);}}">
+                @csrf
+                @method('PUT')
+                                <input  type="text" name="value"
+                                    class="h-[50px] flex-1 w-full px-4 py-2 text-sm text-gray-700 placeholder-gray-400 bg-white border-[1px] border-[#e4dfdf]  rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                    value="{{$ddl_for_conflict->value}}"  />
+                                <p  class="ml-[10px] mt-[10px]">dana</p>
+                                <button style="max-height:50px;"  type="submit" name="submit" class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]">Sačuvaj</button>
+                            </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            </form>
         </section>
         <!-- End Content -->
     </main>

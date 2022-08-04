@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\GlobalVariable;
 use App\Http\Requests\StoreGlobalVariableRequest;
 use App\Http\Requests\UpdateGlobalVariableRequest;
-
+use Illuminate\Support\Facades\DB;
 class GlobalVariableController extends Controller
 {
     /**
@@ -15,7 +15,18 @@ class GlobalVariableController extends Controller
      */
     public function index()
     {
-        //
+        $globalVariables=DB::select(DB::raw("SELECT * FROM global_variables"));
+             
+        $ddl_for_reservation=$globalVariables[0];
+        $ddl_for_return=$globalVariables[1];
+        $ddl_for_conflict=$globalVariables[2];
+
+        return view("index.settingsPolisa",
+        [
+        "ddl_for_reservation"=>$ddl_for_reservation,
+        "ddl_for_return"=>$ddl_for_return,
+        "ddl_for_conflict"=>$ddl_for_conflict
+    ]);
     }
 
     /**
@@ -68,9 +79,15 @@ class GlobalVariableController extends Controller
      * @param  \App\Models\GlobalVariable  $globalVariable
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateGlobalVariableRequest $request, GlobalVariable $globalVariable)
+    public function update(UpdateGlobalVariableRequest $request, GlobalVariable $globalVariable,$id)
     {
-        //
+             
+             
+    $c=GlobalVariable::findOrFail($id);
+    $c->value=$request->value;
+    $c->save();
+
+return redirect('/globalvariable');  
     }
 
     /**

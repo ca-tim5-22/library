@@ -491,7 +491,9 @@ $("#sacuvajBibliotekaraEdit").keypress(function (e) {
 });
 
 // Form validation for new student
-function validacijaUcenik() {
+let falser=0;
+let truer=0;
+function validacijaUcenik(falser,truer) {
 
   $("#validateNameUcenik").empty();
   $("#validateJmbgUcenik").empty();
@@ -509,26 +511,38 @@ function validacijaUcenik() {
 
   if (nameUcenik.length == 0) {
     $('#validateNameUcenik').append('<p style="color:red;font-size:13px;">Morate unijeti ime i prezime!</p>');
+    
   }
 
   if (jmbgUcenik.length == 0) {
     $('#validateJmbgUcenik').append('<p style="color:red;font-size:13px;">Morate unijeti JMBG!</p>');
+ 
   }
 
   if (emailUcenik.length == 0) {
     $('#validateEmailUcenik').append('<p style="color:red;font-size:13px;">Morate unijeti validnu e-mail adresu!</p>');
+
   }
 
   if (usernameUcenik.length == 0) {
     $('#validateUsernameUcenik').append('<p style="color:red;font-size:13px;">Morate unijeti korisnicko ime!</p>');
+
   }
 
   if (pwUcenik.length == 0) {
     $('#validatePwUcenik').append('<p style="color:red;font-size:13px;">Morate unijeti sifru!</p>');
+
   }
 
   if (pw2Ucenik.length == 0) {
     $('#validatePw2Ucenik').append('<p style="color:red;font-size:13px;">Morate ponoviti sifru!</p>');
+   
+  }
+  
+  if(nameUcenik.length == 0 || jmbgUcenik.lenth == 0 || emailUcenik.length == 0 ||usernameUcenik.length == 0 || pwUcenik.length == 0 ||pw2Ucenik.length == 0){
+    return false;
+  }else if(nameUcenik.length > 0 && jmbgUcenik.lenth > 0 && emailUcenik.length > 0 && usernameUcenik.length > 0 && pwUcenik.length > 0 && pw2Ucenik.length > 0){
+    return true;
   }
 }
 
@@ -556,10 +570,11 @@ function clearErrorsPw2Ucenik() {
   $("#validatePw2Ucenik").empty();
 }
 
-$("#sacuvajUcenika").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaUcenik();
+$("#sacuvajUcenika").click(function () {
+  if(validacijaUcenik() == false){
     return false;
+  }else{
+    return true;
   }
 });
 
@@ -603,6 +618,12 @@ function validacijaUcenikEdit() {
   if (pw2UcenikEdit.length == 0) {
     $('#validatePw2UcenikEdit').append('<p style="color:red;font-size:13px;">Morate ponoviti sifru!</p>');
   }
+
+  if(nameUcenik.length == 0 || jmbgUcenik.lenth == 0 || emailUcenik.length == 0 ||usernameUcenik.length == 0 || pwUcenik.length == 0 ||pw2Ucenik.length == 0){
+    return false;
+  }else if(nameUcenik.length > 0 && jmbgUcenik.lenth > 0 && emailUcenik.length > 0 && usernameUcenik.length > 0 && pwUcenik.length > 0 && pw2Ucenik.length > 0){
+    return true;
+  }
 }
 
 function clearErrorsNameUcenikEdit() {
@@ -629,10 +650,11 @@ function clearErrorsPw2UcenikEdit() {
   $("#validatePw2UcenikEdit").empty();
 }
 
-$("#sacuvajUcenikaEdit").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaUcenikEdit();
+$("#sacuvajUcenikaEdit").click(function (e) {
+  if (validacijaUcenikEdit() == false) {
     return false;
+  }else{
+    return true;
   }
 });
 
@@ -1014,14 +1036,15 @@ function clearErrorsNazivKategorije() {
 }
 
 $("#sacuvajKategoriju").click(function () {
-
-  if(validacijaKategorija() == false){
-    return false;
-  }else{
-    return true;
+  
+    if(validacijaKategorija() == false){
+      return false;
+    }else{
+      return true;
+    }
+    
   }
-
-});
+);
 
 // Form validation for editing category info
 function validacijaKategorijaEdit() {
@@ -1101,6 +1124,10 @@ function validacijaZanr() {
 
   if (nazivZanra.length == 0) {
     $('#validateNazivZanra').append('<p style="color:red;font-size:13px;">Morate unijeti naziv zanra!</p>');
+    return false;
+  }
+  else{
+    return true;
   }
 }
 
@@ -1108,10 +1135,12 @@ function clearErrorsNazivZanra() {
   $("#validateNazivZanra").empty();
 }
 
-$("#sacuvajZanr").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaZanr();
+$("#sacuvajZanr").click(function () {
+  if(validacijaZanr()== false) {
+  
     return false;
+  }else{
+    return true;
   }
 });
 
@@ -1124,6 +1153,10 @@ function validacijaZanrEdit() {
 
   if (nazivZanraEdit.length == 0) {
     $('#validateNazivZanraEdit').append('<p style="color:red;font-size:13px;">Morate unijeti naziv zanra!</p>');
+    return false;
+
+  }else{
+    return true;
   }
 }
 
@@ -1131,10 +1164,12 @@ function clearErrorsNazivZanraEdit() {
   $("#validateNazivZanraEdit").empty();
 }
 
-$("#sacuvajZanrEdit").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaZanrEdit();
+$("#sacuvajZanrEdit").click(function () {
+  if (validacijaZanrEdit() == false) {
+    
     return false;
+  }else{
+    return true;
   }
 });
 
@@ -1147,6 +1182,9 @@ function validacijaIzdavac() {
 
   if (nazivIzdavac.length == 0) {
     $('#validateNazivIzdavac').append('<p style="color:red;font-size:13px;">Morate unijeti naziv izdavaca!</p>');
+    return false;
+  }else{
+    return true;
   }
 }
 
@@ -1154,10 +1192,12 @@ function clearErrorsNazivIzdavac() {
   $("#validateNazivIzdavac").empty();
 }
 
-$("#sacuvajIzdavac").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaIzdavac();
+$("#sacuvajIzdavac").click(function () {
+  if (validacijaIzdavac() == false) {
+   
     return false;
+  }else{
+    return true;
   }
 });
 
@@ -1170,6 +1210,9 @@ function validacijaIzdavacEdit() {
 
   if (nazivIzdavacEdit.length == 0) {
     $('#validateNazivIzdavacEdit').append('<p style="color:red;font-size:13px;">Morate unijeti naziv izdavaca!</p>');
+    return false;
+  }else{
+    return true;
   }
 }
 
@@ -1177,10 +1220,12 @@ function clearErrorsNazivIzdavacEdit() {
   $("#validateNazivIzdavacEdit").empty();
 }
 
-$("#sacuvajIzdavacEdit").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaIzdavacEdit();
+$("#sacuvajIzdavacEdit").click(function () {
+  if (validacijaIzdavacEdit() == false) {
+    
     return false;
+  }else{
+    return true;
   }
 });
 
@@ -1285,6 +1330,10 @@ function validacijaPismo() {
 
   if (nazivPismo.length == 0) {
     $('#validateNazivPismo').append('<p style="color:red;font-size:13px;">Morate unijeti naziv pisma!</p>');
+    return false;
+  }
+  else{
+    return true;
   }
 }
 
@@ -1292,10 +1341,13 @@ function clearErrorsNazivPismo() {
   $("#validateNazivPismo").empty();
 }
 
-$("#sacuvajPismo").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaPismo();
+$("#sacuvajPismo").click(function() {
+  if (validacijaPismo() == false) {
+  
     return false;
+  }
+  else{
+    return true;
   }
 });
 
@@ -1308,6 +1360,10 @@ function validacijaPismoEdit() {
 
   if (nazivPismoEdit.length == 0) {
     $('#validateNazivPismoEdit').append('<p style="color:red;font-size:13px;">Morate unijeti naziv pisma!</p>');
+    return false;
+  }
+  else {
+    return true;
   }
 }
 
@@ -1315,10 +1371,12 @@ function clearErrorsNazivPismoEdit() {
   $("#validateNazivPismoEdit").empty();
 }
 
-$("#sacuvajPismoEdit").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaPismoEdit();
+$("#sacuvajPismoEdit").click(function () {
+  if (validacijaPismoEdit() == false) {
     return false;
+  }
+  else {
+    return true;
   }
 });
 

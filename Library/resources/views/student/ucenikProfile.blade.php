@@ -41,14 +41,14 @@
                     <div class="pl-[30px] py-[10px] flex flex-col">
                         <div>
                             <h1>
-                                Pero Perovic
+                                {{$student->first_and_last_name}}
                             </h1>
                         </div>
                         <div>
                             <nav class="w-full rounded">
                                 <ol class="flex list-reset">
                                     <li>
-                                        <a href="{{url('ucenik');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('student.index');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Svi ucenici
                                         </a>
                                     </li>
@@ -56,8 +56,8 @@
                                         <span class="mx-2">/</span>
                                     </li>
                                     <li>
-                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
-                                            ID-354
+                                        <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
+                                            ID-{{$student->id}}
                                         </a>
                                     </li>
                                 </ol>
@@ -69,7 +69,7 @@
                             <i class="fas fa-redo-alt mr-[3px]"></i>
                             Resetuj sifru
                         </a>
-                        <a href="editUcenik.php" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href={{route('student.edit',$student->id);}} class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="fas fa-edit mr-[3px] "></i>
                             Izmjeni podatke
                         </a>
@@ -95,7 +95,7 @@
                 </div>
             </div>
             <div class="border-b-[1px] py-4 text-gray-500 border-[#e4dfdf] pl-[30px]">
-                <a href="{{url('ucenikprofile');}}" class="inline active-book-nav">
+                <a href="{{route('student.show',$student->id);}}" class="inline active-book-nav">
                     Osnovni detalji
                 </a>
                 <a href="ucenikIzdate.php" class="inline ml-[70px] hover:text-blue-800">
@@ -109,7 +109,7 @@
                         <div class="mr-[30px]">
                             <div class="mt-[20px]">
                                 <span class="text-gray-500">Ime i prezime</span>
-                                <p class="font-medium">Pero Perovic</p>
+                                <p class="font-medium">{{$student->first_and_last_name}}</p>
                             </div>
                             <div class="mt-[40px]">
                                 <span class="text-gray-500">Tip korisnika</span>
@@ -117,28 +117,32 @@
                             </div>
                             <div class="mt-[40px]">
                                 <span class="text-gray-500">JMBG</span>
-                                <p class="font-medium">1345687815462</p>
+                                <p class="font-medium">{{$student->PIN}}</p>
                             </div>
                             <div class="mt-[40px]">
                                 <span class="text-gray-500">Email</span>
-                                <a href="#" class="block font-medium text-[#2196f3]">pero.perovic@domain.net</a>
+                                <a href="#" class="block font-medium text-[#2196f3]">{{$student->email}}</a>
                             </div>
                             <div class="mt-[40px]">
                                 <span class="text-gray-500">Korisnicko ime</span>
-                                <p class="font-medium">pero.perovic</p>
+                                <p class="font-medium">{{$student->username}}</p>
                             </div>
                             <div class="mt-[40px]">
                                 <span class="text-gray-500">Broj logovanja</span>
-                                <p class="font-medium">60</p>
+                                <p class="font-medium">Kada bude spremno</p>
                             </div>
                             <div class="mt-[40px]">
                                 <span class="text-gray-500">Poslednji put logovan/a</span>
-                                <p class="font-medium">Prekjuce 11:57 AM</p>
+                                <p class="font-medium">Kada bude spremno</p>
                             </div>
 
                         </div>
                         <div class="ml-[100px]  mt-[20px]">
+                        @if (empty($student->photo))
                             <img class="p-2 border-2 border-gray-300" width="300px" src="img/profileStudent.jpg" alt="">
+
+                            @else <img class="p-2 border-2 border-gray-300" width="300px" src="{{asset('category_icon/'.$student->photo)}}" alt=""/>
+                                        @endif
                         </div>
                     </div>
                 </div>
