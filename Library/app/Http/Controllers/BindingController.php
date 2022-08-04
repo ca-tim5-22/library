@@ -15,7 +15,9 @@ class BindingController extends Controller
      */
     public function index()
     {
-        return view("index.settingsPovez");
+
+        $binding=Binding::all();
+        return view("index.settingsPovez",compact("binding"));
     }
 
     /**
@@ -36,7 +38,14 @@ class BindingController extends Controller
      */
     public function store(StoreBindingRequest $request)
     {
-        //
+        
+        
+        Binding::create([
+        'name'             =>      $request->name,          
+        ]); 
+                 
+              
+        return redirect('/binding');  
     }
 
     /**
@@ -56,9 +65,10 @@ class BindingController extends Controller
      * @param  \App\Models\Binding  $binding
      * @return \Illuminate\Http\Response
      */
-    public function edit(Binding $binding)
+    public function edit($binding)
     {
-        return view("editPovez");
+        $b=Binding::findOrFail($binding);
+        return view('edit.editPovez',compact('b'));
     }
 
     /**
@@ -68,9 +78,15 @@ class BindingController extends Controller
      * @param  \App\Models\Binding  $binding
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBindingRequest $request, Binding $binding)
+    public function update(UpdateBindingRequest $request,$binding)
     {
-        //
+        $b=Binding::findOrFail($binding);
+    
+        $b->name=$request->name;
+        
+        $b->save();
+    
+    return redirect('/binding');  
     }
 
     /**
@@ -79,8 +95,10 @@ class BindingController extends Controller
      * @param  \App\Models\Binding  $binding
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Binding $binding)
+    public function destroy($binding)
     {
-        //
+        $b=Binding::findOrFail($binding);
+        $b->delete();
+        return redirect('/binding');
     }
 }
