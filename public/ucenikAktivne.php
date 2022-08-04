@@ -48,7 +48,7 @@
                             <nav class="w-full rounded">
                                 <ol class="flex list-reset">
                                     <li>
-                                        <a href="{{url('ucenik');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('student.index');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Svi ucenici
                                         </a>
                                     </li>
@@ -56,7 +56,7 @@
                                         <span class="mx-2">/</span>
                                     </li>
                                     <li>
-                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             ID-354
                                         </a>
                                     </li>
@@ -69,7 +69,7 @@
                             <i class="fas fa-redo-alt mr-[3px]"></i>
                             Resetuj sifru
                         </a>
-                        <a href="editUcenik.php" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href={{route('student.edit',$student->id);}} class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="fas fa-edit mr-[3px] "></i>
                             Izmjeni podatke
                         </a>
@@ -94,7 +94,7 @@
                 </div>
             </div>
             <div class="border-b-[1px] py-4 text-gray-500 border-[#e4dfdf] pl-[30px]">
-                <a href="{{url('ucenikprofile');}}" class="inline hover:text-blue-800">
+                <a href="{{route('student.show',$student->id);}}" class="inline hover:text-blue-800">
                     Osnovni detalji
                 </a>
                 <a href="ucenikIzdate.php" class="inline ml-[70px] active-book-nav">
@@ -249,7 +249,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="{{url('ucenikprofile');}}" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 changeStatus">
@@ -358,7 +358,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="{{url('ucenikprofile');}}" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 changeStatus">
@@ -467,7 +467,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="{{url('ucenikprofile');}}" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 changeStatus">
@@ -576,7 +576,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="{{url('ucenikprofile');}}" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 changeStatus">
@@ -685,7 +685,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="{{url('ucenikprofile');}}" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 text-sm leading-5 text-blue-900 whitespace-no-wrap">
@@ -780,7 +780,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="{{url('ucenikprofile');}}" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 text-sm leading-5 text-blue-900 whitespace-no-wrap">
@@ -875,7 +875,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="{{url('ucenikprofile');}}" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 text-sm leading-5 text-blue-900 whitespace-no-wrap">

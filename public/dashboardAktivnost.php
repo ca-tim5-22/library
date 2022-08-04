@@ -657,7 +657,7 @@
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Tom Sojer </span>
-                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Peru Perovicu
                                         </a>
                                         dana <span class="font-medium">21.02.2021.</span>
@@ -687,7 +687,7 @@
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Robinson Kruso</span>
-                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Petru Njegosu
                                         </a>
                                         dana <span class="font-medium">12.03.2020.</span>
@@ -717,7 +717,7 @@
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Tom Sojer </span>
-                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Peru Perovicu
                                         </a>
                                         dana <span class="font-medium">21.02.2021.</span>
@@ -747,7 +747,7 @@
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Robinson Kruso</span>
-                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Petru Njegosu
                                         </a>
                                         dana <span class="font-medium">12.03.2020.</span>
@@ -777,7 +777,7 @@
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Tom Sojer </span>
-                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Peru Perovicu
                                         </a>
                                         dana <span class="font-medium">21.02.2021.</span>
@@ -807,7 +807,7 @@
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Robinson Kruso</span>
-                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Petru Njegosu
                                         </a>
                                         dana <span class="font-medium">12.03.2020.</span>
@@ -837,7 +837,7 @@
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Tom Sojer </span>
-                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Peru Perovicu
                                         </a>
                                         dana <span class="font-medium">21.02.2021.</span>
@@ -867,7 +867,7 @@
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Robinson Kruso</span>
-                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Petru Njegosu
                                         </a>
                                         dana <span class="font-medium">12.03.2020.</span>
@@ -897,7 +897,7 @@
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Tom Sojer </span>
-                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Peru Perovicu
                                         </a>
                                         dana <span class="font-medium">21.02.2021.</span>
@@ -927,7 +927,7 @@
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Robinson Kruso</span>
-                                        <a href="{{url('ucenikprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Petru Njegosu
                                         </a>
                                         dana <span class="font-medium">12.03.2020.</span>

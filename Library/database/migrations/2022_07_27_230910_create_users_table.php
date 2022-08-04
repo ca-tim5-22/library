@@ -21,8 +21,8 @@ return new class extends Migration
             ->on("type_of_users")
             ->onUpdate("Cascade")
             ->onDelete("Cascade");
-            $table->string("first_name",128);
-            $table->string("last_name",128);
+            $table->string("first_and_last_name",256);
+            
             $table->string('email',128)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string("username",64);

@@ -28,6 +28,8 @@ use App\Models\ReasonForClosingReservation;
 use App\Models\StatusesOfReservations;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\StudentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,16 +54,6 @@ Route::get('bibliotekarprofile',function(){
 Route::get('novibibliotekar',function(){
     return view('create.noviBibliotekar');
 });
-Route::get('ucenik',function(){
-    return view('student.ucenik');
-});
-Route::get('ucenikprofile',function(){
-    return view('student.ucenikProfile');
-});
-Route::get('noviucenik',function(){
-    return view('create.noviUcenik');
-});
-
 
 Route::get('dashboard',function(){
     return view('dashboard.dashboard');
@@ -94,7 +86,7 @@ Route::resource('statusesofreservations',StatusesOfReservationsController::class
 Route::resource('userlogin',UserLoginController::class);
 Route::resource('users',UsersController::class);
 Route::resource('usertype',UserTypeController::class);
-
+Route::resource("student",StudentController::class);
 
 
 
@@ -107,3 +99,7 @@ Route::get("genreSort",[GenreController::class,"sort"])->name("genre.sort");
 Route::get("publisherSort",[PublisherController::class,"sort"])->name("publisher.sort");
 
 Route::get("categorySort",[CategoryController::class,"sort"])->name("category.sort");
+
+Route::get("alphabetSort",[AlphabetController::class,"sort"])->name("alphabet.sort");
+
+
