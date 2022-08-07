@@ -28,7 +28,7 @@
                     <div class="ml-[25px]">
                         <span class="flex justify-between w-full whitespace-nowrap">
                             <div style="display:flex;" id="bibliotekari-div">
-                                <a style="display:flex;" href="{{url('bibliotekari');}}" aria-label="Bibliotekari">
+                                <a style="display:flex;" href="{{route('librarian.index');}}" aria-label="Bibliotekari">
                                     <i style="padding:4px 5px 5px 5px;" id="bibliotekari-i" class="text-[25px] text-[#707070] far fa-address-book transition duration-300 ease-in group-hover:text-[#576cdf]"></i>
                                     <div class="hidden sidebar-item align-self-center">
                                         <p 

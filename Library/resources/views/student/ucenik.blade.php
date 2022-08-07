@@ -68,7 +68,27 @@
                                         <input type="checkbox" class="form-checkbox">
                                     </label>
                                 </th>
-                                <th class="px-4 py-4 leading-4 tracking-wider text-left">Ime i prezime<a href="#"><i class="ml-3 fa-lg fas fa-long-arrow-alt-down" onclick="sortTable()"></i></a></th>
+                                <th class="px-4 py-4 leading-4 tracking-wider text-left">Ime i prezime
+                                 <a 
+                                @if (Route::current()->getName() == "student.index")
+                                    href="{{route('student.sort');}}"
+                                    @elseif(Route::current()->getName() == "student.sort")
+                                    href="{{route('student.index');}}"
+                                @endif
+                                >
+
+                                @if (Route::current()->getName() == "student.index")
+                                    <i class="ml-3 fa-lg fas fa-long-arrow-alt-down"></i>
+
+                                    @elseif(Route::current()->getName() == "student.sort")
+                                     <i class="ml-3 fa-lg fas fa-long-arrow-alt-up"></i>
+                                @endif
+                                
+                                
+                                
+                                </a>
+                                
+                                </th>
                                 <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Email</th>
                                 <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Tip korisnika</th>
                                 <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Zadnji pristup sistemu</th>
@@ -92,7 +112,7 @@
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-4">
                                  @if (empty($student->photo))
-                                            <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg" alt=""/>
+                                            <img class="object-cover w-8 h-8 mr-2 rounded-full" src="{{asset('img/profileStudent.jpg');}}" alt=""/>
 
                                            @else <img class="object-cover w-8 h-8 mr-2 rounded-full" src="{{asset('category_icon/'.$student->photo)}}" alt=""/>
                                         @endif

@@ -653,7 +653,7 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Tom Sojer </span>
@@ -683,7 +683,7 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Robinson Kruso</span>
@@ -713,7 +713,7 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Tom Sojer </span>
@@ -743,7 +743,7 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Robinson Kruso</span>
@@ -773,7 +773,7 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Tom Sojer </span>
@@ -803,7 +803,7 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Robinson Kruso</span>
@@ -833,7 +833,7 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Tom Sojer </span>
@@ -863,7 +863,7 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Robinson Kruso</span>
@@ -893,7 +893,7 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Tom Sojer </span>
@@ -923,7 +923,7 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Robinson Kruso</span>

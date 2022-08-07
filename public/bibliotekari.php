@@ -44,7 +44,7 @@
             <!-- Space for content -->
             <div class="scroll height-dashboard">
                 <div class="flex items-center justify-between px-[30px] py-4 space-x-3 rounded-lg">
-                    <a href="{{url('novibibliotekar');}}" class="btn-animation inline-flex items-center text-sm py-2.5 px-5 rounded-[5px] tracking-wider text-white bg-[#3f51b5] rounded hover:bg-[#4558BE]">
+                    <a href="{{route('librarian.create');}}" class="btn-animation inline-flex items-center text-sm py-2.5 px-5 rounded-[5px] tracking-wider text-white bg-[#3f51b5] rounded hover:bg-[#4558BE]">
                         <i class="fas fa-plus mr-[15px]"></i> Novi bibliotekar  
                     </a>
                     <div class="flex items-center">
@@ -94,7 +94,7 @@
                                 <td class="flex flex-row items-center px-4 py-4">
                                     <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileExample.jpg"
                                         alt="" />
-                                    <a href="{{url('bibliotekarprofile');}}">
+                                    <a href="{{route('librarian.show',$librarian->id);}}">
                                         <span class="font-medium text-center">Valentina Kascelan</span>
                                     </a>
                                 </td>
@@ -111,7 +111,7 @@
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="{{url('bibliotekarprofile');}}" tabindex="0"
+                                                <a href="{{route('librarian.show',$librarian->id);}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>
@@ -143,7 +143,7 @@
                                 <td class="flex flex-row items-center px-4 py-4">
                                     <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
                                         alt="" />
-                                    <a href="{{url('bibliotekarprofile');}}">
+                                    <a href="{{route('librarian.show',$librarian->id);}}">
                                         <span class="font-medium text-center">Tarik Zaimovic</span>
                                     </a>
                                 </td>
@@ -160,7 +160,7 @@
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="{{url('bibliotekarprofile');}}" tabindex="0"
+                                                <a href="{{route('librarian.show',$librarian->id);}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>
@@ -192,7 +192,7 @@
                                 <td class="flex flex-row items-center px-4 py-4">
                                     <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
                                         alt="" />
-                                    <a href="{{url('bibliotekarprofile');}}">
+                                    <a href="{{route('librarian.show',$librarian->id);}}">
                                         <span class="font-medium text-center">Test Akontacijevic</span>
                                     </a>
                                 </td>
@@ -209,7 +209,7 @@
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="{{url('bibliotekarprofile');}}" tabindex="0"
+                                                <a href="{{route('librarian.show',$librarian->id);}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>
@@ -241,7 +241,7 @@
                                 <td class="flex flex-row items-center px-4 py-4">
                                     <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
                                         alt="" />
-                                    <a href="{{url('bibliotekarprofile');}}">
+                                    <a href="{{route('librarian.show',$librarian->id);}}">
                                         <span class="font-medium text-center">Darko Kascelan</span>
                                     </a>
                                 </td>
@@ -258,7 +258,7 @@
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="{{url('bibliotekarprofile');}}" tabindex="0"
+                                                <a href="{{route('librarian.show',$librarian->id);}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>

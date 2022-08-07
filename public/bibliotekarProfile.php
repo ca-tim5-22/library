@@ -48,7 +48,7 @@
                             <nav class="w-full rounded">
                                 <ol class="flex list-reset">
                                     <li>
-                                        <a href="{{url('bibliotekari');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('librarian.index');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Svi bibliotekari
                                         </a>
                                     </li>
@@ -56,7 +56,7 @@
                                         <span class="mx-2">/</span>
                                     </li>
                                     <li>
-                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             ID-242
                                         </a>
                                     </li>

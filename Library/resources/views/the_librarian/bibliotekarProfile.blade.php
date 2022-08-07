@@ -41,14 +41,14 @@
                     <div class="pl-[30px] py-[10px] flex flex-col">
                         <div>
                             <h1>
-                                Valentina Kascelan
+                                {{$librarian->first_and_last_name}}
                             </h1>
                         </div>
                         <div>
                             <nav class="w-full rounded">
                                 <ol class="flex list-reset">
                                     <li>
-                                        <a href="{{url('bibliotekari');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('librarian.index');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Svi bibliotekari
                                         </a>
                                     </li>
@@ -56,8 +56,8 @@
                                         <span class="mx-2">/</span>
                                     </li>
                                     <li>
-                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
-                                            ID-242
+                                        <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
+                                            ID-{{$librarian->id}}
                                         </a>
                                     </li>
                                 </ol>
@@ -69,7 +69,7 @@
                             <i class="fas fa-redo-alt mr-[3px]"></i>
                             Resetuj sifru
                         </a>
-                        <a href="editBibliotekar.php" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href="{{route('librarian.edit',$librarian->id)}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="fas fa-edit mr-[3px] "></i>
                             Izmjeni podatke
                         </a>
@@ -101,7 +101,7 @@
                     <div class="mr-[30px]">
                         <div class="mt-[20px]">
                             <span class="text-gray-500">Ime i prezime</span>
-                            <p class="font-medium">Valentina Kascelan</p>
+                            <p class="font-medium">{{$librarian->first_and_last_name}}</p>
                         </div>
                         <div class="mt-[40px]">
                             <span class="text-gray-500">Tip korisnika</span>
@@ -109,29 +109,34 @@
                         </div>
                         <div class="mt-[40px]">
                             <span class="text-gray-500">JMBG</span>
-                            <p class="font-medium">1546213456878</p>
+                            <p class="font-medium">{{$librarian->PIN}}</p>
                         </div>
                         <div class="mt-[40px]">
                             <span class="text-gray-500">Email</span>
                             <a
-                                class="cursor-pointer block font-medium text-[#2196f3] hover:text-blue-600">valentina.kascelan@domain.net</a>
+                                class="cursor-pointer block font-medium text-[#2196f3] hover:text-blue-600">{{$librarian->email}}</a>
                         </div>
                         <div class="mt-[40px]">
                             <span class="text-gray-500">Korisnicko ime</span>
-                            <p class="font-medium">valentina.kascelan</p>
+                            <p class="font-medium">{{$librarian->username}}</p>
                         </div>
                         <div class="mt-[40px]">
                             <span class="text-gray-500">Broj logovanja</span>
-                            <p class="font-medium">30</p>
+                            <p class="font-medium">Bice podeseno</p>
                         </div>
                         <div class="mt-[40px]">
                             <span class="text-gray-500">Poslednji put logovan/a</span>
-                            <p class="font-medium">Juce 11:57 AM</p>
+                            <p class="font-medium">Bice podeseno</p>
                         </div>
 
                     </div>
                     <div class="ml-[100px]  mt-[20px]">
-                        <img class="p-2 border-2 border-gray-300" width="300px" src="img/profileExample.jpg" alt="">
+                    @if (empty($librarian->photo))
+                                            <img class="p-2 border-2 border-gray-300" src="{{asset('img/profileStudent.jpg');}}" alt=""/>
+
+                                           @else <img class="p-2 border-2 border-gray-300" src="{{asset('category_icon/'.$librarian->photo)}}" alt=""/>
+                                        @endif
+                       
                     </div>
                 </div>
             </div>
@@ -147,7 +152,7 @@
         <div class="w-[500px] bg-white rounded shadow-lg md:w-1/3">
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-[30px] py-[20px] border-b">
-                <h3>Resetuj sifru: Valentina Kascelan</h3>
+                <h3>Resetuj sifru: {{$librarian->first_and_last_name}}</h3>
                 <button class="text-black close-modal">&cross;</button>
             </div>
             <!-- Modal Body -->

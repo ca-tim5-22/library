@@ -384,6 +384,13 @@ function validacijaBibliotekar() {
   if (pw2Bibliotekar.length == 0) {
     $('#validatePw2Bibliotekar').append('<p style="color:red;font-size:13px;">Morate ponoviti sifru!</p>');
   }
+
+  if(nameBibliotekar.length == 0 || jmbgBibliotekar.lenth == 0 || emailBibliotekar.length == 0 ||usernameBibliotekar.length == 0 || pwBibliotekar.length == 0 ||pw2Bibliotekar.length == 0){
+    return false;
+  }else if(nameBibliotekar.length > 0 && jmbgBibliotekar.lenth > 0 && emailBibliotekar.length > 0 && usernameBibliotekar.length > 0 && pwBibliotekar.length > 0 && pw2Bibliotekar.length > 0){
+    return true;
+  }
+
 }
 
 function clearErrorsNameBibliotekar() {
@@ -410,10 +417,11 @@ function clearErrorsPw2Bibliotekar() {
   $("#validatePw2Bibliotekar").empty();
 }
 
-$("#sacuvajBibliotekara").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaBibliotekar();
+$("#sacuvajBibliotekara").click(function () {
+  if (validacijaBibliotekar() == false) {
     return false;
+  }else{
+    return true;
   }
 });
 
@@ -457,6 +465,13 @@ function validacijaBibliotekarEdit() {
   if (pw2BibliotekarEdit.length == 0) {
     $('#validatePw2BibliotekarEdit').append('<p style="color:red;font-size:13px;">Morate ponoviti sifru!</p>');
   }
+
+  if(nameBibliotekarkEdit.length == 0 || jmbgBibliotekarEdit.lenth == 0 || emailBibliotekarEdit.length == 0 ||usernameBibliotekarEdit.length == 0 || pwBibliotekarEdit.length == 0 ||pw2BibliotekarEdit.length == 0){
+    return false;
+  }else if(nameBibliotekarEdit.length > 0 && jmbgBibliotekarEdit.lenth > 0 && emailBibliotekarEdit.length > 0 && usernameBibliotekarEdit.length > 0 && pwBibliotekarEdit.length > 0 && pw2BibliotekarEdit.length > 0){
+    return true;
+  }
+
 }
 
 function clearErrorsNameBibliotekarEdit() {
@@ -483,10 +498,12 @@ function clearErrorsPw2BibliotekarEdit() {
   $("#validatePw2BibliotekarEdit").empty();
 }
 
-$("#sacuvajBibliotekaraEdit").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaBibliotekarEdit();
+$("#sacuvajBibliotekaraEdit").click(function () {
+  if (validacijaBibliotekarEdit() == false) {
+
     return false;
+  }else{
+    return true;
   }
 });
 
@@ -619,9 +636,9 @@ function validacijaUcenikEdit() {
     $('#validatePw2UcenikEdit').append('<p style="color:red;font-size:13px;">Morate ponoviti sifru!</p>');
   }
 
-  if(nameUcenik.length == 0 || jmbgUcenik.lenth == 0 || emailUcenik.length == 0 ||usernameUcenik.length == 0 || pwUcenik.length == 0 ||pw2Ucenik.length == 0){
+  if(nameUcenikEdit.length == 0 || jmbgUcenikEdit.lenth == 0 || emailUcenikEdit.length == 0 ||usernameUcenikEdit.length == 0 || pwUcenikEdit.length == 0 ||pw2UcenikEdit.length == 0){
     return false;
-  }else if(nameUcenik.length > 0 && jmbgUcenik.lenth > 0 && emailUcenik.length > 0 && usernameUcenik.length > 0 && pwUcenik.length > 0 && pw2Ucenik.length > 0){
+  }else if(nameUcenikEdit.length > 0 && jmbgUcenikEdit.lenth > 0 && emailUcenikEdit.length > 0 && usernameUcenikEdit.length > 0 && pwUcenikEdit.length > 0 && pw2UcenikEdit.length > 0){
     return true;
   }
 }
