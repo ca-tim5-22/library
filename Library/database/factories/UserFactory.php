@@ -10,6 +10,10 @@ use Illuminate\Support\Str;
  */
 class UserFactory extends Factory
 {
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 3b956fca3c28e6dfaf24765502d4b6fa96b46908
     /**
      * Define the model's default state.
      *

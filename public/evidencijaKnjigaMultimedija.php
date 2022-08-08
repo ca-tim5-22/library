@@ -52,7 +52,7 @@
                                 <nav class="w-full rounded">
                                     <ol class="flex list-reset">
                                         <li>
-                                            <a href="evidencijaKnjiga.php" class="text-[#2196f3] hover:text-blue-600">
+                                            <a href="{{route('book.index');}}" class="text-[#2196f3] hover:text-blue-600">
                                                 Evidencija knjiga
                                             </a>
                                         </li>
@@ -60,7 +60,7 @@
                                             <span class="mx-2">/</span>
                                         </li>
                                         <li>
-                                            <a href="knjigaOsnovniDetalji.php"
+                                            <a href="{{route('book.show');}}"
                                                 class="text-[#2196f3] hover:text-blue-600">
                                                 KNJIGA-467
                                             </a>
@@ -117,7 +117,7 @@
             <div class="flex flex-row overflow-auto height-osnovniDetalji">
                 <div class="w-[80%]">
                     <div class="border-b-[1px] border-[#e4dfdf] py-4 text-gray-500 pl-[30px]">
-                        <a href="knjigaOsnovniDetalji.php" class="inline hover:text-blue-800">
+                        <a href="{{route('book.show');}}" class="inline hover:text-blue-800">
                             Osnovni detalji
                         </a>
                         <a href="knjigaSpecifikacija.php" class="inline ml-[70px] hover:text-blue-800">
@@ -338,11 +338,11 @@
                             </div>
                             <div>
                                 <p>
-                                    <a href="bibliotekarProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                         Valentina K.
                                     </a>
                                     je izdala knjigu
-                                    <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                         Peru Perovicu
                                     </a>
                                     dana
@@ -368,11 +368,11 @@
                             </div>
                             <div>
                                 <p>
-                                    <a href="bibliotekarProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                         Valentina K.
                                     </a>
                                     je izdala knjigu
-                                    <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                         Peru Perovicu
                                     </a>
                                     dana
@@ -398,11 +398,11 @@
                             </div>
                             <div>
                                 <p>
-                                    <a href="bibliotekarProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                         Valentina K.
                                     </a>
                                     je izdala knjigu
-                                    <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                         Peru Perovicu
                                     </a>
                                     dana

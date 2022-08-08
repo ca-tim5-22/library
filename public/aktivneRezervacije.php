@@ -469,7 +469,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Ep o Gilgamesu</span>
                                             </a>
                                         </td>
@@ -478,7 +478,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="ucenikProfile.php" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 changeStatus">
@@ -538,7 +538,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Ilijada</span>
                                             </a>
                                         </td>
@@ -547,7 +547,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="ucenikProfile.php" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 changeStatus">
@@ -607,7 +607,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Tom Sojer</span>
                                             </a>
                                         </td>
@@ -616,7 +616,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="ucenikProfile.php" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 changeStatus">
@@ -676,7 +676,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Robinson Kruso</span>
                                             </a>
                                         </td>
@@ -685,7 +685,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="ucenikProfile.php" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 changeStatus">
@@ -745,7 +745,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Robinson Kruso</span>
                                             </a>
                                         </td>
@@ -754,7 +754,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="ucenikProfile.php" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 text-sm leading-5 text-blue-900 whitespace-no-wrap">
@@ -800,7 +800,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Robinson Kruso</span>
                                             </a>
                                         </td>
@@ -809,7 +809,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="ucenikProfile.php" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 text-sm leading-5 text-blue-900 whitespace-no-wrap">
@@ -855,7 +855,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Robinson Kruso</span>
                                             </a>
                                         </td>
@@ -864,7 +864,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="ucenikProfile.php" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 text-sm leading-5 text-blue-900 whitespace-no-wrap">

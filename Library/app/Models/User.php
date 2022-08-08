@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+<<<<<<< HEAD
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,10 +20,25 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+=======
+use Illuminate\Auth\EloquentUserProvider;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class User extends Authenticatable
+{
+    use HasFactory;
+
+    protected $fillable = [
+   
+>>>>>>> 3b956fca3c28e6dfaf24765502d4b6fa96b46908
         'email',
         'password',
     ];
 
+<<<<<<< HEAD
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -40,5 +56,10 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+=======
+    protected $hidden = [
+        'password'
+        
+>>>>>>> 3b956fca3c28e6dfaf24765502d4b6fa96b46908
     ];
 }

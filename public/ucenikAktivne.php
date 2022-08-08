@@ -48,7 +48,7 @@
                             <nav class="w-full rounded">
                                 <ol class="flex list-reset">
                                     <li>
-                                        <a href="ucenik.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('student.index');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Svi ucenici
                                         </a>
                                     </li>
@@ -56,7 +56,7 @@
                                         <span class="mx-2">/</span>
                                     </li>
                                     <li>
-                                        <a href="ucenikProfile.php" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('student.show',$student->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             ID-354
                                         </a>
                                     </li>
@@ -69,7 +69,7 @@
                             <i class="fas fa-redo-alt mr-[3px]"></i>
                             Resetuj sifru
                         </a>
-                        <a href="editUcenik.php" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href={{route('student.edit',$student->id);}} class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="fas fa-edit mr-[3px] "></i>
                             Izmjeni podatke
                         </a>
@@ -94,7 +94,7 @@
                 </div>
             </div>
             <div class="border-b-[1px] py-4 text-gray-500 border-[#e4dfdf] pl-[30px]">
-                <a href="ucenikProfile.php" class="inline hover:text-blue-800">
+                <a href="{{route('student.show',$student->id);}}" class="inline hover:text-blue-800">
                     Osnovni detalji
                 </a>
                 <a href="ucenikIzdate.php" class="inline ml-[70px] active-book-nav">
@@ -240,7 +240,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Ep o Gilgamesu</span>
                                             </a>
                                         </td>
@@ -249,7 +249,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="ucenikProfile.php" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 changeStatus">
@@ -282,7 +282,7 @@
                                                     aria-labelledby="headlessui-menu-button-1"
                                                     id="headlessui-menu-items-117" role="menu">
                                                     <div class="py-1">
-                                                        <a href="knjigaOsnovniDetalji.php" tabindex="0"
+                                                        <a href="{{route('book.show');}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="far fa-file mr-[10px] ml-[5px] py-1"></i>
@@ -349,7 +349,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Ilijada</span>
                                             </a>
                                         </td>
@@ -358,7 +358,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="ucenikProfile.php" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 changeStatus">
@@ -391,7 +391,7 @@
                                                     aria-labelledby="headlessui-menu-button-1"
                                                     id="headlessui-menu-items-117" role="menu">
                                                     <div class="py-1">
-                                                        <a href="knjigaOsnovniDetalji.php" tabindex="0"
+                                                        <a href="{{route('book.show');}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="far fa-file mr-[10px] ml-[5px] py-1"></i>
@@ -458,7 +458,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Tom Sojer</span>
                                             </a>
                                         </td>
@@ -467,7 +467,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="ucenikProfile.php" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 changeStatus">
@@ -500,7 +500,7 @@
                                                     aria-labelledby="headlessui-menu-button-1"
                                                     id="headlessui-menu-items-117" role="menu">
                                                     <div class="py-1">
-                                                        <a href="knjigaOsnovniDetalji.php" tabindex="0"
+                                                        <a href="{{route('book.show');}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="far fa-file mr-[10px] ml-[5px] py-1"></i>
@@ -567,7 +567,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Robinson Kruso</span>
                                             </a>
                                         </td>
@@ -576,7 +576,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="ucenikProfile.php" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 changeStatus">
@@ -609,7 +609,7 @@
                                                     aria-labelledby="headlessui-menu-button-1"
                                                     id="headlessui-menu-items-117" role="menu">
                                                     <div class="py-1">
-                                                        <a href="knjigaOsnovniDetalji.php" tabindex="0"
+                                                        <a href="{{route('book.show');}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="far fa-file mr-[10px] ml-[5px] py-1"></i>
@@ -676,7 +676,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Robinson Kruso</span>
                                             </a>
                                         </td>
@@ -685,7 +685,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="ucenikProfile.php" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 text-sm leading-5 text-blue-900 whitespace-no-wrap">
@@ -704,7 +704,7 @@
                                                     aria-labelledby="headlessui-menu-button-1"
                                                     id="headlessui-menu-items-117" role="menu">
                                                     <div class="py-1">
-                                                        <a href="knjigaOsnovniDetalji.php" tabindex="0"
+                                                        <a href="{{route('book.show');}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="far fa-file mr-[10px] ml-[5px] py-1"></i>
@@ -771,7 +771,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Robinson Kruso</span>
                                             </a>
                                         </td>
@@ -780,7 +780,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="ucenikProfile.php" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 text-sm leading-5 text-blue-900 whitespace-no-wrap">
@@ -799,7 +799,7 @@
                                                     aria-labelledby="headlessui-menu-button-1"
                                                     id="headlessui-menu-items-117" role="menu">
                                                     <div class="py-1">
-                                                        <a href="knjigaOsnovniDetalji.php" tabindex="0"
+                                                        <a href="{{route('book.show');}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="far fa-file mr-[10px] ml-[5px] py-1"></i>
@@ -866,7 +866,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Robinson Kruso</span>
                                             </a>
                                         </td>
@@ -875,7 +875,7 @@
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
                                                 alt="" />
-                                            <a href="ucenikProfile.php" class="ml-2 font-medium text-center">Pero
+                                            <a href="{{route('student.show',$student->id);}}" class="ml-2 font-medium text-center">Pero
                                                 Perovic</a>
                                         </td>
                                         <td class="px-4 py-3 text-sm leading-5 text-blue-900 whitespace-no-wrap">
@@ -895,7 +895,7 @@
                                                     aria-labelledby="headlessui-menu-button-1"
                                                     id="headlessui-menu-items-117" role="menu">
                                                     <div class="py-1">
-                                                        <a href="knjigaOsnovniDetalji.php" tabindex="0"
+                                                        <a href="{{route('book.show');}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="far fa-file mr-[10px] ml-[5px] py-1"></i>

@@ -51,7 +51,7 @@
                                 placeholder="Pretrazi knjige..." autocomplete="off">
                         </div>
                     </div>
-                    <a href="novaKnjiga.php"
+                    <a href="{{route('book.create');}}"
                         class="btn-animation inline-flex items-center text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] tracking-wider text-white bg-[#3f51b5] rounded hover:bg-[#4558BE]">Pretrazi
                     </a>
                 </div>
@@ -548,7 +548,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Geografija Crne Gore</span>
                                             </a>
                                         </td>
@@ -605,7 +605,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Muzicka kultura I Raz</span>
                                             </a>
                                         </td>
@@ -662,7 +662,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Tom Sojer</span>
                                             </a>
                                         </td>
@@ -719,7 +719,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Robinson Kruso</span>
                                             </a>
                                         </td>
@@ -777,7 +777,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Geografija Crne Gore</span>
                                             </a>
                                         </td>
@@ -835,7 +835,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Muzicka kultura I Raz</span>
                                             </a>
                                         </td>
@@ -892,7 +892,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Tom Sojer</span>
                                             </a>
                                         </td>
@@ -949,7 +949,7 @@
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="knjigaOsnovniDetalji.php">
+                                            <a href="{{route('book.show');}}">
                                                 <span class="font-medium text-center">Robinson Kruso</span>
                                             </a>
                                         </td>
