@@ -19,7 +19,14 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $all_students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=1;"));
+        $all_students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=1 ORDER BY `users`.`first_and_last_name` ASC;"));
+        $all_students = (object) $all_students;
+        return view("student.ucenik",compact("all_students"));
+    }
+
+    public function sort()
+    {
+        $all_students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=1 ORDER BY `users`.`first_and_last_name` DESC;"));
         $all_students = (object) $all_students;
         return view("student.ucenik",compact("all_students"));
     }
@@ -123,23 +130,26 @@ class StudentController extends Controller
         $password=$request->password;
         $password2=$request->password2;
         if($password === $password2){
-
-        if( $file=$request->file('photo')){
+         
+        if($request->file('photo')){
             $old=$student->photo;
             $file=$request->file('photo');
+           
             if(!is_null($file)){
             $name=$file->getClientOriginalName();
+           
             $file->move('category_icon',$name);
-            $input=$name;
+            
             @unlink( 'category_icon/'.$old);
-            $student->photo=$input;
+            
+            $student->photo=$name;
             $student->user_type_id=$request->user_type_id;
             $student->first_and_last_name=$request->first_and_last_name;
             $student->email=$request->email;
             $student->username=$request->username;
             $student->PIN=$request->PIN;
             $student->password=Hash::make($password);
-            dd($student->password);
+            
             $student->save();
         }
 }else{

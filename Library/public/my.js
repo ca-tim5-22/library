@@ -23,7 +23,7 @@ let url = window.location.pathname
 
 console.log(url)
 let newarray = url
-    if(newarray.includes("bibliotekari")){
+    if(newarray.includes("librarian")){
        
         bibliotekari.classList.add("bg-[#3F51B5]","text-white","rounded-[3px]")
         bibliotekari.classList.remove("text-[#707070]","group-hover:text-[#576cdf]")

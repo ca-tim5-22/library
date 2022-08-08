@@ -139,7 +139,7 @@
                         </div>
                         <div class="ml-[100px]  mt-[20px]">
                         @if (empty($student->photo))
-                            <img class="p-2 border-2 border-gray-300" width="300px" src="img/profileStudent.jpg" alt="">
+                            <img class="p-2 border-2 border-gray-300" width="300px" src="{{asset('img/profileStudent.jpg');}}" alt="">
 
                             @else <img class="p-2 border-2 border-gray-300" width="300px" src="{{asset('category_icon/'.$student->photo)}}" alt=""/>
                                         @endif

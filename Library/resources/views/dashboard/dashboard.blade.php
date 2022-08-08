@@ -51,8 +51,8 @@
                         <h3 class="uppercase mb-[20px]">Aktivnosti</h3>
                         <!-- Activity Cards -->
 
-                        
-                        <div class="activity-card flex flex-row mb-[30px]">
+                        @foreach ($librarian as $librarian)
+                            <div class="activity-card flex flex-row mb-[30px]">
                             <div class="w-[60px] h-[60px]">
                                 <img class="rounded-full" src="img/profileExample.jpg" alt="">
                             </div>
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                             Valentina K.
                                         </a>
                                         je izdala knjigu <span class="font-medium">Robinson Kruso</span>
@@ -83,6 +83,8 @@
                                 </div>
                             </div>
                         </div>
+                        @endforeach
+                        
                         
                         <div class="inline-block w-full mt-4">
                             <a href="{{url('dashboardaktivnost');}}" 

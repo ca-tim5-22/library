@@ -14,6 +14,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\GlobalVariableController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\LibrarianController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\ReasonForClosingReservationController;
 use App\Http\Controllers\RentController;
@@ -42,24 +43,22 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::get('/', function () {
-    return view("dashboard.dashboard");
+    $student=DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=1"));
+    $student = (object) $student;
+    $librarian= DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=2"));
+    $librarian = (object) $librarian;
+    return view('dashboard.dashboard',compact("student","librarian"));
 });
 
-Route::get('bibliotekari',function(){
-    return view('the_librarian.bibliotekari');
-});
-Route::get('bibliotekarprofile',function(){
-    return view('the_librarian.bibliotekarProfile');
-});
-Route::get('novibibliotekar',function(){
-    return view('create.noviBibliotekar');
-});
+
+
 
 Route::get('dashboard',function(){
     $student=DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=1"));
-
-    return view('dashboard.dashboard',compact("student"));
-
+    $student = (object) $student;
+    $librarian= DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=2"));
+    $librarian = (object) $librarian;
+    return view('dashboard.dashboard',compact("student","librarian"));
 });
 Route::get('dashboardaktivnost',function(){
     return view('dashboard.dashboardAktivnost');
@@ -89,7 +88,7 @@ Route::resource('userlogin',UserLoginController::class);
 Route::resource('users',UsersController::class);
 Route::resource('usertype',UserTypeController::class);
 Route::resource("student",StudentController::class);
-
+Route::resource('librarian',LibrarianController::class);
 
 
 Auth::routes();
@@ -109,3 +108,7 @@ Route::get("bindingsort",[BindingController::class,"sort"])->name("binding.sort"
 Route::get("authorsort",[AuthorController::class,"sort"])->name("author.sort");
 
 Route::get("formatsort",[FormatController::class,"sort"])->name("format.sort");
+
+Route::get("librariansort",[LibrarianController::class,"sort"])->name("librarian.sort");
+
+Route::get("studentsort",[StudentController::class,"sort"])->name("student.sort");

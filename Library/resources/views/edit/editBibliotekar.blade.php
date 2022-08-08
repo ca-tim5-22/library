@@ -48,7 +48,7 @@
                             <nav class="w-full rounded">
                                 <ol class="flex list-reset">
                                     <li>
-                                        <a href="{{url('bibliotekari');}}" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('librarian.index');}}" class="text-[#2196f3] hover:text-blue-600">
                                             Svi bibliotekari
                                         </a>
                                     </li>
@@ -68,51 +68,59 @@
             </div>
             <!-- Space for content -->
             <div class="scroll height-content section-content">
-                <form class="text-gray-700 text-[14px] forma">
+                <form enctype="multipart/form-data" class="text-gray-700 text-[14px]" method="POST" action="{{route('librarian.update',$librarian->id);}}">
+                @csrf
+                @method("PUT")
                     <div class="flex flex-row ml-[30px]">
                         <div class="w-[50%] mb-[100px]">
                             <div class="mt-[20px]">
                                 <span>Ime i prezime <span class="text-red-500">*</span></span>
-                                <input type="text" name="imePrezimeBibliotekarEdit" id="imePrezimeBibliotekarEdit" value="Valentina Kascelan" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsNameBibliotekarEdit()"/>
+                                <input type="text" name="first_and_last_name" id="imePrezimeBibliotekarEdit" value="{{$librarian->first_and_last_name}}" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsNameBibliotekarEdit()"/>
                                 <div id="validateNameBibliotekarEdit"></div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <span>Tip korisnika</span>
-                                <select class="flex w-[90%] mt-2 px-2 py-2 border bg-gray-300 border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="tip_korisnika" disabled>
-                                    <option value="">
-                                        Bibliotekar
+                                <select class="flex w-[90%] mt-2 px-2 py-2 border bg-gray-300 border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="user_type_id" >
+                                <option value="2" >
+                                Librarian
+                                </option>
+                                   @foreach ($user_types as $user_type)
+                                         <option value="{{$user_type->id}}">
+                                        {{$user_type->name}}
                                     </option>
+                                   @endforeach
+                                  
                                 </select>
                             </div>
 
                             <div class="mt-[20px]">
                                 <span>JMBG <span class="text-red-500">*</span></span>
-                                <input type="text" name="jmbgBibliotekarEdit" id="jmbgBibliotekarEdit" value="1546213456878" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsJmbgBibliotekarEdit()"/>
+                                <input type="text" name="PIN" id="jmbgBibliotekarEdit" value="{{$librarian->PIN}}" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsJmbgBibliotekarEdit()"/>
                                 <div id="validateJmbgBibliotekarEdit"></div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <span>E-mail <span class="text-red-500">*</span></span>
-                                <input type="email" name="emailBibliotekarEdit" id="emailBibliotekarEdit" value="valentina.kascelan@domain.net" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsEmailBibliotekarEdit()"/>
+                                <input type="email" name="email" id="emailBibliotekarEdit" value="{{$librarian->email}}" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsEmailBibliotekarEdit()"/>
                                 <div id="validateEmailBibliotekarEdit"></div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <span>Korisnicko ime <span class="text-red-500">*</span></span>
-                                <input type="text" name="usernameBibliotekarEdit" id="usernameBibliotekarEdit" value="valentina.kascelan" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsUsernameBibliotekarEdit()"/>
+                                <input type="text" name="username" id="usernameBibliotekarEdit" value="{{$librarian->username}}" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsUsernameBibliotekarEdit()"/>
                                 <div id="validateUsernameBibliotekarEdit"></div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <span>Sifra <span class="text-red-500">*</span></span>
-                                <input type="password" name="pwBibliotekarEdit" id="pwBibliotekarEdit" value="123456" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsPwBibliotekarEdit()"/>
+                                <input type="password" name="password" id="pwBibliotekarEdit" value="{{$librarian->password}}" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsPwBibliotekarEdit()"/>
                                 <div id="validatePwBibliotekarEdit"></div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <span>Ponovi sifru <span class="text-red-500">*</span></span>
-                                <input type="password" name="pw2BibliotekarEdit" id="pw2BibliotekarEdit" value="123456" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsPw2BibliotekarEdit()"/>
+                                <input type="password" name="password2" id="pw2BibliotekarEdit" value="{{$librarian->password}}" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsPw2BibliotekarEdit()"/>
                                 <div id="validatePw2BibliotekarEdit"></div>
                             </div>
                         </div>
@@ -127,9 +135,14 @@
                                             <polyline points="21 15 16 10 5 21"></polyline>
                                         </svg>
                                         <span class="px-4 py-2 mt-2 leading-normal">Add photo</span>
-                                        <input type='file' class="hidden" :accept="accept" onchange="loadFileLibrarian(event)" />
+                                        <input name="photo" type='file' class="hidden" :accept="accept" onchange="loadFileLibrarian(event)" />
                                     </div>
-                                    <img src="img/profileExample.jpg" id="image-output-librarian" class="absolute w-48 h-[188px] bottom-0" />	
+                                    @if (empty($librarian->photo))
+                                            <img id="image-output-librarian" src="{{asset('img/profileStudent.jpg');}}"  class="absolute w-48 h-[188px] bottom-0" alt=""/>
+
+                                           @else <img id="image-output-librarian"  class="absolute w-48 h-[188px] bottom-0" src="{{asset('category_icon/'.$librarian->photo)}}" alt=""/>
+                                        @endif
+                                    	
                                 </div>
                             </label>  
                         </div>
@@ -138,11 +151,11 @@
                     <div class="absolute bottom-0 w-full">
                         <div class="flex flex-row">
                             <div class="inline-block w-full text-right py-[7px] mr-[100px] text-white">
-                                <button type="button"
+                                <button type="reset" name="reset"
                                         class="btn-animation shadow-lg mr-[15px] w-[150px] focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
                                             Ponisti <i class="fas fa-times ml-[4px]"></i> 
                                 </button>
-                                <button id="sacuvajBibliotekaraEdit" type="submit"
+                                <button id="sacuvajBibliotekaraEdit" type="submit" name="submit"
                                         class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]" onclick="validacijaBibliotekarEdit()">
                                             Sacuvaj <i class="fas fa-check ml-[4px]"></i> 
                                 </button>

@@ -205,7 +205,7 @@
                             </div>
                             <div>
                                 <p>
-                                    <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                         Valentina K.
                                     </a>
                                     je izdala knjigu
@@ -235,7 +235,7 @@
                             </div>
                             <div>
                                 <p>
-                                    <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                         Valentina K.
                                     </a>
                                     je izdala knjigu
@@ -265,7 +265,7 @@
                             </div>
                             <div>
                                 <p>
-                                    <a href="{{url('bibliotekarprofile');}}" class="text-[#2196f3] hover:text-blue-600">
+                                    <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                         Valentina K.
                                     </a>
                                     je izdala knjigu

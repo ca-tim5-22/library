@@ -44,7 +44,7 @@
             <!-- Space for content -->
             <div class="scroll height-dashboard">
                 <div class="flex items-center justify-between px-[30px] py-4 space-x-3 rounded-lg">
-                    <a href="{{url('novibibliotekar');}}" class="btn-animation inline-flex items-center text-sm py-2.5 px-5 rounded-[5px] tracking-wider text-white bg-[#3f51b5] rounded hover:bg-[#4558BE]">
+                    <a href="{{route('librarian.create');}}" class="btn-animation inline-flex items-center text-sm py-2.5 px-5 rounded-[5px] tracking-wider text-white bg-[#3f51b5] rounded hover:bg-[#4558BE]">
                         <i class="fas fa-plus mr-[15px]"></i> Novi bibliotekar  
                     </a>
                     <div class="flex items-center">
@@ -74,8 +74,28 @@
                                         <input type="checkbox" class="form-checkbox">
                                     </label>
                                 </th>
-                                <th class="px-4 py-4 leading-4 tracking-wider text-left">Ime i prezime<a href="#"><i
-                                            class="ml-3 fa-lg fas fa-long-arrow-alt-down" onclick="sortTable()"></i></a>
+                                <th class="px-4 py-4 leading-4 tracking-wider text-left">Ime i prezime
+                                
+                                <a 
+                                @if (Route::current()->getName() == "librarian.index")
+                                    href="{{route('librarian.sort');}}"
+                                    @elseif(Route::current()->getName() == "librarian.sort")
+                                    href="{{route('librarian.index');}}"
+                                @endif
+                                >
+
+                                @if (Route::current()->getName() == "librarian.index")
+                                    <i class="ml-3 fa-lg fas fa-long-arrow-alt-down"></i>
+
+                                    @elseif(Route::current()->getName() == "librarian.sort")
+                                     <i class="ml-3 fa-lg fas fa-long-arrow-alt-up"></i>
+                                @endif
+                                
+                                
+                                
+                                </a>
+
+
                                 </th>
                                 <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Email</th>
                                 <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Tip korisnika</th>
@@ -85,202 +105,67 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white">
-                            <tr class="hover:bg-gray-200 hover:shadow-md border-[1px] border-[#e4dfdf]">
+                            @foreach ($librarians as $librarian)
+                                <tr class="hover:bg-gray-200 hover:shadow-md border-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-4 whitespace-no-wrap">
                                     <label class="inline-flex items-center">
                                         <input type="checkbox" class="form-checkbox">
                                     </label>
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-4">
-                                    <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileExample.jpg"
-                                        alt="" />
-                                    <a href="{{url('bibliotekarprofile');}}">
-                                        <span class="font-medium text-center">Valentina Kascelan</span>
+                                    @if (empty($librarian->photo))
+                                            <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg" alt=""/>
+
+                                           @else <img class="object-cover w-8 h-8 mr-2 rounded-full" src="{{asset('category_icon/'.$librarian->photo)}}" alt=""/>
+                                        @endif
+                                    <a href="{{route('librarian.show',$librarian->id)}}">
+                                        <span class="font-medium text-center">{{$librarian->first_and_last_name}}</span>
                                     </a>
                                 </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">valentina.kascelan@domain...
+                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$librarian->email}}
                                 </td>
                                 <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Bibliotekar</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Prije 10 sati</td>
+                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Bice podeseno</td>
                                 <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
-                                    <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsLibrarian hover:text-[#606FC7]">
+                                    <p style="positon:relative;" class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsLibrarian hover:text-[#606FC7]">
                                         <i class="fas fa-ellipsis-v"></i>
                                     </p>
-                                    <div
-                                        class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-librarian">
+                                    <div style="position:absolute;right:80px;"
+                                        class=" z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-librarian">
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="{{url('bibliotekarprofile');}}" tabindex="0"
+                                                <a href="{{route('librarian.show',$librarian->id)}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>
                                                     <span class="px-4 py-0">Pogledaj detalje</span>
                                                 </a>
-                                                <a href="editBibliotekar.php" tabindex="0"
+                                                <a href="{{route('librarian.edit',$librarian->id)}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
                                                     <span class="px-4 py-0">Izmijeni korisnika</span>
                                                 </a>
-                                                <a href="#" tabindex="0"
+
+
+                                                <form method="POST" action="{{route('librarian.destroy',$librarian->id)}}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" name="submit" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
                                                     <span class="px-4 py-0">Izbrisi korisnika</span>
-                                                </a>
+                                                </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
-                            <tr class="hover:bg-gray-200 hover:shadow-md border-[1px] border-[#e4dfdf]">
-                                <td class="px-4 py-4 whitespace-no-wrap">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
-                                    </label>
-                                </td>
-                                <td class="flex flex-row items-center px-4 py-4">
-                                    <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
-                                        alt="" />
-                                    <a href="{{url('bibliotekarprofile');}}">
-                                        <span class="font-medium text-center">Tarik Zaimovic</span>
-                                    </a>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">tarik.zaimovic@domain.netcom
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Bibliotekar</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Prije 2 dana</td>
-                                <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
-                                    <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsLibrarian hover:text-[#606FC7]">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </p>
-                                    <div
-                                        class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-librarian">
-                                        <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
-                                            aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
-                                            <div class="py-1">
-                                                <a href="{{url('bibliotekarprofile');}}" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Pogledaj detalje</span>
-                                                </a>
-                                                <a href="editBibliotekar.php" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izmijeni korisnika</span>
-                                                </a>
-                                                <a href="#" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izbrisi korisnika</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-gray-200 hover:shadow-md border-[1px] border-[#e4dfdf]">
-                                <td class="px-4 py-4 whitespace-no-wrap">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
-                                    </label>
-                                </td>
-                                <td class="flex flex-row items-center px-4 py-4">
-                                    <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
-                                        alt="" />
-                                    <a href="{{url('bibliotekarprofile');}}">
-                                        <span class="font-medium text-center">Test Akontacijevic</span>
-                                    </a>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
-                                    test.akontacijevic@bild-studio...</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Bibliotekar</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Nije se nikad ulogovao</td>
-                                <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
-                                    <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsLibrarian hover:text-[#606FC7]">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </p>
-                                    <div
-                                        class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-librarian">
-                                        <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
-                                            aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
-                                            <div class="py-1">
-                                                <a href="{{url('bibliotekarprofile');}}" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Pogledaj detalje</span>
-                                                </a>
-                                                <a href="editBibliotekar.php" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izmijeni korisnika</span>
-                                                </a>
-                                                <a href="#" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izbrisi korisnika</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-gray-200 hover:shadow-md border-[1px] border-[#e4dfdf]">
-                                <td class="px-4 py-4 whitespace-no-wrap">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
-                                    </label>
-                                </td>
-                                <td class="flex flex-row items-center px-4 py-4">
-                                    <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
-                                        alt="" />
-                                    <a href="{{url('bibliotekarprofile');}}">
-                                        <span class="font-medium text-center">Darko Kascelan</span>
-                                    </a>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">darko.kascelan@bild-studio...
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Bibliotekar</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Prije 2 nedelje</td>
-                                <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
-                                    <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsLibrarian hover:text-[#606FC7]">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </p>
-                                    <div
-                                        class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-librarian">
-                                        <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
-                                            aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
-                                            <div class="py-1">
-                                                <a href="{{url('bibliotekarprofile');}}" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Pogledaj detalje</span>
-                                                </a>
-                                                <a href="editBibliotekar.php" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izmijeni korisnika</span>
-                                                </a>
-                                                <a href="#" tabindex="0"
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izbrisi korisnika</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                            @endforeach
+                            
                         </tbody>
                     </table>
 
