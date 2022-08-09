@@ -685,7 +685,18 @@ function validacijaKnjiga() {
   $("#validateIzdavac").empty();
   $("#validateGodinaIzdavanja").empty();
   $("#validateKnjigaKolicina").empty();
+  $("#validateBrStrana").empty();
+  $("#validatePismo").empty();
+  $("#validatePovez").empty();
+  $("#validateFormat").empty();
+  $("#validateIsbn").empty();
+  $("#validaciona_poruka").empty();
 
+  let brStrana = $("#brStrana").val();
+  let pismo = $("#pismo").val();
+  let povez = $("#povez").val();
+  let format = $("#format").val();
+  let isbn = $("#isbn").val();
   let nazivKnjiga = $("#nazivKnjiga").val();
   let kategorija = $("#kategorijaInput").val();
   let zanr = $("#zanroviInput").val();
@@ -693,6 +704,26 @@ function validacijaKnjiga() {
   let izdavac = $("#izdavac").val();
   let godinaIzdavanja = $("#godinaIzdavanja").val();
   let knjigaKolicina = $("#knjigaKolicina").val();
+  
+  if (brStrana.length == 0) {
+    $('#validateBrStrana').append('<p style="color:red;font-size:13px;">Morate unijeti broj strana!</p>');
+  }
+
+  if (pismo == null) {
+    $('#validatePismo').append('<p style="color:red;font-size:13px;">Morate selektovati pismo!</p>');
+  }
+
+  if (povez == null) {
+    $('#validatePovez').append('<p style="color:red;font-size:13px;">Morate selektovati povez!</p>');
+  }
+
+  if (format == null) {
+    $('#validateFormat').append('<p style="color:red;font-size:13px;">Morate selektovati format!</p>');
+  }
+
+  if (isbn.length == 0) {
+    $('#validateIsbn').append('<p style="color:red;font-size:13px;">Morate unijeti ISBN!</p>');
+  }
 
   if (nazivKnjiga.length == 0) {
     $('#validateNazivKnjiga').append('<p style="color:red;font-size:13px;">Morate unijeti naziv knjige!</p>');
@@ -720,6 +751,14 @@ function validacijaKnjiga() {
 
   if (knjigaKolicina.length == 0) {
     $('#validateKnjigaKolicina').append('<p style="color:red;font-size:13px;">Morate unijeti kolicinu!</p>');
+  }
+
+  if(nazivKnjiga.length == 0 || kategorija.length == 0 || zanr.length == 0 || autori.length == 0 || izdavac == null || godinaIzdavanja == null || knjigaKolicina.length == 0 || brStrana == 0 || pismo == null || povez == null || format == null || isbn.length == 0){
+    $("#validaciona_poruka").append('<p style="color:red;font-size:22px;">Morate popuniti polja i na drugim stranicama!!!</p>');
+    return false;
+
+  }else if(nazivKnjiga.length > 0 && kategorija.length > 0 && zanr.length > 0 && autori.length > 0 && izdavac != null && godinaIzdavanja != null && knjigaKolicina.length > 0 &&  brStrana > 0 && pismo != null && povez != null && format != null && isbn.length > 0){
+    return true;
   }
 }
 
@@ -751,10 +790,11 @@ function clearErrorsKnjigaKolicina() {
   $("#validateKnjigaKolicina").empty();
 }
 
-$("#sacuvajKnjigu").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaKnjiga();
+$("#sacuvajKnjigu").click(function () {
+  if (validacijaKnjiga() == false) {
     return false;
+  }else{
+    return true;
   }
 });
 
@@ -875,6 +915,12 @@ function validacijaSpecifikacija() {
   if (isbn.length == 0) {
     $('#validateIsbn').append('<p style="color:red;font-size:13px;">Morate unijeti ISBN!</p>');
   }
+
+  if(brStrana.length == 0 || pismo == null || povez == null || format == null || isbn.length == 0 ){
+    return false;
+  }else if(brStrana.length > 0 || pismo != null || povez != null || format != null || isbn.length > 0 ){
+    return true;
+  }
 }
 
 function clearErrorsBrStrana() {
@@ -897,10 +943,12 @@ function clearErrorsIsbn() {
   $("#validateIsbn").empty();
 }
 
-$("#sacuvajSpecifikaciju").keypress(function (e) {
-  if (e.which == 13) {
-    validacijaSpecifikacija();
+$("#sacuvajSpecifikaciju").click(function () {
+  if (validacijaSpecifikacija == false) {
+    
     return false;
+  }else{
+    return true;
   }
 });
 
@@ -2586,4 +2634,48 @@ $('.checkOthers').change(function () {
     $('tr').children().eq(7).html('U prekoracenju')
     $('tr').children().eq(8).html('Ukupna kolicina')
   }
+});
+
+const info_link = document.getElementById("info_link")
+const spec_link = document.getElementById("spec_link")
+const mult_link = document.getElementById("mult_link")
+
+info_link.addEventListener("click",()=>{
+    newbookinfo.classList.add("active-form");
+    newbookinfo.classList.remove("nonactive-form");
+    newbookspec.classList.remove("active-form");
+    newbookspec.classList.add("nonactive-form");
+    newbookmult.classList.remove("active-form");
+    newbookmult.classList.add("nonactive-form");
+    info_link.classList.add("active-book-nav")
+    spec_link.classList.remove("active-book-nav")
+    mult_link.classList.remove("active-book-nav")
+})
+spec_link.addEventListener("click",()=>{
+    newbookinfo.classList.remove("active-form");
+    newbookinfo.classList.add("nonactive-form");
+    newbookspec.classList.add("active-form");
+    newbookspec.classList.remove("nonactive-form");
+    newbookmult.classList.remove("active-form");
+    newbookmult.classList.add("nonactive-form");
+    info_link.classList.remove("active-book-nav")
+    spec_link.classList.add("active-book-nav")
+    mult_link.classList.remove("active-book-nav")
+})
+mult_link.addEventListener("click",()=>{
+    newbookinfo.classList.remove("active-form");
+    newbookinfo.classList.add("nonactive-form");
+    newbookspec.classList.remove("active-form");
+    newbookspec.classList.add("nonactive-form");
+    newbookmult.classList.add("active-form");
+    newbookmult.classList.remove("nonactive-form");
+    info_link.classList.remove("active-book-nav")
+    spec_link.classList.remove("active-book-nav")
+    mult_link.classList.add("active-book-nav")
+})
+
+const selecticaoption = document.getElementById("selecticaoption")
+
+selecticaoption.addEventListener("click",()=>{
+      selecticaoption.submit();
 });

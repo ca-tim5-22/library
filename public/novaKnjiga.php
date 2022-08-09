@@ -70,10 +70,10 @@
                 <a href="#" class="inline active-book-nav hover:text-blue-800">
                     Osnovni detalji
                 </a>
-                <a href="novaKnjigaSpecifikacija.php" class="inline ml-[70px] hover:text-blue-800 ">
+                <a href="{{url('book/newBookSpecification);}}" class="inline ml-[70px] hover:text-blue-800 ">
                     Specifikacija
                 </a>
-                <a href="novaKnjigaMultimedija.php" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{url('book/newBookMultimedia');}}" class="inline ml-[70px] hover:text-blue-800">
                     Multimedija
                 </a>
             </div>
@@ -390,16 +390,15 @@
                 </select>
                 <div id="validateIzdavac"></div>
             </div>
-
             <div class="mt-[20px]">
                 <p>Godina izdavanja <span class="text-red-500">*</span></p>
-                <select
-                    class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
-                    name="godinaIzdavanja" id="godinaIzdavanja" onclick="clearErrorsGodinaIzdavanja()">
+                <select class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
+                    name="release_date" id="godinaIzdavanja" onclick="clearErrorsGodinaIzdavanja()">
                     <option disabled selected></option>
-                    <option value="">
-                        Godina izdavanja 1
-                    </option>
+                              @for($i=1900 ; $i < date("Y") ; $i++)
+                                <option value="{{$i}}">{{$i}}. godina</option>
+                              @endfor
+                
                 </select>
                 <div id="validateGodinaIzdavanja"></div>
             </div>
@@ -445,7 +444,7 @@
     <!-- End Scripts -->
 
     <script>
-    CKEDITOR.replace('kratki_sadrzaj', {
+    CKEDITOR.replace('content', {
         width: "90%",
         height: "150px"
     });

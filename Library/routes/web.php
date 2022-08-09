@@ -43,11 +43,25 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::get('/', function () {
-    $student=DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=1"));
-    $student = (object) $student;
-    $librarian= DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=2"));
-    $librarian = (object) $librarian;
-    return view('dashboard.dashboard',compact("student","librarian"));
+    return view("login");
+});
+
+Auth::routes();
+/* Route::group(['middleware' => 'auth'], function(){
+ */
+Route::get("book/newBookSpecification",function(){
+    $bindings=DB::select(DB::raw("SELECT * FROM `bindings`"));
+    $bindings = (object) $bindings;
+    $alphabets=DB::select(DB::raw("SELECT * FROM `alphabets`"));
+    $alphabets = (object) $alphabets;
+    $formats=DB::select(DB::raw("SELECT * FROM `formats`"));
+    $formats = (object) $formats;
+    return view("create.novaknjigaSpecifikacija",compact("bindings","alphabets","formats"));
+});
+
+Route::get("book/newBookMultimedia",function(){
+    
+    return view("create.novaKnjigaMultimedija");
 });
 
 
@@ -91,7 +105,7 @@ Route::resource("student",StudentController::class);
 Route::resource('librarian',LibrarianController::class);
 
 
-Auth::routes();
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -112,3 +126,9 @@ Route::get("formatsort",[FormatController::class,"sort"])->name("format.sort");
 Route::get("librariansort",[LibrarianController::class,"sort"])->name("librarian.sort");
 
 Route::get("studentsort",[StudentController::class,"sort"])->name("student.sort");
+
+Route::get("booksort",[BookController::class,"sort"])->name("book.sort");
+/*-------------------------------------------------------------------------------------------*/
+
+Route::get("bookspec",[BookController::class,"spec"])->name("book.spec");
+/* }); */

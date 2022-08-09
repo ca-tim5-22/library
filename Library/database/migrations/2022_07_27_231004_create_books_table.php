@@ -46,7 +46,7 @@ return new class extends Migration
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
-            $table->date("rent_date");
+            $table->date("release_date");
             $table->string("ISBN",20);
             $table->integer("total");
             $table->integer("rented");

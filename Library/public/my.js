@@ -19,6 +19,10 @@ const knjige_li = document.getElementById("knjige-li")
 const autori_li = document.getElementById("autori-li")
 const izdavanjeknjige_li = document.getElementById("izdavanjeknjige-li")
 
+const newbookinfo = document.getElementById("new_book_information")
+const newbookspec = document.getElementById("new_book_specification")
+const newbookmult = document.getElementById("new_book_multimedia")
+
 let url = window.location.pathname
 
 console.log(url)

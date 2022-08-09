@@ -9,7 +9,7 @@ class Book extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['title','number_of_pages','rent_date','ISBN','total','rented','reserved','content'];
+    protected $fillable = ['title','number_of_pages','release_date','ISBN','total','rented','reserved','content',"alphabet_id","publisher_id"];
     
     public function alphabet(){
     return $this->hasOne(Alphabet::class);
