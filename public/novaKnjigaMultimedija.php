@@ -70,7 +70,7 @@
                 <a href="{{route('book.create');}}" class="inline hover:text-blue-800">
                     Osnovni detalji
                 </a>
-                <a href="novaKnjigaSpecifikacija.php" class="inline ml-[70px] hover:text-blue-800 ">
+                <a href="{{url('book/newBookSpecification);}}" class="inline ml-[70px] hover:text-blue-800 ">
                     Specifikacija
                 </a>
                 <a href="#" class="inline active-book-nav ml-[70px] hover:text-blue-800">

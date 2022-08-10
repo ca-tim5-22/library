@@ -11,4 +11,7 @@ class Binding extends Model
     
     protected $fillable = ['name'];
 
+    public function binding(){
+        return $this->hasMany(Book::class);
+        }
 }

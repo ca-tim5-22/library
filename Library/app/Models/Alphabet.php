@@ -10,7 +10,9 @@ class Alphabet extends Model
     use HasFactory;
     
     protected $fillable = [
-        'name'
-                        ];
+        'name'];
     
+        public function alphabet(){
+            return $this->hasMany(Book::class);
+            }
 }

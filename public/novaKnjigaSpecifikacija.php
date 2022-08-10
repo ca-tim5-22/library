@@ -73,7 +73,7 @@
                         <a href="#" class="inline active-book-nav ml-[70px] hover:text-blue-800 ">
                             Specifikacija
                         </a>
-                        <a href="novaKnjigaMultimedija.php" class="inline ml-[70px] hover:text-blue-800">
+                        <a href="{{url('book/newBookMultimedia');}}" class="inline ml-[70px] hover:text-blue-800">
                             Multimedija
                         </a>
                     </div>

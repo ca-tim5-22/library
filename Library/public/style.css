@@ -203,7 +203,12 @@
 }
 
 /*Checkbox dashboard activity*/
-
+.active-form{
+display: block !important;
+}
+.nonactive-form{
+  display: none;
+}
 input:checked+svg {
   display: block;
 }

@@ -21,7 +21,11 @@
     @include('includes\layout\styles')
     <!-- End Styles -->
 </head>
+<?php
 
+
+
+?>
 <body class="overflow-hidden small:bg-gradient-to-r small:from-green-400 small:to-blue-500">
     <!-- Header -->
     @include('includes\layout\header')
@@ -36,6 +40,7 @@
         <!-- Content -->
         <section class="w-screen h-screen pl-[80px] pb-4 text-gray-700">
             <!-- Heading of content -->
+                  
             <div class="heading">
                 <div class="flex border-b-[1px] border-[#e4dfdf]">
                     <div class="pl-[30px] py-[10px] flex flex-col">
@@ -66,6 +71,7 @@
                     </div>
                 </div>
             </div>
+            
             <div class="border-b-[2px] py-4 text-gray-500 border-gray-300 pl-[30px]">
                         <a href="{{route('book.create');}}" class="inline hover:text-blue-800">
                             Osnovni detalji
@@ -73,51 +79,58 @@
                         <a href="#" class="inline active-book-nav ml-[70px] hover:text-blue-800 ">
                             Specifikacija
                         </a>
-                        <a href="novaKnjigaMultimedija.php" class="inline ml-[70px] hover:text-blue-800">
+                        <a href="{{url('book/newBookMultimedia');}}" class="inline ml-[70px] hover:text-blue-800">
                             Multimedija
                         </a>
                     </div>
             <!-- Space for content -->
             <div class="scroll height-content section-content">
-                <form class="text-gray-700 forma">
+                <form class="text-gray-700" method="post" action="{{route('book.create');}}">
+                @csrf
+                @method("GET")
                     <div class="flex flex-row ml-[30px]">
                         <div class="w-[50%] mb-[150px]">
                             <div class="mt-[20px]">
+                           
                                 <p>Broj strana <span class="text-red-500">*</span></p>
-                                <input type="text" name="brStrana" id="brStrana" class="flex w-[45%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsBrStrana()"/>
+                                @if (isset($cache_number_of_pages))
+                                     <input value="{{$cache_number_of_pages}}" type="text" name="number_of_pages" id="brStrana" class="flex w-[45%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsBrStrana()"/>
+
+
+                                     @else
+                                     <input type="text" name="number_of_pages" id="brStrana" class="flex w-[45%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsBrStrana()"/>
+                                @endif
+
+
+
+                                
                                 <div id="validateBrStrana"></div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <p>Pismo <span class="text-red-500">*</span></p>
-                                <select class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="pismo" id="pismo" onclick="clearErrorsPismo()">
-                                    <option disabled selected></option>
-                                    <option value="">
-                                        Cirilica
-                                    </option>
-                                    <option value="">
-                                        Latinica
-                                    </option>
-                                    <option value="">
-                                        Arapsko
-                                    </option>
-                                    <option value="">
-                                        Kinesko
-                                    </option>
+                                <select class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="alphabet" id="pismo" onclick="clearErrorsPismo()">
+                                @foreach ($alphabets as $alphabet)
+                                    @if ($alphabet->id == $cache_alphabet)
+                                        <option value="{{$cache_alphabet}}" selected>{{$alphabet->name}}</option>
+                                    @endif
+
+                                     <option value="{{$alphabet->id}}" >{{$alphabet->name}}</option>
+                                @endforeach
                                 </select>
                                 <div id="validatePismo"></div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <p>Povez <span class="text-red-500">*</span></p>
-                                <select class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="povez" id="povez" onclick="clearErrorsPovez()">
-                                    <option disabled selected></option>
-                                    <option value="">
-                                        Tvrdi
-                                    </option>
-                                    <option value="">
-                                        Meki
-                                    </option>
+                                <select class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="binding" id="povez" onclick="clearErrorsPovez()">
+                                   @foreach ($bindings as $binding)
+                                    @if ($binding->id == $cache_binding)
+                                        <option value="{{$cache_binding}}" selected>{{$binding->name}}</option>
+                                    @endif
+
+                                     <option value="{{$binding->id}}" >{{$binding->name}}</option>
+                                @endforeach 
                                 </select>
                                 <div id="validatePovez"></div>
                             </div>
@@ -125,20 +138,26 @@
                             <div class="mt-[20px]">
                                 <p>Format <span class="text-red-500">*</span></p>
                                 <select class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="format" id="format" onclick="clearErrorsFormat()">
-                                    <option disabled selected></option>
-                                    <option value="">
-                                        A1
-                                    </option>
-                                    <option value="">
-                                        A2
-                                    </option>
+                                     @foreach ($formats as $format)
+
+                                        @if ($format->id == $cache_format)
+                                             <option value="{{$cache_format}}" selected>{{$format->name}}</option>
+                                        @endif
+
+                                        <option value="{{$format->id}}" >{{$format->name}}</option>
+                                    @endforeach
                                 </select>
                                 <div id="validateFormat"></div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <p>International Standard Book Num <span class="text-red-500">*</span></p>
-                                <input type="text" name="isbn" id="isbn" class="flex w-[45%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsIsbn()"/>
+                                @if (isset($cache_ISBN))
+                                     <input type="text" name="ISBN" id="isbn" value="{{$cache_ISBN}}" class="flex w-[45%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsIsbn()"/>
+                                     @else
+                                      <input type="text" name="ISBN" id="isbn" class="flex w-[45%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsIsbn()"/>
+                                @endif
+                               
                                 <div id="validateIsbn"></div>
                             </div>
                         </div>
@@ -146,11 +165,11 @@
                     <div class="absolute bottom-0 w-full">
                         <div class="flex flex-row">
                             <div class="inline-block w-full text-white text-right py-[7px] mr-[100px]">
-                                <button type="button"
+                                <button type="reset"
                                     class="btn-animation shadow-lg mr-[15px] w-[150px] focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
                                     Ponisti <i class="fas fa-times ml-[4px]"></i>
                                 </button>
-                                <button id="sacuvajSpecifikaciju" type="submit"
+                                <button id="sacuvajSpecifikaciju" type="submit" name="submit"
                                     class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]" onclick="validacijaSpecifikacija()">
                                     Sacuvaj <i class="fas fa-check ml-[4px]"></i>
                                 </button>
@@ -158,7 +177,10 @@
                         </div>
                     </div>
                 </form>
+
+                
             </div>
+      
         </section>
         <!-- End Content -->
     </main>
