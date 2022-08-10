@@ -7,6 +7,7 @@ use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\User;
 use App\Models\Users;
+use App\Models\UserType;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,14 +20,14 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $all_students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=1 ORDER BY `users`.`first_and_last_name` ASC;"));
+        $all_students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=2 ORDER BY `users`.`first_and_last_name` ASC;"));
         $all_students = (object) $all_students;
         return view("student.ucenik",compact("all_students"));
     }
 
     public function sort()
     {
-        $all_students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=1 ORDER BY `users`.`first_and_last_name` DESC;"));
+        $all_students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=2 ORDER BY `users`.`first_and_last_name` DESC;"));
         $all_students = (object) $all_students;
         return view("student.ucenik",compact("all_students"));
     }
@@ -38,10 +39,10 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $user_types=DB::select(DB::raw("SELECT * FROM type_of_users"));
-        $user_types = (object) $user_types;
+        /* $user_types=DB::select(DB::raw("SELECT * FROM type_of_users"));
+        $user_types = (object) $user_types; */
 
-        return view("create.noviUcenik",compact("user_types"));
+        return view("create.noviUcenik"/* ,compact("user_types") */);
     }
 
     /**
@@ -52,7 +53,7 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request)
     {
-       
+        $user_type=UserType::findOrFail(2);
         $first_and_last_name=$request->first_and_last_name;
        
         
@@ -61,11 +62,10 @@ class StudentController extends Controller
         if($password === $password2){
         if($file=$request->file('photo')){
             $photo_name=$file->getClientOriginalName();
-            $file->move('category_icon',$photo_name);
+            $file->move('user_photo',$photo_name);
             $input=$photo_name;
         
-            Users::create([
-                    'user_type_id'=>$request->user_type_id,
+            $user=Users::create([
                     'first_and_last_name'=>$first_and_last_name,
                     'email'=>$request->email,
                     'username'=>$request->username,
@@ -77,8 +77,7 @@ class StudentController extends Controller
 
            
         
-            Users::create([
-                'user_type_id'=>$request->user_type_id,
+            $user=Users::create([
                 'first_and_last_name'=>$first_and_last_name,
                 'email'=>$request->email,
                 'username'=>$request->username,
@@ -87,6 +86,7 @@ class StudentController extends Controller
                 ]); 
                  
             }
+            $user_type->type()->save($user);
                  return redirect('/student');
             } 
     }
@@ -111,10 +111,10 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Student $student)
-    { $user_types=DB::select(DB::raw("SELECT * FROM type_of_users"));
-        $user_types = (object) $user_types;
+    { /* $user_types=DB::select(DB::raw("SELECT * FROM type_of_users")); */
+       /*  $user_types = (object) $user_types; */
         $student=Users::findOrFail($student->id);
-        return view("edit.editUcenik",compact("student","user_types"));
+        return view("edit.editUcenik",compact("student"));
     }
 
     /**
@@ -138,12 +138,11 @@ class StudentController extends Controller
             if(!is_null($file)){
             $name=$file->getClientOriginalName();
            
-            $file->move('category_icon',$name);
+            $file->move('user_photo',$name);
             
-            @unlink( 'category_icon/'.$old);
+            @unlink( 'user_photo/'.$old);
             
             $student->photo=$name;
-            $student->user_type_id=$request->user_type_id;
             $student->first_and_last_name=$request->first_and_last_name;
             $student->email=$request->email;
             $student->username=$request->username;
@@ -153,7 +152,6 @@ class StudentController extends Controller
             $student->save();
         }
 }else{
-            $student->user_type_id=$request->user_type_id;
             $student->first_and_last_name=$request->first_and_last_name;
             $student->email=$request->email;
             $student->username=$request->username;

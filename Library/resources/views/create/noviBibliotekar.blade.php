@@ -68,7 +68,7 @@
             </div>
             <!-- Space for content -->
             <div class="scroll height-content section-content">
-                <form class="text-gray-700 text-[14px]" method="POST" action="{{route('librarian.store');}}">
+                <form class="text-gray-700 text-[14px]" method="POST" enctype="multipart/form-data" action="{{route('librarian.store');}}">
                 @csrf
                 @method("POST")
                     <div class="flex flex-row ml-[30px]">
@@ -79,7 +79,7 @@
                                 <div id="validateNameBibliotekar"></div>
                             </div>
 
-                            <div class="mt-[20px]">
+                          {{--    <div class="mt-[20px]">
                                 <span>Tip korisnika</span>
                                 <select class="flex w-[90%] mt-2 px-2 py-2 border bg-gray-300 border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="user_type_id">
                                 @foreach ($librarian_type as $librarian_type)
@@ -89,7 +89,7 @@
                                 @endforeach
                                     
                                 </select>
-                            </div>
+                            </div>  --}}
 
                             <div class="mt-[20px]">
                                 <span>JMBG <span class="text-red-500">*</span></span>

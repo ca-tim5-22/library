@@ -24,7 +24,7 @@ class Users extends Model
         'password',
         
     ];
-    public function type(){
+    /* public function type(){
     return $this->hasOne(UserType::class);
-    }
+    } */
 }

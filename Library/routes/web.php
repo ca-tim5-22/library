@@ -21,6 +21,7 @@ use App\Http\Controllers\RentController;
 use App\Http\Controllers\RentStatusController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ReservationStatusController;
+use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\StatusesOfReservationsController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\UsersController;
@@ -103,6 +104,7 @@ Route::resource('users',UsersController::class);
 Route::resource('usertype',UserTypeController::class);
 Route::resource("student",StudentController::class);
 Route::resource('librarian',LibrarianController::class);
+Route::resource('resetpassword',ResetPassword::class);
 
 
 
@@ -128,6 +130,7 @@ Route::get("librariansort",[LibrarianController::class,"sort"])->name("librarian
 Route::get("studentsort",[StudentController::class,"sort"])->name("student.sort");
 
 Route::get("booksort",[BookController::class,"sort"])->name("book.sort");
+
 /*-------------------------------------------------------------------------------------------*/
 
 Route::get("bookspec",[BookController::class,"spec"])->name("book.spec");
