@@ -114,7 +114,7 @@
                                  @if (empty($student->photo))
                                             <img class="object-cover w-8 h-8 mr-2 rounded-full" src="{{asset('img/profileStudent.jpg');}}" alt=""/>
 
-                                           @else <img class="object-cover w-8 h-8 mr-2 rounded-full" src="{{asset('category_icon/'.$student->photo)}}" alt=""/>
+                                           @else <img class="object-cover w-8 h-8 mr-2 rounded-full" src="{{asset('user_photo/'.$student->photo)}}" alt=""/>
                                         @endif
                                         
                                         <a href="{{route('student.show',$student->id);}}">

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreLibrarianRequest;
 use App\Http\Requests\UpdateLibrarianRequest;
 use Illuminate\Support\Facades\DB;
 use App\Models\Users;
+use App\Models\UserType;
 use Illuminate\Support\Facades\Hash;
 class LibrarianController extends Controller
 {
@@ -17,7 +18,7 @@ class LibrarianController extends Controller
      */
     public function index()
     {
-        $librarians=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=2 ORDER BY users.first_and_last_name ASC;"));
+        $librarians=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=1 ORDER BY users.first_and_last_name ASC;"));
         $librarians = (object) $librarians;
         return view("the_librarian.bibliotekari",compact("librarians"));
     }
@@ -36,9 +37,9 @@ class LibrarianController extends Controller
      */
     public function create()
     {
-        $librarian_type=DB::select(DB::raw("SELECT * FROM type_of_users WHERE type_of_users.name=\"Librarian\";"));
-        $librarian_type = (object) $librarian_type;
-        return view("create.noviBibliotekar",compact("librarian_type"));
+        /* $librarian_type=DB::select(DB::raw("SELECT * FROM type_of_users WHERE type_of_users.name=\"Librarian\";"));
+        $librarian_type = (object) $librarian_type; */
+        return view("create.noviBibliotekar"/* ,compact("librarian_type") */);
     }
 
     /**
@@ -49,7 +50,7 @@ class LibrarianController extends Controller
      */
     public function store(StoreLibrarianRequest $request)
     {
-        
+        $user_type=UserType::findOrFail(1);
         $first_and_last_name=$request->first_and_last_name;
        
         
@@ -58,11 +59,10 @@ class LibrarianController extends Controller
         if($password === $password2){
         if($file=$request->file('photo')){
             $photo_name=$file->getClientOriginalName();
-            $file->move('category_icon',$photo_name);
+            $file->move('user_photo',$photo_name);
             $input=$photo_name;
         
-            Users::create([
-                    'user_type_id'=>$request->user_type_id,
+            $user=Users::create([
                     'first_and_last_name'=>$first_and_last_name,
                     'email'=>$request->email,
                     'username'=>$request->username,
@@ -74,8 +74,7 @@ class LibrarianController extends Controller
 
            
         
-            Users::create([
-                'user_type_id'=>$request->user_type_id,
+            $user=Users::create([
                 'first_and_last_name'=>$first_and_last_name,
                 'email'=>$request->email,
                 'username'=>$request->username,
@@ -84,6 +83,8 @@ class LibrarianController extends Controller
                 ]); 
                  
             }
+
+            $user_type->type()->save($user);
                  return redirect('/librarian');
             } 
     }
@@ -111,8 +112,8 @@ class LibrarianController extends Controller
 
         $librarian= Users::findOrFail($librarian->id);
        
-        $user_types= DB::select(DB::raw("SELECT * FROM type_of_users"));
-        return view("edit.editBibliotekar",compact("librarian","user_types"));
+        /* $user_types= DB::select(DB::raw("SELECT * FROM type_of_users")); */
+        return view("edit.editBibliotekar" ,compact("librarian"));
     }
 
     /**
@@ -139,11 +140,10 @@ class LibrarianController extends Controller
 
             if(!is_null($file)){
             $name=$file->getClientOriginalName();
-            $file->move('category_icon',$name);
+            $file->move('user_photo',$name);
             
-            @unlink( 'category_icon/'.$old);
+            @unlink( 'user_photo/'.$old);
             $librarian->photo=$name;
-            $librarian->user_type_id=$request->user_type_id;
             $librarian->first_and_last_name=$request->first_and_last_name;
             $librarian->email=$request->email;
             $librarian->username=$request->username;
@@ -154,7 +154,6 @@ class LibrarianController extends Controller
         }
 }else{
     
-            $librarian->user_type_id=$request->user_type_id;
             $librarian->first_and_last_name=$request->first_and_last_name;
             $librarian->email=$request->email;
             $librarian->username=$request->username;
@@ -180,4 +179,6 @@ class LibrarianController extends Controller
 
         return redirect("/librarian");
     }
+
+    
 }

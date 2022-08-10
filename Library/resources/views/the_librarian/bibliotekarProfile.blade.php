@@ -65,10 +65,14 @@
                         </div>
                     </div>
                     <div class="pt-[24px] pr-[30px]">
+
+
                         <a href="#" class="inline hover:text-blue-600 show-modal">
                             <i class="fas fa-redo-alt mr-[3px]"></i>
                             Resetuj sifru
                         </a>
+
+
                         <a href="{{route('librarian.edit',$librarian->id)}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="fas fa-edit mr-[3px] "></i>
                             Izmjeni podatke
@@ -83,12 +87,16 @@
                             <div class="absolute right-0 w-56 mt-[10px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                 aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                 <div class="py-1">
-                                    <a href="#" tabindex="0"
-                                        class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                        role="menuitem">
-                                        <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                        <span class="px-4 py-0">Izbrisi korisnika</span>
-                                    </a>
+                                    <form method="POST" action="{{route('librarian.destroy',$librarian->id)}}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" name="submit" tabindex="0"
+                                            class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
+                                            role="menuitem">
+                                            <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
+                                            <span class="px-4 py-0">Izbrisi korisnika</span>
+                                        </button>
+                                        </form>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +142,7 @@
                     @if (empty($librarian->photo))
                                             <img class="p-2 border-2 border-gray-300" src="{{asset('img/profileStudent.jpg');}}" alt=""/>
 
-                                           @else <img class="p-2 border-2 border-gray-300" src="{{asset('category_icon/'.$librarian->photo)}}" alt=""/>
+                                           @else <img class="p-2 border-2 border-gray-300" src="{{asset('user_photo/'.$librarian->photo)}}" alt=""/>
                                         @endif
                        
                     </div>
@@ -156,21 +164,24 @@
                 <button class="text-black close-modal">&cross;</button>
             </div>
             <!-- Modal Body -->
-            <form class="forma">
+            <form  method="POST" action="{{route('resetpassword.update',$librarian->id);}}" >
+                
                 <div class="flex flex-col px-[30px] py-[30px]">
+                    @csrf
+                @method("PUT")
                     <div class="flex flex-col pb-[30px]">
                         <span>Unesi novu sifru <span class="text-red-500">*</span></span>
-                        <input class="h-[40px] px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" type="password" name="pwResetBibliotekar" id="pwResetBibliotekar" onkeydown="clearErrorsPwResetBibliotekar()">
+                        <input class="h-[40px] px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" type="password" name="password" id="pwResetBibliotekar" onkeydown="clearErrorsPwResetBibliotekar()">
                         <div id="validatePwResetBibliotekar"></div>
                     </div>
                     <div class="flex flex-col pb-[30px]">
                         <span>Ponovi sifru <span class="text-red-500">*</span></span>
-                        <input class="h-[40px] px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" type="password" name="pw2ResetBibliotekar" id="pw2ResetBibliotekar" onkeydown="clearErrorsPw2ResetBibliotekar()">
+                        <input class="h-[40px] px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" type="password" name="password2" id="pw2ResetBibliotekar" onkeydown="clearErrorsPw2ResetBibliotekar()">
                         <div id="validatePw2ResetBibliotekar"></div>
                     </div>
                 </div>
                 <div class="flex items-center justify-end px-[30px] py-[20px] border-t w-100 text-white">
-                    <button type="button"
+                    <button type="reset"
                         class="shadow-lg mr-[15px] w-[150px] focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
                         Ponisti <i class="fas fa-times ml-[4px]"></i>
                     </button>

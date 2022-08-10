@@ -79,7 +79,7 @@
                                 <div id="validateNameUcenikEdit"></div>
                             </div>
 
-                            <div class="mt-[20px]">
+                         {{--     <div class="mt-[20px]">
                                 <span>Tip korisnika</span>
                                 <select class="flex w-[90%] mt-2 px-2 py-2 border bg-gray-300 border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="user_type_id" >
                                    @foreach ($user_types as $user_type)
@@ -88,7 +88,7 @@
                                     </option>
                                 @endforeach
                                 </select>
-                            </div>
+                            </div>  --}}
 
                             <div class="mt-[20px]">
                                 <span>JMBG <span class="text-red-500">*</span></span>
@@ -136,7 +136,7 @@
                                     @if (empty($student->photo))
                                             <img id="image-output-student" class="absolute w-48 h-[188px] bottom-0" src="{{asset('img/profileStudent.jpg');}}" alt=""/>
 
-                                           @else <img class="absolute w-48 h-[188px] bottom-0" src="{{asset('category_icon/'.$student->photo)}}" id="image-output-student" alt=""/>
+                                           @else <img class="absolute w-48 h-[188px] bottom-0" src="{{asset('user_photo/'.$student->photo)}}" id="image-output-student" alt=""/>
                                         @endif
                                     
                                 </div>

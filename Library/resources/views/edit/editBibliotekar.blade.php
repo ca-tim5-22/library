@@ -79,7 +79,7 @@
                                 <div id="validateNameBibliotekarEdit"></div>
                             </div>
 
-                            <div class="mt-[20px]">
+                          {{--    <div class="mt-[20px]">
                                 <span>Tip korisnika</span>
                                 <select class="flex w-[90%] mt-2 px-2 py-2 border bg-gray-300 border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="user_type_id" >
                                 <option value="2" >
@@ -92,7 +92,7 @@
                                    @endforeach
                                   
                                 </select>
-                            </div>
+                            </div>  --}}
 
                             <div class="mt-[20px]">
                                 <span>JMBG <span class="text-red-500">*</span></span>
@@ -140,7 +140,7 @@
                                     @if (empty($librarian->photo))
                                             <img id="image-output-librarian" src="{{asset('img/profileStudent.jpg');}}"  class="absolute w-48 h-[188px] bottom-0" alt=""/>
 
-                                           @else <img id="image-output-librarian"  class="absolute w-48 h-[188px] bottom-0" src="{{asset('category_icon/'.$librarian->photo)}}" alt=""/>
+                                           @else <img id="image-output-librarian"  class="absolute w-48 h-[188px] bottom-0" src="{{asset('user_photo/'.$librarian->photo)}}" alt=""/>
                                         @endif
                                     	
                                 </div>

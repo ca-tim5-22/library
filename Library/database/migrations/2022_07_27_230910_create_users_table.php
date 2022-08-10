@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("user_type_id");
+            $table->unsignedBigInteger("user_type_id")->nullable();
             $table->foreign("user_type_id")
             ->references("id")
             ->on("type_of_users")
