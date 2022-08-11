@@ -119,7 +119,7 @@
                                     </label>
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-4">
-                                    <img class="pic" src="{{asset('category_icon/'.$c->icon)}}" class="bd-placeholder-img card-img-top" alt="" style="width:60px;height:60px;">
+                                    <img class="pic" src="{{asset('storage/category_icons/crop/'.$c->icon)}}" class="bd-placeholder-img card-img-top" alt="" style="width:60px;height:60px;">
                                     {{--  <i class="fas fa-utensils fa-lg text-[#707070]"></i>  --}}
                                     <p class="ml-4 text-center">{{$c->name}}</p>
                                 </td>
@@ -135,15 +135,9 @@
                                             
                                             <div class="py-1">
 
-                                                <a href="{{url('/category/'.$c->id).'/edit'}}" tabindex="0">
-
-
-                                                
-
-                                                <a href="" tabindex="0"
-
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
+                                                <a href="{{url('/category/'.$c->id).'/edit'}}" tabindex="0"  class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600">
+                                                   
+                
                                                     <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
                                                     <span class="px-4 py-0">Izmijeni kategoriju</span>
                                                 </a>

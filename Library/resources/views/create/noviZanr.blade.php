@@ -19,6 +19,9 @@
 
    @include('includes\layout\icon') <!-- Styles -->
     @include('includes\layout\styles')
+  
+    <link rel="stylesheet" href="{{ asset('css/imgareaselect-animated.css') }}" />
+
     <!-- End Styles -->
 </head>
 
@@ -77,7 +80,7 @@
             
             <!-- Space for content -->
             <div class="scroll height-content section-content">
-                <form class="text-gray-700" method="POST" action="{{route('genre.store');}}">
+                <form class="text-gray-700" method="POST" action="{{route('genre.store');}}" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
                     <div class="flex flex-row ml-[30px]">
@@ -87,8 +90,29 @@
                                 <input type="text" name="name" id="nazivZanra" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsNazivZanra()"/>
                                 <div id="validateNazivZanra"></div>
                             </div>
+                            <div class="mt-[20px]">
+                                <p>Uploaduj ikonicu </p>
+                                <div id="empty-cover-art-ikonica"
+                                    class="flex w-[90%] mt-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]">
+                                    <div class="bg-gray-300 h-[40px] w-[102px] px-[20px] pt-[10px]">
+                                        <label class="cursor-pointer">
+
+
+                                            <p class="leading-normal">Browse... <input type="file" name="icon" class="image hidden" /></p>
+                                            <input type="hidden" name="x1" value="" />
+                                            <input type="hidden" name="y1" value="" />
+                                            <input type="hidden" name="w" value="" />
+                                            <input type="hidden" name="h" value="" />
+
+                                        </label>
+                                    </div>
+                                    <div id="icon-output" class="h-[40px] px-[20px] pt-[7px]"></div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+
                     <div class="absolute bottom-0 w-full">
                         <div class="flex flex-row">
                             <div class="inline-block w-full text-white text-right py-[7px] mr-[100px]">
@@ -104,6 +128,11 @@
                         </div>
                     </div>
                 </form>
+                <p><img id="previewimage" style="display:none;"/></p>
+                @if ($path = Session::get('path'))
+                    <img src="{{ $path }}" />
+                @endif
+
             </div>
         </section>
         <!-- End Content -->
@@ -116,6 +145,33 @@
 
     <!-- Scripts -->
     @include('includes\layout\scripts')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ asset('js/jquery.imgareaselect.dev.js') }}"></script>
+    <script>
+    jQuery(function($) {
+        var p = $("#previewimage");
+  
+        $("body").on("change", ".image", function(){
+            var imageReader = new FileReader();
+            imageReader.readAsDataURL(document.querySelector(".image").files[0]);
+  
+            imageReader.onload = function (oFREvent) {
+                p.attr('src', oFREvent.target.result).fadeIn();
+            };
+        });
+  
+        $('#previewimage').imgAreaSelect({
+            onSelectEnd: function (img, selection) {
+                $('input[name="x1"]').val(selection.x1);
+                $('input[name="y1"]').val(selection.y1);
+                $('input[name="w"]').val(selection.width);
+                $('input[name="h"]').val(selection.height);            
+            }
+        });
+    });
+    </script>
+
     <!-- End Scripts -->
     
 </body>
