@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage; 
 use App\Models\Genre;
 use App\Http\Requests\StoreGenreRequest;
 use App\Http\Requests\UpdateGenreRequest;
@@ -42,11 +44,39 @@ class GenreController extends Controller
      */
     public function store(StoreGenreRequest $request)
     {
-        Genre::create([
-            "name" => $request->name
-        ]);
         
-        return redirect("/genre");
+        if ($request->hasFile('icon')) {
+
+            $icon=$request->file('icon');
+            $icon_name_with_extension = $icon->getClientOriginalName();
+            
+            $icon_name = pathinfo($icon_name_with_extension, PATHINFO_FILENAME);
+            $extension = $request->file('icon')->getClientOriginalExtension();
+            $iconnametostore = $icon_name.'_'.uniqid().'.'.$extension;
+
+            Storage::put('public/genre_icons/'. $iconnametostore, fopen($request->file('icon'), 'r+'));
+            Storage::put('public/genre_icons/crop/'. $iconnametostore, fopen($request->file('icon'), 'r+'));
+
+            $cropimage = public_path('storage/genre_icons/crop/'.$iconnametostore);
+            $img = Image::make($cropimage)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
+
+            $path = asset('storage/genre_icons/crop/'.$iconnametostore);
+            
+            
+            Genre::create([
+            'name'             =>      $request->name,
+            'icon'             =>      $iconnametostore
+             ]); 
+
+             return redirect('/genre')->with(['success' => "Slika je uspjesno okacena.",'path' => $path]);  
+            
+        }else{ 
+            Genre::create([
+            'name'             =>      $request->name,
+        ]); 
+         
+      
+         return redirect('/genre');  }
     }
 
     /**
@@ -82,16 +112,43 @@ class GenreController extends Controller
      * @param  \App\Models\Genre  $genre
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateGenreRequest $request, Genre $genre)
+    public function update(UpdateGenreRequest $request,$genre)
     {
-        $genre=Genre::findOrFail($genre->id);
+        $genre=Genre::findOrFail($genre);
     
+        $old=$genre->icon;
         $genre->name=$request->name;
-        
-        
+        $genre->description=$request->description;
+    
+    
+    if ($request->hasFile('icon')) { 
+    
+        $icon=$request->file('icon');
+        if(!is_null($icon)){
+    
+        $icon_name_with_extension = $icon->getClientOriginalName();
+                
+        $icon_name = pathinfo($icon_name_with_extension, PATHINFO_FILENAME);
+        $extension = $request->file('icon')->getClientOriginalExtension();
+         
+        $iconnametostore = $icon_name.'_'.uniqid().'.'.$extension;
+                
+         
+        Storage::put('public/genre_icons/'. $iconnametostore, fopen($request->file('icon'), 'r+'));
+        Storage::put('public/genre_icons/crop/'. $iconnametostore, fopen($request->file('icon'), 'r+'));
+        $cropimage = public_path('storage/genre_icons/crop/'.$iconnametostore);
+        $img = Image::make($cropimage)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
+        $path = asset('storage/genre_icons/crop/'.$iconnametostore);
+    
+        @unlink( 'public/genre_icons/'.$old);
+        @unlink( 'public/genre_icons/crop/'.$old);
+    
+        $genre->icon=$iconnametostore;}}
+    
+    
         $genre->save();
-
-        return redirect('/genre');
+    
+    return redirect('/genre');  
     }
 
     /**
@@ -103,7 +160,8 @@ class GenreController extends Controller
     public function destroy(Genre $genre)
     {
         $genre = Genre::findOrFail($genre->id);
-
+        @unlink( 'public/genre_icons/'.$genre->icon);
+        @unlink( 'public/genre_icons/crop/'.$genre->icon);
         $genre->delete();
 
         return redirect('/genre');

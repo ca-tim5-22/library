@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage; 
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
@@ -46,25 +49,41 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-    if($file=$request->file('icon')){
-    $name=$file->getClientOriginalName();
-    $file->move('category_icon',$name);
-    $input=$name;
 
-    Category::create([
+        if ($request->hasFile('icon')) {
+
+            $icon=$request->file('icon');
+            $icon_name_with_extension = $icon->getClientOriginalName();
+            
+            $icon_name = pathinfo($icon_name_with_extension, PATHINFO_FILENAME);
+            $extension = $request->file('icon')->getClientOriginalExtension();
+            $iconnametostore = $icon_name.'_'.uniqid().'.'.$extension;
+
+            Storage::put('public/category_icons/'. $iconnametostore, fopen($request->file('icon'), 'r+'));
+            Storage::put('public/category_icons/crop/'. $iconnametostore, fopen($request->file('icon'), 'r+'));
+
+            $cropimage = public_path('storage/category_icons/crop/'.$iconnametostore);
+            $img = Image::make($cropimage)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
+
+            $path = asset('storage/category_icons/crop/'.$iconnametostore);
+            
+            
+            Category::create([
             'name'             =>      $request->name,
             'description'      =>      $request->description, 
-            'icon'             =>      $input
-        ]); 
-    }
+            'icon'             =>      $iconnametostore
+             ]); 
 
+             return redirect('/category')->with(['success' => "Slika je uspjesno okacena.",'path' => $path]);  
+            
+        }else{ 
     Category::create([
             'name'             =>      $request->name,
             'description'      =>      $request->description
         ]); 
          
       
-         return redirect('/category');  
+         return redirect('/category');  }
     }
 
     /**
@@ -103,19 +122,34 @@ class CategoryController extends Controller
     $c=Category::findOrFail($id);
     
     $old=$c->icon;
-    
-    
     $c->name=$request->name;
     $c->description=$request->description;
 
-    $file=$request->file('icon');
-    if(!is_null($file)){
-    $name=$file->getClientOriginalName();
-    $file->move('category_icon',$name);
-    $input=$name;
-    @unlink( 'category_icon/'.$old);
-    $c->icon=$input;
-}
+
+if ($request->hasFile('icon')) { 
+
+    $icon=$request->file('icon');
+    if(!is_null($icon)){
+
+    $icon_name_with_extension = $icon->getClientOriginalName();
+            
+    $icon_name = pathinfo($icon_name_with_extension, PATHINFO_FILENAME);
+    $extension = $request->file('icon')->getClientOriginalExtension();
+     
+    $iconnametostore = $icon_name.'_'.uniqid().'.'.$extension;
+            
+     
+    Storage::put('public/category_icons/'. $iconnametostore, fopen($request->file('icon'), 'r+'));
+    Storage::put('public/category_icons/crop/'. $iconnametostore, fopen($request->file('icon'), 'r+'));
+    $cropimage = public_path('storage/category_icons/crop/'.$iconnametostore);
+    $img = Image::make($cropimage)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
+    $path = asset('storage/category_icons/crop/'.$iconnametostore);
+
+    @unlink( 'public/category_icons/'.$old);
+    @unlink( 'public/category_icons/crop/'.$old);
+
+    $c->icon=$iconnametostore;}}
+
 
     $c->save();
 
@@ -130,8 +164,9 @@ return redirect('/category');
      */
     public function destroy($category)
     {
-        $c=Category::findOrFail($category);
-    //@unlink( 'category_icon/'.$c->icon); 
+    $c=Category::findOrFail($category);
+    @unlink( 'public/category_icons/'.$c->icon);
+    @unlink( 'public/category_icons/crop/'.$c->icon);
     $c->delete();
      return redirect('/category');
     }

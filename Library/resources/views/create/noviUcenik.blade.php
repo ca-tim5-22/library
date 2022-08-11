@@ -19,6 +19,9 @@
 
    @include('includes\layout\icon') <!-- Styles -->
     @include('includes\layout\styles')
+
+    <link rel="stylesheet" href="{{ asset('css/imgareaselect-animated.css') }}" />
+
     <!-- End Styles -->
 </head>
 
@@ -79,17 +82,6 @@
                                 <div id="validateNameUcenik"></div>
                             </div>
 
-                            {{--  <div class="mt-[20px]">
-                                <span>Tip korisnika</span>
-                                <select class="flex w-[90%] mt-2 px-2 py-2 border bg-gray-300 border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="user_type_id" >
-                                @foreach ($user_types as $user_type)
-                                    <option value="{{$user_type->id}}">
-                                        {{$user_type->name}}
-                                    </option>
-                                @endforeach
-                                    
-                                </select>
-                            </div>  --}}
 
                             <div class="mt-[20px]">
                                 <span>JMBG <span class="text-red-500">*</span></span>
@@ -132,7 +124,14 @@
                                             <polyline points="21 15 16 10 5 21"></polyline>
                                         </svg>
                                         <span class="px-4 py-2 mt-2 leading-normal">Add photo</span>
-                                        <input type='file' class="hidden" :accept="accept" onchange="loadFileStudent(event)" name="photo" />
+                                      
+
+                                        <p>Image: <input type="file" name="photo" class="image" /></p>
+                                        <input type="hidden" name="x1" value="" />
+                                        <input type="hidden" name="y1" value="" />
+                                        <input type="hidden" name="w" value="" />
+                                        <input type="hidden" name="h" value="" />
+                                   
                                     </div>
                                     <img id="image-output-student" class="hidden absolute w-48 h-[188px] bottom-0" />	
                                 </div>
@@ -158,6 +157,13 @@
                     </div>
                     
                 </form>
+
+                <p><img id="previewimage" style="display:none;"/></p>
+                @if ($path = Session::get('path'))
+                    <img src="{{ $path }}" />
+                @endif
+
+
             </div>
         </section>
         <!-- End Content -->
@@ -170,6 +176,32 @@
 
     <!-- Scripts -->
     @include('includes\layout\scripts')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ asset('js/jquery.imgareaselect.dev.js') }}"></script>
+    <script>
+    jQuery(function($) {
+        var p = $("#previewimage");
+  
+        $("body").on("change", ".image", function(){
+            var imageReader = new FileReader();
+            imageReader.readAsDataURL(document.querySelector(".image").files[0]);
+  
+            imageReader.onload = function (oFREvent) {
+                p.attr('src', oFREvent.target.result).fadeIn();
+            };
+        });
+  
+        $('#previewimage').imgAreaSelect({
+            onSelectEnd: function (img, selection) {
+                $('input[name="x1"]').val(selection.x1);
+                $('input[name="y1"]').val(selection.y1);
+                $('input[name="w"]').val(selection.width);
+                $('input[name="h"]').val(selection.height);            
+            }
+        });
+    });
+    </script>
     <!-- End Scripts -->
 
 

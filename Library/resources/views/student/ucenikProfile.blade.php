@@ -82,12 +82,7 @@
                             <div class="absolute right-0 w-56 mt-[10px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                 aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                 <div class="py-1">
-                                  {{--    <a href="#" tabindex="0"
-                                        class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                        role="menuitem">
-                                        <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                        <span class="px-4 py-0">Izbrisi korisnika</span>
-                                    </a>  --}}
+                                 
 
                                     <form method="POST" action="{{route("student.destroy",$student->id);}}">
                                         @csrf
@@ -153,7 +148,7 @@
                         @if (empty($student->photo))
                             <img class="p-2 border-2 border-gray-300" width="300px" src="{{asset('img/profileStudent.jpg');}}" alt="">
 
-                            @else <img class="p-2 border-2 border-gray-300" width="300px" src="{{asset('user_photo/'.$student->photo)}}" alt=""/>
+                            @else <img class="p-2 border-2 border-gray-300" width="300px" src="{{asset('storage/student_images/crop/'.$student->photo)}}" alt=""/>
                                         @endif
                         </div>
                     </div>
