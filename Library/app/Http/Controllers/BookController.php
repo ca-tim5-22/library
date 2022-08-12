@@ -6,7 +6,10 @@ use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Alphabet;
+use App\Models\Author;
 use App\Models\Binding;
+use App\Models\Category;
+use App\Models\Genre;
 use App\Models\Publisher;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
@@ -22,19 +25,35 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+   
     public function index(Request $request)
     { $url= URL::previous();
+        
+
+     
         if($request->paginate != null){
             $books = DB::table("books")->orderBy("title","ASC")->paginate($request->paginate,"*","page");
+
+            
+            session(["currentpag"=>$request->paginate]);
             $currentpag=$request->paginate;
-            return view("book.evidencijaKnjiga",compact("books","currentpag","url"));
+
+            
+          
         }else{
-            $books = DB::table("books")->orderBy("title","ASC")->paginate(2,"*","page");
-            $currentpag=2;
-            return view("book.evidencijaKnjiga",compact("books","currentpag","url"));
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $books = DB::table("books")->orderBy("title","ASC")->paginate($currentpag,"*","page");
+            
         }
-       
-       
+        
+        return view("book.evidencijaKnjiga",compact("books","currentpag","url"));
      
         
     }
@@ -44,17 +63,27 @@ class BookController extends Controller
     {  
        
         
-        
         $url= URL::previous();
         if($request->paginate != null){
             $books = DB::table("books")->orderBy("title","DESC")->paginate($request->paginate,"*","page");
+            session(["currentpag"=>$request->paginate]);
             $currentpag=$request->paginate;
+
             return view("book.evidencijaKnjiga",compact("books","currentpag","url"));
+          
         }else{
-            $books = DB::table("books")->orderBy("title","DESC")->paginate(2,"*","page");
-            $currentpag=2;
+            
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $books = DB::table("books")->orderBy("title","DESC")->paginate($currentpag,"*","page");
             return view("book.evidencijaKnjiga",compact("books","currentpag","url"));
         }
+        
        
        
      
@@ -86,6 +115,18 @@ class BookController extends Controller
     public function store(StoreBookRequest $request)
     {
     
+    $categories=$request->valuesCategories[0];
+    $genres=$request->valuesGenres[0];
+    $authors=$request->valuesAuthors[0];
+
+
+            $categories_array=explode(",",$categories);
+       
+            $genres_array=explode(",",$genres);
+   
+            $authors_array=explode(",",$authors);
+        
+
        $book=Book::create([
             "title"=>$request->title,
             "content"=>$request->content,
@@ -96,13 +137,24 @@ class BookController extends Controller
 
       ]);
       $alphabet=Alphabet::findOrFail($request->alphabet);
-      $alphabet->alphabet()->save($book);
-
       $binding=Binding::findOrFail($request->binding);
-      $binding->binding()->save($book);
-
       $publisher=Publisher::findOrFail($request->publisher);
-      $publisher->publisher()->save($book);
+
+      
+      
+     
+        $category = Category::findOrFail($categories_array);
+        $genre = Genre::findOrFail($genres_array);
+        $author = Author::findOrFail($authors_array);
+
+        $alphabet->alphabet()->save($book);
+        $binding->binding()->save($book);
+        $publisher->publisher()->save($book);
+        $book->categories()->attach($category);
+        $book->genres()->attach($genre);
+        $book->authors()->attach($author);
+     
+     
 
        return redirect("/book");
     }
@@ -126,7 +178,22 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        $book=Book::findOrFail($book->id);
+      
+        $categories_of_book = $book->categories()->get();
+        
+
+        $authors_of_book = $book->categories()->get();
+        $publishers = DB::select(DB::raw("SELECT * FROM publishers;"));
+        $genres_of_book=$book->genres()->get();
+        $genres = DB::select(DB::raw("SELECT * FROM genres;"));
+        $categories = DB::select(DB::raw("SELECT * FROM categories;"));
+        $bindings = DB::select(DB::raw("SELECT * FROM bindings;"));
+        $authors = DB::select(DB::raw("SELECT * FROM authors;"));
+        $alphabets = DB::select(DB::raw("SELECT * FROM alphabets;"));
+
+        $formats = DB::select(DB::raw("SELECT * FROM formats;"));
+        return view("edit.editKnjiga",compact("book","authors","publishers","categories","bindings","alphabets","formats","genres","categories_of_book","authors_of_book","genres_of_book",));
     }
 
     /**
@@ -138,7 +205,59 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+        $book=Book::findOrFail($book->id);
+
+
+        $categories=$request->valuesCategories[0];
+        $genres=$request->valuesGenres[0];
+        $authors=$request->valuesAuthors[0];
+    
+    
+                $categories_array=explode(",",$categories);
+           
+                $genres_array=explode(",",$genres);
+       
+                $authors_array=explode(",",$authors);
+            
+            
+                $book->title=$request->title;
+                $book->content=$request->content;
+                $book->number_of_pages=$request->number_of_pages;
+                $book->release_date=$request->release_date;
+                $book->total=$request->total;
+                $book->ISBN=$request->ISBN;
+        
+           
+            if($book->binding_id != $request->binding){
+                $binding=Binding::findOrFail($request->binding);
+                $book->binding()->sync([]);
+                $binding->binding()->save($book);
+            }
+            
+            if($book->publisher_id != $request->publisher){
+                $publisher=Publisher::findOrFail($request->publisher);
+                $book->binding()->sync([]);
+                $publisher->publisher()->save($book);
+            }
+            $category = Category::findOrFail($categories_array);
+         
+            //
+          //DA SE DOVRSI OVAJ METHOD
+         //
+           // 
+            $book->categories()->attach($category);
+         
+         
+            $genre = Genre::findOrFail($genres_array);
+            $book->genres()->attach($genre);
+         
+            $author = Author::findOrFail($authors_array);
+            $book->authors()->attach($author);
+         
+         
+    
+           return redirect("/book");
+
     }
 
     /**
@@ -149,6 +268,12 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book=Book::findOrFail($book->id);
+        $book->authors()->sync([]);
+        $book->genres()->sync([]);
+        $book->categories()->sync([]);
+        $book->delete();
+
+        return redirect("/book");
     }
 }
