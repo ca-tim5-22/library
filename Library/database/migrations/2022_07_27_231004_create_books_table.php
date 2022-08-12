@@ -39,6 +39,13 @@ return new class extends Migration
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
+            $table->unsignedBigInteger("format_id");
+            $table->foreign("format_id")
+            ->references("id")
+            ->on("formats")
+            ->onUpdate("Cascade")
+            ->onDelete("Restrict");
+
             $table->unsignedBigInteger("publisher_id");
             $table->foreign("publisher_id")
             ->references("id")

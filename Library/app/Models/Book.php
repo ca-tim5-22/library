@@ -12,34 +12,34 @@ class Book extends Model
     protected $fillable = ['title','number_of_pages','release_date','ISBN','total','rented','reserved','content',"alphabet_id","publisher_id"];
     
     public function alphabet(){
-    return $this->hasOne(Alphabet::class);
+    return $this->belongsTo(Alphabet::class);
     }
 
     public function binding(){
-    return $this->hasOne(Binding::class);
+    return $this->belongsTo(Binding::class);
     }
 
     public function format(){
-    return $this->hasOne(Format::class);
+    return $this->belongsTo(Format::class);
     }
 
     public function language(){
-    return $this->hasOne(Language::class);
+    return $this->belongsTo(Language::class);
     }
 
     public function publisher(){
-    return $this->hasOne(Publisher::class);
+    return $this->belongsTo(Publisher::class,"publisher_id");
     }
 
     public function authors(){
-    return $this->belongsToMany(Author::class,"book_authors","author_id");
+    return $this->belongsToMany(Author::class,"book_authors");
     }
 
     public function categories(){
-    return $this->belongsToMany(Category::class,"book_categories","category_id");
+    return $this->belongsToMany(Category::class,"book_categories");
     }
 
     public function genres(){
-    return $this->belongsToMany(Genre::class,"book_genres","genre_id");
+    return $this->belongsToMany(Genre::class,"book_genres");
     }
 }

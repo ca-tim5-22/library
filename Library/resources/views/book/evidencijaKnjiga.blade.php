@@ -254,7 +254,7 @@
                                                         <span class="px-4 py-0">Pogledaj detalje</span>
                                                     </a>
 
-                                                    <a href="editKnjiga.php" tabindex="0"
+                                                    <a href="{{route("book.edit",$book->id)}}" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="fas fa-edit mr-[6px] ml-[5px] py-1"></i>
@@ -288,13 +288,16 @@
                                                         <i class="far fa-calendar-check mr-[10px] ml-[5px] py-1"></i>
                                                         <span class="px-4 py-0">Rezervisi knjigu</span>
                                                     </a>
-
-                                                    <a href="#" tabindex="0"
+                                                    <form method="POST" action="{{route("book.destroy",$book->id)}}">
+                                                    @csrf
+                                                    @method("DELETE")
+                                                    <button type="submit" name="submit" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="fa fa-trash mr-[10px] ml-[5px] py-1"></i>
                                                         <span class="px-4 py-0">Izbrisi knjigu</span>
-                                                    </a>
+                                                    </button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -375,7 +378,7 @@
                         </div>  
                                 <p class="inline text-md">
                                 
-                                  {{ $books->onEachSide(2)->links("vendor\pagination.tailwind") }}
+                                  {{ $books->onEachSide($currentpag)->links("vendor\pagination.tailwind") }}
                                 </p>
 
                     </div>
