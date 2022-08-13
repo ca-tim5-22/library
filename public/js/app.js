@@ -50,7 +50,6 @@ $(function () {
   });
 });
 
-
 //when chekbox is cheked button is enabled, otherwise it is disabled
 $(function () {
   $('.form-checkbox').click(function () {
@@ -134,7 +133,6 @@ function AddReadMore() {
   var readMoreTxt = " ... Prikazi vise &#8681;";
   // Text to show when text is expanded
   var readLessTxt = " Prikazi manje &#8657;";
-
 
   //Traverse all selectors with this class and manupulate HTML part to show Read More
   $(".addReadMore").each(function () {
@@ -355,7 +353,6 @@ function validacijaBibliotekar() {
   $("#validatePwBibliotekar").empty();
   $("#validatePw2Bibliotekar").empty();
 
-
   let nameBibliotekar = $("#imePrezimeBibliotekar").val();
   let jmbgBibliotekar = $("#jmbgBibliotekar").val();
   let emailBibliotekar = $("#emailBibliotekar").val();
@@ -428,7 +425,6 @@ function validacijaBibliotekarEdit() {
   $("#validateUsernameBibliotekarEdit").empty();
   $("#validatePwBibliotekarEdit").empty();
   $("#validatePw2BibliotekarEdit").empty();
-
 
   let nameBibliotekarEdit = $("#imePrezimeBibliotekarEdit").val();
   let jmbgBibliotekarEdit = $("#jmbgBibliotekarEdit").val();
@@ -503,7 +499,6 @@ function validacijaUcenik() {
   $("#validatePwUcenik").empty();
   $("#validatePw2Ucenik").empty();
 
-
   let nameUcenik = $("#imePrezimeUcenik").val();
   let jmbgUcenik = $("#jmbgUcenik").val();
   let emailUcenik = $("#emailUcenik").val();
@@ -576,7 +571,6 @@ function validacijaUcenikEdit() {
   $("#validateUsernameUcenikEdit").empty();
   $("#validatePwUcenikEdit").empty();
   $("#validatePw2UcenikEdit").empty();
-
 
   let nameUcenikEdit = $("#imePrezimeUcenikEdit").val();
   let jmbgUcenikEdit = $("#jmbgUcenikEdit").val();
@@ -651,7 +645,6 @@ function validacijaKnjiga() {
   $("#validateIzdavac").empty();
   $("#validateGodinaIzdavanja").empty();
   $("#validateKnjigaKolicina").empty();
-
 
   let nazivKnjiga = $("#nazivKnjiga").val();
   let kategorija = $("#kategorijaInput").val();
@@ -735,7 +728,6 @@ function validacijaKnjigaEdit() {
   $("#validateIzdavacEdit").empty();
   $("#validateGodinaIzdavanjaEdit").empty();
   $("#validateKnjigaKolicinaEdit").empty();
-
 
   let nazivKnjigaEdit = $("#nazivKnjigaEdit").val();
   let kategorijaInputEdit = $("#kategorijaInputEdit").val();
@@ -1434,7 +1426,6 @@ function sortTableDate(row) {
   }
 }
 
-
 $('#autoriMenu').on('click', function () {
   $('.autoriMenu').toggle();
 })
@@ -1460,7 +1451,6 @@ $(document).on('mouseup', function (e) {
     kategorijeMenu.slideUp();
   }
 });
-
 
 $('.uceniciDrop-toggle').on('click', function () {
   $('.uceniciMenu').toggle();

@@ -30,9 +30,9 @@ trait AuthenticatesUsers
      * @throws \Illuminate\Validation\ValidationException
      */
     public function login(Request $request)
-    {
+    {   dd($request);
         $this->validateLogin($request);
-
+       
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
@@ -68,7 +68,7 @@ trait AuthenticatesUsers
      * @throws \Illuminate\Validation\ValidationException
      */
     protected function validateLogin(Request $request)
-    {
+    {dd($request);
         $request->validate([
             $this->username() => 'required|string',
             'password' => 'required|string',
@@ -82,7 +82,7 @@ trait AuthenticatesUsers
      * @return bool
      */
     protected function attemptLogin(Request $request)
-    {
+    {dd($request);
         return $this->guard()->attempt(
             $this->credentials($request), $request->boolean('remember')
         );
@@ -95,7 +95,7 @@ trait AuthenticatesUsers
      * @return array
      */
     protected function credentials(Request $request)
-    {
+    {dd($request);
         return $request->only($this->username(), 'password');
     }
 
