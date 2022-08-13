@@ -32,7 +32,7 @@
     <main class="h-screen small:hidden bg-login">
         <div class="flex items-center justify-center pt-[13%]">
             <div class="w-full max-w-md">
-                <form class="px-12 pt-6 pb-4 mb-4 bg-white rounded shadow-lg" method="POST" action="{{ route('login') }}">
+                <form class="px-12 pt-6 pb-4 mb-4 bg-white rounded shadow-lg" method="POST" action="{{route('login');}}">
                      @csrf 
                      @method('POST')
                     <div class="flex justify-center py-2 mb-4 text-2xl text-gray-800 border-b-2">

@@ -44,12 +44,13 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::get('/', function () {
-    return view("login");
+    return redirect()->route("login");
 });
 
 Auth::routes();
-/* Route::group(['middleware' => 'auth'], function(){
- */
+
+Route::group(['middleware' => 'auth'], function(){
+ 
 Route::get("book/newBookSpecification",function(){
     $bindings=DB::select(DB::raw("SELECT * FROM `bindings`"));
     $bindings = (object) $bindings;
@@ -65,16 +66,14 @@ Route::get("book/newBookMultimedia",function(){
     return view("create.novaKnjigaMultimedija");
 });
 
-
-
-
 Route::get('dashboard',function(){
     $student=DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=1"));
     $student = (object) $student;
     $librarian= DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=2"));
     $librarian = (object) $librarian;
     return view('dashboard.dashboard',compact("student","librarian"));
-});
+})->name("dashboard");
+
 Route::get('dashboardaktivnost',function(){
     return view('dashboard.dashboardAktivnost');
 });
@@ -134,4 +133,4 @@ Route::get("booksort",[BookController::class,"sort"])->name("book.sort");
 /*-------------------------------------------------------------------------------------------*/
 
 Route::get("bookspec",[BookController::class,"spec"])->name("book.spec");
-/* }); */
+ }); 

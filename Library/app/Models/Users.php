@@ -13,8 +13,7 @@ class Users extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_type_id',
-        'first_and_last_name', 'PIN', 'username', 
+        'first_and_last_name', 'PIN', 'username', "user_type_id",
         'photo',
         'email',
         'password',
@@ -23,8 +22,9 @@ class Users extends Model
     protected $hidden = [
         'password',
         
+        
     ];
-    /* public function type(){
-    return $this->hasOne(UserType::class);
-    } */
+    public function type(){
+    return $this->belongsTo(UserType::class);
+    }  
 }

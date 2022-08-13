@@ -14,6 +14,6 @@ class UserType extends Model
     protected $table = 'type_of_users';
 
     public function type(){
-        return $this->hasMany(Users::class,'user_type_id');
+        return $this->hasMany(Users::class);
         }
 }

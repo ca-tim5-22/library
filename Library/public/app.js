@@ -2573,7 +2573,14 @@ $(document).on('mouseup', function (e) {
     dropdownIznajmljivanjeArhiviraneRezervacijeTabela.slideUp();
   }
 });
+$(document).ready(function(){
+    
+  var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+     removeItemButton: true,
 
+   }); 
+  
+});
 //click on one and check all checkboxes(evidencijaKnjiga.php)
 $('.checkAll').click(function () {
   if ($(this).is(':checked')) {

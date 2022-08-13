@@ -9,6 +9,7 @@ use App\Models\Alphabet;
 use App\Models\Author;
 use App\Models\Binding;
 use App\Models\Category;
+use App\Models\Format;
 use App\Models\Genre;
 use App\Models\Publisher;
 use Illuminate\Contracts\Session\Session;
@@ -139,7 +140,7 @@ class BookController extends Controller
       $alphabet=Alphabet::findOrFail($request->alphabet);
       $binding=Binding::findOrFail($request->binding);
       $publisher=Publisher::findOrFail($request->publisher);
-
+      $format=Format::findOrFail($request->format);
       
       
      
@@ -150,6 +151,8 @@ class BookController extends Controller
         $alphabet->alphabet()->save($book);
         $binding->binding()->save($book);
         $publisher->publisher()->save($book);
+        $format->format()->save($book);
+        
         $book->categories()->attach($category);
         $book->genres()->attach($genre);
         $book->authors()->attach($author);
@@ -167,7 +170,14 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        return view("book.knjigaOsnovniDetalji");
+        $book=Book::findOrFail($book->id);
+
+        $students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=1 ORDER BY `users`.`first_and_last_name` ASC;"));
+        $students = (object) $students;
+        $librarian=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=2 ORDER BY `users`.`first_and_last_name` ASC;"));
+        $librarian = (object) $librarian;
+
+        return view("book.knjigaOsnovniDetalji",compact("book","students","librarian"));
     }
 
     /**
@@ -181,18 +191,68 @@ class BookController extends Controller
         $book=Book::findOrFail($book->id);
       
         $categories_of_book = $book->categories()->get();
-        
+        $categories = DB::select(DB::raw("SELECT * FROM categories;"));
+ foreach($categories_of_book as $category_of_book){
 
-        $authors_of_book = $book->categories()->get();
-        $publishers = DB::select(DB::raw("SELECT * FROM publishers;"));
+            for($i=0;$i<count($categories);$i++){
+
+                if($category_of_book->id == $categories[$i]->id){
+                   
+                    unset($categories[$i]);
+                    $categories=array_values($categories);
+                    
+                }
+
+            }
+        }
+       
+
+        $authors_of_book = $book->authors()->get();
+        $authors = DB::select(DB::raw("SELECT * FROM authors;"));
+        foreach($authors_of_book as $author_of_book){
+
+            for($i=0;$i<count($authors);$i++){
+
+                if($author_of_book->id == $authors[$i]->id){
+                   
+                    unset($authors[$i]);
+                    $authors=array_values($authors);
+                    
+                }
+
+            }
+        }
         $genres_of_book=$book->genres()->get();
         $genres = DB::select(DB::raw("SELECT * FROM genres;"));
-        $categories = DB::select(DB::raw("SELECT * FROM categories;"));
+        foreach($genres_of_book as $genre_of_book){
+
+            for($i=0;$i<count($genres);$i++){
+
+                if($genre_of_book->id == $genres[$i]->id){
+                   
+                    unset($genres[$i]);
+                    $genres=array_values($genres);
+                    
+                }
+
+            }
+        }
+
+
         $bindings = DB::select(DB::raw("SELECT * FROM bindings;"));
-        $authors = DB::select(DB::raw("SELECT * FROM authors;"));
+      
         $alphabets = DB::select(DB::raw("SELECT * FROM alphabets;"));
+  
+        $publishers = DB::select(DB::raw("SELECT * FROM publishers;"));
 
         $formats = DB::select(DB::raw("SELECT * FROM formats;"));
+
+       
+
+
+
+
+
         return view("edit.editKnjiga",compact("book","authors","publishers","categories","bindings","alphabets","formats","genres","categories_of_book","authors_of_book","genres_of_book",));
     }
 
@@ -205,21 +265,17 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
+        
         $book=Book::findOrFail($book->id);
 
 
-        $categories=$request->valuesCategories[0];
-        $genres=$request->valuesGenres[0];
-        $authors=$request->valuesAuthors[0];
-    
-    
-                $categories_array=explode(",",$categories);
-           
-                $genres_array=explode(",",$genres);
+        $categories=$request->category_id;
        
-                $authors_array=explode(",",$authors);
-            
-            
+        $genres=$request->genres_id;
+        $authors=$request->author_id;
+        
+      
+       
                 $book->title=$request->title;
                 $book->content=$request->content;
                 $book->number_of_pages=$request->number_of_pages;
@@ -227,35 +283,34 @@ class BookController extends Controller
                 $book->total=$request->total;
                 $book->ISBN=$request->ISBN;
         
-           
-            if($book->binding_id != $request->binding){
-                $binding=Binding::findOrFail($request->binding);
-                $book->binding()->sync([]);
-                $binding->binding()->save($book);
-            }
+         $book->save();
+
+         if($book->binding_id != $request->binding){
+            $binding=Binding::findOrFail($request->binding);
+            $book->binding()->sync([]);
+            $binding->binding()->save($book);
+        }
+        
+        if($book->publisher_id != $request->publisher){
+            $publisher=Publisher::findOrFail($request->publisher);
+            $book->binding()->sync([]);
+            $publisher->publisher()->save($book);
+        }
+            $current_categories=$book->categories()->get();
+
+            $book->categories()->sync([]);
+            $book->categories()->attach($categories);
+
+            $current_genres=$book->genres()->get();
+
+            $book->genres()->sync([]);
+            $book->genres()->attach($genres);
+
+            $current_authors=$book->authors()->get();
+
+            $book->authors()->sync([]);
+            $book->authors()->attach($authors);
             
-            if($book->publisher_id != $request->publisher){
-                $publisher=Publisher::findOrFail($request->publisher);
-                $book->binding()->sync([]);
-                $publisher->publisher()->save($book);
-            }
-            $category = Category::findOrFail($categories_array);
-         
-            //
-          //DA SE DOVRSI OVAJ METHOD
-         //
-           // 
-            $book->categories()->attach($category);
-         
-         
-            $genre = Genre::findOrFail($genres_array);
-            $book->genres()->attach($genre);
-         
-            $author = Author::findOrFail($authors_array);
-            $book->authors()->attach($author);
-         
-         
-    
            return redirect("/book");
 
     }

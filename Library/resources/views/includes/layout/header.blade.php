@@ -135,12 +135,16 @@
                                 <i class="fas fa-file mr-[8px] ml-[5px] py-1"></i>
                                 <span class="px-4 py-0">Profile</span>
                             </a>
-                            <a href="#" tabindex="0"
+                            <form method="POST" action="{{route("logout")}}">
+                                @csrf
+                                @method("POST")
+                            <button name="submit" type="submit" tabindex="0"
                                 class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                 role="menuitem">
                                 <i class="fas fa-sign-out-alt mr-[5px] ml-[5px] py-1"></i>
                                 <span class="px-4 py-0">Logout</span>
-                            </a>
+                            </button>
+                            </form>
                         </div>
                     </div>
                 </div>

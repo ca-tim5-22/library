@@ -18,7 +18,7 @@ class LibrarianController extends Controller
      */
     public function index()
     {
-        $librarians=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=1 ORDER BY users.first_and_last_name ASC;"));
+        $librarians=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=2 ORDER BY users.first_and_last_name ASC;"));
         $librarians = (object) $librarians;
         return view("the_librarian.bibliotekari",compact("librarians"));
     }
@@ -50,7 +50,7 @@ class LibrarianController extends Controller
      */
     public function store(StoreLibrarianRequest $request)
     {
-        $user_type=UserType::findOrFail(1);
+        $user_type=UserType::findOrFail(2);
         $first_and_last_name=$request->first_and_last_name;
        
         
@@ -63,6 +63,7 @@ class LibrarianController extends Controller
             $input=$photo_name;
         
             $user=Users::create([
+                "user_type_id"=>$user_type->id,
                     'first_and_last_name'=>$first_and_last_name,
                     'email'=>$request->email,
                     'username'=>$request->username,
@@ -70,21 +71,23 @@ class LibrarianController extends Controller
                     'photo'=>$input,
                     'password'=>Hash::make($password)
                 ]); 
+           
             }else{ 
 
            
         
             $user=Users::create([
+                "user_type_id"=>$user_type->id,
                 'first_and_last_name'=>$first_and_last_name,
                 'email'=>$request->email,
                 'username'=>$request->username,
                 'PIN'=>$request->PIN,
                 'password'=>Hash::make($password)
                 ]); 
-                 
+               
             }
 
-            $user_type->type()->save($user);
+            
                  return redirect('/librarian');
             } 
     }

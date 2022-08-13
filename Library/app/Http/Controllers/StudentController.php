@@ -20,14 +20,14 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $all_students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=2 ORDER BY `users`.`first_and_last_name` ASC;"));
+        $all_students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=1 ORDER BY `users`.`first_and_last_name` ASC;"));
         $all_students = (object) $all_students;
         return view("student.ucenik",compact("all_students"));
     }
 
     public function sort()
     {
-        $all_students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=2 ORDER BY `users`.`first_and_last_name` DESC;"));
+        $all_students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=1 ORDER BY `users`.`first_and_last_name` DESC;"));
         $all_students = (object) $all_students;
         return view("student.ucenik",compact("all_students"));
     }
@@ -53,7 +53,7 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request)
     {
-        $user_type=UserType::findOrFail(2);
+        $user_type=UserType::findOrFail(1);
         $first_and_last_name=$request->first_and_last_name;
        
         
@@ -66,6 +66,7 @@ class StudentController extends Controller
             $input=$photo_name;
         
             $user=Users::create([
+                    "user_type_id"=>$user_type->id,
                     'first_and_last_name'=>$first_and_last_name,
                     'email'=>$request->email,
                     'username'=>$request->username,
@@ -73,20 +74,22 @@ class StudentController extends Controller
                     'photo'=>$input,
                     'password'=>Hash::make($password)
                 ]); 
+               
             }else{ 
 
            
         
             $user=Users::create([
+                "user_type_id"=>$user_type->id,
                 'first_and_last_name'=>$first_and_last_name,
                 'email'=>$request->email,
                 'username'=>$request->username,
                 'PIN'=>$request->PIN,
                 'password'=>Hash::make($password)
                 ]); 
-                 
+              
             }
-            $user_type->type()->save($user);
+            
                  return redirect('/student');
             } 
     }

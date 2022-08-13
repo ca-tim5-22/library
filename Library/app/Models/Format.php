@@ -10,4 +10,8 @@ class Format extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+
+    public function format(){
+        return $this->hasMany(Book::class);
+        }
 }
