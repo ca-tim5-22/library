@@ -19,6 +19,9 @@
 
    @include('includes\layout\icon') <!-- Styles -->
     @include('includes\layout\styles')
+
+    <link rel="stylesheet" href="{{ asset('css/imgareaselect-animated.css') }}" />
+
     <!-- End Styles -->
 </head>
 
@@ -95,9 +98,12 @@
                                     class="flex w-[90%] mt-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]">
                                     <div class="bg-gray-300 h-[40px] w-[102px] px-[20px] pt-[10px]">
                                         <label class="cursor-pointer">
-                                            <p class="leading-normal">Browse...</p>
-                                            <input id="icon-upload" type='file' name="icon" class="hidden" :multiple="multiple"
-                                                :accept="accept" />
+                                            
+                                       <p class="leading-normal">Browse...<input type="file" name="icon" class="image hidden" /></p>
+                                        <input type="hidden" name="x1" value="" />
+                                        <input type="hidden" name="y1" value="" />
+                                        <input type="hidden" name="w" value="" />
+                                        <input type="hidden" name="h" value="" />
                                         </label>
                                     </div>
                                     <div id="icon-output" class="h-[40px] px-[20px] pt-[7px]">{{$c->icon}}</div>
@@ -115,7 +121,7 @@
                     <div class="absolute bottom-0 w-full">
                         <div class="flex flex-row">
                             <div class="inline-block w-full text-white text-right py-[7px] mr-[100px]">
-                                <button type="button"
+                                <button type="reset"
                                     class="btn-animation shadow-lg mr-[15px] w-[150px] focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
                                     Ponisti <i class="fas fa-times ml-[4px]"></i>
                                 </button>
@@ -128,6 +134,12 @@
                         </div>
                     </div>
                 </form>
+
+                <p><img id="previewimage" style="display:none;"/></p>
+                @if ($path = Session::get('path'))
+                    <img src="{{ $path }}" />
+                @endif
+
             </div>
         </section>
         <!-- End Content -->
@@ -140,6 +152,33 @@
 
     <!-- Scripts -->
     @include('includes\layout\scripts')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ asset('js/jquery.imgareaselect.dev.js') }}"></script>
+    <script>
+    jQuery(function($) {
+        var p = $("#previewimage");
+  
+        $("body").on("change", ".image", function(){
+            var imageReader = new FileReader();
+            imageReader.readAsDataURL(document.querySelector(".image").files[0]);
+  
+            imageReader.onload = function (oFREvent) {
+                p.attr('src', oFREvent.target.result).fadeIn();
+            };
+        });
+  
+        $('#previewimage').imgAreaSelect({
+            onSelectEnd: function (img, selection) {
+                $('input[name="x1"]').val(selection.x1);
+                $('input[name="y1"]').val(selection.y1);
+                $('input[name="w"]').val(selection.width);
+                $('input[name="h"]').val(selection.height);            
+            }
+        });
+    });
+    </script>
+
     <!-- End Scripts -->
 
 

@@ -9,5 +9,5 @@ class GlobalVariable extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['value'];
+    protected $fillable = ['variable','value'];
 }

@@ -116,7 +116,7 @@
                                     @if (empty($librarian->photo))
                                             <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg" alt=""/>
 
-                                           @else <img class="object-cover w-8 h-8 mr-2 rounded-full" src="{{asset('user_photo/'.$librarian->photo)}}" alt=""/>
+                                           @else <img class="object-cover w-8 h-8 mr-2 rounded-full" src="{{asset('storage/librarian_images/crop/'.$librarian->photo)}}" alt=""/>
                                         @endif
                                     <a href="{{route('librarian.show',$librarian->id)}}">
                                         <span class="font-medium text-center">{{$librarian->first_and_last_name}}</span>

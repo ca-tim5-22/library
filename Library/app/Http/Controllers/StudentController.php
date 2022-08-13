@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage; 
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
@@ -39,10 +41,9 @@ class StudentController extends Controller
      */
     public function create()
     {
-        /* $user_types=DB::select(DB::raw("SELECT * FROM type_of_users"));
-        $user_types = (object) $user_types; */
+    
 
-        return view("create.noviUcenik"/* ,compact("user_types") */);
+        return view("create.noviUcenik");
     }
 
     /**
@@ -60,25 +61,40 @@ class StudentController extends Controller
         $password=$request->password;
         $password2=$request->password2;
         if($password === $password2){
-        if($file=$request->file('photo')){
-            $photo_name=$file->getClientOriginalName();
-            $file->move('user_photo',$photo_name);
-            $input=$photo_name;
+
+
+            if ($request->hasFile('photo')) {
+
+                $photo=$request->file('photo');
+                $photo_name_with_extension = $photo->getClientOriginalName();
+                
+                $photo_name = pathinfo($photo_name_with_extension, PATHINFO_FILENAME);
+                $extension = $request->file('photo')->getClientOriginalExtension();
+                $photonametostore = $photo_name.'_'.uniqid().'.'.$extension;
+
+                Storage::put('public/student_images/'. $photonametostore, fopen($request->file('photo'), 'r+'));
+                Storage::put('public/student_images/crop/'. $photonametostore, fopen($request->file('photo'), 'r+'));
+
+                $cropimage = public_path('storage/student_images/crop/'.$photonametostore);
+                $img = Image::make($cropimage)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
+
+                $path = asset('storage/student_images/crop/'.$photonametostore);
         
+            
             $user=Users::create([
                     "user_type_id"=>$user_type->id,
                     'first_and_last_name'=>$first_and_last_name,
                     'email'=>$request->email,
                     'username'=>$request->username,
                     'PIN'=>$request->PIN,
-                    'photo'=>$input,
+                    'photo'=>$photonametostore,
                     'password'=>Hash::make($password)
+
                 ]); 
                
-            }else{ 
 
+            }else{ 
            
-        
             $user=Users::create([
                 "user_type_id"=>$user_type->id,
                 'first_and_last_name'=>$first_and_last_name,
@@ -87,10 +103,12 @@ class StudentController extends Controller
                 'PIN'=>$request->PIN,
                 'password'=>Hash::make($password)
                 ]); 
+
               
             }
             
                  return redirect('/student');
+
             } 
     }
 
@@ -134,26 +152,39 @@ class StudentController extends Controller
         $password2=$request->password2;
         if($password === $password2){
          
-        if($request->file('photo')){
-            $old=$student->photo;
-            $file=$request->file('photo');
-           
-            if(!is_null($file)){
-            $name=$file->getClientOriginalName();
-           
-            $file->move('user_photo',$name);
-            
-            @unlink( 'user_photo/'.$old);
-            
-            $student->photo=$name;
-            $student->first_and_last_name=$request->first_and_last_name;
-            $student->email=$request->email;
-            $student->username=$request->username;
-            $student->PIN=$request->PIN;
-            $student->password=Hash::make($password);
-            
-            $student->save();
-        }
+            if ($request->hasFile('photo')) {
+                $old=$student->photo;
+                     
+                $photo=$request->file('photo');
+                if(!is_null($photo)){
+        
+                $photo_name_with_extension = $photo->getClientOriginalName();
+                        
+                $photo_name = pathinfo($photo_name_with_extension, PATHINFO_FILENAME);
+                $extension = $request->file('photo')->getClientOriginalExtension();
+                 
+                $photonametostore = $photo_name.'_'.uniqid().'.'.$extension;
+                        
+                 
+                Storage::put('public/student_images/'. $photonametostore, fopen($request->file('photo'), 'r+'));
+                Storage::put('public/student_images/crop/'. $photonametostore, fopen($request->file('photo'), 'r+'));
+                $cropimage = public_path('storage/student_images/crop/'.$photonametostore);
+                $img = Image::make($cropimage)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
+                $path = asset('storage/student_images/crop/'.$photonametostore);
+        
+                @unlink( 'public/student_images/'.$old);
+                @unlink( 'public/student_images/crop/'.$old);
+        
+        
+                $student->photo=$photonametostore;
+                $student->first_and_last_name=$request->first_and_last_name;
+                $student->email=$request->email;
+                $student->username=$request->username;
+                $student->PIN=$request->PIN;
+                $student->password=Hash::make($password);
+                    
+                $student->save();}
+        
 }else{
             $student->first_and_last_name=$request->first_and_last_name;
             $student->email=$request->email;
@@ -177,6 +208,8 @@ class StudentController extends Controller
     {
         $student=Users::findOrFail($student->id);
         $student->delete();
+        @unlink( 'public/student_images/'.$student->photo);
+        @unlink( 'public/student_images/crop/'.$student->photo);
         return redirect("/student");
     }
 }

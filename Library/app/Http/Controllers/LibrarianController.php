@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage; 
 use App\Models\Librarian;
 use App\Http\Requests\StoreLibrarianRequest;
 use App\Http\Requests\UpdateLibrarianRequest;
@@ -57,24 +60,41 @@ class LibrarianController extends Controller
         $password=$request->password;
         $password2=$request->password2;
         if($password === $password2){
-        if($file=$request->file('photo')){
-            $photo_name=$file->getClientOriginalName();
-            $file->move('user_photo',$photo_name);
-            $input=$photo_name;
-        
+
+            if ($request->hasFile('photo')) {
+
+                $photo=$request->file('photo');
+                $photo_name_with_extension = $photo->getClientOriginalName();
+
+                $photo_name = pathinfo($photo_name_with_extension, PATHINFO_FILENAME);
+                $extension = $request->file('photo')->getClientOriginalExtension();
+                $photonametostore = $photo_name.'_'.uniqid().'.'.$extension;
+
+                Storage::put('public/librarian_images/'. $photonametostore, fopen($request->file('photo'), 'r+'));
+                Storage::put('public/librarian_images/crop/'. $photonametostore, fopen($request->file('photo'), 'r+'));
+
+                $cropimage = public_path('storage/librarian_images/crop/'.$photonametostore);
+                $img = Image::make($cropimage)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
+
+                $path = asset('storage/librarian_images/crop/'.$photonametostore);
+         
             $user=Users::create([
                 "user_type_id"=>$user_type->id,
                     'first_and_last_name'=>$first_and_last_name,
                     'email'=>$request->email,
                     'username'=>$request->username,
                     'PIN'=>$request->PIN,
-                    'photo'=>$input,
+                    'photo'=>$photonametostore,
                     'password'=>Hash::make($password)
                 ]); 
-           
-            }else{ 
 
            
+
+                
+                return redirect('/librarian')->with(['success' => "Slika je uspjesno okacena.", 'path' => $path]);
+
+            }else{ 
+
         
             $user=Users::create([
                 "user_type_id"=>$user_type->id,
@@ -83,13 +103,20 @@ class LibrarianController extends Controller
                 'username'=>$request->username,
                 'PIN'=>$request->PIN,
                 'password'=>Hash::make($password)
-                ]); 
-               
+                ]);               
+            
+            
+            
             }
 
             
                  return redirect('/librarian');
+
+
+                
+     
             } 
+
     }
 
     /**
@@ -135,26 +162,39 @@ class LibrarianController extends Controller
         
         if($password === $password2){
 
-          
-        if($request->file('photo')){
-            
-            $old=$librarian->photo;
-            $file=$request->file('photo');
+        if ($request->hasFile('photo')) {
+        $old=$librarian->photo;
+             
+        $photo=$request->file('photo');
+        if(!is_null($photo)){
 
-            if(!is_null($file)){
-            $name=$file->getClientOriginalName();
-            $file->move('user_photo',$name);
+        $photo_name_with_extension = $photo->getClientOriginalName();
+                
+        $photo_name = pathinfo($photo_name_with_extension, PATHINFO_FILENAME);
+        $extension = $request->file('photo')->getClientOriginalExtension();
+         
+        $photonametostore = $photo_name.'_'.uniqid().'.'.$extension;
+                
+         
+        Storage::put('public/librarian_images/'. $photonametostore, fopen($request->file('photo'), 'r+'));
+        Storage::put('public/librarian_images/crop/'. $photonametostore, fopen($request->file('photo'), 'r+'));
+        $cropimage = public_path('storage/librarian_images/crop/'.$photonametostore);
+        $img = Image::make($cropimage)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
+        $path = asset('storage/profile_images/crop/'.$photonametostore);
+
+        @unlink( 'public/librarian_images/'.$old);
+        @unlink( 'public/librarian_images/crop/'.$old);
+
+
+        $librarian->photo=$photonametostore;
+        $librarian->first_and_last_name=$request->first_and_last_name;
+        $librarian->email=$request->email;
+        $librarian->username=$request->username;
+        $librarian->PIN=$request->PIN;
+        $librarian->password=Hash::make($password);
             
-            @unlink( 'user_photo/'.$old);
-            $librarian->photo=$name;
-            $librarian->first_and_last_name=$request->first_and_last_name;
-            $librarian->email=$request->email;
-            $librarian->username=$request->username;
-            $librarian->PIN=$request->PIN;
-            $librarian->password=Hash::make($password);
-            
-            $librarian->save();
-        }
+        $librarian->save();}
+        
 }else{
     
             $librarian->first_and_last_name=$request->first_and_last_name;
@@ -179,6 +219,8 @@ class LibrarianController extends Controller
     {
         $librarian = Users::findOrFail($librarian->id);
         $librarian->delete();
+        @unlink( 'public/librarian_images/'.$librarian->photo);
+        @unlink( 'public/librarian_images/crop/'.$librarian->photo);
 
         return redirect("/librarian");
     }

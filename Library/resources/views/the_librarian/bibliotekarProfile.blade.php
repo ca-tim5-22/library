@@ -142,7 +142,7 @@
                     @if (empty($librarian->photo))
                                             <img class="p-2 border-2 border-gray-300" src="{{asset('img/profileStudent.jpg');}}" alt=""/>
 
-                                           @else <img class="p-2 border-2 border-gray-300" src="{{asset('user_photo/'.$librarian->photo)}}" alt=""/>
+                                           @else <img class="p-2 border-2 border-gray-300" src="{{asset('storage/librarian_images/crop/'.$librarian->photo)}}" alt=""/>
                                         @endif
                        
                     </div>

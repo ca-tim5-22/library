@@ -31,6 +31,9 @@ use App\Models\StatusesOfReservations;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\StudentController;
+use App\Models\GlobalVariable;
+use App\Models\User;
+use App\Models\UserType;
 use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +70,36 @@ Route::get("book/newBookMultimedia",function(){
 });
 
 Route::get('dashboard',function(){
+    $user_type=UserType::find(1); 
+    if(is_null($user_type)){
+        UserType::create([
+            "name" => "bibliotekar",
+        ]);
+        UserType::create([
+            "name" => "ucenik",
+        ]);}
+
+     $global_variables= GlobalVariable::find(1); 
+
+    if(is_null($global_variables)){
+        GlobalVariable::create([
+            "variable" => "a",
+            "value" => 1,
+        ]);
+        GlobalVariable::create([
+            "variable" => "b",
+            "value" => 1,
+        ]);
+        GlobalVariable::create([
+            "variable" => "c",
+            "value" => 1,
+        ]);
+    
+    
+    }
+    
+    
+     
     $student=DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=1"));
     $student = (object) $student;
     $librarian= DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=2"));

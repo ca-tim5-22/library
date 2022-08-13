@@ -121,7 +121,8 @@
                                     </label>
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-4">
-                                    <p>{{$genre->name}}</p>
+                                    <img class="pic" src="{{asset('storage/genre_icons/crop/'.$genre->icon)}}" class="bd-placeholder-img card-img-top" alt="" style="width:60px;height:60px;">
+                                    <p class="ml-4 text-center">{{$genre->name}}</p>
                                 </td>
                                 <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
                                     <p style="position:relative;" class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsGenre hover:text-[#606FC7]">
