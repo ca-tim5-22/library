@@ -23,30 +23,13 @@ const newbookinfo = document.getElementById("new_book_information")
 const newbookspec = document.getElementById("new_book_specification")
 const newbookmult = document.getElementById("new_book_multimedia")
 
+const info_link = document.getElementById("info_link")
+const spec_link = document.getElementById("spec_link")
+const mult_link = document.getElementById("mult_link")
+
 const nbm = document.getElementById("new_book_multimedia");
 var book_image = document.getElementById("book_image");
 const all_images= document.getElementById("all_images");
-const path = document.getElementById("pathina");
-var array= [];
-nbm.addEventListener("change",(e)=>{
-
-    var value = book_image.value;
-
-    var url = new URL(value);
-
-    path.innerText = url.pathname;
-    var text = "<input type='hidden' name='book_photo' value='"+book_image.value+"'/>";
-    console.log(e);
-    array.push(book_image.value);
- 
-    var div = document.createElement("div");
-   
-    var img = "<img src='"+book_image.value+"'>";
-   
-    div.innerHTML = img;
-    all_images.append(div);
- 
-});
 
 let url = window.location.pathname
 
@@ -129,3 +112,15 @@ let newarray = url
         autori.classList.remove("bg-[#3F51B5]")
         autori.classList.add("text-[#707070]")
     }
+
+    var array= [];
+    nbm.addEventListener("change",()=>{
+        
+        var div = document.createElement("div");
+        var text = "<input type='hidden' name='book_photo' value='"+book_image.value.substring(12)+"'/>";
+    
+        div.innerHTML = text;
+        all_images.append(div);
+       
+    });
+    

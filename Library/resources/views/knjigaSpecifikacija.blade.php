@@ -132,37 +132,7 @@
                     </div>
                     <div class="">
                         <!-- Space for content -->
-                        <div class="pl-[30px] section- mt-[20px]">
-                            <div class="flex flex-row justify-between">
-                                <div class="mr-[30px]">
-                                    <div class="mt-[20px]">
-                                        <span class="text-gray-500 text-[14px]">Broj strana</span>
-                                        <p class="font-medium">264</p>
-                                    </div>
-                                    <div class="mt-[40px]">
-                                        <span class="text-gray-500 text-[14px]">Pismo</span>
-                                        <p class="font-medium">Cirilica</p>
-                                    </div>
-                                    <div class="mt-[40px]">
-                                        <span class="text-gray-500 text-[14px]">Jezik</span>
-                                        <p class="font-medium">Crnogorski</p>
-                                    </div>
-                                    <div class="mt-[40px]">
-                                        <span class="text-gray-500 text-[14px]">Povez</span>
-                                        <p class="font-medium">Tvrd</p>
-                                    </div>
-                                    <div class="mt-[40px]">
-                                        <span class="text-gray-500 text-[14px]">Format</span>
-                                        <p class="font-medium">21 cm</p>
-                                    </div>
-                                    <div class="mt-[40px]">
-                                        <span class="text-gray-500 text-[14px]">International Standard Book Number
-                                            (ISBN)</span>
-                                        <p class="font-medium">1546213456878</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="min-w-[20%] border-l-[1px] border-[#e4dfdf] ">

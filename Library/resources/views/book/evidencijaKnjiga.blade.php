@@ -221,8 +221,14 @@
                                         </label>
                                     </td>
                                     <td class="flex flex-row items-center px-4 py-4">
-                                        <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                        <a href="">
+                                        @foreach ($book_headline as $photo)
+                                        @if ($photo->book_id == $book->id && $photo->headline == 1)
+                                        <img class="object-cover w-8 mr-2 h-11" src="{{asset('storage/book_images/'.$photo->photo);}}" alt="" />
+                                        @endif
+                                       
+                                        @endforeach
+                                        
+                                        <a href="{{route('book.show',$book->id)}}">
                                             <span class="font-medium text-center">{{$book->title}}</span>
                                         </a>
                                     </td>

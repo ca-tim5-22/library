@@ -42,4 +42,8 @@ class Book extends Model
     public function genres(){
     return $this->belongsToMany(Genre::class,"book_genres");
     }
+
+    public function gallery(){
+        return $this->hasOne(Gallery::class,"book_id");
+    }
 }
