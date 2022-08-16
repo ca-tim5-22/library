@@ -60,9 +60,10 @@ class LibrarianController extends Controller
         $password=$request->password;
         $password2=$request->password2;
         if($password === $password2){
-
+            $widthofpre=$request->widthofpre;
+            $heightofpre=$request->heightofpre;
             if ($request->hasFile('photo')) {
-
+              
                 $photo=$request->file('photo');
                 $photo_name_with_extension = $photo->getClientOriginalName();
 
@@ -74,7 +75,7 @@ class LibrarianController extends Controller
                 Storage::put('public/librarian_images/crop/'. $photonametostore, fopen($request->file('photo'), 'r+'));
 
                 $cropimage = public_path('storage/librarian_images/crop/'.$photonametostore);
-                $img = Image::make($cropimage)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
+                $img = Image::make($cropimage)->resize($widthofpre,$heightofpre)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
 
                 $path = asset('storage/librarian_images/crop/'.$photonametostore);
          
@@ -161,7 +162,8 @@ class LibrarianController extends Controller
         $password2=$request->password2;
         
         if($password === $password2){
-
+            $widthofpre=$request->widthofpre;
+            $heightofpre=$request->heightofpre;
         if ($request->hasFile('photo')) {
         $old=$librarian->photo;
              
@@ -179,7 +181,7 @@ class LibrarianController extends Controller
         Storage::put('public/librarian_images/'. $photonametostore, fopen($request->file('photo'), 'r+'));
         Storage::put('public/librarian_images/crop/'. $photonametostore, fopen($request->file('photo'), 'r+'));
         $cropimage = public_path('storage/librarian_images/crop/'.$photonametostore);
-        $img = Image::make($cropimage)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
+        $img = Image::make($cropimage)->resize($widthofpre,$heightofpre)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
         $path = asset('storage/profile_images/crop/'.$photonametostore);
 
         @unlink( 'public/librarian_images/'.$old);

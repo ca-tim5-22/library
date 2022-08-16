@@ -113,6 +113,12 @@
 
                         </div>
                     </div>
+                    <p><img id="previewimage" style="display:none;max-width:700px; max-height:700px;"/></p>
+                    @if ($path = Session::get('path'))
+                        <img src="{{ $path }}" />
+                    @endif
+                    <input type="hidden" name="heightofpre" value="" />
+                    <input type="hidden" name="widthofpre" value="" />
                     <div class="absolute bottom-0 w-full">
                         <div class="flex flex-row">
                             <div class="inline-block w-full text-white text-right py-[7px] mr-[100px]">
@@ -129,10 +135,7 @@
                     </div>
                 </form>
                         
-                <p><img id="previewimage" style="display:none;"/></p>
-                @if ($path = Session::get('path'))
-                    <img src="{{ $path }}" />
-                @endif
+             
 
             </div>
         </section>

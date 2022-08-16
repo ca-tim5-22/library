@@ -46,7 +46,8 @@ class GenreController extends Controller
     {
         
         if ($request->hasFile('icon')) {
-
+            $widthofpre=$request->widthofpre;
+            $heightofpre=$request->heightofpre;
             $icon=$request->file('icon');
             $icon_name_with_extension = $icon->getClientOriginalName();
             
@@ -58,7 +59,7 @@ class GenreController extends Controller
             Storage::put('public/genre_icons/crop/'. $iconnametostore, fopen($request->file('icon'), 'r+'));
 
             $cropimage = public_path('storage/genre_icons/crop/'.$iconnametostore);
-            $img = Image::make($cropimage)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
+            $img = Image::make($cropimage)->resize($widthofpre,$heightofpre)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
 
             $path = asset('storage/genre_icons/crop/'.$iconnametostore);
             
@@ -122,7 +123,8 @@ class GenreController extends Controller
     
     
     if ($request->hasFile('icon')) { 
-    
+        $widthofpre=$request->widthofpre;
+        $heightofpre=$request->heightofpre;
         $icon=$request->file('icon');
         if(!is_null($icon)){
     
@@ -137,7 +139,7 @@ class GenreController extends Controller
         Storage::put('public/genre_icons/'. $iconnametostore, fopen($request->file('icon'), 'r+'));
         Storage::put('public/genre_icons/crop/'. $iconnametostore, fopen($request->file('icon'), 'r+'));
         $cropimage = public_path('storage/genre_icons/crop/'.$iconnametostore);
-        $img = Image::make($cropimage)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
+        $img = Image::make($cropimage)->resize($widthofpre,$heightofpre)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
         $path = asset('storage/genre_icons/crop/'.$iconnametostore);
     
         @unlink( 'public/genre_icons/'.$old);

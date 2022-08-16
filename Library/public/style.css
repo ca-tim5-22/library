@@ -21,7 +21,13 @@
 .bg-login {
   background-image: url('../img/login.jpg');
 }
-
+#display-image{
+  width: 400px;
+  height: 225px;
+  border: 1px solid black;
+  background-position: center;
+  background-size: cover;
+}
 /* Sidebar transition*/
 .sidebar {
   transition: width 0.5s;
