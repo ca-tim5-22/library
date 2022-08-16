@@ -118,6 +118,14 @@
                             </div>
                         </div>
                     </div>
+
+                                     
+                <p><img id="previewimage" style="display:none;max-width:700px; max-height:700px;"/></p>
+                @if ($path = Session::get('path'))
+                    <img src="{{ $path }}" />
+                @endif
+                <input type="hidden" name="heightofpre" value="" />
+                <input type="hidden" name="widthofpre" value="" />
                     <div class="absolute bottom-0 w-full">
                         <div class="flex flex-row">
                             <div class="inline-block w-full text-white text-right py-[7px] mr-[100px]">
@@ -134,11 +142,6 @@
                         </div>
                     </div>
                 </form>
-
-                <p><img id="previewimage" style="display:none;"/></p>
-                @if ($path = Session::get('path'))
-                    <img src="{{ $path }}" />
-                @endif
 
             </div>
         </section>
@@ -173,7 +176,9 @@
                 $('input[name="x1"]').val(selection.x1);
                 $('input[name="y1"]').val(selection.y1);
                 $('input[name="w"]').val(selection.width);
-                $('input[name="h"]').val(selection.height);            
+                $('input[name="h"]').val(selection.height);       
+                $('input[name="widthofpre"]').val(p.width()); 
+                $('input[name="heightofpre"]').val(p.height());       
             }
         });
     });

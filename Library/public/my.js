@@ -23,6 +23,31 @@ const newbookinfo = document.getElementById("new_book_information")
 const newbookspec = document.getElementById("new_book_specification")
 const newbookmult = document.getElementById("new_book_multimedia")
 
+const nbm = document.getElementById("new_book_multimedia");
+var book_image = document.getElementById("book_image");
+const all_images= document.getElementById("all_images");
+const path = document.getElementById("pathina");
+var array= [];
+nbm.addEventListener("change",(e)=>{
+
+    var value = book_image.value;
+
+    var url = new URL(value);
+
+    path.innerText = url.pathname;
+    var text = "<input type='hidden' name='book_photo' value='"+book_image.value+"'/>";
+    console.log(e);
+    array.push(book_image.value);
+ 
+    var div = document.createElement("div");
+   
+    var img = "<img src='"+book_image.value+"'>";
+   
+    div.innerHTML = img;
+    all_images.append(div);
+ 
+});
+
 let url = window.location.pathname
 
 console.log(url)

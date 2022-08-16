@@ -52,8 +52,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function(){
- 
+/* Route::group(['middleware' => 'auth'], function(){
+  */
 Route::get("book/newBookSpecification",function(){
     $bindings=DB::select(DB::raw("SELECT * FROM `bindings`"));
     $bindings = (object) $bindings;
@@ -166,4 +166,4 @@ Route::get("booksort",[BookController::class,"sort"])->name("book.sort");
 /*-------------------------------------------------------------------------------------------*/
 
 Route::get("bookspec",[BookController::class,"spec"])->name("book.spec");
- }); 
+//  }); 

@@ -146,12 +146,20 @@
                                         <input type="hidden" name="h" value="" />
                                    
                                     </div>
+                                    
                                     <img id="image-output-student" class="hidden absolute w-48 h-[188px] bottom-0" />	
+
+                                   
                                 </div>
-                            </label>  
+                            </label> 
+                             <p><img id="previewimage" style="display:none;position: absolute;max-width:700px; max-height:700px;"/></p>
+                                    @if ($path = Session::get('path'))
+                                        <img src="{{ $path }}" />
+                                    @endif
                         </div>
                     </div>
-
+                    <input type="hidden" name="heightofpre" value="" />
+                    <input type="hidden" name="widthofpre" value="" />
                     <div class="absolute bottom-0 w-full">
                         <div class="flex flex-row">
                             <div class="inline-block w-full text-right py-[7px] mr-[100px] text-white">
@@ -171,10 +179,7 @@
                     
                 </form>
 
-                <p><img id="previewimage" style="display:none;"/></p>
-                @if ($path = Session::get('path'))
-                    <img src="{{ $path }}" />
-                @endif
+               
 
 
             </div>
@@ -193,15 +198,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('js/jquery.imgareaselect.dev.js') }}"></script>
     <script>
+       
+        
+
     jQuery(function($) {
         var p = $("#previewimage");
-  
+   
         $("body").on("change", ".image", function(){
             var imageReader = new FileReader();
             imageReader.readAsDataURL(document.querySelector(".image").files[0]);
   
             imageReader.onload = function (oFREvent) {
                 p.attr('src', oFREvent.target.result).fadeIn();
+                
             };
         });
   
@@ -210,9 +219,14 @@
                 $('input[name="x1"]').val(selection.x1);
                 $('input[name="y1"]').val(selection.y1);
                 $('input[name="w"]').val(selection.width);
-                $('input[name="h"]').val(selection.height);            
+                $('input[name="h"]').val(selection.height); 
+                $('input[name="widthofpre"]').val(p.width()); 
+                $('input[name="heightofpre"]').val(p.height());  
+                       
             }
         });
+        
+        
     });
     </script>
     <!-- End Scripts -->

@@ -18,47 +18,47 @@ return new class extends Migration
             $table->string("title",256);
             $table->integer("number_of_pages");
 
-            $table->unsignedBigInteger("alphabet_id");
+            $table->unsignedBigInteger("alphabet_id")->nullable();
             $table->foreign("alphabet_id")
             ->references("id")
             ->on("alphabets")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
-            $table->unsignedBigInteger("language_id");
+            $table->unsignedBigInteger("language_id")->nullable();
             $table->foreign("language_id")
             ->references("id")
             ->on("languages")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
-            $table->unsignedBigInteger("binding_id");
+            $table->unsignedBigInteger("binding_id")->nullable();
             $table->foreign("binding_id")
             ->references("id")
             ->on("bindings")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
-            $table->unsignedBigInteger("format_id");
+            $table->unsignedBigInteger("format_id")->nullable();
             $table->foreign("format_id")
             ->references("id")
             ->on("formats")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
-            $table->unsignedBigInteger("publisher_id");
+            $table->unsignedBigInteger("publisher_id")->nullable();
             $table->foreign("publisher_id")
             ->references("id")
             ->on("publishers")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
-            $table->date("release_date");
-            $table->string("ISBN",20);
-            $table->integer("total");
-            $table->integer("rented");
-            $table->integer("reserved");
-            $table->string("content",4128);
+            $table->integer("release_date")->nullable();
+            $table->string("ISBN",20)->nullable();
+            $table->integer("total")->nullable();
+            $table->integer("rented")->nullable();
+            $table->integer("reserved")->nullable();
+            $table->string("content",4128)->nullable();
             $table->timestamps();
         });
     }

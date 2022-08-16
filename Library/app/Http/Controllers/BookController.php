@@ -115,7 +115,7 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-    
+    dd($request);
     $categories=$request->valuesCategories[0];
     $genres=$request->valuesGenres[0];
     $authors=$request->valuesAuthors[0];
@@ -128,15 +128,6 @@ class BookController extends Controller
             $authors_array=explode(",",$authors);
         
 
-       $book=Book::create([
-            "title"=>$request->title,
-            "content"=>$request->content,
-            "number_of_pages"=>$request->number_of_pages,
-            "release_date"=>$request->release_date,
-            "total"=>$request->total,
-            "ISBN"=>$request->ISBN
-
-      ]);
       $alphabet=Alphabet::findOrFail($request->alphabet);
       $binding=Binding::findOrFail($request->binding);
       $publisher=Publisher::findOrFail($request->publisher);
@@ -148,6 +139,15 @@ class BookController extends Controller
         $genre = Genre::findOrFail($genres_array);
         $author = Author::findOrFail($authors_array);
 
+        $book=Book::create([
+            "title"=>$request->title,
+            "content"=>$request->content,
+            "number_of_pages"=>$request->number_of_pages,
+            "release_date"=>$request->release_date,
+            "total"=>$request->total,
+            "ISBN"=>$request->ISBN
+
+      ]);
         $alphabet->alphabet()->save($book);
         $binding->binding()->save($book);
         $publisher->publisher()->save($book);
@@ -158,7 +158,6 @@ class BookController extends Controller
         $book->authors()->attach($author);
      
      
-
        return redirect("/book");
     }
 

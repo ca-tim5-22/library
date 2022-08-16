@@ -51,7 +51,8 @@ class CategoryController extends Controller
     {
 
         if ($request->hasFile('icon')) {
-
+            $widthofpre=$request->widthofpre;
+            $heightofpre=$request->heightofpre;
             $icon=$request->file('icon');
             $icon_name_with_extension = $icon->getClientOriginalName();
             
@@ -63,7 +64,7 @@ class CategoryController extends Controller
             Storage::put('public/category_icons/crop/'. $iconnametostore, fopen($request->file('icon'), 'r+'));
 
             $cropimage = public_path('storage/category_icons/crop/'.$iconnametostore);
-            $img = Image::make($cropimage)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
+            $img = Image::make($cropimage)->resize($widthofpre,$heightofpre)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
 
             $path = asset('storage/category_icons/crop/'.$iconnametostore);
             
@@ -127,7 +128,8 @@ class CategoryController extends Controller
 
 
 if ($request->hasFile('icon')) { 
-
+    $widthofpre=$request->widthofpre;
+    $heightofpre=$request->heightofpre;
     $icon=$request->file('icon');
     if(!is_null($icon)){
 
@@ -142,7 +144,7 @@ if ($request->hasFile('icon')) {
     Storage::put('public/category_icons/'. $iconnametostore, fopen($request->file('icon'), 'r+'));
     Storage::put('public/category_icons/crop/'. $iconnametostore, fopen($request->file('icon'), 'r+'));
     $cropimage = public_path('storage/category_icons/crop/'.$iconnametostore);
-    $img = Image::make($cropimage)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
+    $img = Image::make($cropimage)->resize($widthofpre,$heightofpre)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
     $path = asset('storage/category_icons/crop/'.$iconnametostore);
 
     @unlink( 'public/category_icons/'.$old);

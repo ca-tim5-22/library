@@ -61,7 +61,7 @@
                             >Sign In</button>
                             
                         <a class="inline-block text-sm font-normal text-blue-500 align-baseline hover:text-blue-800"
-                            href="#">
+                            href="{{route("resetpassword.index");}}">
                             Forgot Password?
                         </a>
                     </div>
@@ -69,7 +69,7 @@
                         &copy;2022 ICT Cortex. All rights reserved.
                     </p>
                 </form>
-
+                
             </div>
         </div>
     </main>

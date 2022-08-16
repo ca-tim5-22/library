@@ -64,7 +64,8 @@ class StudentController extends Controller
 
 
             if ($request->hasFile('photo')) {
-
+                $widthofpre=$request->widthofpre;
+                $heightofpre=$request->heightofpre;
                 $photo=$request->file('photo');
                 $photo_name_with_extension = $photo->getClientOriginalName();
                 
@@ -76,7 +77,7 @@ class StudentController extends Controller
                 Storage::put('public/student_images/crop/'. $photonametostore, fopen($request->file('photo'), 'r+'));
 
                 $cropimage = public_path('storage/student_images/crop/'.$photonametostore);
-                $img = Image::make($cropimage)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
+                $img = Image::make($cropimage)->resize($widthofpre,$heightofpre)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
 
                 $path = asset('storage/student_images/crop/'.$photonametostore);
         
@@ -151,7 +152,8 @@ class StudentController extends Controller
         $password=$request->password;
         $password2=$request->password2;
         if($password === $password2){
-         
+            $widthofpre=$request->widthofpre;
+            $heightofpre=$request->heightofpre;
             if ($request->hasFile('photo')) {
                 $old=$student->photo;
                      
@@ -169,7 +171,7 @@ class StudentController extends Controller
                 Storage::put('public/student_images/'. $photonametostore, fopen($request->file('photo'), 'r+'));
                 Storage::put('public/student_images/crop/'. $photonametostore, fopen($request->file('photo'), 'r+'));
                 $cropimage = public_path('storage/student_images/crop/'.$photonametostore);
-                $img = Image::make($cropimage)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
+                $img = Image::make($cropimage)->resize($widthofpre,$heightofpre)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
                 $path = asset('storage/student_images/crop/'.$photonametostore);
         
                 @unlink( 'public/student_images/'.$old);

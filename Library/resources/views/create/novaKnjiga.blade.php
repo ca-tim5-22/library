@@ -11,7 +11,6 @@
     <meta name="keywords" content="ict cortex, cortex, bild, bildstudio, highschool, students, coding" />
     <meta name="author" content="bildstudio" />
     <!-- End Meta -->
-
     <!-- Title -->
     <title>New book | Library - ICT Cortex student project</title>
     @include('includes\layout\icon')
@@ -80,7 +79,7 @@
             </div>
             <!-- Space for content -->
             <div class="scroll height-content section-content">
-                <form class="text-gray-700" method="POST" action="{{route('book.store');}}">
+                <form class="text-gray-700" method="POST" action="{{route('book.store');}}" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
                     <div id="new_book_information" class="">
@@ -513,20 +512,20 @@
                 </div>
             </div>
 <div id="new_book_multimedia" class="nonactive-form">
-
+                
                 <div class="w-9/12 mx-auto bg-white rounded p7 mt-[40px] mb-[150px]">
                     <div x-data="dataFileDnD()"
                         class="relative flex flex-col p-4 text-gray-400 border border-gray-200 rounded">
                         <div x-ref="dnd"
                             class="relative flex flex-col text-gray-400 border border-gray-200 border-dashed rounded cursor-pointer">
-                            <input accept="*" type="file" multiple
+                            <input id="book_image" type="file"  name="book_photo[]"
                                 class="absolute inset-0 z-50 w-full h-full p-0 m-0 outline-none opacity-0 cursor-pointer"
                                 @change="addFiles($event)"
                                 @dragover="$refs.dnd.classList.add('border-blue-400'); $refs.dnd.classList.add('ring-4'); $refs.dnd.classList.add('ring-inset');"
                                 @dragleave="$refs.dnd.classList.remove('border-blue-400'); $refs.dnd.classList.remove('ring-4'); $refs.dnd.classList.remove('ring-inset');"
                                 @drop="$refs.dnd.classList.remove('border-blue-400'); $refs.dnd.classList.remove('ring-4'); $refs.dnd.classList.remove('ring-inset');"
-                                title="" />
-
+                                title="" multiple />
+                          
                             <div class="flex flex-col items-center justify-center py-10 text-center">
                                 <svg class="w-6 h-6 mr-1 text-current-50" xmlns="http://www.w3.org/2000/svg"
                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -591,7 +590,7 @@
 
                                         <div
                                             class="absolute bottom-0 left-0 right-0 flex flex-col p-2 text-xs bg-white bg-opacity-50">
-                                            <span class="w-full font-bold text-gray-900 truncate"
+                                            <span id="book_image_name" class="w-full font-bold text-gray-900 truncate"
                                                 x-text="files[index].name">Loading</span>
                                             <span class="text-xs text-gray-900"
                                                 x-text="humanFileSize(files[index].size)">...</span>
@@ -627,7 +626,7 @@
             </div>
 
 
-
+<p id="pathina"></p>
         
             
             <div class="absolute bottom-0 w-full">
@@ -637,7 +636,7 @@
                             class="btn-animation shadow-lg mr-[15px] w-[150px] focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
                             Ponisti <i class="fas fa-times ml-[4px]"></i>
                         </button>
-                        <button id="sacuvajKnjigu" 
+                        <button id="sacuvajKnjigu" type="submit" name="submit"
                             class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]"
                             onclick="validacijaKnjiga()">
                             Sacuvaj <i class="fas fa-check ml-[4px]"></i>
@@ -667,5 +666,26 @@
         });
     </script>
 </body>
+<script>
 
+
+    jQuery(function($) {
+            var p = $("#previewimage");
+            const new_book_multimedia = $("#new_book_multimedia");
+            $(new_book_multimedia).on("change",()=>{
+                var imagename=$("#book_image_name");
+                var array=[];
+                array[]=imagename;
+                console.log(array);
+            }); 
+          
+      
+        });
+    
+    
+    
+    
+    
+    
+                                </script>
 </html>
