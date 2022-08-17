@@ -110,7 +110,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white">
-                            @foreach ($binding as $b)
+                            @foreach ($bindings as $b)
                             
                             <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-4 whitespace-no-wrap">
@@ -372,67 +372,79 @@
                         </tbody>
                     </table>
 
-                    <div class="flex flex-row items-center justify-end mt-2">
-                        <div>
-                            <p class="inline text-md">
-                                Rows per page:
-                            </p>
-                            <select
+                    <div class="flex flex-row items-center justify-end my-3">
+                    
+                       
+                                
+                        <div> 
+                        @if (URL::current() == "http://127.0.0.1:8000/bindingsort")
+                             <form style="margin-right:20px;" id="formica" method="POST" action="{{route("binding.sort")}}">
+                             @else
+                            <form style="margin-right:20px;" id="formica" method="POST" action="{{route("binding.index")}}">
+                        @endif
+                       
+                        @csrf
+                        @method("GET")
+                         <select onchange="this.form.submit()" id="selectica" form="formica" 
                                 class=" text-gray-700 bg-white rounded-md w-[46px] focus:outline-none focus:ring-primary-500 focus:border-primary-500 text-md"
-                                name="ucenici">
-                                <option value="">
-                                    20
-                                </option>
-                                <option value="">
-                                    Option1
-                                </option>
-                                <option value="">
-                                    Option2
-                                </option>
-                                <option value="">
-                                    Option3
-                                </option>
-                                <option value="">
-                                    Option4
-                                </option>
-                            </select>
-                        </div>
+                                name="paginate">
 
-                        <div>
-                            <nav class="relative z-0 inline-flex">
-                                <div>
-                                    <a href="#"
-                                        class="relative inline-flex items-center px-4 py-2 -ml-px font-medium leading-5 transition duration-150 ease-in-out bg-white text-md focus:z-10 focus:outline-none">
-                                        1 of 1
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href="#"
-                                        class="relative inline-flex items-center px-2 py-2 font-medium leading-5 text-gray-500 transition duration-150 ease-in-out bg-white text-md rounded-l-md hover:text-gray-400 focus:z-10 focus:outline-none"
-                                        aria-label="Previous"
-                                        v-on:click.prevent="changePage(pagination.current_page - 1)">
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd"
-                                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </a>
-                                </div>
-                                <div v-if="pagination.current_page < pagination.last_page">
-                                    <a href="#"
-                                        class="relative inline-flex items-center px-2 py-2 -ml-px font-medium leading-5 text-gray-500 transition duration-150 ease-in-out bg-white text-md rounded-r-md hover:text-gray-400 focus:z-10 focus:outline-none"
-                                        aria-label="Next">
-                                        <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd"
-                                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </nav>
-                        </div>
-                    </div>
+                                @if (isset($currentpag))
+                                @if ($currentpag == 2)
+                                <option id="selecticaoption" value="2" disabled selected>2</option>
+                                <option id="selecticaoption" value="4">4</option>
+                                <option id="selecticaoption" value="6">6</option>
+                                <option id="selecticaoption" value="8">8</option>
+                                <option id="selecticaoption" value="10">10</option>
+                                @endif
+                                @if ($currentpag == 4)
+                                <option id="selecticaoption" value="2" >2</option>
+                                <option id="selecticaoption" value="4" disabled selected>4</option>
+                                <option id="selecticaoption" value="6">6</option>
+                                <option id="selecticaoption" value="8">8</option>
+                                <option id="selecticaoption" value="10">10</option>
+                                @endif
 
+                                @if ($currentpag == 6)
+                                    <option id="selecticaoption" value="2" >2</option>
+                                <option id="selecticaoption" value="4">4</option>
+                                <option id="selecticaoption" value="6"  disabled selected>6</option>
+                                <option id="selecticaoption" value="8">8</option>
+                                <option id="selecticaoption" value="10">10</option>
+                                @endif
+
+                                @if ($currentpag == 8)
+                                    <option id="selecticaoption" value="2" >2</option>
+                                <option id="selecticaoption" value="4">4</option>
+                                <option id="selecticaoption" value="6" >6</option>
+                                <option id="selecticaoption" value="8"  disabled selected>8</option>
+                                <option id="selecticaoption" value="10">10</option>
+                                @endif
+
+                                @if ($currentpag == 10)
+                                    <option id="selecticaoption" value="2" >2</option>
+                                <option id="selecticaoption" value="4" >4</option>
+                                <option id="selecticaoption" value="6">6</option>
+                                <option id="selecticaoption" value="8">8</option>
+                                <option id="selecticaoption" value="10" disabled selected>10</option>
+                                @endif
+
+                                    @else
+                            
+                                @endif
+                              
+                            </select> 
+                            
+                            </form>
+                          
+ 
+                    </div>  
+                            <p class="inline text-md">
+                            
+                              {{ $bindings->onEachSide($currentpag)->links("vendor\pagination.tailwind") }}
+                            </p>
+
+                </div>
                 </div>
             </div>
 

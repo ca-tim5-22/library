@@ -9,6 +9,8 @@ use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\URL;
 class CategoryController extends Controller
 {
     /**
@@ -16,19 +18,59 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $url= URL::previous();
+        if($request->paginate != null){
+            $categories = DB::table("categories")->orderBy("name","ASC")->paginate($request->paginate,"*","page");
 
-        $categories=DB::select(DB::raw("SELECT * FROM `categories` ORDER BY `categories`.`name` ASC"));
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
+
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $categories = DB::table("categories")->orderBy("name","ASC")->paginate($currentpag,"*","page");
+            
+        }
         
-       /*  $categories=Category::orderBy('created_at','desc')->paginate(4,"*","Page");*/
-
-        return view('index.settingsKategorije',compact("categories"));
+        return view("index.settingsKategorije",compact("categories","url","currentpag"));
     }
 
-    public function sort(){
-        $categories=DB::select(DB::raw("SELECT * FROM `categories` ORDER BY `categories`.`name` DESC"));
-        return view("index.settingsKategorije",compact("categories"));
+    public function sort(Request $request){
+        $url= URL::previous();
+        if($request->paginate != null){
+            $categories = DB::table("categories")->orderBy("name","DESC")->paginate($request->paginate,"*","page");
+
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
+
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $categories = DB::table("categories")->orderBy("name","DESC")->paginate($currentpag,"*","page");
+            
+        }
+        
+        return view("index.settingsKategorije",compact("categories","url","currentpag"));
     }
 
     /**

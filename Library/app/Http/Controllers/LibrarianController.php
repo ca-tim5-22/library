@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Users;
 use App\Models\UserType;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\URL;
 class LibrarianController extends Controller
 {
     /**
@@ -19,18 +21,60 @@ class LibrarianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $librarians=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=2 ORDER BY users.first_and_last_name ASC;"));
-        $librarians = (object) $librarians;
-        return view("the_librarian.bibliotekari",compact("librarians"));
+        $url= URL::previous();
+        if($request->paginate != null){
+            $librarians = DB::table("users")->where("user_type_id","=",1)->orderBy("users.first_and_last_name","ASC")->paginate($request->paginate,"*","page");
+
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
+
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $librarians = DB::table("users")->where("user_type_id","=",1)->orderBy("first_and_last_name","ASC")->paginate($currentpag,"*","page");
+            
+        }
+        
+        return view("the_librarian.bibliotekari",compact("librarians","url","currentpag"));
     }
 
-    public function sort()
+    public function sort(Request $request)
     {
-        $librarians=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=2 ORDER BY users.first_and_last_name DESC;"));
-        $librarians = (object) $librarians;
-        return view("the_librarian.bibliotekari",compact("librarians"));
+        $url= URL::previous();
+        if($request->paginate != null){
+            $librarians = DB::table("users")->where("user_type_id","=",1)->orderBy("users.first_and_last_name","DESC")->paginate($request->paginate,"*","page");
+
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
+
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $librarians = DB::table("users")->where("user_type_id","=",1)->orderBy("first_and_last_name","DESC")->paginate($currentpag,"*","page");
+            
+        }
+        
+        return view("the_librarian.bibliotekari",compact("librarians","url","currentpag"));
     }
 
     /**
@@ -53,7 +97,7 @@ class LibrarianController extends Controller
      */
     public function store(StoreLibrarianRequest $request)
     {
-        $user_type=UserType::findOrFail(2);
+        $user_type=UserType::findOrFail(1);
         $first_and_last_name=$request->first_and_last_name;
        
         

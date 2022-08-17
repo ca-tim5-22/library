@@ -6,6 +6,8 @@ use App\Models\Format;
 use App\Http\Requests\StoreFormatRequest;
 use App\Http\Requests\UpdateFormatRequest;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\URL;
 class FormatController extends Controller
 {
     /**
@@ -13,15 +15,59 @@ class FormatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $format=DB::select(DB::raw("SELECT * FROM `formats` ORDER BY `formats`.`name` ASC"));
-        return view("index.settingsFormat",compact('format'));
+        $url= URL::previous();
+        if($request->paginate != null){
+            $formats = DB::table("formats")->orderBy("name","ASC")->paginate($request->paginate,"*","page");
+
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
+
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $formats = DB::table("formats")->orderBy("name","ASC")->paginate($currentpag,"*","page");
+            
+        }
+        
+        return view("index.settingsFormat",compact("formats","url","currentpag"));
     }
 
-    public function sort(){
-        $format=DB::select(DB::raw("SELECT * FROM `formats` ORDER BY `formats`.`name` DESC"));
-        return view("index.settingsFormat",compact("format"));
+    public function sort(Request $request){
+        $url= URL::previous();
+        if($request->paginate != null){
+            $formats = DB::table("formats")->orderBy("name","DESC")->paginate($request->paginate,"*","page");
+
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
+
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $formats = DB::table("formats")->orderBy("name","DESC")->paginate($currentpag,"*","page");
+            
+        }
+        
+        return view("index.settingsFormat",compact("formats","url","currentpag"));
     }
     /**
      * Show the form for creating a new resource.

@@ -55,7 +55,11 @@ class BookController extends Controller
             
         }
         $book_headline=(object) $book_headline;
-        return view("book.evidencijaKnjiga",compact("books","currentpag","url","book_headline"));
+        $categories_of_book = DB::select(DB::raw("SELECT * FROM book_categories;"));
+        $authors_of_book =DB::select(DB::raw("SELECT * FROM book_authors;"));
+        $authors = DB::select(DB::raw("SELECT * FROM authors;"));
+        $categories = DB::select(DB::raw("SELECT * FROM categories;"));
+        return view("book.evidencijaKnjiga",compact("books","currentpag","url","book_headline","categories_of_book","authors_of_book","authors","categories"));
      
         
     }
@@ -90,8 +94,13 @@ class BookController extends Controller
             $books = DB::table("books")->orderBy("title","ASC")->paginate($currentpag,"*","page");
             
         }
+        $categories_of_book = DB::select(DB::raw("SELECT * FROM book_categories;"));
+        $authors_of_book =DB::select(DB::raw("SELECT * FROM book_authors;"));
+        $authors = DB::select(DB::raw("SELECT * FROM authors;"));
+        $categories = DB::select(DB::raw("SELECT * FROM categories;"));
         $book_headline=(object) $book_headline;
-        return view("book.evidencijaKnjiga",compact("books","currentpag","url","book_headline"));
+    
+        return view("book.evidencijaKnjiga",compact("books","currentpag","url","book_headline","categories_of_book","authors_of_book","authors","categories"));
      
      
         
@@ -179,10 +188,17 @@ class BookController extends Controller
         $photonametostore = $photo_name.'_'.uniqid().'.'.$extension;
 
         Storage::put('public/book_images/'. $photonametostore, fopen($file[$i], 'r+'));
-    
-       $gallery=Gallery::create([
-            "photo"=>$photonametostore
-        ]);
+        if(count($file)==1){
+            $gallery=Gallery::create([
+                "photo"=>$photonametostore,
+                "headline"=>1
+            ]);
+        }else{
+            $gallery=Gallery::create([
+                "photo"=>$photonametostore
+            ]);
+        }
+      
        
         $book->gallery()->save($gallery);
        }
@@ -201,9 +217,9 @@ class BookController extends Controller
     {
         $book=Book::findOrFail($book->id);
 
-        $students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=1 ORDER BY `users`.`first_and_last_name` ASC;"));
+        $students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=2 ORDER BY `users`.`first_and_last_name` ASC;"));
         $students = (object) $students;
-        $librarian=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=2 ORDER BY `users`.`first_and_last_name` ASC;"));
+        $librarian=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=1 ORDER BY `users`.`first_and_last_name` ASC;"));
         $librarian = (object) $librarian;
         $book_photos=DB::select(DB::raw("SELECT * from galleries;"));
         $book_photos = (object) $book_photos;
@@ -370,6 +386,7 @@ class BookController extends Controller
         $book->authors()->sync([]);
         $book->genres()->sync([]);
         $book->categories()->sync([]);
+        $book->gallery()->delete();
         $book->delete();
 
         return redirect("/book");

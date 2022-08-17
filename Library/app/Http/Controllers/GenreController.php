@@ -8,6 +8,8 @@ use App\Models\Genre;
 use App\Http\Requests\StoreGenreRequest;
 use App\Http\Requests\UpdateGenreRequest;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\URL;
 class GenreController extends Controller
 {
     /**
@@ -15,16 +17,59 @@ class GenreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $genres=DB::select(DB::raw("SELECT * FROM `genres` ORDER BY `genres`.`name` ASC"));
-        return view("index.settingsZanrovi",compact("genres"));
-    }
-    
-    public function sort(){
+        $url= URL::previous();
+        if($request->paginate != null){
+            $genres = DB::table("genres")->orderBy("name","ASC")->paginate($request->paginate,"*","page");
+
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
+
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $genres = DB::table("genres")->orderBy("name","ASC")->paginate($currentpag,"*","page");
+            
+        }
         
-        $genres=DB::select(DB::raw("SELECT * FROM `genres` ORDER BY `genres`.`name` DESC"));
-        return view("index.settingsZanrovi",compact("genres"));
+        return view("index.settingsZanrovi",compact("genres","url","currentpag"));
+    }
+
+    public function sort(Request $request){
+        $url= URL::previous();
+        if($request->paginate != null){
+            $genres = DB::table("genres")->orderBy("name","DESC")->paginate($request->paginate,"*","page");
+
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
+
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $genres = DB::table("genres")->orderBy("name","DESC")->paginate($currentpag,"*","page");
+            
+        }
+        
+        return view("index.settingsZanrovi",compact("genres","url","currentpag"));
     }
     /**
      * Show the form for creating a new resource.
