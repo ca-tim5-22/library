@@ -221,13 +221,44 @@
                                         </label>
                                     </td>
                                     <td class="flex flex-row items-center px-4 py-4">
-                                        <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                        <a href="">
+                                        @foreach ($book_headline as $photo)
+                                        @if ($photo->book_id == $book->id && $photo->headline == 1)
+                                        <img class="object-cover w-8 mr-2 h-11" src="{{asset('storage/book_images/'.$photo->photo);}}" alt="" />
+                                        @endif
+                                       
+                                        @endforeach
+                                        
+                                        <a href="{{route('book.show',$book->id)}}">
                                             <span class="font-medium text-center">{{$book->title}}</span>
                                         </a>
                                     </td>
-                                    <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Autor</td>
-                                    <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Kategorija</td>
+                                    <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
+                                    @foreach ($authors as $author)
+                                       @foreach ($authors_of_book as $author_of_book)
+                                           @if ($author->id == $author_of_book->author_id && $author_of_book->book_id == $book->id)
+                                               <p>{{$author->first_and_last_name}}</p>
+                                           @endif
+                                       @endforeach
+                                    @endforeach
+                                </td>
+                                    <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
+                                    
+                                        @foreach ($categories as $category)
+                                      
+                                        @foreach ($categories_of_book as $category_of_book)
+                                            @if ($category->id == $category_of_book->category_id && $category_of_book->book_id == $book->id )
+                                               
+                                                
+                                                {{$category->name}}
+                                                &nbsp;
+                                            @endif
+                                           
+                                            
+                                        @endforeach
+                                     @endforeach
+
+
+                                    </td>
                                     <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Na raspolaganju</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="aktivneRezervacije.php">Rezervisano</td>

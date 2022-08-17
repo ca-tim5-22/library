@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session as FacadesSession;
 use Illuminate\Support\Facades\URL;
-
+use Illuminate\Support\Facades\Storage;
+use App\Models\Gallery;
 class BookController extends Controller
 {
     /**
@@ -30,8 +31,8 @@ class BookController extends Controller
     public function index(Request $request)
     { $url= URL::previous();
         
-
-     
+        $book_headline=DB::select(DB::raw("SELECT * from galleries;"));
+       
         if($request->paginate != null){
             $books = DB::table("books")->orderBy("title","ASC")->paginate($request->paginate,"*","page");
 
@@ -53,8 +54,12 @@ class BookController extends Controller
             $books = DB::table("books")->orderBy("title","ASC")->paginate($currentpag,"*","page");
             
         }
-        
-        return view("book.evidencijaKnjiga",compact("books","currentpag","url"));
+        $book_headline=(object) $book_headline;
+        $categories_of_book = DB::select(DB::raw("SELECT * FROM book_categories;"));
+        $authors_of_book =DB::select(DB::raw("SELECT * FROM book_authors;"));
+        $authors = DB::select(DB::raw("SELECT * FROM authors;"));
+        $categories = DB::select(DB::raw("SELECT * FROM categories;"));
+        return view("book.evidencijaKnjiga",compact("books","currentpag","url","book_headline","categories_of_book","authors_of_book","authors","categories"));
      
         
     }
@@ -65,15 +70,20 @@ class BookController extends Controller
        
         
         $url= URL::previous();
+        
+        $book_headline=DB::select(DB::raw("SELECT * from galleries;"));
+        
         if($request->paginate != null){
-            $books = DB::table("books")->orderBy("title","DESC")->paginate($request->paginate,"*","page");
+            $books = DB::table("books")->orderBy("title","ASC")->paginate($request->paginate,"*","page");
+
+            
             session(["currentpag"=>$request->paginate]);
             $currentpag=$request->paginate;
 
-            return view("book.evidencijaKnjiga",compact("books","currentpag","url"));
+            
           
         }else{
-            
+           
             if(session("currentpag") != null){
                 $currentpag=session("currentpag");
          
@@ -81,12 +91,17 @@ class BookController extends Controller
             }else{
                 $currentpag=2;
             }
-            $books = DB::table("books")->orderBy("title","DESC")->paginate($currentpag,"*","page");
-            return view("book.evidencijaKnjiga",compact("books","currentpag","url"));
+            $books = DB::table("books")->orderBy("title","ASC")->paginate($currentpag,"*","page");
+            
         }
-        
-       
-       
+        $categories_of_book = DB::select(DB::raw("SELECT * FROM book_categories;"));
+        $authors_of_book =DB::select(DB::raw("SELECT * FROM book_authors;"));
+        $authors = DB::select(DB::raw("SELECT * FROM authors;"));
+        $categories = DB::select(DB::raw("SELECT * FROM categories;"));
+        $book_headline=(object) $book_headline;
+    
+        return view("book.evidencijaKnjiga",compact("books","currentpag","url","book_headline","categories_of_book","authors_of_book","authors","categories"));
+     
      
         
     }
@@ -115,7 +130,10 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-    dd($request);
+
+
+   if ($request->hasFile('book_photo')) {
+    
     $categories=$request->valuesCategories[0];
     $genres=$request->valuesGenres[0];
     $authors=$request->valuesAuthors[0];
@@ -157,6 +175,34 @@ class BookController extends Controller
         $book->genres()->attach($genre);
         $book->authors()->attach($author);
      
+       foreach($request->files as $file){}
+    
+       for($i=0;$i<count($file);$i++){
+
+        $photo=$file[$i];
+
+        $photo_name_with_extension = $photo->getClientOriginalName();
+
+        $photo_name = pathinfo($photo_name_with_extension, PATHINFO_FILENAME);
+        $extension = $file[$i]->getClientOriginalExtension();
+        $photonametostore = $photo_name.'_'.uniqid().'.'.$extension;
+
+        Storage::put('public/book_images/'. $photonametostore, fopen($file[$i], 'r+'));
+        if(count($file)==1){
+            $gallery=Gallery::create([
+                "photo"=>$photonametostore,
+                "headline"=>1
+            ]);
+        }else{
+            $gallery=Gallery::create([
+                "photo"=>$photonametostore
+            ]);
+        }
+      
+       
+        $book->gallery()->save($gallery);
+       }
+        }
      
        return redirect("/book");
     }
@@ -171,12 +217,26 @@ class BookController extends Controller
     {
         $book=Book::findOrFail($book->id);
 
-        $students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=1 ORDER BY `users`.`first_and_last_name` ASC;"));
+        $students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=2 ORDER BY `users`.`first_and_last_name` ASC;"));
         $students = (object) $students;
-        $librarian=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=2 ORDER BY `users`.`first_and_last_name` ASC;"));
+        $librarian=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=1 ORDER BY `users`.`first_and_last_name` ASC;"));
         $librarian = (object) $librarian;
+        $book_photos=DB::select(DB::raw("SELECT * from galleries;"));
+        $book_photos = (object) $book_photos;
+        $categories_of_book = $book->categories()->get();
+        $authors_of_book = $book->authors()->get();
+        $genres_of_book=$book->genres()->get();
 
-        return view("book.knjigaOsnovniDetalji",compact("book","students","librarian"));
+        
+        
+        $bindings = DB::select(DB::raw("SELECT * FROM bindings;"));
+      
+        $alphabets = DB::select(DB::raw("SELECT * FROM alphabets;"));
+  
+        $publishers = DB::select(DB::raw("SELECT * FROM publishers;"));
+
+        $formats = DB::select(DB::raw("SELECT * FROM formats;"));
+        return view("book.knjigaOsnovniDetalji",compact("book","students","librarian","book_photos","categories_of_book","authors_of_book","genres_of_book","bindings","alphabets","publishers","formats"));
     }
 
     /**
@@ -326,6 +386,7 @@ class BookController extends Controller
         $book->authors()->sync([]);
         $book->genres()->sync([]);
         $book->categories()->sync([]);
+        $book->gallery()->delete();
         $book->delete();
 
         return redirect("/book");

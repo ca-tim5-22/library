@@ -6,6 +6,8 @@ use App\Models\Binding;
 use App\Http\Requests\StoreBindingRequest;
 use App\Http\Requests\UpdateBindingRequest;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\URL;
 class BindingController extends Controller
 {
     /**
@@ -13,15 +15,59 @@ class BindingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $url= URL::previous();
+        if($request->paginate != null){
+            $bindings = DB::table("bindings")->orderBy("name","ASC")->paginate($request->paginate,"*","page");
 
-        $binding=DB::select(DB::raw("SELECT * FROM `bindings` ORDER BY `bindings`.`name` ASC"));
-        return view("index.settingsPovez",compact("binding"));
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
+
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $bindings = DB::table("bindings")->orderBy("name","ASC")->paginate($currentpag,"*","page");
+            
+        }
+        
+        return view("index.settingsPovez",compact("bindings","url","currentpag"));
     }
-    public function sort(){
-        $binding=DB::select(DB::raw("SELECT * FROM `bindings` ORDER BY `bindings`.`name` DESC"));
-        return view("index.settingsPovez",compact("binding"));
+
+    public function sort(Request $request){
+        $url= URL::previous();
+        if($request->paginate != null){
+            $bindings = DB::table("bindings")->orderBy("name","DESC")->paginate($request->paginate,"*","page");
+
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
+
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $bindings = DB::table("bindings")->orderBy("name","DESC")->paginate($currentpag,"*","page");
+            
+        }
+        
+        return view("index.settingsPovez",compact("bindings","url","currentpag"));
     }
     /**
      * Show the form for creating a new resource.

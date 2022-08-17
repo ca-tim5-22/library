@@ -11,7 +11,5 @@ class Gallery extends Model
 
     protected $fillable = ['photo','headline'];
     
-    public function gallery(){
-    return $this->hasOne(Book::class);
-    }
+   
 }

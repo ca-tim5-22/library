@@ -45,7 +45,7 @@
                         <div class="pl-[15px]  flex flex-col">
                             <div>
                                 <h1>
-                                    Tom Sojer
+                                   {{$book->title}}
                                 </h1>
                             </div>
                             <div>
@@ -62,7 +62,7 @@
                                         <li>
                                             <a href=""
                                                 class="text-[#2196f3] hover:text-blue-600">
-                                                KNJIGA-467
+                                                KNJIGA-{{$book->id}}
                                             </a>
                                         </li>
                                     </ol>
@@ -96,18 +96,22 @@
                             <div class="absolute right-0 w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                 aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                 <div class="py-1">
-                                    <a href="editKnjiga.php" tabindex="0"
+                                    <a href="{{route('book.edit',$book->id);}}" tabindex="0"
                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                         role="menuitem">
                                         <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
                                         <span class="px-4 py-0">Izmijeni knjigu</span>
                                     </a>
-                                    <a href="#" tabindex="0"
+                                    <form action="{{route('book.destroy',$book->id);}}" method="POST">
+                                        @csrf
+                                        @method("DELETE")
+                                    <buttpn type="submit" name="submit" tabindex="0"
                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                         role="menuitem">
                                         <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
                                         <span class="px-4 py-0">Izbrisi knjigu</span>
-                                    </a>
+                                    </buttpn>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -117,47 +121,64 @@
             <div class="flex flex-row overflow-auto height-osnovniDetalji">
                 <div class="w-[80%]">
                     <div class="border-b-[1px] py-4 text-gray-500 border-[#e4dfdf] pl-[30px]">
-                        <a href="" class="inline active-book-nav hover:text-blue-800">
+                        <p style="cursor: pointer;" id="info_link" class="active-book-nav  inline hover:text-blue-800">
                             Osnovni detalji
-                        </a>
-                        <a href="knjigaSpecifikacija.php" class="inline ml-[70px] hover:text-blue-800 ">
+                        </p>
+                        <p style="cursor: pointer;" id="spec_link" class="inline ml-[70px] hover:text-blue-800 ">
                             Specifikacija
-                        </a>
-                        <a href="iznajmljivanjeIzdate.php" class="inline ml-[70px] hover:text-blue-800">
+                        </p>
+                        <p style="cursor: pointer;" href="iznajmljivanjeIzdate.php" class="inline ml-[70px] hover:text-blue-800">
                             Evidencija iznajmljivanja
-                        </a>
-                        <a href="evidencijaKnjigaMultimedija.php" class="inline ml-[70px] hover:text-blue-800">
+                        </p>
+                        <p style="cursor: pointer;" href="" id="mult_link" class="inline ml-[70px] hover:text-blue-800">
                             Multimedija
-                        </a>
+                        </p>
                     </div>
                     <div class="">
+                        <div class="active-form" id="new_book_information">
+                        
                         <!-- Space for content -->
                         <div class="pl-[30px] section- mt-[20px]">
                             <div class="flex flex-row justify-between">
                                 <div class="mr-[30px]">
                                     <div class="mt-[20px]">
                                         <span class="text-gray-500 text-[14px]">Naziv knjige</span>
-                                        <p class="font-medium">Tom Sojer</p>
+                                        <p class="font-medium">{{$book->title}}</p>
                                     </div>
                                     <div class="mt-[40px]">
                                         <span class="text-gray-500 text-[14px]">Kategorija</span>
-                                        <p class="font-medium">Romani</p>
+                                        @foreach ($categories_of_book as $category)
+                                            <p class="font-medium">{{$category->name}}</p>
+                                        @endforeach
+                                        
                                     </div>
                                     <div class="mt-[40px]">
                                         <span class="text-gray-500 text-[14px]">Zanr</span>
-                                        <p class="font-medium">Knjige za djecu</p>
+                                        @foreach ($genres_of_book as $genre)
+                                        <p class="font-medium">{{$genre->name}}</p>
+                                    @endforeach
+                                    
+                                        <p class="font-medium"></p>
                                     </div>
                                     <div class="mt-[40px]">
                                         <span class="text-gray-500 text-[14px]">Autor/ri</span>
-                                        <p class="font-medium">Mark Twain</p>
+                                        @foreach ($authors_of_book as $author)
+                                        <p class="font-medium">{{$author->first_and_last_name}}</p>
+                                    @endforeach
+                                        <p class="font-medium"></p>
                                     </div>
                                     <div class="mt-[40px]">
                                         <span class="text-gray-500 text-[14px]">Izdavac</span>
-                                        <p class="font-medium">Delfi Knjizare</p>
+                                        @foreach ($publishers as $publisher)
+                                            @if ($publisher->id == $book->publisher_id)
+                                            <p class="font-medium">{{$publisher->name}}</p>
+                                            @endif
+                                        @endforeach
+                                       
                                     </div>
                                     <div class="mt-[40px]">
                                         <span class="text-gray-500 text-[14px]">Godina izdavanja</span>
-                                        <p class="font-medium">30.03.2011</p>
+                                        <p class="font-medium">{{$book->release_date}}</p>
                                     </div>
                                 </div>
                                 <div class="mr-[70px] mt-[20px] flex flex-col max-w-[600px]">
@@ -166,27 +187,228 @@
                                             Storyline (Kratki sadrzaj)
                                         </h4>
                                         <p class="addReadMore showlesscontent my-[10px]">
-                                            Tom Sojer je roman koji možemo da smatramo i autobiografijom jer je
-                                            utemeljen na
-                                            doživljajima samog Marka Tvena. Autor ga je pisao u nekoliko navrata: prvi
-                                            deo
-                                            napisan je u zimu 1872. godine, drugi deo u proljeće 1875. godine, a treći
-                                            na
-                                            leto te iste godine. Napisan je jednostavnim stilom i uz mnogo pripovedanja
-                                            i
-                                            humora pa je jednako interesantan i deci i odraslima. Tven je ovim romanom
-                                            hteo
-                                            da odrasle čitaoce podseti na detinjstvo.Pripovedanje u romanu Tom Sojer
-                                            odvija
-                                            se linearno, bez paralelnih radnji. Sva dešavanja u romanu vrte se oko
-                                            jednog
-                                            lika, a to je Tom Sojer. On se ističe svojom inteligencijom, neobuzdanošću i
-                                            humorističnom naravi.
+                                           <?php
+ echo Strip_tags($book->content);
+?>
                                         </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                    </div>
+<div class="nonactive-form" id="new_book_specification">
+                    <div class="pl-[30px] section- mt-[20px]">
+                        <div class="flex flex-row justify-between">
+                            <div class="mr-[30px]">
+                                <div class="mt-[20px]">
+                                    <span class="text-gray-500 text-[14px]">Broj strana</span>
+                                    <p class="font-medium">{{$book->number_of_pages}}</p>
+                                </div>
+                                <div class="mt-[40px]">
+                                    <span class="text-gray-500 text-[14px]">Pismo</span>
+                                    @foreach ($alphabets as $alphabet)
+                                        @if ($alphabet->id == $book->alphabet_id)
+                                        <p class="font-medium">{{$alphabet->name}}</p>
+                                        @endif
+                                    @endforeach
+                                   
+                                </div>
+                                <div class="mt-[40px]">
+                                    <span class="text-gray-500 text-[14px]">Jezik</span>
+                                    <p class="font-medium">Crnogorski</p>
+                                </div>
+                                <div class="mt-[40px]">
+                                    <span class="text-gray-500 text-[14px]">Povez</span>
+                                    @foreach ($bindings as $binding)
+                                    @if ($binding->id == $book->binding_id)
+                                    <p class="font-medium">{{$binding->name}}</p>
+                                    @endif
+                                @endforeach
+                                    <p class="font-medium"></p>
+                                </div>
+                                <div class="mt-[40px]">
+                                    <span class="text-gray-500 text-[14px]">Format</span>
+                                    @foreach ($formats as $format)
+                                    @if ($format->id == $book->format_id)
+                                    <p class="font-medium">{{$format->name}}</p>
+                                    @endif
+                                @endforeach
+                                
+                                </div>
+                                <div class="mt-[40px]">
+                                    <span class="text-gray-500 text-[14px]">International Standard Book Number
+                                        (ISBN)</span>
+                                    <p class="font-medium">{{$book->ISBN}}/p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+</div>
+
+
+<div class="nonactive-form" id="new_book_multimedia">
+    <!-- Space for content -->
+    <div class="mt-[20px] mx-0 w-[100%]">
+        <div class="flex flex-row">
+            <div class="w-[100%]">
+                <div class="w-[90%] mx-auto bg-white rounded p7 mt-[20px]">
+                    <div x-data="dataFileDnD()"
+                        class="relative flex flex-col p-4 text-gray-400 border border-gray-200 rounded">
+                        <div x-ref="dnd"
+                            class="relative flex flex-col text-gray-400 border border-gray-200 border-dashed rounded cursor-pointer">
+                            <input accept="*" type="file" multiple
+                                class="absolute inset-0 z-50 w-full h-full p-0 m-0 outline-none opacity-0 cursor-pointer"
+                                @change="addFiles($event)"
+                                @dragover="$refs.dnd.classList.add('border-blue-400'); $refs.dnd.classList.add('ring-4'); $refs.dnd.classList.add('ring-inset');"
+                                @dragleave="$refs.dnd.classList.remove('border-blue-400'); $refs.dnd.classList.remove('ring-4'); $refs.dnd.classList.remove('ring-inset');"
+                                @drop="$refs.dnd.classList.remove('border-blue-400'); $refs.dnd.classList.remove('ring-4'); $refs.dnd.classList.remove('ring-inset');"
+                                title="" />
+
+                            <div
+                                class="flex flex-col items-center justify-center py-10 text-center">
+                                <svg class="w-6 h-6 mr-1 text-current-50"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <p class="m-0">Drag your files here or click in this area.</p>
+                            </div>
+                        </div>
+
+                        <!-- <template x-if="files.length > 0"> -->
+                        <div class="grid grid-cols-2 gap-4 mt-4 2xl:grid-cols-4"
+                            @drop.prevent="drop($event)"
+                            @dragover.prevent="$event.dataTransfer.dropEffect = 'move'">
+                            <!-- Image 1 -->
+                            
+                            <!-- End of image 1 -->
+                            <!-- Image 2 --> 
+                            @foreach ($book_photos as $photo)
+                            @if ($photo->book_id == $book->id)
+                            <div class="relative flex flex-col p-2 text-xs bg-white bg-opacity-50">
+                                <img src="{{asset('storage/book_images/'.$photo->photo);}}" alt="" class="h-[300px]">
+                                <!-- Checkbox -->
+                                @if($photo->headline==1)
+                                <input
+                                class="absolute top-[10px] right-[10px] z-50 p-1 bg-white rounded-bl focus:outline-none"
+                                type="radio" name="chosen_image" checked/>
+                                @else
+                                <input
+                                    class="absolute top-[10px] right-[10px] z-50 p-1 bg-white rounded-bl focus:outline-none"
+                                    type="radio" name="chosen_image" />
+                                @endif
+                                
+                                <!-- End checkbox -->
+                                <button
+                                    class="absolute bottom-[5px] right-[6px] z-50 p-1 bg-white rounded-bl focus:outline-none"
+                                    type="button">
+                                    <svg class="w-[25px] h-[25px] text-gray-700"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        nviewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                                <div
+                                    class="absolute bottom-[20px] left-0 right-0 flex flex-col p-2 text-xs bg-white bg-opacity-50 text-center">
+                                    <span
+                                        class="w-full font-bold text-gray-900 truncate">{{$photo->photo}}</span>
+                                    <span class="text-xs text-gray-900">41kB</span>
+                                </div>
+                            </div>
+                            @endif
+                            
+                            @endforeach
+                            
+                            <!-- End of image 2 -->
+
+                            <template x-for="(_, index) in Array.from({ length: files.length })">
+                                <div class="relative flex flex-col items-center overflow-hidden text-center bg-gray-100 border rounded cursor-move select-none"
+                                    style="padding-top: 100%;" @dragstart="dragstart($event)"
+                                    @dragend="fileDragging = null"
+                                    :class="{'border-blue-600': fileDragging == index}"
+                                    draggable="true" :data-index="index">
+                                    <!-- Checkbox -->
+                                    <input
+                                        class="absolute top-0 right-0 z-50 p-1 bg-white rounded-bl focus:outline-none"
+                                        type="radio" name="chosen_image" />
+                                    <!-- End checkbox -->
+                                    <button
+                                        class="absolute bottom-0 right-0 z-50 p-1 bg-white rounded-bl focus:outline-none"
+                                        type="button" @click="remove(index)">
+                                        <svg class="w-[25px] h-[25px] text-gray-700"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            nviewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                    </button>
+                                    <template x-if="files[index].type.includes('audio/')">
+                                        <svg class="absolute w-12 h-12 text-gray-400 transform top-1/2 -translate-y-2/3"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                                        </svg>
+                                    </template>
+                                    <template
+                                        x-if="files[index].type.includes('application/') || files[index].type === ''">
+                                        <svg class="absolute w-12 h-12 text-gray-400 transform top-1/2 -translate-y-2/3"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                        </svg>
+                                    </template>
+                                    <template x-if="files[index].type.includes('image/')">
+                                        <img class="absolute inset-0 z-0 object-cover w-full h-full border-4 border-white preview"
+                                            x-bind:src="loadFile(files[index])" />
+                                    </template>
+                                    <template x-if="files[index].type.includes('video/')">
+                                        <video
+                                            class="absolute inset-0 object-cover w-full h-full border-4 border-white pointer-events-none preview">
+                                            <fileDragging x-bind:src="loadFile(files[index])"
+                                                type="video/mp4">
+                                        </video>
+                                    </template>
+
+                                    <div
+                                        class="absolute bottom-0 left-0 right-0 flex flex-col p-2 text-xs bg-white bg-opacity-50">
+                                        <span class="w-full font-bold text-gray-900 truncate"
+                                            x-text="files[index].name">Loading</span>
+                                        <span class="text-xs text-gray-900"
+                                            x-text="humanFileSize(files[index].size)">...</span>
+                                    </div>
+
+                                    <div class="absolute inset-0 z-40 transition-colors duration-300"
+                                        @dragenter="dragenter($event)"
+                                        @dragleave="fileDropping = null"
+                                        :class="{'bg-blue-200 bg-opacity-80': fileDropping == index && fileDragging != index}">
+                                    </div>
+
+                                </div>
+                            </template>
+                        </div>
+                        <!-- </template> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
                     </div>
                 </div>
                 <div class="min-w-[20%] border-l-[1px] border-[#e4dfdf] ">
@@ -200,84 +422,25 @@
                                 <p class="mt-[20px]">Ukupna kolicina:</p>
                             </div>
                             <div class="text-center pb-[30px]">
-                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">5
-                                    primjeraka</p>
+                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
+                                    Na raspolaganju</p>
                                 <a href="iznajmljivanjeAktivne.php"><p
                                     class=" mt-[16px] bg-yellow-200 text-yellow-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                    2 primjerka</p></a>
+                                    Rezervisano</p></a>
                                     <a href="iznajmljivanjeIzdate.php"><p
                                     class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                    102 primjerka</p></a>
+                                    Izdato</p></a>
                                     <a href="iznajmljivanjePrekoracenje.php">  <p
                                     class=" mt-[16px] bg-red-200 text-red-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                    2 primjerka</p></a>
+                                    U prekoracenju</p></a>
                                 <p
                                     class=" mt-[16px] border-[1px] border-green-700 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                    15 primjeraka</p>
+                                    {{$book->total}}</p>
                             </div>
                         </div>
                     </div>
                     <div class="mt-[40px] mx-[30px]">
-                        <div class="flex flex-col max-w-[304px]">
-                            <div class="text-gray-500 ">
-                                <p class="inline uppercase">
-                                    Izdavanja knjige
-                                </p>
-                                <span>
-                                    - 4 days ago
-                                </span>
-                            </div>
-                            <div>
-                                <p>
-                                    <a href="" class="text-[#2196f3] hover:text-blue-600">
-                                        Valentina K.
-                                    </a>
-                                    je izdala knjigu
-                                    <a href="" class="text-[#2196f3] hover:text-blue-600">
-                                        Peru Perovicu
-                                    </a>
-                                    dana
-                                    <span class="font-medium">
-                                        21.02.2021.
-                                    </span>
-                                </p>
-                            </div>
-                            <div>
-                                <a href="izdavanjeDetalji.php" class="text-[#2196f3] hover:text-blue-600">
-                                    pogledaj detaljnije >>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="mt-[40px] flex flex-col max-w-[304px]">
-                            <div class="text-gray-500 ">
-                                <p class="inline uppercase">
-                                    Izdavanja knjige
-                                </p>
-                                <span>
-                                    - 4 days ago
-                                </span>
-                            </div>
-                            <div>
-                                <p>
-                                    <a href="" class="text-[#2196f3] hover:text-blue-600">
-                                        Valentina K.
-                                    </a>
-                                    je izdala knjigu
-                                    <a href="" class="text-[#2196f3] hover:text-blue-600">
-                                        Peru Perovicu
-                                    </a>
-                                    dana
-                                    <span class="font-medium">
-                                        21.02.2021.
-                                    </span>
-                                </p>
-                            </div>
-                            <div>
-                                <a href="izdavanjeDetalji.php" class="text-[#2196f3] hover:text-blue-600">
-                                    pogledaj detaljnije >>
-                                </a>
-                            </div>
-                        </div>
+                     
                         <div class="mt-[40px] flex flex-col max-w-[304px]">
                             <div class="text-gray-500 ">
                                 <p class="inline uppercase">

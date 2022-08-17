@@ -6,7 +6,8 @@ use App\Models\Alphabet;
 use App\Http\Requests\StoreAlphabetRequest;
 use App\Http\Requests\UpdateAlphabetRequest;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\URL;
+use Symfony\Component\HttpFoundation\Request;
 class AlphabetController extends Controller
 {
     /**
@@ -14,16 +15,59 @@ class AlphabetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pisma=DB::select(DB::raw("SELECT * FROM `alphabets` ORDER BY `alphabets`.`name` ASC"));
-        return view('index.settingsPismo',compact('pisma'));
+        $url= URL::previous();
+        if($request->paginate != null){
+            $alphabets = DB::table("alphabets")->orderBy("name","ASC")->paginate($request->paginate,"*","page");
+
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
+
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $alphabets = DB::table("alphabets")->orderBy("name","ASC")->paginate($currentpag,"*","page");
+            
+        }
         
+        return view("index.settingsPismo",compact("alphabets","url","currentpag"));
     }
 
-    public function sort(){
-        $pisma=DB::select(DB::raw("SELECT * FROM `alphabets` ORDER BY `alphabets`.`name` DESC"));
-        return view("index.settingsPismo",compact("pisma"));
+    public function sort(Request $request){
+        $url= URL::previous();
+        if($request->paginate != null){
+            $alphabets = DB::table("alphabets")->orderBy("name","DESC")->paginate($request->paginate,"*","page");
+
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
+
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $alphabets = DB::table("alphabets")->orderBy("name","DESC")->paginate($currentpag,"*","page");
+            
+        }
+        
+        return view("index.settingsPismo",compact("alphabets","url","currentpag"));
     }
 
     /**

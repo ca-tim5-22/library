@@ -524,7 +524,7 @@
                                 @dragover="$refs.dnd.classList.add('border-blue-400'); $refs.dnd.classList.add('ring-4'); $refs.dnd.classList.add('ring-inset');"
                                 @dragleave="$refs.dnd.classList.remove('border-blue-400'); $refs.dnd.classList.remove('ring-4'); $refs.dnd.classList.remove('ring-inset');"
                                 @drop="$refs.dnd.classList.remove('border-blue-400'); $refs.dnd.classList.remove('ring-4'); $refs.dnd.classList.remove('ring-inset');"
-                                title="" multiple />
+                                title="" multiple required/>
                           
                             <div class="flex flex-col items-center justify-center py-10 text-center">
                                 <svg class="w-6 h-6 mr-1 text-current-50" xmlns="http://www.w3.org/2000/svg"
@@ -546,7 +546,7 @@
                                         :class="{ 'border-blue-600': fileDragging == index }" draggable="true"
                                         :data-index="index">
                                         <!-- Checkbox -->
-                                        <input
+                                        <input id="chosen_image"
                                             class="absolute top-0 right-0 z-50 p-1 bg-white rounded-bl focus:outline-none"
                                             type="radio" name="chosen_image" />
                                         <!-- End checkbox -->
@@ -605,10 +605,15 @@
                                 </template>
                             </div>
                         </template>
+
                     </div>
                 </div>
-
+               
             </div>
+            <div style="width:100%;display:grid;justify-content:center;"
+            id="chosen_image_div"></div>
+           <div style="width:100%;display:grid;justify-content:center;"
+            id="validate_book_image"></div>
                 <div style="width:100%;display:grid;justify-content:center;"
                  id="validaciona_poruka"></div>
             </div>
@@ -626,7 +631,7 @@
             </div>
 
 
-<p id="pathina"></p>
+<div id="all_images"></div>
         
             
             <div class="absolute bottom-0 w-full">
@@ -668,21 +673,6 @@
 </body>
 <script>
 
-
-    jQuery(function($) {
-            var p = $("#previewimage");
-            const new_book_multimedia = $("#new_book_multimedia");
-            $(new_book_multimedia).on("change",()=>{
-                var imagename=$("#book_image_name");
-                var array=[];
-                array[]=imagename;
-                console.log(array);
-            }); 
-          
-      
-        });
-    
-    
     
     
     

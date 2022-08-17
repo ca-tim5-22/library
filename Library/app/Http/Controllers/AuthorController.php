@@ -6,6 +6,8 @@ use App\Models\Author;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\URL;
 class AuthorController extends Controller
 {
     /**
@@ -13,15 +15,59 @@ class AuthorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $author=DB::select(DB::raw("SELECT * FROM `authors` ORDER BY `authors`.`first_and_last_name` ASC"));
-        return view("author.autori",compact('author'));
+        $url= URL::previous();
+        if($request->paginate != null){
+            $authors = DB::table("authors")->orderBy("authors.first_and_last_name","ASC")->paginate($request->paginate,"*","page");
+
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
+
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $authors = DB::table("authors")->orderBy("authors.first_and_last_name","ASC")->paginate($currentpag,"*","page");
+
+        }
+    
+        return view("author.autori",compact('authors',"currentpag","url"));
     }
 
-    public function sort(){
-        $author=DB::select(DB::raw("SELECT * FROM `authors` ORDER BY `authors`.`first_and_last_name` DESC"));
-        return view("author.autori",compact("author"));
+    public function sort(Request $request){
+        $url= URL::previous();
+        if($request->paginate != null){
+            $authors = DB::table("authors")->orderBy("authors.first_and_last_name","DESC")->paginate($request->paginate,"*","page");
+
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
+
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $authors = DB::table("authors")->orderBy("authors.first_and_last_name","DESC")->paginate($currentpag,"*","page");
+
+        }
+    
+        return view("author.autori",compact("authors","currentpag","url"));
     }
     /**
      * Show the form for creating a new resource.

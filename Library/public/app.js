@@ -1,5 +1,6 @@
 
 //Open and close hamburger menu
+
 $(function () {
   var hamburger = $('#hamburger');
   var sidebar = $('.sidebar');
@@ -676,6 +677,7 @@ $("#sacuvajUcenikaEdit").click(function (e) {
 });
 
 // Form validation for new book
+
 function validacijaKnjiga() {
 
   $("#validateNazivKnjiga").empty();
@@ -691,6 +693,8 @@ function validacijaKnjiga() {
   $("#validateFormat").empty();
   $("#validateIsbn").empty();
   $("#validaciona_poruka").empty();
+  $("#validate_book_image").empty();
+  $("#chosen_image").empty();
 
   let brStrana = $("#brStrana").val();
   let pismo = $("#pismo").val();
@@ -704,7 +708,7 @@ function validacijaKnjiga() {
   let izdavac = $("#izdavac").val();
   let godinaIzdavanja = $("#godinaIzdavanja").val();
   let knjigaKolicina = $("#knjigaKolicina").val();
-  
+
   if (brStrana.length == 0) {
     $('#validateBrStrana').append('<p style="color:red;font-size:13px;">Morate unijeti broj strana!</p>');
   }
@@ -757,7 +761,7 @@ function validacijaKnjiga() {
     $("#validaciona_poruka").append('<p style="color:red;font-size:22px;">Morate popuniti polja i na drugim stranicama!!!</p>');
     return false;
 
-  }else if(nazivKnjiga.length > 0 && kategorija.length > 0 && zanr.length > 0 && autori.length > 0 && izdavac != null && godinaIzdavanja != null && knjigaKolicina.length > 0 &&  brStrana > 0 && pismo != null && povez != null && format != null && isbn.length > 0){
+  }else if(nazivKnjiga.length > 0 && kategorija.length > 0 && zanr.length > 0 && autori.length > 0 && izdavac != null && godinaIzdavanja != null && knjigaKolicina.length > 0 &&  brStrana > 0 && pismo != null && povez != null && format != null && isbn.length > 0 ){
     return true;
   }
 }
@@ -2642,10 +2646,6 @@ $('.checkOthers').change(function () {
     $('tr').children().eq(8).html('Ukupna kolicina')
   }
 });
-
-const info_link = document.getElementById("info_link")
-const spec_link = document.getElementById("spec_link")
-const mult_link = document.getElementById("mult_link")
 
 info_link.addEventListener("click",()=>{
     newbookinfo.classList.add("active-form");
