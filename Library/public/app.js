@@ -689,6 +689,7 @@ function validacijaKnjiga() {
   $("#validateKnjigaKolicina").empty();
   $("#validateBrStrana").empty();
   $("#validatePismo").empty();
+  $("#validateJezik").empty();
   $("#validatePovez").empty();
   $("#validateFormat").empty();
   $("#validateIsbn").empty();
@@ -708,6 +709,7 @@ function validacijaKnjiga() {
   let izdavac = $("#izdavac").val();
   let godinaIzdavanja = $("#godinaIzdavanja").val();
   let knjigaKolicina = $("#knjigaKolicina").val();
+  let jezik= $("#jezik").val();
 
   if (brStrana.length == 0) {
     $('#validateBrStrana').append('<p style="color:red;font-size:13px;">Morate unijeti broj strana!</p>');
@@ -757,11 +759,14 @@ function validacijaKnjiga() {
     $('#validateKnjigaKolicina').append('<p style="color:red;font-size:13px;">Morate unijeti kolicinu!</p>');
   }
 
-  if(nazivKnjiga.length == 0 || kategorija.length == 0 || zanr.length == 0 || autori.length == 0 || izdavac == null || godinaIzdavanja == null || knjigaKolicina.length == 0 || brStrana == 0 || pismo == null || povez == null || format == null || isbn.length == 0){
+  if(jezik == null){
+    $('#validateJezik').append('<p style="color:red;font-size:13px;">Morate izabrati bar jedan jezik!</p>');
+  }
+  if(nazivKnjiga.length == 0 || kategorija.length == 0 || zanr.length == 0 || autori.length == 0 || izdavac == null || godinaIzdavanja == null || knjigaKolicina.length == 0 || brStrana == 0 || pismo == null || povez == null || format == null || isbn.length == 0 || jezik == null){
     $("#validaciona_poruka").append('<p style="color:red;font-size:22px;">Morate popuniti polja i na drugim stranicama!!!</p>');
     return false;
 
-  }else if(nazivKnjiga.length > 0 && kategorija.length > 0 && zanr.length > 0 && autori.length > 0 && izdavac != null && godinaIzdavanja != null && knjigaKolicina.length > 0 &&  brStrana > 0 && pismo != null && povez != null && format != null && isbn.length > 0 ){
+  }else if(nazivKnjiga.length > 0 && kategorija.length > 0 && zanr.length > 0 && autori.length > 0 && izdavac != null && godinaIzdavanja != null && knjigaKolicina.length > 0 &&  brStrana > 0 && pismo != null && povez != null && format != null && isbn.length > 0 && jezik != null){
     return true;
   }
 }
@@ -792,6 +797,9 @@ function clearErrorsGodinaIzdavanja() {
 
 function clearErrorsKnjigaKolicina() {
   $("#validateKnjigaKolicina").empty();
+}
+function clearErrorsJezik() {
+  $("#validateJezik").empty();
 }
 
 $("#sacuvajKnjigu").click(function () {

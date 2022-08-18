@@ -11,5 +11,7 @@ class Language extends Model
    
     protected $fillable = ['name'];
 
-    
+    public function language(){
+        return $this->hasMany(Book::class);
+        }
 }

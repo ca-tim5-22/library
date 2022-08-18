@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Session as FacadesSession;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Gallery;
+use App\Models\Language;
+
 class BookController extends Controller
 {
     /**
@@ -119,7 +121,9 @@ class BookController extends Controller
         $bindings = DB::select(DB::raw("SELECT * FROM bindings;"));
         $alphabets = DB::select(DB::raw("SELECT * FROM alphabets;"));
         $formats = DB::select(DB::raw("SELECT * FROM formats;"));
-        return view("create.novaKnjiga",compact("categories","authors","publishers","genres","alphabets","bindings","formats"));
+        $languages = DB::select(DB::raw("SELECT * FROM languages;"));
+
+        return view("create.novaKnjiga",compact("categories","authors","publishers","genres","alphabets","bindings","formats","languages"));
     }
    
     /**
@@ -150,7 +154,7 @@ class BookController extends Controller
       $binding=Binding::findOrFail($request->binding);
       $publisher=Publisher::findOrFail($request->publisher);
       $format=Format::findOrFail($request->format);
-      
+      $language=Language::findOrFail($request->language);
       
      
         $category = Category::findOrFail($categories_array);
@@ -170,7 +174,8 @@ class BookController extends Controller
         $binding->binding()->save($book);
         $publisher->publisher()->save($book);
         $format->format()->save($book);
-        
+        $language->language()->save($book);
+
         $book->categories()->attach($category);
         $book->genres()->attach($genre);
         $book->authors()->attach($author);
@@ -234,9 +239,9 @@ class BookController extends Controller
         $alphabets = DB::select(DB::raw("SELECT * FROM alphabets;"));
   
         $publishers = DB::select(DB::raw("SELECT * FROM publishers;"));
-
+        $languages = DB::select(DB::raw("SELECT * FROM languages;"));
         $formats = DB::select(DB::raw("SELECT * FROM formats;"));
-        return view("book.knjigaOsnovniDetalji",compact("book","students","librarian","book_photos","categories_of_book","authors_of_book","genres_of_book","bindings","alphabets","publishers","formats"));
+        return view("book.knjigaOsnovniDetalji",compact("book","students","librarian","book_photos","categories_of_book","authors_of_book","genres_of_book","bindings","alphabets","publishers","formats","languages"));
     }
 
     /**
@@ -306,13 +311,14 @@ class BookController extends Controller
 
         $formats = DB::select(DB::raw("SELECT * FROM formats;"));
 
+        $languages = DB::select(DB::raw("SELECT * FROM languages;"));
        
 
 
 
 
 
-        return view("edit.editKnjiga",compact("book","authors","publishers","categories","bindings","alphabets","formats","genres","categories_of_book","authors_of_book","genres_of_book",));
+        return view("edit.editKnjiga",compact("book","authors","publishers","categories","bindings","alphabets","formats","genres","categories_of_book","authors_of_book","genres_of_book","languages"));
     }
 
     /**
