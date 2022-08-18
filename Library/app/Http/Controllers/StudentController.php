@@ -165,7 +165,17 @@ class StudentController extends Controller
     {
         
         $student=Users::findOrFail($student->id);
-        return view("student.ucenikProfile",compact("student"));
+        $last_login = DB::select(DB::raw("SELECT * FROM `user_logins` ORDER BY `user_logins`.`time` DESC;"));
+        $last_login = $last_login[0]->time;
+        $number_of_logins = DB::select(DB::raw("SELECT * FROM `user_logins` WHERE user_id = $student->id;"));
+        $number_of_logins = count($number_of_logins);
+
+        if($number_of_logins == 0){
+            return view("student.ucenikProfile",compact("student"));
+        }else{
+            return view("student.ucenikProfile",compact("student","number_of_logins","last_login")); 
+        }
+        
     }
 
     /**

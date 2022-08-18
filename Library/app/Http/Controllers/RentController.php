@@ -6,13 +6,17 @@ use App\Models\Rent;
 use App\Http\Requests\StoreRentRequest;
 use App\Http\Requests\UpdateRentRequest;
 use App\Models\Book;
+use App\Models\BookStatus;
 use App\Models\GlobalVariable;
+use App\Models\RentStatus;
 use App\Models\Student;
 use App\Models\Users;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 class RentController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +24,9 @@ class RentController extends Controller
      */
     public function index()
     {
-        //
+        
+
+        return view("rent.IznajmljivanjeIzdate");
     }
 
     /**
@@ -31,8 +37,11 @@ class RentController extends Controller
     public function create()
     {
         $users=Users::all();
-        $deadline=GlobalVariable::where('variable','=','b')->get()->first();
-        return view("izdajKnjigu",compact('users','deadline'));
+        $deadline=GlobalVariable::where('variable','=','Returnment_deadline')->get()->first();
+        $book_headline=DB::select(DB::raw("SELECT * from galleries;"));
+        $book_headline=(object) $book_headline;
+        
+        return view("izdajKnjigu",compact("users","deadline","book_headline"));
     }
 
     /**
@@ -56,14 +65,37 @@ class RentController extends Controller
                  $librarian->userWhoRentedOut()->save($rent);
                  $student->userWhoRented()->save($rent);
                  $book->rent()->save($rent);
-               
-                
+                    $status=DB::table("book_statuses")->where("name","=","Izdato")->get()->first();
+
+
+
+
+                 $rent->rent_status()->attach($status->id);
+
+
+
+
+
+
              
                return redirect("/book");
+
+
+
+
             }
 
 
-    
+            public function new($book)
+            {
+                $users=Users::all();
+                $deadline=GlobalVariable::where('variable','=','Returnment_deadline')->get()->first();
+                $book=Book::findOrFail($book);
+                $book_headline=DB::select(DB::raw("SELECT * from galleries;"));
+                $book_headline=(object) $book_headline;
+                
+                return view("izdajKnjigu",compact('users','deadline','book',"book_headline"));
+            }
 
     /**
      * Display the specified resource.
@@ -73,10 +105,7 @@ class RentController extends Controller
      */
     public function show($rent)
     {
-        $users=Users::all();
-        $deadline=GlobalVariable::where('variable','=','b')->get()->first();
-        $book=Book::findOrFail($rent);
-        return view("izdajKnjigu",compact('users','deadline','book'));
+       
     }
 
     /**

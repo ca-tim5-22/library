@@ -40,7 +40,12 @@
                 <div class="flex flex-row justify-between border-b-[1px] border-[#e4dfdf]">
                     <div class="py-[10px] flex flex-row">
                         <div class="w-[77px] pl-[30px]">
+                            @if ($naslovna)
+                            <img src="{{asset('storage/book_images/'.$naslovna[0]->photo);}}" alt="">
+                            @else
                             <img src="img/tomsojer.jpg" alt="">
+                            @endif
+                            
                         </div>
                         <div class="pl-[15px]  flex flex-col">
                             <div>
@@ -75,7 +80,7 @@
                             <i class="fas fa-level-up-alt mr-[3px]"></i>
                             Otpisi knjigu
                         </a>
-                        <a href="izdajKnjigu.php" class="inline hover:text-blue-600 ml-[20px] pr-[10px]">
+                        <a href="{{route('rent.new',$book->id);}}" class="inline hover:text-blue-600 ml-[20px] pr-[10px]">
                             <i class="far fa-hand-scissors mr-[3px]"></i>
                             Izdaj knjigu
                         </a>
@@ -127,7 +132,7 @@
                         <p style="cursor: pointer;" id="spec_link" class="inline ml-[70px] hover:text-blue-800 ">
                             Specifikacija
                         </p>
-                        <p style="cursor: pointer;" href="iznajmljivanjeIzdate.php" class="inline ml-[70px] hover:text-blue-800">
+                        <p style="cursor: pointer;" href="{{route('rent.index');}}" class="inline ml-[70px] hover:text-blue-800">
                             Evidencija iznajmljivanja
                         </p>
                         <p style="cursor: pointer;" href="" id="mult_link" class="inline ml-[70px] hover:text-blue-800">

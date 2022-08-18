@@ -29,6 +29,7 @@ return new class extends Migration
             ->onUpdate("Cascade")
             ->onDelete("Cascade");
 
+            $table->date("date");
             $table->timestamps();
         });
     }

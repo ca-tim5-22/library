@@ -221,13 +221,16 @@ class BookController extends Controller
     public function show(Book $book)
     {
         $book=Book::findOrFail($book->id);
-
+        $id = $book->id;
         $students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=2 ORDER BY `users`.`first_and_last_name` ASC;"));
         $students = (object) $students;
         $librarian=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=1 ORDER BY `users`.`first_and_last_name` ASC;"));
         $librarian = (object) $librarian;
-        $book_photos=DB::select(DB::raw("SELECT * from galleries;"));
+        $book_photos=DB::select(DB::raw("SELECT * from galleries "));
         $book_photos = (object) $book_photos;
+
+        $naslovna =DB::table("galleries")->where("book_id", "=",$id)->where("headline","=",1)->get();
+        
         $categories_of_book = $book->categories()->get();
         $authors_of_book = $book->authors()->get();
         $genres_of_book=$book->genres()->get();
@@ -241,7 +244,7 @@ class BookController extends Controller
         $publishers = DB::select(DB::raw("SELECT * FROM publishers;"));
         $languages = DB::select(DB::raw("SELECT * FROM languages;"));
         $formats = DB::select(DB::raw("SELECT * FROM formats;"));
-        return view("book.knjigaOsnovniDetalji",compact("book","students","librarian","book_photos","categories_of_book","authors_of_book","genres_of_book","bindings","alphabets","publishers","formats","languages"));
+        return view("book.knjigaOsnovniDetalji",compact("book","students","librarian","book_photos","categories_of_book","authors_of_book","genres_of_book","bindings","alphabets","publishers","formats","languages","naslovna"));
     }
 
     /**

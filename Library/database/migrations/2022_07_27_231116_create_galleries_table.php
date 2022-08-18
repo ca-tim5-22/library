@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('galleries', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger("book_id");
+            $table->unsignedBigInteger("book_id")->nullable();
             $table->foreign("book_id")
             ->references("id")
             ->on("books")
