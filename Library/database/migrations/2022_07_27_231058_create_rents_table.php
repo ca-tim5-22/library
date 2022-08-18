@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('rents', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger("book_id");
+            $table->unsignedBigInteger("book_id")->nullable();
             $table->foreign("book_id")
             ->references("id")
             ->on("books")
@@ -24,20 +24,25 @@ return new class extends Migration
             ->onDelete("Restrict");
           
 
-            $table->unsignedBigInteger("user_who_rented_out_id");//User who rented out a book
+            $table->unsignedBigInteger("user_who_rented_out_id")->nullable();//User who rented out a book
             $table->foreign("user_who_rented_out_id")
             ->references("id")
             ->on("users")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
-            $table->unsignedBigInteger("user_who_rented_id");//User who borrowed a book
+            $table->unsignedBigInteger("user_who_rented_id")->nullable();//User who borrowed a book
             $table->foreign("user_who_rented_id")
             ->references("id")
             ->on("users")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
-            $table->timestamps();
+            
+            $table->date("rent_date");
+
+            $table->date("return_date");
+
+
         });
     }
 

@@ -31,6 +31,16 @@ class Users extends Model
     public function user_login(){
         return $this->hasMany(UserLogin::class,'user_id');
     }
+
+    public function userWhoRentedOut(){
+        return $this->hasMany(Rent::class,"user_who_rented_out_id");
+        }
+    
+    public function userWhoRented(){
+    return $this->hasMany(Rent::class,"user_who_rented_id");
+    } 
+
+
 }
 
 

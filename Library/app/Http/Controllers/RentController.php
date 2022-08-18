@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Rent;
 use App\Http\Requests\StoreRentRequest;
 use App\Http\Requests\UpdateRentRequest;
+use App\Models\Book;
+use App\Models\GlobalVariable;
+use App\Models\Student;
+use App\Models\Users;
+use Illuminate\Support\Facades\Auth;
 
 class RentController extends Controller
 {
@@ -25,7 +30,9 @@ class RentController extends Controller
      */
     public function create()
     {
-        //
+        $users=Users::all();
+        $deadline=GlobalVariable::where('variable','=','b')->get()->first();
+        return view("izdajKnjigu",compact('users','deadline'));
     }
 
     /**
@@ -36,8 +43,27 @@ class RentController extends Controller
      */
     public function store(StoreRentRequest $request)
     {
-        //
-    }
+        
+                $rent=Rent::create([
+                    "rent_date"=>$request->rent_date,
+                    "return_date"=>$request->return_date]);
+
+        
+                 $librarian=Users::findOrFail(auth()->user()->id);
+                 $student=Users::findOrFail($request->user_who_rented_id);
+                 $book=Book::findOrFail($request->book);
+
+                 $librarian->userWhoRentedOut()->save($rent);
+                 $student->userWhoRented()->save($rent);
+                 $book->rent()->save($rent);
+               
+                
+             
+               return redirect("/book");
+            }
+
+
+    
 
     /**
      * Display the specified resource.
@@ -45,9 +71,12 @@ class RentController extends Controller
      * @param  \App\Models\Rent  $rent
      * @return \Illuminate\Http\Response
      */
-    public function show(Rent $rent)
+    public function show($rent)
     {
-        //
+        $users=Users::all();
+        $deadline=GlobalVariable::where('variable','=','b')->get()->first();
+        $book=Book::findOrFail($rent);
+        return view("izdajKnjigu",compact('users','deadline','book'));
     }
 
     /**
@@ -56,9 +85,9 @@ class RentController extends Controller
      * @param  \App\Models\Rent  $rent
      * @return \Illuminate\Http\Response
      */
-    public function edit(Rent $rent)
+    public function edit($rent)
     {
-        //
+        
     }
 
     /**

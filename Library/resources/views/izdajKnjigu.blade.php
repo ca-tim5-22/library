@@ -60,7 +60,7 @@
                                             <span class="mx-2">/</span>
                                         </li>
                                         <li>
-                                            <a href="{{route('book.show');}}"
+                                            <a href=""
                                                 class="text-[#2196f3] hover:text-blue-600">
                                                 KNJIGA-467
                                             </a>
@@ -126,45 +126,57 @@
 
             <!-- Space for content -->
             <div class="scroll height-content section-content">
-                <form class="text-gray-700 forma">
+
+                <form class="text-gray-700" action="{{route('rent.store');}}" method="post"  enctype="multipart/form-data">
+                    @csrf
+                    @method('POST')
                     <div class="flex flex-row ml-[30px]">
                         <div class="w-[50%] mb-[100px] mr-[100px]">
                             <h3 class="mt-[20px] mb-[10px]">Izdaj knjigu</h3>
                             <div class="mt-[20px]">
                                 <p>Izaberi ucenika koji zaduzuje knjigu <span class="text-red-500">*</span></p>
+                               
+                               
                                 <select
                                     class="flex w-[90%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
-                                    name="ucenik" id="ucenikIzdavanje" onclick="clearErrorsUcenikIzdavanje()">
+                                    name="user_who_rented_id" id="ucenikIzdavanje" onclick="clearErrorsUcenikIzdavanje()">
                                     <option disabled selected></option>
-                                    <option value="">
-                                        Pero Perovic
+
+                                    @foreach ($users as $user)
+                                    <option value="{{$user->id}}">
+                                        {{$user->first_and_last_name}}
                                     </option>
-                                    <option value="">
-                                        Ucenik 2
-                                    </option>
+                                    @endforeach
                                 </select>
+
+
+
                                 <div id="validateUcenikIzdavanje"></div>
+
+                                <input type="hidden"  name="book" value="{{$book->id}}">
                             </div>
                             <div class="mt-[20px] flex justify-between w-[90%]">
                                 <div class="w-[50%]">
                                     <p>Datum izdavanja <span class="text-red-500">*</span></p>
                                     <label class="text-gray-700" for="date">
-                                        <input type="date" name="datumIzdavanja" id="datumIzdavanja"
+
+                                        <input type="date" name="rent_date" id="datumIzdavanja"
                                             class="flex w-[90%] mt-2 px-4 py-2 text-base placeholder-gray-400 bg-white border border-gray-300 appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
                                             onclick="clearErrorsDatumIzdavanja();"
                                             onchange="funkcijaDatumVracanja();" />
+
                                     </label>
                                     <div id="validateDatumIzdavanja"></div>
                                 </div>
                                 <div class="w-[50%]">
                                     <p>Datum vracanja</p>
                                     <label class="text-gray-700" for="date">
-                                        <input type="text" id="datumVracanja"
+                                        <input type="text" name="date" id="datumVracanja"
                                             class="flex w-[90%] mt-2 px-2 py-2 text-base text-gray-400 bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
                                             disabled />
                                     </label>
                                     <div>
-                                        <p>Rok vracanja: 20 dana</p>
+                                        <p>Rok vracanja: {{$deadline->value}} dana</p>
                                     </div>
                                 </div>
                             </div>
