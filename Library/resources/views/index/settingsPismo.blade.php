@@ -52,7 +52,7 @@
                 <a href="{{route('category.index');}}" class="inline ml-[70px] hover:text-blue-800">
                     Kategorije
                 </a>
-                <a href="{{route('alphabet.index');}}" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('genre.index');}}" class="inline ml-[70px] hover:text-blue-800">
                     Zanrovi
                 </a>
                 <a href="{{route('publisher.index');}}" class="inline ml-[70px] hover:text-blue-800">
@@ -63,6 +63,9 @@
                 </a>
                 <a href="{{route('format.index');}}" class="inline ml-[70px] hover:text-blue-800">
                     Format
+                </a>
+                <a href="{{route('language.index');}}" class="inline ml-[70px] hover:text-blue-800">
+                    Jezik
                 </a>
                 <a href="{{route('alphabet.index');}}" class="inline ml-[70px] hover:text-blue-800 active-book-nav">
                     Pismo

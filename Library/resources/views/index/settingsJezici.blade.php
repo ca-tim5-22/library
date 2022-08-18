@@ -52,7 +52,7 @@
                 <a href="{{route('category.index');}}" class="inline ml-[70px] hover:text-blue-800">
                     Kategorije
                 </a>
-                <a href="{{route('genre.index');}}" class="inline ml-[70px] hover:text-blue-800 active-book-nav">
+                <a href="{{route('genre.index');}}" class="inline ml-[70px] hover:text-blue-800 ">
                     Zanrovi
                 </a>
                 <a href="{{route('publisher.index');}}" class="inline ml-[70px] hover:text-blue-800">
@@ -64,7 +64,7 @@
                 <a href="{{route('format.index');}}" class="inline ml-[70px] hover:text-blue-800">
                     Format
                 </a>
-                <a href="{{route('language.index');}}" class="inline ml-[70px] hover:text-blue-800">
+                <a href="" class="inline ml-[70px] hover:text-blue-800 active-book-nav">
                     Jezik
                 </a>
                 <a href="{{route('alphabet.index');}}" class="inline ml-[70px] hover:text-blue-800">
@@ -73,9 +73,9 @@
             </div>
             <div class="height-kategorije pb-[30px] scroll">
                 <div class="flex items-center px-[50px] py-8 space-x-3 rounded-lg">
-                    <a href="{{route('genre.create');}}"
+                    <a href="{{route('language.create');}}"
                         class="btn-animation inline-flex items-center text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] tracking-wider text-white bg-[#3f51b5] rounded hover:bg-[#4558BE]">
-                        <i class="fas fa-plus mr-[15px]"></i> Novi zanr
+                        <i class="fas fa-plus mr-[15px]"></i> Novi jezik
                     </a>
                 </div>
 
@@ -89,19 +89,19 @@
                                         <input type="checkbox" class="form-checkbox">
                                     </label>
                                 </th>
-                                <th class="px-4 py-4 leading-4 tracking-wider text-left">Naziv zanra
+                                <th class="px-4 py-4 leading-4 tracking-wider text-left">Naziv jezika
                                 <a 
-                                @if (Route::current()->getName() == "genre.index")
-                                    href="{{route('genre.sort');}}"
-                                    @elseif(Route::current()->getName() == "genre.sort")
-                                    href="{{route('genre.index');}}"
+                                @if (Route::current()->getName() == "language.index")
+                                    href="{{route('language.sort');}}"
+                                    @elseif(Route::current()->getName() == "language.sort")
+                                    href="{{route('language.index');}}"
                                 @endif
                                 >
 
-                                @if (Route::current()->getName() == "genre.index")
+                                @if (Route::current()->getName() == "language.index")
                                     <i class="ml-3 fa-lg fas fa-long-arrow-alt-down"></i>
 
-                                    @elseif(Route::current()->getName() == "genre.sort")
+                                    @elseif(Route::current()->getName() == "language.sort")
                                      <i class="ml-3 fa-lg fas fa-long-arrow-alt-up"></i>
                                 @endif
                                 
@@ -116,7 +116,7 @@
                             
                             
                             <!-- OSPOSOBITI DA RADE CHECKBOXOVI -->
-                            @foreach ($genres as $genre)
+                            @foreach ($languages as $language)
                                 <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-4 whitespace-no-wrap">
                                     <label class="inline-flex items-center">
@@ -124,8 +124,8 @@
                                     </label>
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-4">
-                                    <img class="pic" src="{{asset('storage/genre_icons/crop/'.$genre->icon)}}" class="bd-placeholder-img card-img-top" alt="" style="width:60px;height:60px;">
-                                    <p class="ml-4 text-center">{{$genre->name}}</p>
+                                    
+                                    <p class="ml-4 text-center">{{$language->name}}</p>
                                 </td>
                                 <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
                                     <p style="position:relative;" class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsGenre hover:text-[#606FC7]">
@@ -136,20 +136,20 @@
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="{{route('genre.edit',$genre->id);}}" tabindex="0"
+                                                <a href="{{route('language.edit',$language->id);}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izmijeni zanr</span>
+                                                    <span class="px-4 py-0">Izmijeni hezik</span>
                                                 </a>
-                                                <form method="POST" action="{{route('genre.destroy',$genre->id);}}">
+                                                <form method="POST" action="{{route('language.destroy',$language->id);}}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" name="submit" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izbrisi zanr</span>
+                                                    <span class="px-4 py-0">Izbrisi jezik</span>
 
                                                 </button>
                                                 </form>
@@ -168,10 +168,10 @@
                        
                                 
                         <div> 
-                        @if (URL::current() == "http://127.0.0.1:8000/genresort")
-                             <form style="margin-right:20px;" id="formica" method="POST" action="{{route("genre.sort")}}">
+                        @if (URL::current() == "http://127.0.0.1:8000/languagesort")
+                             <form style="margin-right:20px;" id="formica" method="POST" action="{{route("language.sort")}}">
                              @else
-                            <form style="margin-right:20px;" id="formica" method="POST" action="{{route("genre.index")}}">
+                            <form style="margin-right:20px;" id="formica" method="POST" action="{{route("language.index")}}">
                         @endif
                        
                         @csrf
@@ -232,7 +232,7 @@
                     </div>  
                             <p class="inline text-md">
                             
-                              {{ $genres->onEachSide($currentpag)->links("vendor\pagination.tailwind") }}
+                              {{ $languages->onEachSide($currentpag)->links("vendor\pagination.tailwind") }}
                             </p>
 
                 </div>

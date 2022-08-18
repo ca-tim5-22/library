@@ -64,6 +64,9 @@
                 <a href="{{route('format.index');}}" class="inline ml-[70px] hover:text-blue-800">
                     Format
                 </a>
+                <a href="{{route('language.index');}}" class="inline ml-[70px] hover:text-blue-800">
+                    Jezik
+                </a>
                 <a href="{{route('alphabet.index');}}" class="inline ml-[70px] hover:text-blue-800">
                     Pismo
                 </a>
@@ -119,7 +122,10 @@
                                     </label>
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-4">
+                                    @if ($c->icon)
                                     <img class="pic" src="{{asset('storage/category_icons/crop/'.$c->icon)}}" class="bd-placeholder-img card-img-top" alt="" style="width:60px;height:60px;">
+                                    @endif
+                                   
                                     {{--  <i class="fas fa-utensils fa-lg text-[#707070]"></i>  --}}
                                     <p class="ml-4 text-center">{{$c->name}}</p>
                                 </td>

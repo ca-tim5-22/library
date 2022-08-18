@@ -1190,6 +1190,21 @@ $("#sacuvajAutoraEdit").click(function (e) {
 // Form validation for new genre
 function validacijaZanr() {
 
+  $("#validateNazivJezika").empty();
+
+  let nazivJezika = $("#nazivJezika").val();
+
+  if (nazivJezika.length == 0) {
+    $('#validateNazivJezika').append('<p style="color:red;font-size:13px;">Morate unijeti naziv jezika!</p>');
+    return false;
+  }
+  else{
+    return true;
+  }
+}
+
+function validacijaJezik() {
+
   $("#validateNazivZanra").empty();
 
   let nazivZanra = $("#nazivZanra").val();
@@ -1202,7 +1217,9 @@ function validacijaZanr() {
     return true;
   }
 }
-
+function clearErrorsNazivJezika(){
+  $("#validateNazivJezika").empty();
+}
 function clearErrorsNazivZanra() {
   $("#validateNazivZanra").empty();
 }
