@@ -31,6 +31,7 @@ use App\Models\StatusesOfReservations;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\StudentController;
+use App\Models\BookStatus;
 use App\Models\GlobalVariable;
 use App\Models\User;
 use App\Models\UserType;
@@ -53,7 +54,7 @@ Route::get('/', function () {
 Auth::routes();
 
 /* Route::group(['middleware' => 'auth'], function(){
-  */
+   */
 Route::get("book/newBookSpecification",function(){
     $bindings=DB::select(DB::raw("SELECT * FROM `bindings`"));
     $bindings = (object) $bindings;
@@ -83,22 +84,43 @@ Route::get('dashboard',function(){
 
     if(is_null($global_variables)){
         GlobalVariable::create([
-            "variable" => "a",
+            "variable" => "Reservation_deadline",
             "value" => 1,
         ]);
         GlobalVariable::create([
-            "variable" => "b",
+            "variable" => "Returnment_deadline",
             "value" => 1,
         ]);
         GlobalVariable::create([
-            "variable" => "c",
+            "variable" => "Conflict_deadline",
             "value" => 1,
         ]);
-    
-    
+    }
+        $book_statuses= BookStatus::find(1); 
+
+        if(is_null($book_statuses)){
+            BookStatus::create([
+                "name"=>"Rezervisano"
+            ]);
+            BookStatus::create([
+                "name"=>"Izdato"
+            ]);
+            BookStatus::create([
+                "name"=>"Vraceno"
+            ]);
+            BookStatus::create([
+                "name"=>"U prekoracenju"
+            ]);
+            BookStatus::create([
+                "name"=>"Otpisano"
+            ]);
+        
+
+
+
     }
     
-    
+
      
     $student=DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=1"));
     $student = (object) $student;
@@ -164,7 +186,9 @@ Route::get("studentsort",[StudentController::class,"sort"])->name("student.sort"
 Route::get("booksort",[BookController::class,"sort"])->name("book.sort");
 
 Route::get("languagesort",[LanguageController::class,"sort"])->name("language.sort");
+
+Route::get("newrent/{book}",[RentController::class,"new"])->name("rent.new");
 /*-------------------------------------------------------------------------------------------*/
 
 Route::get("bookspec",[BookController::class,"spec"])->name("book.spec");
-//  }); 
+/*  });  */

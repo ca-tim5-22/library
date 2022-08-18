@@ -40,12 +40,20 @@
                 <div class="flex flex-row justify-between border-b-[1px] border-[#e4dfdf]">
                     <div class="py-[10px] flex flex-row">
                         <div class="w-[77px] pl-[30px]">
-                            <img src="img/tomsojer.jpg" alt="">
+                            @foreach ($book_headline as $photo)
+                                        @if ($photo->book_id == $book->id && $photo->headline == 1)
+                                        <img style="width:100%;height:100%;" class="object-cover w-8 mr-2 h-11" src="{{asset('storage/book_images/'.$photo->photo);}}" alt="" />
+                                        @else 
+                                        <img src="img/tomsojer.jpg" alt="">
+                                        @endif
+                                       
+                                        @endforeach
+                            
                         </div>
                         <div class="pl-[15px]  flex flex-col">
                             <div>
                                 <h1>
-                                    Tom Sojer
+                                    {{$book->title}}
                                 </h1>
                             </div>
                             <div>
@@ -60,16 +68,16 @@
                                             <span class="mx-2">/</span>
                                         </li>
                                         <li>
-                                            <a href=""
+                                            <a href="{{route('book.show',$book->id);}}"
                                                 class="text-[#2196f3] hover:text-blue-600">
-                                                KNJIGA-467
+                                                KNJIGA-{{$book->id}}
                                             </a>
                                         </li>
                                         <li>
                                             <span class="mx-2">/</span>
                                         </li>
                                         <li>
-                                            <a href="izdajKnjigu.php"
+                                            <a href="#"
                                                 class="text-[#2196f3] hover:text-blue-600">
                                                 Izdaj knjigu
                                             </a>
@@ -84,7 +92,7 @@
                             <i class="fas fa-level-up-alt mr-[3px]"></i>
                             Otpisi knjigu
                         </a>
-                        <a href="izdajKnjigu.php" class="inline hover:text-blue-600 ml-[20px] pr-[10px]">
+                        <a href="{{route('rent.new',$book->id);}}" class="inline hover:text-blue-600 ml-[20px] pr-[10px]">
                             <i class="far fa-hand-scissors mr-[3px]"></i>
                             Izdaj knjigu
                         </a>
@@ -105,18 +113,20 @@
                             <div class="absolute right-0 w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                 aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                 <div class="py-1">
-                                    <a href="editKnjiga.php" tabindex="0"
+                                    <a href="{{route('book.edit',$book->id);}}" tabindex="0"
                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                         role="menuitem">
                                         <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
                                         <span class="px-4 py-0">Izmijeni knjigu</span>
                                     </a>
-                                    <a href="#" tabindex="0"
+                                    <form action="{{route('book.destroy',$book->id);}}">
+                                    <button type="submit" name="submit" tabindex="0"
                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                         role="menuitem">
                                         <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
                                         <span class="px-4 py-0">Izbrisi knjigu</span>
-                                    </a>
+                                    </button>
+                                </form>
                                 </div>
                             </div>
                         </div>
@@ -163,7 +173,7 @@
                                         <input type="date" name="rent_date" id="datumIzdavanja"
                                             class="flex w-[90%] mt-2 px-4 py-2 text-base placeholder-gray-400 bg-white border border-gray-300 appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
                                             onclick="clearErrorsDatumIzdavanja();"
-                                            onchange="funkcijaDatumVracanja();" />
+                                            onchange="funkcijaDatumVracanja({{$deadline->value}});" />
 
                                     </label>
                                     <div id="validateDatumIzdavanja"></div>
@@ -171,9 +181,9 @@
                                 <div class="w-[50%]">
                                     <p>Datum vracanja</p>
                                     <label class="text-gray-700" for="date">
-                                        <input type="text" name="date" id="datumVracanja"
+                                        <input name="return_date" id="datumVracanja"
                                             class="flex w-[90%] mt-2 px-2 py-2 text-base text-gray-400 bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
-                                            disabled />
+                                             />
                                     </label>
                                     <div>
                                         <p>Rok vracanja: {{$deadline->value}} dana</p>
@@ -196,26 +206,26 @@
                                     <div class="text-center pb-[30px]">
                                         <p
                                             class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                            5
+                                            X
                                             primjeraka</p>
                                         <a href="aktivneRezervacije.php">
                                             <p
                                                 class=" mt-[16px] bg-yellow-200 text-yellow-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                                2 primjerka</p>
+                                                X primjerka</p>
                                         </a>
                                         <a href="izdateKnjige.php">
                                             <p
                                                 class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                                10 primjeraka</p>
+                                                X primjeraka</p>
                                         </a>
                                         <a href="knjigePrekoracenje.php">
                                             <p
                                                 class=" mt-[16px] bg-red-200 text-red-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                                2 primjerka</p>
+                                                X primjerka</p>
                                         </a>
                                         <p
                                             class=" mt-[16px] border-[1px] border-green-700 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                            15 primjeraka</p>
+                                            {{$book->total}} primjeraka</p>
                                     </div>
                                 </div>
                             </div>

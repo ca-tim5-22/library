@@ -1849,9 +1849,9 @@ function dropdown() {
   }
 }
 
-function funkcijaDatumVracanja() {
+function funkcijaDatumVracanja(a) {
   var selectedDate = new Date($('#datumIzdavanja').val());
-  var numberOfDaysToAdd = 20;
+  var numberOfDaysToAdd = a;
 
   selectedDate.setDate(selectedDate.getDate() + numberOfDaysToAdd);
 
@@ -1859,7 +1859,7 @@ function funkcijaDatumVracanja() {
   var month = selectedDate.getMonth() + 1;
   var year = selectedDate.getFullYear();
 
-  var newDate = [day, month, year].join('/');
+  var newDate = [year, month, day].join('-');
 
   document.getElementById('datumVracanja').value = newDate;
 }

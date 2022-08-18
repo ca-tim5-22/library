@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Carbon;
 class Rent extends Model
 {
     use HasFactory;
@@ -21,7 +21,9 @@ class Rent extends Model
     return $this->hasOne(User::class,"user_who_rented_id");
     }  */
 
-   
+    public function rent_status(){
+      return $this->belongsToMany(BookStatus::class,"rent_statuses","renting_id","book_status_id")->withPivotValue("date",Carbon::now())->withTimestamps();
+      }
 
 
 }
