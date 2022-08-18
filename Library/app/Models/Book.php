@@ -46,4 +46,8 @@ class Book extends Model
     public function gallery(){
         return $this->hasOne(Gallery::class,"book_id");
     }
+
+    public function rent(){
+        return $this->hasMany(Rent::class);
+        }
 }

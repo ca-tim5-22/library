@@ -9,21 +9,19 @@ class Rent extends Model
 {
     use HasFactory;
 
+    protected $fillable=['rent_date','return_date'];
+
+    public $timestamps = false;
+
     public function book(){
     return $this->hasOne(Book::class);
     }
  
-    public function userWhoRentedOut(){
-    return $this->hasOne(User::class,"user_who_rented_out_id");
-    }
-        
-    public function userThatReserved(){
+  /*   public function userThatReserved(){
     return $this->hasOne(User::class,"user_who_rented_id");
-    } 
+    }  */
 
-    public function rent(){
-    return $this->belongsToMany(BookStatus::class,"rent_statuses","renting_id");
-    }
+   
 
 
 }
