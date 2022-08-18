@@ -27,4 +27,10 @@ class Users extends Model
     public function type(){
     return $this->belongsTo(UserType::class);
     }  
+
+    public function user_login(){
+        return $this->hasMany(UserLogin::class,'user_id');
+    }
 }
+
+
