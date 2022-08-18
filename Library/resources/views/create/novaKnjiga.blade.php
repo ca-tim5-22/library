@@ -463,6 +463,18 @@
                         </div>
 
                         <div class="mt-[20px]">
+                            <p>Jezik <span class="text-red-500">*</span></p>
+                            <select
+                                class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
+                                name="language" id="jezik" onclick="clearErrorsJezik()">
+                                @foreach ($languages as $language)
+                                    <option value="{{ $language->id }}">{{ $language->name }}</option>
+                                @endforeach
+                            </select>
+                            <div id="validateJezik"></div>
+                        </div>
+
+                        <div class="mt-[20px]">
                             <p>Pismo <span class="text-red-500">*</span></p>
                             <select
                                 class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]"

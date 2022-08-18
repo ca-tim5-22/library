@@ -119,7 +119,15 @@
                         aria-label="User profile">
                         <div class="flex items-center h-5">
                             <div class="w-[40px] h-[40px] mt-[15px]">
-                                <img class="rounded-full" src="img/profileExample.jpg" alt="">
+@if (auth()->user() && auth()->user()->photo  && auth()->user()->user_type_id == 2)
+   <img style="width:100%;height: 100%;" class="rounded-full" src="{{asset('storage/librarian_images/crop/'.auth()->user()->photo);}}" alt=""> 
+   @elseif(auth()->user() && auth()->user()->photo != null && auth()->user()->user_type_id == 1)
+   <img style="width:100%;height: 100%;" class="rounded-full" src="{{asset('storage/librarian_images/crop/'.auth()->user()->photo);}}" alt=""> 
+   @else
+   <img style="width:100%;height: 100%;" class="rounded-full" src="{{asset('img/profileExample.jpg');}}" alt=""> 
+@endif
+
+                                
                             </div>
                         </div>
                     </a>

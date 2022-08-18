@@ -216,7 +216,12 @@
                                 </div>
                                 <div class="mt-[40px]">
                                     <span class="text-gray-500 text-[14px]">Jezik</span>
-                                    <p class="font-medium">Crnogorski</p>
+                                    @foreach ($languages as $language)
+                                    @if ($language->id == $book->language_id)
+                                    <p class="font-medium">{{$language->name}}</p>
+                                    @endif
+                                @endforeach
+                                    
                                 </div>
                                 <div class="mt-[40px]">
                                     <span class="text-gray-500 text-[14px]">Povez</span>

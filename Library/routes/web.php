@@ -163,6 +163,7 @@ Route::get("studentsort",[StudentController::class,"sort"])->name("student.sort"
 
 Route::get("booksort",[BookController::class,"sort"])->name("book.sort");
 
+Route::get("languagesort",[LanguageController::class,"sort"])->name("language.sort");
 /*-------------------------------------------------------------------------------------------*/
 
 Route::get("bookspec",[BookController::class,"spec"])->name("book.spec");

@@ -76,6 +76,9 @@
                 <a href="{{route('format.index');}}" class="inline ml-[70px] hover:text-blue-800">
                     Format
                 </a>
+                <a href="{{route('language.index');}}" class="inline ml-[70px] hover:text-blue-800">
+                    Jezik
+                </a>
                 <a href="{{route('alphabet.index');}}" class="inline ml-[70px] hover:text-blue-800">
                     Pismo
                 </a>

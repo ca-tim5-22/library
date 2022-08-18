@@ -251,7 +251,19 @@
 
                                     <div id="validateBrStrana"></div>
                                 </div>
-
+                                <div class="mt-[20px]">
+                                    <p>Jezik<span class="text-red-500">*</span></p>
+                                    <select
+                                        class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
+                                        name="alphabet" id="pismo" onclick="clearErrorsPismo()">
+                                        <option value="{{ $book->alphabet->id }}" selected>{{ $book->language->name }}
+                                        </option>
+                                        @foreach ($languages as $language)
+                                            <option value="{{ $language->id }}">{{ $language->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div id="validateJezik"></div>
+                                </div>
                                 <div class="mt-[20px]">
                                     <p>Pismo <span class="text-red-500">*</span></p>
                                     <select
@@ -285,7 +297,7 @@
                                     <select
                                         class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
                                         name="format" id="format" onclick="clearErrorsFormat()">
-                                        <option value="{{ $book->format }}" selected></option>
+                                        <option value="{{ $book->format->id }}" selected>{{$book->format->name}}</option>
                                         @foreach ($formats as $format)
                                             <option value="{{ $format->id }}">{{ $format->name }}</option>
                                         @endforeach

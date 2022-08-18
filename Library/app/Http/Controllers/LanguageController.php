@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Language;
 use App\Http\Requests\StoreLanguageRequest;
 use App\Http\Requests\UpdateLanguageRequest;
+use Illuminate\Support\Facades\URL;
+use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\ViewErrorBag;
 
 class LanguageController extends Controller
 {
@@ -13,11 +17,65 @@ class LanguageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        
+
+        $url= URL::previous();
+        if($request->paginate != null){
+            $languages = DB::table("languages")->orderBy("name","ASC")->paginate($request->paginate,"*","page");
+
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
+
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $languages = DB::table("languages")->orderBy("name","ASC")->paginate($currentpag,"*","page");
+            
+        }
+        
+        return view("index.settingsJezici",compact("languages","url","currentpag"));
     }
 
+    public function sort(Request $request)
+    {
+        
+
+        $url= URL::previous();
+        if($request->paginate != null){
+            $languages = DB::table("languages")->orderBy("name","DESC")->paginate($request->paginate,"*","page");
+
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
+
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            $languages = DB::table("languages")->orderBy("name","DESC")->paginate($currentpag,"*","page");
+            
+        }
+        
+        return view("index.settingsJezici",compact("languages","url","currentpag"));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -25,7 +83,7 @@ class LanguageController extends Controller
      */
     public function create()
     {
-        //
+        return view("create.noviJezik");
     }
 
     /**
@@ -36,7 +94,11 @@ class LanguageController extends Controller
      */
     public function store(StoreLanguageRequest $request)
     {
-        //
+        Language::create([
+                "name"=>$request->name
+
+        ]);
+        return redirect("/language");
     }
 
     /**
