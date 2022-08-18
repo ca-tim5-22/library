@@ -23,10 +23,8 @@ class RentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        
-
-        return view("rent.IznajmljivanjeIzdate");
+    { 
+       
     }
 
     /**
@@ -67,20 +65,10 @@ class RentController extends Controller
                  $book->rent()->save($rent);
                     $status=DB::table("book_statuses")->where("name","=","Izdato")->get()->first();
 
-
-
-
                  $rent->rent_status()->attach($status->id);
-
-
-
-
-
 
              
                return redirect("/book");
-
-
 
 
             }
@@ -105,7 +93,6 @@ class RentController extends Controller
      */
     public function show($rent)
     {
-       
     }
 
     /**
@@ -141,4 +128,81 @@ class RentController extends Controller
     {
         //
     }
+
+
+    public function rented_books($book)
+    {
+    /*   $book=Book::findOrFail($book);
+       $rent=$book->rent;
+       $rent=Rent::find
+       $rented=$rent->rent_status()->get(); */
+   /*  $status=DB::table("book_statuses")->where("name","=","Otpisano")->get()->first();
+    foreach($status->rent as $rent){
+    echo "ahsdasdhsajhashfhgfdgsdgf";
+
+    }; */
+     $rented=Rent::all();
+     $users=Users::all();
+     $book=Book::findOrFail($book);
+    return view("rent.IznajmljivanjeIzdate",compact('rented','users','book'));
+    }
+
+
+
+   public function returned_books($book)
+    {
+    $rented=Rent::all();
+    $users=Users::all();
+    $book=Book::findOrFail($book);
+    return view("rent.IznajmljivanjeVracene",compact('rented','users','book'));
+    } 
+
+
+    public function overdue_books($book)
+    {
+    $rented=Rent::all();
+    $users=Users::all();
+    $book=Book::findOrFail($book);
+    return view("rent.IznajmljivanjePrekoracenje",compact('rented','users','book'));
+    } 
+
+
+
+    public function abandon_show($rent)
+    {
+    $rent=Rent::findOrFail($rent);
+    return view("otpisiKnjigu",compact('rent'));
+    } 
+
+    public function abandon_book($niz) {
+    $status=DB::table("book_statuses")->where("name","=","Otpisano")->get()->first();
+
+    foreach($niz as $clan){
+    $rent=Rent::findOrFail($clan);
+    $rent->rent_status()->sync([$status->id]);
+}
+        return redirect('/book');
+    } 
+
+
+
+    public function return_show($rent)
+    {
+    $rent=Rent::findOrFail($rent);
+    return view("vratiKnjigu",'rent');
+    } 
+
+    public function return_book($niz) {
+    $status=DB::table("book_statuses")->where("name","=","Vraceno")->get()->first();
+
+    foreach($niz as $clan){
+    $rent=Rent::findOrFail($clan);
+    $rent->rent_status()->sync([$status->id]);
+}
+    return redirect('/book');
+    } 
+
+
+
+
 }

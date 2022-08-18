@@ -132,9 +132,9 @@
                         <p style="cursor: pointer;" id="spec_link" class="inline ml-[70px] hover:text-blue-800 ">
                             Specifikacija
                         </p>
-                        <p style="cursor: pointer;" href="{{route('rent.index');}}" class="inline ml-[70px] hover:text-blue-800">
+                        <a style="cursor: pointer;" href="{{route('rent.rented',$book->id);}}" class="inline ml-[70px] hover:text-blue-800">
                             Evidencija iznajmljivanja
-                        </p>
+                        </a>
                         <p style="cursor: pointer;" href="" id="mult_link" class="inline ml-[70px] hover:text-blue-800">
                             Multimedija
                         </p>

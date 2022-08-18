@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('rent_statuses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("renting_id");
+            $table->unsignedBigInteger("renting_id")->nullable();
             $table->foreign("renting_id")
             ->references("id")
             ->on("rents")
             ->onUpdate("Cascade")
             ->onDelete("Cascade");
 
-            $table->unsignedBigInteger("book_status_id");
+            $table->unsignedBigInteger("book_status_id")->nullable();
             $table->foreign("book_status_id")
             ->references("id")
             ->on("book_statuses")
