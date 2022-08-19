@@ -79,7 +79,7 @@
                             <i class="far fa-hand-scissors mr-[3px]"></i>
                             Izdaj knjigu
                         </a>
-                        <a href="vratiKnjigu.php" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href="" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="fas fa-redo-alt mr-[3px] "></i>
                             Vrati knjigu
                         </a>
@@ -103,7 +103,7 @@
                                         <span class="px-4 py-0">Izmijeni knjigu</span>
                                     </a>
 
-                                    <form method="POST" action="{{route("book.destroy",$book->id)}}">
+                                    <form method="POST" action="{{route('book.destroy',$book->id)}}">
                                         @csrf
                                         @method("DELETE")
                                         <button type="submit" name="submit" tabindex="0"
@@ -187,8 +187,8 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white">
-
-                            @foreach ($rented as $rent)
+                                
+                            @foreach ($overdue_book_info as $rent=>$value)
 
                                 <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                     <td class="px-4 py-3 whitespace-no-wrap">
@@ -196,39 +196,80 @@
                                             <input type="checkbox" class="form-checkbox">
                                         </label>
                                     </td>
-                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$rent->rent_date}}</td>
+                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$value[0]->rent_date}}</td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                         
                                         @foreach ($users as $user)
-                                        @if($user->id==$rent->user_who_rented_id)
-                                        {{$user->first_and_last_name}}
-                                        @endif
-                                        @endforeach
+                                    @if($user->id == $value[0]->user_who_rented_id)
+                                    {{$user->first_and_last_name}}
+                                    @endif
+                                    @endforeach
 
                                     </td>
+                                    <?php
+
+                                    echo "<pre>";
+
+
+                                    echo "</pre>";
+                                    $a= strtotime($today) - strtotime($value[0]->return_date);
+
+                                    $a= round($a / 86400);
+
+                                    
+                                            ?>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                         <div
                                             class="inline-block px-[6px] py-[2px] font-medium bg-red-200 rounded-[10px]">
-                                            <span class="text-xs text-red-800">60 dana</span>
+                                            <span class="text-xs text-red-800">
+
+
+
+{{$a}} dan/a
+
+
+
+
+
+
+
+
+
+                                            </span>
                                         </div>
                                     </td>
+                                    
+                                  
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
-                                        <div>
-                                            <span>3 mjeseca i 3 dana</span>
+                                        <div><?php 
+
+                                                $b= strtotime($today) - strtotime($value[0]->rent_date);
+
+                                                $b= round($b / 86400);
+
+                                                $array[]=$b;
+                                                ?>
+                                                
+                                            <span id="trenutno_zad">
+                                                
+                                                <input type="hidden" value="{{$b}}" id="broj_dana">
+                                                <script>datum(br_dana);</script>
+
+                                               </span>
                                         </div>
                                     </td>
                                     <td class="px-6 py-3 text-sm leading-5 text-right whitespace-no-wrap">
-                                        <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsIznajmljivanjeKnjigePrekoracenje hover:text-[#606FC7]">
+                                        <p stlye="position:relative;" class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsIznajmljivanjeKnjigePrekoracenje hover:text-[#606FC7]">
                                             <i
                                                 class="fas fa-ellipsis-v"></i>
                                         </p>
-                                        <div
-                                            class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 iznajmljivanje-knjige-prekoracenje">
+                                        <div style="margin-left:35px;"
+                                            class="absolute z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 iznajmljivanje-knjige-prekoracenje">
                                             <div class="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                                 aria-labelledby="headlessui-menu-button-1"
                                                 id="headlessui-menu-items-117" role="menu">
                                                 <div class="py-1">
-                                                    <a href="" tabindex="0"
+                                                    <a href="{{route('rent.show',$value[0]->id);}}" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="far fa-file mr-[10px] ml-[5px] py-1"></i>
@@ -242,7 +283,7 @@
                                                         <span class="px-4 py-0">Izdaj knjigu</span>
                                                     </a>
 
-                                                    <a href="vratiKnjigu.php" tabindex="0"
+                                                    <a href="{{route('rent.returnbook',$value[0]->id);}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                         <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
@@ -256,7 +297,7 @@
                                                         <span class="px-4 py-0">Rezervisi knjigu</span>
                                                     </a>
 
-                                                    <a href="otpisiKnjigu.php" tabindex="0"
+                                                    <a href="{{route('rent.abandon',$value[0]->id)}}" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="fas fa-level-up-alt mr-[14px] ml-[5px] py-1"></i>
@@ -265,7 +306,7 @@
 
                                     
 
-                                                    <form method="POST" action="{{route("book.destroy",$book->id)}}">
+                                                    <form method="POST" action="{{route('book.destroy',$book->id)}}">
                                                         @csrf
                                                         @method("DELETE")
                                                         <button type="submit" name="submit" tabindex="0"
@@ -360,26 +401,26 @@
                                 <p class="mt-[20px]">Ukupna kolicina:</p>
                             </div>
                             <div class="text-center pb-[30px]">
-                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">5
+                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">{{$book->total - $rented_c}}
                                     primjeraka</p>
                                 <a href="iznajmljivanjeAktivne.php">
                                     <p
                                         class=" mt-[16px] bg-yellow-200 text-yellow-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        2 primjerka</p>
+                                       0 primjeraka</p>
                                 </a>
-                                <a href="iznajmljivanjeIzdate.php">
+                                <a href="{{route('rent.rented',$book);}}">
                                     <p
                                         class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        102 primjerka</p>
+                                        {{$rented_c}} primjerka</p>
                                 </a>
-                                <a href="iznajmljivanjePrekoracenje.php">
+                                <a href="{{route('rent.overdue',$book);}}">
                                     <p
                                         class=" mt-[16px] bg-red-200 text-red-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        2 primjerka</p>
+                                        {{$preko}} primjerka</p>
                                 </a>
                                 <p
                                     class=" mt-[16px] border-[1px] border-green-700 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                    15 primjeraka</p>
+                                    {{$book->total}} primjeraka</p>
                             </div>
                         </div>
                     </div>
@@ -482,6 +523,8 @@
                     </div>
                 </div>
             </div>
+        {{--     // <input id="vrij" type="hidden" value="{{$array}}">  --}}
+        //Finish date
         </section>
         <!-- End Content -->
     </main>
@@ -493,7 +536,35 @@
     <!-- Scripts -->
     @include('includes\layout\scripts')
     <!-- End Scripts -->
-
+    <script>const trenutno_zad = document.getElementById("trenutno_zad");
+        var br_dana = document.getElementById("broj_dana").value;
+        var array = document.getElementById("vrij").value;
+        console.log("Niz"+array);
+        function datum(a){
+           
+            let value = 0
+          if(a==0){
+          value = "Danas";}
+          
+          if(a>7){
+          let dan=a%7;
+          let nedelja=(a-dan)/7;
+          value = nedelja+" nedelja/e "+dan+" dan/a";
+          }
+          else{
+              let dan=a;
+              
+              value = dan + " dan/a";
+        
+          }
+          trenutno_zad.innerText=value;
+          
+          }
+        
+        trenutno_zad.onload = datum(br_dana);
+        
+        
+        </script>
 </body>
 
 </html>

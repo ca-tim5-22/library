@@ -2671,7 +2671,11 @@ $('.checkOthers').change(function () {
     $('tr').children().eq(8).html('Ukupna kolicina')
   }
 });
-
+const newbookinfo = document.getElementById("new_book_information")
+const newbookspec = document.getElementById("new_book_specification")
+const newbookmult = document.getElementById("new_book_multimedia")
+let url = window.location.pathname;
+newarray= url;
 info_link.addEventListener("click",()=>{
     newbookinfo.classList.add("active-form");
     newbookinfo.classList.remove("nonactive-form");
@@ -2711,3 +2715,4 @@ const selecticaoption = document.getElementById("selecticaoption")
 selecticaoption.addEventListener("click",()=>{
       selecticaoption.submit();
 });
+                                                

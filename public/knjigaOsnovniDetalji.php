@@ -123,7 +123,7 @@
                         <a href="knjigaSpecifikacija.php" class="inline ml-[70px] hover:text-blue-800 ">
                             Specifikacija
                         </a>
-                        <a href="iznajmljivanjeIzdate.php" class="inline ml-[70px] hover:text-blue-800">
+                        <a href="{{route('rent.rented',$book);}}" class="inline ml-[70px] hover:text-blue-800">
                             Evidencija iznajmljivanja
                         </a>
                         <a href="evidencijaKnjigaMultimedija.php" class="inline ml-[70px] hover:text-blue-800">
@@ -205,10 +205,10 @@
                                 <a href="iznajmljivanjeAktivne.php"><p
                                     class=" mt-[16px] bg-yellow-200 text-yellow-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
                                     2 primjerka</p></a>
-                                    <a href="iznajmljivanjeIzdate.php"><p
+                                    <a href="{{route('rent.rented',$book);}}"><p
                                     class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
                                     102 primjerka</p></a>
-                                    <a href="iznajmljivanjePrekoracenje.php">  <p
+                                    <a href="{{route('rent.overdue',$book);}}">  <p
                                     class=" mt-[16px] bg-red-200 text-red-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
                                     2 primjerka</p></a>
                                 <p

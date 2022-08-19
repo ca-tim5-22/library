@@ -126,7 +126,7 @@
             <div class="flex flex-row overflow-auto height-osnovniDetalji">
                 <div class="w-[80%]">
                     <div class="border-b-[1px] py-4 text-gray-500 border-[#e4dfdf] pl-[30px]">
-                        <p style="cursor: pointer;" id="info_link" class="active-book-nav  inline hover:text-blue-800">
+                        <p style="cursor: pointer;" id="info_link" class="active-book-nav inline hover:text-blue-800">
                             Osnovni detalji
                         </p>
                         <p style="cursor: pointer;" id="spec_link" class="inline ml-[70px] hover:text-blue-800 ">
@@ -432,20 +432,26 @@
                                 <p class="mt-[20px]">Ukupna kolicina:</p>
                             </div>
                             <div class="text-center pb-[30px]">
-                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                    Na raspolaganju</p>
-                                <a href="iznajmljivanjeAktivne.php"><p
-                                    class=" mt-[16px] bg-yellow-200 text-yellow-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                    Rezervisano</p></a>
-                                    <a href="iznajmljivanjeIzdate.php"><p
-                                    class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                    Izdato</p></a>
-                                    <a href="iznajmljivanjePrekoracenje.php">  <p
-                                    class=" mt-[16px] bg-red-200 text-red-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                    U prekoracenju</p></a>
+                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">{{$book->total - $rented_c}}
+                                    primjeraka</p>
+                                <a href="iznajmljivanjeAktivne.php">
+                                    <p
+                                        class=" mt-[16px] bg-yellow-200 text-yellow-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
+                                       0 primjeraka</p>
+                                </a>
+                                <a href="{{route('rent.rented',$book);}}">
+                                    <p
+                                        class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
+                                        {{$rented_c}} primjerka</p>
+                                </a>
+                                <a href="{{route('rent.overdue',$book);}}">
+                                    <p
+                                        class=" mt-[16px] bg-red-200 text-red-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
+                                        {{$preko}} primjerka</p>
+                                </a>
                                 <p
                                     class=" mt-[16px] border-[1px] border-green-700 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                    {{$book->total}}</p>
+                                    {{$book->total}} primjeraka</p>
                             </div>
                         </div>
                     </div>

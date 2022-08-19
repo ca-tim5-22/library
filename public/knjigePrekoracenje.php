@@ -66,7 +66,7 @@
                                             class=" whitespace-nowrap w-full text-[25px]  flex justify-between fill-current">
                                             <div
                                                 class="py-[15px] px-[20px] w-[268px] cursor-pointer group hover:bg-[#EFF3F6] rounded-[10px]">
-                                                <a href="izdateKnjige.php" aria-label="Sve knjige"
+                                                <a href="{{route('rent.index');}}" aria-label="Sve knjige"
                                                     class="flex items-center">
                                                     <i
                                                         class="text-[#707070] transition duration-300 ease-in group-hover:text-[#576cdf] far fa-copy text-[20px]"></i>

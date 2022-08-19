@@ -97,7 +97,7 @@
                     <div class="ml-[25px]">
                         <span class="flex justify-between w-full whitespace-nowrap">
                             <div style="display:flex;" id="izdavanjeknjige-div">
-                                <a style="display:flex;" href="izdateKnjige.php" aria-label="Knjige">
+                                <a style="display:flex;" href="{{route('rent.index');}}" aria-label="Knjige">
                                     <i style="padding:4px 5px 5px 5px;"  id="izdavanjeknjiga-i" class="text-[22px] transition duration-300 ease-in group-hover:text-[#576cdf] text-[#707070] fas fa-exchange-alt"></i>
                                     <div class="hidden sidebar-item align-self-center">
                                         <p

@@ -123,7 +123,7 @@
                         <a href="knjigaSpecifikacija.php" class="inline ml-[70px] hover:text-blue-800 ">
                             Specifikacija
                         </a>
-                        <a href="iznajmljivanjeIzdate.php" class="inline ml-[70px] active-book-nav hover:text-blue-800">
+                        <a href="{{route('rent.rented',$book);}}" class="inline ml-[70px] active-book-nav hover:text-blue-800">
                             Evidencija iznajmljivanja
                         </a>
                         <a href="evidencijaKnjigaMultimedija.php" class="inline ml-[70px] hover:text-blue-800">
@@ -131,17 +131,17 @@
                         </a>
                     </div>
                     <div class="py-4 pt-[20px] pl-[30px] text-[#2D3B48]">
-                        <a href="IznajmljivanjeIzdate.php"
+                        <a href="{{route('rent.rented',$book);}}"
                             class="py-[15px] px-[20px] w-[268px] text-[#576cdf] cursor-pointer bg-[#EFF3F6] rounded-[10px] inline hover:text-[#576cdf]">
                             <i class="text-[20px] far fa-copy mr-[3px]"></i>
                             Izdate knjige
                         </a>
-                        <a href="iznajmljivanjeVracene.php"
+                        <a href="{{route('rent.returned',$book);}}"
                             class="inline py-[15px] rounded-[10px] group px-[20px] w-[268px] hover:text-[#576cdf] hover:bg-[#EFF3F6] ml-[20px] pr-[10px]">
                             <i class="text-[20px] text-[#707070] group-hover:text-[#576cdf] fas fa-file mr-[3px]"></i>
                             Vracene knjige
                         </a>
-                        <a href="iznajmljivanjePrekoracenje.php"
+                        <a href="{{route('rent.overdue',$book);}}"
                             class="inline py-[15px] rounded-[10px] group px-[20px] w-[268px] hover:text-[#576cdf] hover:bg-[#EFF3F6] ml-[20px] pr-[10px]">
                             <i class="text-[20px] text-[#707070] group-hover:text-[#576cdf] fas fa-exclamation-triangle mr-[3px]"></i>
                             Knjige u prekoracenju
@@ -663,12 +663,12 @@
                                         class=" mt-[16px] bg-yellow-200 text-yellow-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
                                         2 primjerka</p>
                                 </a>
-                                <a href="iznajmljivanjeIzdate.php">
+                                <a href="{{route('rent.rented',$book);}}">
                                     <p
                                         class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
                                         102 primjerka</p>
                                 </a>
-                                <a href="iznajmljivanjePrekoracenje.php">
+                                <a href="{{route('rent.overdue',$book);}}">
                                     <p
                                         class=" mt-[16px] bg-red-200 text-red-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
                                         2 primjerka</p>

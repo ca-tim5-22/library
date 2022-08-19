@@ -241,8 +241,9 @@ Route::get("returned/{book}",[RentController::class,"returned_books"])->name("re
 
 Route::get("overdue/{book}",[RentController::class,"overdue_books"])->name("rent.overdue");
 
-Route::get("abandon/{book}",[RentController::class,"abandon"])->name("rent.abandon");
+Route::get("abandon/{id}",[RentController::class,"abandon_book"])->name("rent.abandon");
 
+Route::get("returnbook/{book}",[RentController::class,"return_book"])->name("rent.returnbook");
 /*-------------------------------------------------------------------------------------------*/
 
 Route::get("bookspec",[BookController::class,"spec"])->name("book.spec");

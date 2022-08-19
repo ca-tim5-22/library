@@ -125,16 +125,16 @@
             <div class="flex flex-row height-iznajmljivanje scroll">
                 <div class="w-[80%]">
                     <div class="border-b-[1px] border-[#e4dfdf] py-4  border-gray-300 pl-[30px]">
-                        <a href="{{route('book.show',$book->id);}}" class="inline hover:text-blue-800">
+                        <a  style="cursor: pointer;" href="{{route('book.show',$book->id);}}" id="info_link" class=" inline hover:text-blue-800">
                             Osnovni detalji
                         </a>
-                        <a href="{{route('book.show',$book->id);}}" class="inline ml-[70px] hover:text-blue-800 ">
+                        <a style="cursor: pointer;" href="{{route('book.show',$book->id);}}" id="spec_link" class="inline ml-[70px] hover:text-blue-800 " onclick="spec_show()">
                             Specifikacija
                         </a>
                         <a href="{{route('rent.rented',$book->id);}}" class="inline ml-[70px] active-book-nav hover:text-blue-800">
                             Evidencija iznajmljivanja
                         </a>
-                        <a href="{{route('book.show',$book->id);}}" class="inline ml-[70px] hover:text-blue-800">
+                        <a style="cursor: pointer;" href="{{route('book.show',$book->id);}}#new_book_multimedia" id="mult_link" class="inline ml-[70px] hover:text-blue-800">
                             Multimedija
                         </a>
                     </div>
@@ -188,7 +188,7 @@
                             </thead>
                             <tbody class="bg-white">
                                 
-                                @foreach($rented as $rent)
+                                @foreach($rented_book_info as $rent=>$value)
 
                                 <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                     <td class="px-4 py-3 whitespace-no-wrap">
@@ -198,13 +198,13 @@
                                     </td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                     @foreach ($users as $user)
-                                    @if($user->id==$rent->user_who_rented_id)
+                                    @if($user->id == $value[0]->user_who_rented_id)
                                     {{$user->first_and_last_name}}
                                     @endif
                                     @endforeach
 
                                     </td>
-                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$rent->rent_date}}</td>
+                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$value[0]->rent_date}}</td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                         <div>
                                             <span>2 nedelje i 3 dana</span>
@@ -212,25 +212,25 @@
                                     </td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                         @foreach ($users as $user)
-                                        @if($user->id==$rent->user_who_rented_out_id)
+                                        @if($user->id==$value[0]->user_who_rented_out_id)
                                         {{$user->first_and_last_name}}
                                         @endif
                                         @endforeach
 
                                     </td>
                                     <td class="px-6 py-3 text-sm leading-5 text-right whitespace-no-wrap">
-                                        <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsIznajmljivanjeIzdateKnjige hover:text-[#606FC7]">
+                                        <p style="position: relative;" class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsIznajmljivanjeIzdateKnjige hover:text-[#606FC7]">
                                             <i
                                                 class="fas fa-ellipsis-v"></i>
                                         </p>
-                                        <div
-                                            class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 iznajmljivanje-izdate-knjige">
-                                            <div class="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
+                                        <div style="margin-left:-70px;"
+                                            class="absolute z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 iznajmljivanje-izdate-knjige">
+                                            <div class=" right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                                 aria-labelledby="headlessui-menu-button-1"
                                                 id="headlessui-menu-items-117" role="menu">
                                                 <div class="py-1">
 
-                                                    <a href="{{route('rent.show',$rent->id);}}" tabindex="0"
+                                                    <a href="{{route('rent.show',$value[0]->id);}}" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="far fa-file mr-[10px] ml-[5px] py-1"></i>
@@ -244,7 +244,7 @@
                                                         <span class="px-4 py-0">Otpisi knjigu</span>
                                                     </a>
 
-                                                    <a href="vratiKnjigu.php" tabindex="0"
+                                                    <a href="{{route('rent.returnbook',$value[0]->id);}}" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
@@ -337,26 +337,26 @@
                                 <p class="mt-[20px]">Ukupna kolicina:</p>
                             </div>
                             <div class="text-center pb-[30px]">
-                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">5
+                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">{{$book->total - $rented_c}}
                                     primjeraka</p>
                                 <a href="iznajmljivanjeAktivne.php">
                                     <p
                                         class=" mt-[16px] bg-yellow-200 text-yellow-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        2 primjerka</p>
+                                       0 primjeraka</p>
                                 </a>
-                                <a href="iznajmljivanjeIzdate.php">
+                                <a href="{{route('rent.rented',$book);}}">
                                     <p
                                         class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        102 primjerka</p>
+                                        {{$rented_c}} primjerka</p>
                                 </a>
-                                <a href="iznajmljivanjePrekoracenje.php">
+                                <a href="{{route('rent.overdue',$book);}}">
                                     <p
                                         class=" mt-[16px] bg-red-200 text-red-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        2 primjerka</p>
+                                        {{$preko}} primjerka</p>
                                 </a>
                                 <p
                                     class=" mt-[16px] border-[1px] border-green-700 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                    15 primjeraka</p>
+                                    {{$book->total}} primjeraka</p>
                             </div>
                         </div>
                     </div>
@@ -446,8 +446,8 @@
                                 </p>
                             </div>
                             <div>
-                                <a href="izdavanjeDetalji.php" class="text-[#2196f3] hover:text-blue-600">
-                                    pogledaj detaljnije >>
+                                <a href="" class="text-[#2196f3] hover:text-blue-600">
+                                    Pogledaj detaljnije >>
                                 </a>
                             </div>
                         </div>
