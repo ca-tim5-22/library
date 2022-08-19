@@ -263,7 +263,7 @@
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="aktivneRezervacije.php">Rezervisano</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
-                                            href="izdateKnjige.php">Izdato</td>
+                                            href="{{route('rent.index');}}">Izdato</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="knjigePrekoracenje.php">U prekoracenju</td>
                                     <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$book->total}}</td>

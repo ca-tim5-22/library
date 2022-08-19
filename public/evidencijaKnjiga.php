@@ -371,7 +371,7 @@
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="aktivneRezervacije.php">5</a></td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
-                                            href="izdateKnjige.php">5</a></td>
+                                            href="{{route('rent.index');}}">5</a></td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="knjigePrekoracenje.php">2</a></td>
                                     <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">11</td>
@@ -459,7 +459,7 @@
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="aktivneRezervacije.php">0</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
-                                            href="izdateKnjige.php">0</td>
+                                            href="{{route('rent.index');}}">0</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="knjigePrekoracenje.php">0</td>
                                     <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">20</td>
@@ -545,7 +545,7 @@
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="aktivneRezervacije.php">2</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
-                                            href="izdateKnjige.php">7</td>
+                                            href="{{route('rent.index');}}">7</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="knjigePrekoracenje.php">1</td>
                                     <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">10</td>
@@ -631,7 +631,7 @@
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="aktivneRezervacije.php">0</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
-                                            href="izdateKnjige.php">10</td>
+                                            href="{{route('rent.index');}}">10</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="knjigePrekoracenje.php">2</td>
                                     <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">10</td>
@@ -718,7 +718,7 @@
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="aktivneRezervacije.php">5</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
-                                            href="izdateKnjige.php">5</td>
+                                            href="{{route('rent.index');}}">5</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="knjigePrekoracenje.php">1</td>
                                     <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">11</td>
@@ -806,7 +806,7 @@
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="aktivneRezervacije.php">0</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
-                                            href="izdateKnjige.php">0</td>
+                                            href="{{route('rent.index');}}">0</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="knjigePrekoracenje.php">0</td>
                                     <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">20</td>
@@ -892,7 +892,7 @@
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="aktivneRezervacije.php">2</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
-                                            href="izdateKnjige.php">7</td>
+                                            href="{{route('rent.index');}}">7</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="knjigePrekoracenje.php">2</td>
                                     <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">10</td>
@@ -978,7 +978,7 @@
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="aktivneRezervacije.php">0</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
-                                            href="izdateKnjige.php">10</td>
+                                            href="{{route('rent.index');}}">10</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="knjigePrekoracenje.php">1</td>
                                     <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">10</td>

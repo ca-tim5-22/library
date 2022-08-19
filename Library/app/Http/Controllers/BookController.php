@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Gallery;
 use App\Models\Language;
+use App\Models\Users;
 
 class BookController extends Controller
 {
@@ -244,7 +245,15 @@ class BookController extends Controller
         $publishers = DB::select(DB::raw("SELECT * FROM publishers;"));
         $languages = DB::select(DB::raw("SELECT * FROM languages;"));
         $formats = DB::select(DB::raw("SELECT * FROM formats;"));
-        return view("book.knjigaOsnovniDetalji",compact("book","students","librarian","book_photos","categories_of_book","authors_of_book","genres_of_book","bindings","alphabets","publishers","formats","languages","naslovna"));
+
+        $izdato=DB::table("book_statuses")->where("name","=","Izdato")->get();
+     $renteda=DB::table("rent_statuses")->where("book_status_id","=",$izdato[0]->id)->get();
+     $users=Users::all();
+     $rented_c=count($renteda);
+     $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
+     $preko=DB::table("rent_statuses")->where("book_status_id","=",$u_preko[0]->id)->get(); 
+     $preko=count($preko);
+        return view("book.knjigaOsnovniDetalji",compact("book","students","librarian","book_photos","categories_of_book","authors_of_book","genres_of_book","bindings","alphabets","publishers","formats","languages","naslovna","preko","rented_c"));
     }
 
     /**

@@ -47,6 +47,52 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
+
+
+Route::get('/baza', function () {
+    $categories=[ "Action and adventure","Art/architecture","Alternate history","Autobiography","Anthology","Biography","Chick lit","Business/economics","Children's","Crafts/hobbies","Classic","Cookbook","Comic book","Diary","Coming-of-age","Dictionary","Crime","Encyclopedia","Drama","Guide","Fairytale","Health/fitness","Fantasy","History","Graphic novel","Home and garden","Historical fiction","Humor","Horror","Journal","Mystery","Math","Paranormal romance","Memoir","Picture book","Philosophy","Poetry","Prayer","Political thriller","Religion, spirituality, and new age","Romance","Textbook","Satire","True crime","Science fiction","Review","Short story","Science","Suspense","Self help","Thriller","Sports and leisure","Western","Travel","Young adult","True crime"];
+
+foreach ($categories as $category) {
+    DB::select(DB::raw("INSERT INTO `categories` (`id`, `name`, `icon`, `description`, `created_at`, `updated_at`) VALUES (NULL, \"$category\", NULL, 'Category', '2022-08-13 00:00:00', '2022-08-13 00:00:00');
+"));
+} 
+
+$genres=["Poetry","Drama/Play","Essay","Short story","Novel"];
+foreach ($genres as $genre) {
+    DB::select(DB::raw("INSERT INTO `genres` (`id`, `name`, `icon`, `description`, `created_at`, `updated_at`) VALUES (NULL, \"$genre\", NULL, 'Genre', '2022-08-13 00:00:00', '2022-08-13 00:00:00');
+"));
+      
+    } 
+
+
+
+   $formats=[ "Small Square( 18x18 cm )","Standard Portrait( 20x25 cm )","Standard Landscape( 25x20 cm )","Large Landscape( 33x28 cm )","Large Square( 30x30 cm )"];
+
+   foreach ($formats as $format) {
+    DB::select(DB::raw("INSERT INTO `formats` (`id`, `name`, `created_at`, `updated_at`) VALUES (NULL, \"$format\",'2022-08-13 00:00:00', '2022-08-13 00:00:00');
+"));} 
+
+
+$bindings=[ "Saddle stitch binding","PUR binding","Hardcover or case binding","Singer sewn binding","Section sewn binding","Coptic stitch binding","Wiro, comb or spiral binding","Interscrew binding","Japanese binding","Solander boxes and slipcases"];
+
+   foreach ($bindings as $binding) {
+    DB::select(DB::raw("INSERT INTO `bindings` (`id`, `name`, `created_at`, `updated_at`) VALUES (NULL, \"$binding\",'2022-08-13 00:00:00', '2022-08-13 00:00:00');
+"));} 
+
+
+ $publishers=[
+ "Alchemy Press Book of Horrors","Alfresco Press","Anchor Book Press","Anthem Press","Arbordale Publishing","Arcade Publishing"	,"Arcadia Publishing"	,"Arkham House"	,"Armida Publications"	,"August House Publishers"	,"Autumn House Press"	,"B & W Publishing"	,"Balboa Press"	,"Beacon Publishing"	,"Biblio Publishing"	,"Bloomsbury"	,"Blossom Spring Publishing"	,"Blue manatee press"	,"Blue Swan Publishing"	,"BookPress Publishing"	,"Brick Cave Media"	,"Capstone Publishers"	,"Chelsea Green Publishing"
+   ];
+    foreach ($publishers as $publisher) {
+     DB::select(DB::raw("INSERT INTO `publishers` (`id`, `name`, `created_at`, `updated_at`) VALUES (NULL, \"$publisher\",'2022-08-13 00:00:00', '2022-08-13 00:00:00');
+ "));}
+ 
+});
+
+
+
+
+
 Route::get('/', function () {
     return redirect()->route("login");
 });
@@ -188,6 +234,16 @@ Route::get("booksort",[BookController::class,"sort"])->name("book.sort");
 Route::get("languagesort",[LanguageController::class,"sort"])->name("language.sort");
 
 Route::get("newrent/{book}",[RentController::class,"new"])->name("rent.new");
+
+Route::get("rented/{book}",[RentController::class,"rented_books"])->name("rent.rented");
+
+Route::get("returned/{book}",[RentController::class,"returned_books"])->name("rent.returned");
+
+Route::get("overdue/{book}",[RentController::class,"overdue_books"])->name("rent.overdue");
+
+Route::get("abandon/{id}",[RentController::class,"abandon_book"])->name("rent.abandon");
+
+Route::get("returnbook/{book}",[RentController::class,"return_book"])->name("rent.returnbook");
 /*-------------------------------------------------------------------------------------------*/
 
 Route::get("bookspec",[BookController::class,"spec"])->name("book.spec");

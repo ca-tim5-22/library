@@ -161,11 +161,11 @@
                                                 class="mt-[19px] block ml-[30px] bg-yellow-200 text-yellow-700 rounded-[10px] px-[6px] py-[2px]">
                                                 4 primjerka
                                             </a>
-                                            <a href="iznajmljivanjeIzdate.php"
+                                            <a href="{{route('rent.rented',$book);}}"
                                                 class="mt-[19px] block ml-[30px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px]">
                                                 10 primjeraka
                                             </a>
-                                            <a href="iznajmljivanjePrekoracenje.php"
+                                            <a href="{{route('rent.overdue',$book);}}"
                                                 class="mt-[19px] block ml-[30px] bg-red-200 text-red-800 rounded-[10px] px-[6px] py-[2px]">
                                                 2 primjerka
                                             </a>
