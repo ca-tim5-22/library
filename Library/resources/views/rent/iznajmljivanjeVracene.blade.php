@@ -185,8 +185,13 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white">
-                               
+                        
+                                   
+                            
                                 @foreach ($rented_book_info as $rent=>$value)
+                                @if (!empty($rent) || !empty($value))
+                                    
+                               
                                 <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                     <td class="px-4 py-3 whitespace-no-wrap">
                                         <label class="inline-flex items-center">
@@ -261,7 +266,7 @@
                                                         <span class="px-4 py-0">Otpisi knjigu</span>
                                                     </a>
 
-                                                    <form method="POST" action="{{route("book.destroy",$book->id)}}">
+                                                    <form method="POST" action="{{route('book.destroy',$book->id)}}">
                                                         @csrf
                                                         @method("DELETE")
                                                         <button type="submit" name="submit" tabindex="0"
@@ -276,6 +281,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @endif
                                 @endforeach
                             </tbody>
                         </table>
@@ -354,7 +360,7 @@
                                 <p class="mt-[20px]">Ukupna kolicina:</p>
                             </div>
                             <div class="text-center pb-[30px]">
-                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">{{$book->total - $rented_c}}
+                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">{{$book->total - $book->rented}}
                                     primjeraka</p>
                                 <a href="iznajmljivanjeAktivne.php">
                                     <p
@@ -364,7 +370,7 @@
                                 <a href="{{route('rent.rented',$book);}}">
                                     <p
                                         class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        {{$rented_c}} primjerka</p>
+                                        {{$book->rented}} primjerka</p>
                                 </a>
                                 <a href="{{route('rent.overdue',$book);}}">
                                     <p

@@ -184,25 +184,29 @@ $a= abs(round($a / 86400));
     
     $status=DB::table("book_statuses")->where("name","=","Izdato")->get();
     
-    $rented=DB::table("rent_statuses")->where("book_status_id","=",$status[0]->id)->get();
+    $status_id = $status[0]->id;
+     $rented=DB::select(DB::raw("SELECT * FROM rent_statuses WHERE book_status_id = $status_id"));
    
     $rented_book_info = [];
+  
      foreach ($rented as $one_rent=>$value) {
        
-        $rented_book_info[] = DB::table("rents")->where("id","=",$value->renting_id)->where("book_id","=",$book->id)->get(); 
+        $rented_book_info =  DB::select(DB::raw("SELECT * FROM rents WHERE id = $value->renting_id AND book_id = $book->id;")); 
+     
+       
      }
     
      $rented_book_info = (object) $rented_book_info;
         
-
- 
+   
      $users=Users::all();
-    
-     $rented_c=count($rented);
+   
+     
      $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
      $preko=DB::table("rent_statuses")->where("book_status_id","=",$u_preko[0]->id)->get(); 
      $preko=count($preko);
-    return view("rent.IznajmljivanjeIzdate",compact('rented','users','book',"rented_book_info","preko","rented_c"));
+
+    return view("rent.IznajmljivanjeIzdate",compact('rented','users','book',"rented_book_info","preko"));
     }
 
 
@@ -212,26 +216,27 @@ $a= abs(round($a / 86400));
         $book=Book::findOrFail($book);
     
     $status=DB::table("book_statuses")->where("name","=","Vraceno")->get();
-    
-     $rented=DB::table("rent_statuses")->where("book_status_id","=",$status[0]->id)->get();
-   
+    $status_id = $status[0]->id;
+     $rented=DB::select(DB::raw("SELECT * FROM rent_statuses WHERE book_status_id = $status_id"));
+  
     $rented_book_info = [];
      foreach ($rented as $one_rent=>$value) {
-       
-        $rented_book_info[] = DB::table("rents")->where("id","=",$value->renting_id)->where("book_id","=",$book->id)->get(); 
+  
+        $rented_book_info[] = DB::select(DB::raw("SELECT * FROM rents WHERE id = $value->renting_id AND book_id = $book->id;")); 
+        
      }
     
      $rented_book_info = (object) $rented_book_info;
-        
-
+   
+    
      $izdato=DB::table("book_statuses")->where("name","=","Izdato")->get();
-     $renteda=DB::table("rent_statuses")->where("book_status_id","=",$izdato[0]->id)->get();
+     
      $users=Users::all();
-     $rented_c=count($renteda);
+   
      $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
      $preko=DB::table("rent_statuses")->where("book_status_id","=",$u_preko[0]->id)->get(); 
      $preko=count($preko);
-     return view("rent.IznajmljivanjeVracene",compact('rented','users','book',"rented_book_info","preko","rented_c"));
+     return view("rent.IznajmljivanjeVracene",compact('rented','users','book',"rented_book_info","preko"));
     } 
 
 
@@ -269,14 +274,12 @@ $value[0]->rent_date= $newdate;
          $today=date("d-m-Y");
 
          $izdato=DB::table("book_statuses")->where("name","=","Izdato")->get();
-         $renteda=DB::table("rent_statuses")->where("book_status_id","=",$izdato[0]->id)->get();
-        
-         $rented_c=count($renteda);
+      
          $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
          $preko=DB::table("rent_statuses")->where("book_status_id","=",$u_preko[0]->id)->get(); 
          $preko=count($preko);
 
-         return view("rent.IznajmljivanjePrekoracenje",compact('rented','users','book',"overdue_book_info","today","preko","rented_c"));
+         return view("rent.IznajmljivanjePrekoracenje",compact('rented','users','book',"overdue_book_info","today","preko"));
     } 
 
 

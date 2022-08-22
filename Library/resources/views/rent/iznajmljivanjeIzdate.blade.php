@@ -198,13 +198,13 @@
                                     </td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                     @foreach ($users as $user)
-                                    @if($user->id == $value[0]->user_who_rented_id)
+                                    @if($user->id == $value->user_who_rented_id)
                                     {{$user->first_and_last_name}}
                                     @endif
                                     @endforeach
 
                                     </td>
-                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$value[0]->rent_date}}</td>
+                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$value->rent_date}}</td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                         <div>
                                             <span>2 nedelje i 3 dana</span>
@@ -212,7 +212,7 @@
                                     </td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                         @foreach ($users as $user)
-                                        @if($user->id==$value[0]->user_who_rented_out_id)
+                                        @if($user->id==$value->user_who_rented_out_id)
                                         {{$user->first_and_last_name}}
                                         @endif
                                         @endforeach
@@ -230,7 +230,7 @@
                                                 id="headlessui-menu-items-117" role="menu">
                                                 <div class="py-1">
 
-                                                    <a href="{{route('rent.show',$value[0]->id);}}" tabindex="0"
+                                                    <a href="{{route('rent.show',$value->id);}}" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="far fa-file mr-[10px] ml-[5px] py-1"></i>
@@ -244,7 +244,7 @@
                                                         <span class="px-4 py-0">Otpisi knjigu</span>
                                                     </a>
 
-                                                    <a href="{{route('rent.returnbook',$value[0]->id);}}" tabindex="0"
+                                                    <a href="{{route('rent.returnbook',$value->id);}}" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
@@ -337,7 +337,7 @@
                                 <p class="mt-[20px]">Ukupna kolicina:</p>
                             </div>
                             <div class="text-center pb-[30px]">
-                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">{{$book->total - $rented_c}}
+                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">{{$book->total - $book->rented}}
                                     primjeraka</p>
                                 <a href="iznajmljivanjeAktivne.php">
                                     <p
@@ -347,7 +347,7 @@
                                 <a href="{{route('rent.rented',$book);}}">
                                     <p
                                         class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        {{$rented_c}} primjerka</p>
+                                        {{$book->rented}} primjerka</p>
                                 </a>
                                 <a href="{{route('rent.overdue',$book);}}">
                                     <p

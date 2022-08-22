@@ -259,7 +259,7 @@
 
 
                                     </td>
-                                    <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$book->total - $rented_c - $preko}}</td>
+                                    <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$book->total - $book->rented - $preko}}</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="aktivneRezervacije.php">Rezervisano</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
