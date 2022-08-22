@@ -259,13 +259,13 @@
 
 
                                     </td>
-                                    <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Na raspolaganju</td>
+                                    <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$book->total - $rented_c - $preko}}</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="aktivneRezervacije.php">Rezervisano</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
-                                            href="{{route('rent.index');}}">Izdato</td>
+                                            href="{{route('rent.index');}}">{{$book->rented}}</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
-                                            href="knjigePrekoracenje.php">U prekoracenju</td>
+                                            href="knjigePrekoracenje.php">{{$preko}}</td>
                                     <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$book->total}}</td>
                                     <td class="px-6 py-4 text-sm leading-5 text-right whitespace-no-wrap">
                                         <p style="position:relative;" class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsKnjige hover:text-[#606FC7]">

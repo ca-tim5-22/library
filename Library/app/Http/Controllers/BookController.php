@@ -62,7 +62,15 @@ class BookController extends Controller
         $authors_of_book =DB::select(DB::raw("SELECT * FROM book_authors;"));
         $authors = DB::select(DB::raw("SELECT * FROM authors;"));
         $categories = DB::select(DB::raw("SELECT * FROM categories;"));
-        return view("book.evidencijaKnjiga",compact("books","currentpag","url","book_headline","categories_of_book","authors_of_book","authors","categories"));
+
+        
+        $users=Users::all();
+        
+        $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
+        $preko=DB::table("rent_statuses")->where("book_status_id","=",$u_preko[0]->id)->get(); 
+        $preko=count($preko);
+
+        return view("book.evidencijaKnjiga",compact("books","currentpag","url","book_headline","categories_of_book","authors_of_book","authors","categories","preko"));
      
         
     }

@@ -99,8 +99,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-/* Route::group(['middleware' => 'auth'], function(){
-   */
+ Route::group(['middleware' => 'auth'], function(){
+   
 Route::get("book/newBookSpecification",function(){
     $bindings=DB::select(DB::raw("SELECT * FROM `bindings`"));
     $bindings = (object) $bindings;
@@ -244,7 +244,11 @@ Route::get("overdue/{book}",[RentController::class,"overdue_books"])->name("rent
 Route::get("abandon/{id}",[RentController::class,"abandon_book"])->name("rent.abandon");
 
 Route::get("returnbook/{book}",[RentController::class,"return_book"])->name("rent.returnbook");
+
+Route::get("overdue",[RentStatusController::class,"overdue_index"])->name("overdue_index");
+
+
 /*-------------------------------------------------------------------------------------------*/
 
 Route::get("bookspec",[BookController::class,"spec"])->name("book.spec");
-/*  });  */
+ }); 

@@ -150,35 +150,12 @@
                                     <span class="text-gray-500">Trenutno zadrzavanje knjige</span>
                                     <p id="trenutno_zad" class="font-medium"><input type="hidden" value="{{$a}}" id="broj_dana">
                                         <script>
-                                        
-                                        const trenutno_zad = document.getElementById("trenutno_zad");
-                                        var br_dana = document.getElementById("broj_dana").value;
-                                        function datum(a){
-                                           
-                                          
-                                            let value = 0
-                                          if(a==0){
-                                          value = "Danas";}
-                                          
-                                          if(a>7){
-                                          let dan=a%7;
-                                          let nedelja=(a-dan)/7;
-                                          value = nedelja+" nedelja/e "+dan+" dan/a";
-                                          }
-                                          else{
-                                              let dan=a;
-                                              
-                                              value = dan + " dan/a";
-                                        
-                                          }
-                                          trenutno_zad.innerText=value;
-                                          
-                                          }
-                                          datum(br_dana)</script></p>
+                                          datum("{{$a}}");</script></p>
                                 </div>
                                 <div class="mt-[40px]">
                                     <span class="text-gray-500">Prekoracenje</span>
-                                    <p class="font-medium">@if($rent->book_status_id != $overdue[0]->id)
+                                    <p class="font-medium">
+                                        @if($rent->book_status_id != $overdue[0]->id)
                                         Nije u prekoracenju
                                         @else
                                         U prekoracenju
@@ -301,7 +278,31 @@
     <!-- Scripts -->
     @include('includes\layout\scripts')
     <!-- End Scripts -->
-
+    <script>
+    const trenutno_zad = document.getElementById("trenutno_zad");
+    var br_dana = document.getElementById("broj_dana").value;
+    function datum(a){
+       
+      
+        let value = 0
+      if(a==0){
+      value = "Danas";}
+      
+      if(a>7){
+      let dan=a%7;
+      let nedelja=(a-dan)/7;
+      value = nedelja+" nedelja/e "+dan+" dan/a";
+      }
+      else{
+          let dan=a;
+          
+          value = dan + " dan/a";
+    
+      }
+      trenutno_zad.innerText=value;
+      
+      }
+    </script>
 </body>
 
 </html>

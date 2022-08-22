@@ -23,10 +23,25 @@ class RentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { 
-        $books = Book::all();
+    {    
+        
+        $status=DB::table("book_statuses")->where("name","=","Izdato")->get();
+        
+        $rented=DB::table("rent_statuses")->where("book_status_id","=",$status[0]->id)->get();
 
-       return view("izdateKnjige",compact("books"));
+        $rented_book_info = [];
+        foreach ($rented as $one_rent=>$value) {
+       
+        $rented_book_info[] = DB::table("rents")->where("id","=",$value->renting_id)->get();
+        }
+        
+        $rented_book_info = (object) $rented_book_info;
+        $books = Book::all();
+        $users=Users::all();
+
+
+
+        return view("izdateKnjige",compact("books","rented","rented_book_info","users"));
     }
 
     /**
@@ -61,7 +76,8 @@ class RentController extends Controller
                  $librarian=Users::findOrFail(auth()->user()->id);
                  $student=Users::findOrFail($request->user_who_rented_id);
                  $book=Book::findOrFail($request->book);
-
+                 $book->rented++;
+                 $book->save();
                  $librarian->userWhoRentedOut()->save($rent);
                  $student->userWhoRented()->save($rent);
                  $book->rent()->save($rent);
@@ -322,7 +338,9 @@ $a= abs(round($a / 86400));
     $status=DB::table("book_statuses")->where("name","=","Vraceno")->get()->first();
     $rent=Rent::findOrFail($id);
     $rent_status=DB::table("rent_statuses")->where("renting_id","=",$rent->id)->get();
-    
+    $book=Book::findOrFail($rent->book_id);
+    $book->rented--;
+    $book->save();
     DB::select(DB::raw("UPDATE rent_statuses SET book_status_id = $status->id WHERE renting_id = $id"));
 
 
@@ -335,7 +353,7 @@ $a= abs(round($a / 86400));
     return redirect('/book');
     } 
 
-
+   
 
 
 }
