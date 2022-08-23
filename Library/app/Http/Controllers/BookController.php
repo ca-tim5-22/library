@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Gallery;
 use App\Models\Language;
+use App\Models\Rent;
 use App\Models\Users;
 
 class BookController extends Controller
@@ -65,10 +66,13 @@ class BookController extends Controller
 
         
         $users=Users::all();
-        
-        $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
-        $preko=DB::table("rent_statuses")->where("book_status_id","=",$u_preko[0]->id)->get(); 
-        $preko=count($preko);
+        $preko=[];
+        $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get()->first();
+        $preko_=DB::table("rent_statuses")->where("book_status_id","=",$u_preko->id)->get(); 
+        foreach ($preko_ as $prekoo){
+            $prekoo=Rent::findOrFail($prekoo->renting_id);
+            $preko[]=$prekoo;
+        }
 
         return view("book.evidencijaKnjiga",compact("books","currentpag","url","book_headline","categories_of_book","authors_of_book","authors","categories","preko"));
      
@@ -258,9 +262,22 @@ class BookController extends Controller
      $renteda=DB::table("rent_statuses")->where("book_status_id","=",$izdato[0]->id)->get();
      $users=Users::all();
      $rented_c=count($renteda);
-     $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
+
+
+     /* $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
      $preko=DB::table("rent_statuses")->where("book_status_id","=",$u_preko[0]->id)->get(); 
-     $preko=count($preko);
+     $preko=count($preko); */
+     $preko=0;
+
+     $status=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
+     $status_id = $status[0]->id;
+     $rented2=DB::select(DB::raw("SELECT * FROM rent_statuses WHERE book_status_id = $status_id"));
+      foreach ($rented2 as $overdue) {
+         $one_overdue=Rent::findOrFail($overdue->renting_id);
+         if($book->id==$one_overdue->book_id)
+          $preko++;
+        }
+
         return view("book.knjigaOsnovniDetalji",compact("book","students","librarian","book_photos","categories_of_book","authors_of_book","genres_of_book","bindings","alphabets","publishers","formats","languages","naslovna","preko","rented_c"));
     }
 

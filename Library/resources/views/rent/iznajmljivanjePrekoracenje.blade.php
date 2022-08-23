@@ -188,7 +188,7 @@
                             </thead>
                             <tbody class="bg-white">
                               
-                            @foreach ($overdue_book_info as $rent=>$value)
+                            @foreach ($overdue_book_info as $overdue)
 
                                 <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                     <td class="px-4 py-3 whitespace-no-wrap">
@@ -196,11 +196,11 @@
                                             <input type="checkbox" class="form-checkbox">
                                         </label>
                                     </td>
-                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$value[0]->rent_date}}</td>
+                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$overdue->rent_date}}</td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                         
                                         @foreach ($users as $user)
-                                    @if($user->id == $value[0]->user_who_rented_id)
+                                    @if($user->id == $overdue->user_who_rented_id)
                                     {{$user->first_and_last_name}}
                                     @endif
                                     @endforeach
@@ -212,7 +212,7 @@
 
 
                                     echo "</pre>";
-                                    $a= strtotime($today) - strtotime($value[0]->return_date);
+                                    $a= strtotime($today) - strtotime($overdue->return_date);
 
                                     $a= round($a / 86400);
 
@@ -238,7 +238,7 @@
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                         <div><?php 
 
-                                                $b= strtotime($today) - strtotime($value[0]->rent_date);
+                                                $b= strtotime($today) - strtotime($overdue->rent_date);
 
                                                 $b= round($b / 86400);
 
@@ -264,7 +264,7 @@
                                                 aria-labelledby="headlessui-menu-button-1"
                                                 id="headlessui-menu-items-117" role="menu">
                                                 <div class="py-1">
-                                                    <a href="{{route('rent.show',$value[0]->id);}}" tabindex="0"
+                                                    <a href="{{route('rent.show',$overdue->id);}}" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="far fa-file mr-[10px] ml-[5px] py-1"></i>
@@ -278,7 +278,7 @@
                                                         <span class="px-4 py-0">Izdaj knjigu</span>
                                                     </a>
 
-                                                    <a href="{{route('rent.returnbook',$value[0]->id);}}" tabindex="0"
+                                                    <a href="{{route('rent.returnbook',$overdue->id);}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                         <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
@@ -292,7 +292,7 @@
                                                         <span class="px-4 py-0">Rezervisi knjigu</span>
                                                     </a>
 
-                                                    <a href="{{route('rent.abandon',$value[0]->id)}}" tabindex="0"
+                                                    <a href="{{route('rent.abandon',$overdue->id)}}" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="fas fa-level-up-alt mr-[14px] ml-[5px] py-1"></i>
