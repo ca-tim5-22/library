@@ -172,7 +172,20 @@ Route::get('dashboard',function(){
     $student = (object) $student;
     $librarian= DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=2"));
     $librarian = (object) $librarian;
-    return view('dashboard.dashboard',compact("student","librarian"));
+    $rented_books = DB::select(DB::raw("SELECT COUNT(id) as rent FROM rent_statuses WHERE `book_status_id` = 2;"));
+    $rented_books = (object) $rented_books;
+    $u_preko = DB::select(DB::raw("SELECT COUNT(id) as u_preko FROM rent_statuses WHERE `book_status_id` = 4;"));
+    $u_preko = (object) $u_preko;
+
+    foreach($u_preko as $u_preko){
+        $u_preko = $u_preko->u_preko;
+    }
+    foreach($rented_books as $rent){
+        $rented = $rent->rent;
+    }
+    
+    $rented = $rented+$u_preko;
+    return view('dashboard.dashboard',compact("student","librarian","rented","u_preko"));
 })->name("dashboard");
 
 Route::get('dashboardaktivnost',function(){
@@ -247,7 +260,7 @@ Route::get("returnbook/{book}",[RentController::class,"return_book"])->name("ren
 
 Route::get("overdue",[RentStatusController::class,"overdue_index"])->name("overdue_index");
 
-
+Route::get("returnbookindex/{book}",[RentController::class,"return_book_index"])->name("return_index");
 /*-------------------------------------------------------------------------------------------*/
 
 Route::get("bookspec",[BookController::class,"spec"])->name("book.spec");

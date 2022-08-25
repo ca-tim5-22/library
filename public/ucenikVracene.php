@@ -293,7 +293,7 @@
                                                             <span class="px-4 py-0">Rezervisi knjigu</span>
                                                         </a>
 
-                                                        <a href="vratiKnjigu.php" tabindex="0"
+                                                        <a href="{{route('return_index',$book->id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
@@ -378,7 +378,7 @@
                                                             <span class="px-4 py-0">Rezervisi knjigu</span>
                                                         </a>
 
-                                                        <a href="vratiKnjigu.php" tabindex="0"
+                                                        <a href="{{route('return_index',$book->id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
@@ -463,7 +463,7 @@
                                                             <span class="px-4 py-0">Rezervisi knjigu</span>
                                                         </a>
 
-                                                        <a href="vratiKnjigu.php" tabindex="0"
+                                                        <a href="{{route('return_index',$book->id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
@@ -548,7 +548,7 @@
                                                             <span class="px-4 py-0">Rezervisi knjigu</span>
                                                         </a>
 
-                                                        <a href="vratiKnjigu.php" tabindex="0"
+                                                        <a href="{{route('return_index',$book->id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
@@ -633,7 +633,7 @@
                                                             <span class="px-4 py-0">Rezervisi knjigu</span>
                                                         </a>
 
-                                                        <a href="vratiKnjigu.php" tabindex="0"
+                                                        <a href="{{route('return_index',$book->id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
@@ -718,7 +718,7 @@
                                                             <span class="px-4 py-0">Rezervisi knjigu</span>
                                                         </a>
 
-                                                        <a href="vratiKnjigu.php" tabindex="0"
+                                                        <a href="{{route('return_index',$book->id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
@@ -803,7 +803,7 @@
                                                             <span class="px-4 py-0">Rezervisi knjigu</span>
                                                         </a>
 
-                                                        <a href="vratiKnjigu.php" tabindex="0"
+                                                        <a href="{{route('return_index',$book->id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
@@ -888,7 +888,7 @@
                                                             <span class="px-4 py-0">Rezervisi knjigu</span>
                                                         </a>
 
-                                                        <a href="vratiKnjigu.php" tabindex="0"
+                                                        <a href="{{route('return_index',$book->id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>

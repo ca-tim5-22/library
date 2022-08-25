@@ -145,54 +145,57 @@
                                     <a class="w-[145px] text-[#2196f3] hover:text-blue-600" href="{{route('rent.index');}}">
                                         Izdate knjige
                                     </a>
-                                    <div class="ml-[30px] bg-green-600 transition duration-200 ease-in  hover:bg-green-900 stats-bar-green h-[26px]">
+                                    <div style="background: green;width:{{$rented}}px;" class="ml-[30px] bg-green-600 transition duration-200 ease-in hover:bg-green-900 h-[26px]">
                                     
                                     </div>
                                     <p class="ml-[10px] number-green text-[#2196f3] hover:text-blue-600">
-                                        73
+                                        {{$rented}}
+                                      
                                     </p>
                                 </div>
                                 <div class="flex pb-[30px]">
                                     <a class="w-[145px] text-[#2196f3] hover:text-blue-600" href="aktivneRezervacije.php">
                                         Rezervisane knjige
                                     </a>
-                                    <div class="ml-[30px] bg-yellow-600 transition duration-200 ease-in  hover:bg-yellow-900 stats-bar-yellow  h-[26px]">
+                                    <div style="background: yellow;width:0px;" class="ml-[30px] bg-yellow-600 transition duration-200 ease-in  hover:bg-yellow-900   h-[26px]">
                                     
                                     </div>
                                     <p class="ml-[10px] text-[#2196f3] hover:text-blue-600 number-yellow">
-                                        44
+                                        Rezervisano
                                     </p>
                                 </div>
                                 <div class="flex pb-[30px]">
                                     <a class="w-[145px] text-[#2196f3] hover:text-blue-600" href="knjigePrekoracenje.php">
                                         Knjige u prekoracenju
                                     </a>
-                                    <div class="ml-[30px] bg-red-600 transition duration-200 ease-in hover:bg-red-900 stats-bar-red h-[26px]">
+                                    <div style="background: red;width:{{$u_preko}}px;" class="ml-[30px] bg-red-600 transition duration-200 ease-in hover:bg-red-900  h-[26px]">
                                     
                                     </div>
                                     <p class="ml-[10px] text-[#2196f3] hover:text-blue-600 number-red">
-                                        25
+                                        {{$u_preko}}
                                     </p>
                                 </div>
                             </div>
                             <div class="absolute h-[220px] w-[1px] bg-black top-[78px] left-[174px]">
                             </div>
                             <div class="absolute flex conte left-[175px] border-t-[1px] border-[#e4dfdf] top-[248px] pr-[87px]">
-                                <p class="ml-[-13px]">
+                                <p style="margin-left:-13px">
                                     0
                                 </p>
-                                <p class="ml-[57px]">
-                                    20
+                                <p style="margin-left:47px">
+                                    50
                                 </p>
-                                <p class="ml-[57px]">
-                                    40
+                                <p style="margin-left:47px">
+                                    100
                                 </p>
-                                <p class="ml-[57px]">
-                                    60
+                                <p style="margin-left:47px">
+                                    150
                                 </p>
-                                <p class="ml-[57px]">
-                                    80
+                                <p style="margin-left:47px">
+                                    200
                                 </p>
+                           
+                             
                             </div>
                         </div>
                     </div>
