@@ -236,21 +236,22 @@
                                     
                                   
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
-                                        <div><?php 
+                                        <div>
+                                            
+                                            <?php
+                                            $today=date("Y-m-d");
+                                           
+                                            $a= strtotime($today) - strtotime($overdue->rent_date);
+                                            
+                                            $a= abs(round($a / 86400));
 
-                                                $b= strtotime($today) - strtotime($overdue->rent_date);
 
-                                                $b= round($b / 86400);
-
-                                                $array[]=$b;
-                                                ?>
+?>
+                                            
+                                            
+                                            
                                                 
-                                            <span id="trenutno_zad">
-                                                
-                                                <input type="hidden" value="{{$b}}" id="broj_dana">
-                                                <script>datum(br_dana);</script>
-
-                                               </span>
+<span>{{datum($a);}}</span>
                                         </div>
                                     </td>
                                     <td class="px-6 py-3 text-sm leading-5 text-right whitespace-no-wrap">
@@ -531,35 +532,27 @@
     <!-- Scripts -->
     @include('includes\layout\scripts')
     <!-- End Scripts -->
-    <script>const trenutno_zad = document.getElementById("trenutno_zad");
-        var br_dana = document.getElementById("broj_dana").value;
-        var array = document.getElementById("vrij").value;
-        console.log("Niz"+array);
-        function datum(a){
-           
-            let value = 0
-          if(a==0){
-          value = "Danas";}
-          
-          if(a>7){
-          let dan=a%7;
-          let nedelja=(a-dan)/7;
-          value = nedelja+" nedelja/e "+dan+" dan/a";
-          }
-          else{
-              let dan=a;
-              
-              value = dan + " dan/a";
-        
-          }
-          trenutno_zad.innerText=value;
-          
-          }
-        
-        trenutno_zad.onload = datum(br_dana);
-        
-        
-        </script>
+    <?php
+
+    function datum($a){
+        $value = 0;
+        if($a==0){
+            $value ="Danas";
+        }
+    
+    if($a>7){
+        $dan = $a%7;
+        $nedelja = ($a-$dan) / 7;
+        $value = $nedelja." nedelja/e ".$dan." dan/a";
+    }else if ($a != 0){
+        $dan = $a;
+        $value =$dan . " dan/a";
+    }
+       echo $value;
+    }
+    
+    
+    ?>
 </body>
 
 </html>

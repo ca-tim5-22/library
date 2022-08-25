@@ -79,7 +79,7 @@
                             <i class="far fa-hand-scissors mr-[3px]"></i>
                             Izdaj knjigu
                         </a>
-                        <a href="vratiKnjigu.php" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href="{{route('return_index',$book->id);}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="fas fa-redo-alt mr-[3px] "></i>
                             Vrati knjigu
                         </a>
@@ -187,10 +187,14 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white">
+                                <?php $i=0;
+                                $count = count(get_object_vars($rents))-1;
                                 
-                                @foreach($rented_book_info as $rent)
-
-                                <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
+                                
+                                ?>
+                                @foreach($rents as $rent)
+                                @if ($i < $count)
+                                  <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                     <td class="px-4 py-3 whitespace-no-wrap">
                                         <label class="inline-flex items-center">
                                             <input type="checkbox" class="form-checkbox">
@@ -206,9 +210,23 @@
                                     </td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$rent->rent_date}}</td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
-                                        <div>
-                                            <span>2 nedelje i 3 dana</span>
-                                        </div>
+                                        <div> 
+                                            <?php
+                                                                                            $today=date("Y-m-d");
+                                                                                           
+                                                                                            $a= strtotime($today) - strtotime($rent->rent_date);
+                                                                                            
+                                                                                            $a= abs(round($a / 86400));
+                                            
+                                            
+                                            ?>
+                                            
+                                            
+                                            
+                                            
+                                                                                            <span>{{datum($a);}}</span>
+                                                                                        </div>
+                                        
                                     </td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                         @foreach ($users as $user)
@@ -254,7 +272,10 @@
                                             </div>
                                         </div>
                                     </td>
-                                </tr>
+                                </tr>  
+                                @endif
+                                
+                                <?php $i++;?>
                                 @endforeach
 
 
@@ -347,12 +368,12 @@
                                 <a href="{{route('rent.rented',$book);}}">
                                     <p
                                         class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        {{$book->rented}} primjerka</p>
+                                        {{$count}} primjerka</p>
                                 </a>
                                 <a href="{{route('rent.overdue',$book);}}">
                                     <p
                                         class=" mt-[16px] bg-red-200 text-red-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        {{$preko}} primjerka</p>
+                                        {{$rents->preko}} primjerka</p>
                                 </a>
                                 <p
                                     class=" mt-[16px] border-[1px] border-green-700 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
@@ -470,7 +491,27 @@
     <!-- Scripts -->
     @include('includes\layout\scripts')
     <!-- End Scripts -->
+    <?php
 
+    function datum($a){
+        $value = 0;
+        if($a==0){
+            $value ="Danas";
+        }
+    
+    if($a>7){
+        $dan = $a%7;
+        $nedelja = ($a-$dan) / 7;
+        $value = $nedelja." nedelja/e ".$dan." dan/a";
+    }else if ($a != 0){
+        $dan = $a;
+        $value =$dan . " dan/a";
+    }
+       echo $value;
+    }
+    
+    
+    ?>
 </body>
 
 </html>
