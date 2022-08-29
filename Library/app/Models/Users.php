@@ -40,6 +40,10 @@ class Users extends Model
     return $this->hasMany(Rent::class,"user_who_rented_id");
     } 
 
+    public function userWhoReceived(){
+        return $this->hasMany(Rent::class,"user_who_received_back_id");
+        } 
+
 
 }
 

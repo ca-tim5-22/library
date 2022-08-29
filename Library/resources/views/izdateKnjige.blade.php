@@ -86,7 +86,7 @@
                                             class=" whitespace-nowrap w-full text-[25px] flex justify-between fill-current">
                                             <div
                                                 class="group hover:bg-[#EFF3F6] py-[15px] px-[20px] w-[268px] rounded-[10px] cursor-pointer">
-                                                <a href="{{--  {{route('rent.returned');}}  --}}" aria-label="Izdate knjige"
+                                                <a href=" {{route('rent.returned_index');}}" aria-label="Izdate knjige"
                                                     class="flex items-center">
                                                     <i
                                                         class="text-[#707070] text-[20px] fas fa-file transition duration-300 ease-in group-hover:text-[#576cdf]"></i>
@@ -584,8 +584,8 @@
                                                
                                                 $a= strtotime($today) - strtotime($rent[0]->rent_date);
                                                 
-                                                $a= abs(round($a / 86400));
-
+                                                $a= round($a / 86400);
+                                               
 
 ?>
 
@@ -732,7 +732,7 @@
         $dan = $a%7;
         $nedelja = ($a-$dan) / 7;
         $value = $nedelja." nedelja/e ".$dan." dan/a";
-    }else{
+    }else {
         $dan = $a;
         $value =$dan . " dan/a";
     }

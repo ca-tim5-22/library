@@ -2711,4 +2711,13 @@ const selecticaoption = document.getElementById("selecticaoption")
 selecticaoption.addEventListener("click",()=>{
       selecticaoption.submit();
 });
-                                                
+
+nbm.addEventListener("change",()=>{
+  
+  var div = document.createElement("div");
+  var text = "<input type='hidden' name='book_photo' value='"+book_image.value.substring(12)+"'/>";
+  
+  div.innerHTML = text;
+  all_images.append(div);
+ 
+});

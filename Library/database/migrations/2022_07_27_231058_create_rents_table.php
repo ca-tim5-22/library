@@ -38,6 +38,13 @@ return new class extends Migration
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
             
+            $table->unsignedBigInteger("user_who_received_back_id")->nullable();//User who took it back a book
+            $table->foreign("user_who_received_back_id")
+            ->references("id")
+            ->on("users")
+            ->onUpdate("Cascade")
+            ->onDelete("Restrict");
+
             $table->date("rent_date");
 
             $table->date("return_date");
