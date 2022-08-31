@@ -44,6 +44,28 @@ class RentController extends Controller
         return view("izdateKnjige",compact("books","rented","rented_book_info","users"));
     }
 
+    public function returned_index()
+    {    
+        
+        $status=DB::table("book_statuses")->where("name","=","Vraceno")->get();
+        
+        $rented=DB::table("rent_statuses")->where("book_status_id","=",$status[0]->id)->get();
+
+        $returned_book_info = [];
+        foreach ($rented as $one_rent=>$value) {
+       
+        $returned_book_info[] = DB::table("rents")->where("id","=",$value->renting_id)->get();
+        }
+        
+        $returned_book_info = (object) $returned_book_info;
+        $books = Book::all();
+        $users=Users::all();
+
+
+
+        return view("vraceneKnjige",compact("books","rented","returned_book_info","users"));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -298,9 +320,10 @@ $a= abs(round($a / 86400));
         $status=DB::table("book_statuses")->where("name","=","Otpisano")->get()->first();
         $rent=Rent::findOrFail($id);
         $rent_status=DB::table("rent_statuses")->where("renting_id","=",$rent->id)->get();
-        
+        $book = Book::findOrFail($rent->book_id);
+        $new_book_total = $book->total - 1;
         DB::select(DB::raw("UPDATE rent_statuses SET book_status_id = $status->id WHERE renting_id = $id"));
-    
+        DB::select(DB::raw("UPDATE books SET total = $new_book_total WHERE id = $book->id"));
     
     
         /* foreach($niz as $clan){
@@ -349,12 +372,18 @@ return view("vratiKnjigu",compact("rent","book","naslovna","librarian","student"
     $status=DB::table("book_statuses")->where("name","=","Vraceno")->get()->first();
     $rent=Rent::findOrFail($id);
     $rent_status=DB::table("rent_statuses")->where("renting_id","=",$rent->id)->get();
-    
+    $user_id = Auth()->user()->id;
     DB::select(DB::raw("UPDATE rent_statuses SET book_status_id = $status->id WHERE renting_id = $id"));
+    
+    
+    DB::select(DB::raw("UPDATE rents SET user_who_received_back_id = $user_id WHERE id = $id"));
+    DB::select(DB::raw("UPDATE rent_statuses SET updated_at = now() WHERE renting_id = $id"));
     /* foreach($niz as $clan){
     $rent=Rent::findOrFail($clan);
     $rent->rent_status()->sync([$status->id]);
 } */
+
+
     return redirect('/rented/'.$rent->book_id);
     } 
 

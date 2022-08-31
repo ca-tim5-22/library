@@ -67,14 +67,16 @@
                 <div
                     class="inline-block min-w-full px-[30px] pt-3 align-middle bg-white rounded-bl-lg rounded-br-lg shadow-dashboard">
                     <table class="overflow-hidden shadow-lg rounded-xl min-w-full border-[1px] border-[#e4dfdf]" id="myTable">
-                        <thead class="bg-[#EFF3F6]">
-                            <tr class="border-[1px] border-[#e4dfdf]">
+                        <thead  class="bg-[#EFF3F6]">
+                            <tr  class="border-[1px] border-[#e4dfdf]">
+                               
+
                                 <th class="px-4 py-4 leading-4 tracking-wider text-left text-blue-500">
                                     <label class="inline-flex items-center">
                                         <input type="checkbox" class="form-checkbox">
                                     </label>
                                 </th>
-                                <th class="px-4 py-4 leading-4 tracking-wider text-left">Ime i prezime
+                                <th class="none px-4 py-4 leading-4 tracking-wider text-left">Ime i prezime
                                 
                                 <a 
                                 @if (Route::current()->getName() == "librarian.index")
@@ -97,13 +99,37 @@
 
 
                                 </th>
-                                <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Email</th>
-                                <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Tip korisnika</th>
-                                <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Zadnji pristup sistemu
+                                <th class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">Email</th>
+                                <th class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">Tip korisnika</th>
+                                <th class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">Zadnji pristup sistemu
                                 </th>
-                                <th class="px-4 py-4"> </th>
+
+                                
+                                <th class="none px-4 py-4"> </th>
+                              
+
+
+                                
+                                <th class="druga px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                    <form action="" method="POST">
+                                        @csrf
+                                        @method("DELETE")
+                                        <button style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" type="submit" name="submit">
+                                            Izbrišite sve korisnike
+                                        </button>
+
+
+                                    </form>
+                                </th>
+                                <th class="druga px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                <th class="druga px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                <th class="druga px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                <th class="druga px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+
+                             
                             </tr>
                         </thead>
+                        
                         <tbody class="bg-white">
                             @foreach ($librarians as $librarian)
                                 <tr class="hover:bg-gray-200 hover:shadow-md border-[1px] border-[#e4dfdf]">

@@ -32,6 +32,17 @@ var book_image = document.getElementById("book_image");
 const all_images= document.getElementById("all_images");
 
 let url = window.location.pathname
+var radio= [];
+
+nbm.addEventListener("change",()=>{
+
+    var div = document.createElement("div");
+    var text = "<input type='hidden' name='book_photo' value='"+book_image.value.substring(12)+"'/>";
+    
+    div.innerHTML = text;
+    all_images.append(div);
+   
+});
 
 console.log(url)
 let newarray = url
@@ -114,13 +125,4 @@ let newarray = url
     }
 
     var array= [];
-    nbm.addEventListener("change",()=>{
-        
-        var div = document.createElement("div");
-        var text = "<input type='hidden' name='book_photo' value='"+book_image.value.substring(12)+"'/>";
-    
-        div.innerHTML = text;
-        all_images.append(div);
-       
-    });
-    
+    var i = 0;
