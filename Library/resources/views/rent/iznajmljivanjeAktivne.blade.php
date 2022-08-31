@@ -156,7 +156,7 @@
                                 class="text-[20px] group-hover:text-[#576cdf] far fa-calendar-check mr-[3px]"></i>
                             Aktivne rezervacije
                         </a>
-                        <a href="iznajmljivanjeArhivirane.php"
+                        <a href="{{route('reservation.archive',$book);}}"
                             class="inline py-[15px] rounded-[10px] group px-[20px] w-[268px] hover:text-[#576cdf] hover:bg-[#EFF3F6] ml-[20px] pr-[10px]">
                             <i
                                 class="text-[20px] text-[#707070] group-hover:text-[#576cdf] fas fa-calendar-alt  mr-[3px]"></i>
@@ -183,8 +183,9 @@
                                     <th class="px-4 py-3"> </th>
                                 </tr>
                             </thead>
-                            @foreach($active as $one_active)
+                        
                             <tbody class="bg-white">
+                                @foreach($active as $one_active)
                                 
                                 <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                     <td class="px-4 py-3 whitespace-no-wrap">
@@ -193,19 +194,39 @@
                                         </label>
                                     </td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$one_active->date_of_reservation}}</td>
-                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">10.05.2019</td>
+                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">X</td>
+
+                                 
                                     <td class="flex flex-row items-center px-4 py-3">
-                                        <img class="object-cover w-8 h-8 rounded-full" src="img/profileStudent.jpg"
-                                            alt="" />
-                                        <a href="" class="ml-2 font-medium text-center">Pero
-                                            Perovic</a>
+
+                                        @foreach ($users as $user)
+                                        
+                                        @if($user->id==$one_active->foruser_id)
+                                        <img class="object-cover w-8 h-8 rounded-full" src="{{asset('storage/student_images/crop/'.$user->photo)}}"
+                                        alt="" />
+                                    <a href="{{route('student.show',$user->id);}}" class="ml-2 font-medium text-center">{{$user->first_and_last_name}}</a>
+                                        @endif
+                                        @endforeach
+                                      
                                     </td>
+
                                     <td class="px-4 py-3 text-sm leading-5 text-blue-900 whitespace-no-wrap">
+
+                                    @if($one_active->reservation_status_id==1)
                                         <div
                                             class="inline-block px-[6px] py-[2px] font-medium bg-yellow-200 rounded-[10px]">
                                             <span class="text-xs text-yellow-700">Rezervisano</span>
                                         </div>
+                                    @else
+                                        <div
+                                            class="inline-block px-[6px] py-[2px] font-medium bg-red-200 rounded-[10px]">
+                                            <span class="text-xs text-red-800">Odbijeno</span>
+                                        </div>
+                                    @endif
+
                                     </td>
+
+
                                     <td class="px-4 py-3 text-sm leading-5 text-right whitespace-no-wrap">
                                         <p
                                             class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsIznajmljivanjeAktivneRezervacijeTabela hover:text-[#606FC7]">
@@ -313,26 +334,25 @@
                                 <p class="mt-[20px]">Ukupna kolicina:</p>
                             </div>
                             <div class="text-center pb-[30px]">
-                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">5
-                                    primjeraka</p>
-                                <a href="iznajmljivanjeAktivne.php">
+                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">{{$book->total-($reservation_count+$rent_count)}}</p>
+                                <a href="{{route('reservation.active',$book->id);}}">
                                     <p
                                         class=" mt-[16px] bg-yellow-200 text-yellow-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        2 primjerka</p>
+                                        {{$reservation_count}}</p>
                                 </a>
                                 <a href="{{route('rent.rented',$book->id);}}">
                                     <p
                                         class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        102 primjerka</p>
+                                        {{$rent_count}}</p>
                                 </a>
                                 <a href="{{route('rent.overdue',$book->id);}}">
                                     <p
                                         class=" mt-[16px] bg-red-200 text-red-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        2 primjerka</p>
+                                        {{$overdue_count}}</p>
                                 </a>
                                 <p
                                     class=" mt-[16px] border-[1px] border-green-700 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                    15 primjeraka</p>
+                                    {{$book->total}} primjeraka</p>
                             </div>
                         </div>
                     </div>
