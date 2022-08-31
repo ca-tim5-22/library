@@ -22,7 +22,12 @@ return new class extends Migration
             ->onUpdate("Cascade")
             ->onDelete("Cascade");
             $table->string("first_and_last_name",256);
-            
+            $table->unsignedBigInteger("gender_id")->nullable();
+            $table->foreign("gender_id")
+            ->references("id")
+            ->on("genders")
+            ->onUpdate("Cascade")
+            ->onDelete("Cascade");
             $table->string('email',128)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string("username",64);

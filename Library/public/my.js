@@ -30,18 +30,12 @@ const mult_link = document.getElementById("mult_link")
 const nbm = document.getElementById("new_book_multimedia");
 var book_image = document.getElementById("book_image");
 const all_images= document.getElementById("all_images");
-const forchange = document.getElementById("forchange")
+
 let url = window.location.pathname
 var radio= [];
 
-var radios = document.querySelectorAll("#chosen_image_new_book"); 
-forchange.addEventListener("change",()=>{
-    var radios = document.querySelectorAll("#chosen_image_new_book");
-    console.log(radios.length);
-});
-
 nbm.addEventListener("change",()=>{
-   
+
     var div = document.createElement("div");
     var text = "<input type='hidden' name='book_photo' value='"+book_image.value.substring(12)+"'/>";
     

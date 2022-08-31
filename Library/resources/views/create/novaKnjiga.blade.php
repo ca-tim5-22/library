@@ -79,7 +79,7 @@
             </div>
             <!-- Space for content -->
             <div class="scroll height-content section-content">
-                <form class="text-gray-700" method="POST" action="{{route('book.store');}}" enctype="multipart/form-data">
+                <form id="test" class="text-gray-700" method="POST" action="{{route('book.store');}}" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
                     <div id="new_book_information" class="">
@@ -554,7 +554,7 @@
                                 <template x-for="(_, index) in Array.from({ length: files.length })">
 
 
-                                    <div id="foreachujem" class="relative flex flex-col items-center overflow-hidden text-center bg-gray-100 border rounded cursor-move select-none"
+                                    <div id="slika_up" class="relative flex flex-col items-center overflow-hidden text-center bg-gray-100 border rounded cursor-move select-none"
                                         style="padding-top: 100%;" @dragstart="dragstart($event)"
                                         @dragend="fileDragging = null"
                                         :class="{ 'border-blue-600': fileDragging == index }" draggable="true"

@@ -173,7 +173,9 @@ class LibrarianController extends Controller
     public function show(Librarian $librarian)
     {
         $librarian = Users::findOrFail($librarian->id);
-        return view("the_librarian.bibliotekarProfile",compact("librarian"));
+        $number_of_logins = DB::select(DB::raw("SELECT COUNT(id) as number_of_logins from user_logins WHERE user_id = $librarian->id"));
+        $last_login = DB::select(DB::raw("SELECT time as last_login from user_logins WHERE user_id = $librarian->id ORDER BY user_logins.time DESC LIMIT 1"));
+        return view("the_librarian.bibliotekarProfile",compact("librarian","number_of_logins","last_login"));
     }
 
     /**

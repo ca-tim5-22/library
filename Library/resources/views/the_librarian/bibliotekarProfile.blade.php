@@ -130,11 +130,11 @@
                         </div>
                         <div class="mt-[40px]">
                             <span class="text-gray-500">Broj logovanja</span>
-                            <p class="font-medium">Bice podeseno</p>
+                            <p class="font-medium">{{$number_of_logins[0]->number_of_logins}}</p>
                         </div>
                         <div class="mt-[40px]">
                             <span class="text-gray-500">Poslednji put logovan/a</span>
-                            <p class="font-medium">Bice podeseno</p>
+                            <p class="font-medium">{{$last_login[0]->last_login}}</p>
                         </div>
 
                     </div>

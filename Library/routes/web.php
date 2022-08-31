@@ -31,6 +31,7 @@ use App\Models\StatusesOfReservations;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\StudentController;
+use App\Models\Book;
 use App\Models\BookStatus;
 use App\Models\GlobalVariable;
 use App\Models\User;
@@ -117,6 +118,7 @@ Route::get("book/newBookMultimedia",function(){
 });
 
 Route::get('dashboard',function(){
+    $all= DB::select(DB::raw("SELECT rent_statuses.renting_id,rent_statuses.book_status_id,rents.id,rents.book_id,rents.user_who_rented_out_id,rents.user_who_rented_id,rents.user_who_received_back_id,rents.rent_date,rents.return_date FROM rents INNER JOIN rent_statuses ON rents.id = rent_statuses.renting_id WHERE rent_statuses.book_status_id = 3 OR rent_statuses.book_status_id = 4 OR rent_statuses.book_status_id = 2 LIMIT 10;"));
     $user_type=UserType::find(1); 
     if(is_null($user_type)){
         UserType::create([
@@ -168,14 +170,20 @@ Route::get('dashboard',function(){
     
 
      
-    $student=DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=1"));
+    $student=DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=2"));
     $student = (object) $student;
-    $librarian= DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=2"));
+    $librarian= DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=1"));
     $librarian = (object) $librarian;
     $rented_books = DB::select(DB::raw("SELECT COUNT(id) as rent FROM rent_statuses WHERE `book_status_id` = 2;"));
     $rented_books = (object) $rented_books;
     $u_preko = DB::select(DB::raw("SELECT COUNT(id) as u_preko FROM rent_statuses WHERE `book_status_id` = 4;"));
     $u_preko = (object) $u_preko;
+    $muski = DB::select(DB::raw("SELECT * FROM genders WHERE name =\"Muski\";"));
+    $muski = (object) $muski;
+    $zenski = DB::select(DB::raw("SELECT * FROM genders WHERE name =\"Zenski\";"));
+    $zenski = (object) $zenski;
+    $books=Book::all();
+
 
     foreach($u_preko as $u_preko){
         $u_preko = $u_preko->u_preko;
@@ -184,12 +192,19 @@ Route::get('dashboard',function(){
         $rented = $rent->rent;
     }
     
-    $rented = $rented+$u_preko;
-    return view('dashboard.dashboard',compact("student","librarian","rented","u_preko"));
+    
+   
+    return view('dashboard.dashboard',compact("student","librarian","rented","u_preko","all","books","muski","zenski"));
 })->name("dashboard");
 
 Route::get('dashboardaktivnost',function(){
-    return view('dashboard.dashboardAktivnost');
+    $all= DB::select(DB::raw("SELECT rent_statuses.renting_id,rent_statuses.book_status_id,rents.id,rents.book_id,rents.user_who_rented_out_id,rents.user_who_rented_id,rents.user_who_received_back_id,rents.rent_date,rents.return_date FROM rents INNER JOIN rent_statuses ON rents.id = rent_statuses.renting_id WHERE rent_statuses.book_status_id = 3 OR rent_statuses.book_status_id = 4 OR rent_statuses.book_status_id = 2 LIMIT 10;"));
+      
+    $student=DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=2"));
+    $student = (object) $student;
+    $librarian= DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=1"));
+    $librarian = (object) $librarian;
+    return view('dashboard.dashboardAktivnost',compact("all","student","librarian"));
 });
 Route::resource('alphabet',AlphabetController::class);
 Route::resource('author',AuthorController::class);
