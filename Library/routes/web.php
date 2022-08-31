@@ -350,7 +350,7 @@ Route::get("returnbookindex/{book}",[RentController::class,"return_book_index"])
 
 Route::get("reservation/active/{book}",[ReservationController::class,"active_reservations"])->name("reservation.active");
 
-
+Route::get("reservation/archive/{book}",[ReservationController::class,"reservations_archive"])->name("reservation.archive");
 
 /*-------------------------------------------------------------------------------------------*/
 

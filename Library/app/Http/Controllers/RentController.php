@@ -187,10 +187,15 @@ $a= abs(round($a / 86400));
         $book= Book::findOrFail($book);
         $rents= new RentStatus();
         $rents= $rents->all_rented_pieces_of_books($book);
-  
+         
+        $reservation_count=$book->reservation_count();
+        $overdue_count=$book->overdue_count();
+        $rent_count=$book->rent_count()+$overdue_count;
+
+
         $users=Users::all();
     
-    return view("rent.IznajmljivanjeIzdate",compact('rents','users','book'));
+    return view("rent.IznajmljivanjeIzdate",compact('rents','users','book','reservation_count', 'overdue_count' , 'rent_count'));
     }
 
 
@@ -212,30 +217,13 @@ $a= abs(round($a / 86400));
          $rented_book_info[]=$one_returned;   
      }
 
-     $izdato=DB::table("book_statuses")->where("name","=","Izdato")->get();
+     $reservation_count=$book->reservation_count();
+     $overdue_count=$book->overdue_count();
+     $rent_count=$book->rent_count()+$overdue_count;
      
      $users=Users::all();
-    $preko=0;
 
-
-
-
-    $status=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
-    $status_id = $status[0]->id;
-    $rented2=DB::select(DB::raw("SELECT * FROM rent_statuses WHERE book_status_id = $status_id"));
-     foreach ($rented2 as $overdue) {
-        $one_overdue=Rent::findOrFail($overdue->renting_id);
-        if($book->id==$one_overdue->book_id)
-         $preko++;
-       }
-
-
-
-   
-   /*   $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
-     $preko=DB::table("rent_statuses")->where("book_status_id","=",$u_preko[0]->id)->get(); 
-     $preko=count($preko); */
-     return view("rent.IznajmljivanjeVracene",compact('rented','users','book',"rented_book_info","preko"));
+     return view("rent.IznajmljivanjeVracene",compact('rented','users','book',"rented_book_info","reservation_count","overdue_count","rent_count"));
     } 
 
 
@@ -274,12 +262,18 @@ $a= abs(round($a / 86400));
          $today=date("d-m-Y");
 
          $izdato=DB::table("book_statuses")->where("name","=","Izdato")->get();
+
+         $reservation_count=$book->reservation_count();
+         $overdue_count=$book->overdue_count();
+         $rent_count=$book->rent_count()+$overdue_count;
+
+         
       
         /*  $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
          $preko=DB::table("rent_statuses")->where("book_status_id","=",$u_preko[0]->id)->get(); 
          $preko=count($preko); */
 
-         return view("rent.IznajmljivanjePrekoracenje",compact('rented','users','book',"overdue_book_info","today","preko"));
+         return view("rent.IznajmljivanjePrekoracenje",compact('rented','users','book',"overdue_book_info","today","preko","reservation_count","overdue_count","rent_count"));
     } 
 
 

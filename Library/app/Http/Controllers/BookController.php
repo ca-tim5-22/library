@@ -264,21 +264,11 @@ class BookController extends Controller
      $rented_c=count($renteda);
 
 
-     /* $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
-     $preko=DB::table("rent_statuses")->where("book_status_id","=",$u_preko[0]->id)->get(); 
-     $preko=count($preko); */
-     $preko=0;
+     $reservation_count=$book->reservation_count();
+         $overdue_count=$book->overdue_count();
+         $rent_count=$book->rent_count()+$overdue_count;
 
-     $status=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
-     $status_id = $status[0]->id;
-     $rented2=DB::select(DB::raw("SELECT * FROM rent_statuses WHERE book_status_id = $status_id"));
-      foreach ($rented2 as $overdue) {
-         $one_overdue=Rent::findOrFail($overdue->renting_id);
-         if($book->id==$one_overdue->book_id)
-          $preko++;
-        }
-
-        return view("book.knjigaOsnovniDetalji",compact("book","students","librarian","book_photos","categories_of_book","authors_of_book","genres_of_book","bindings","alphabets","publishers","formats","languages","naslovna","preko","rented_c"));
+        return view("book.knjigaOsnovniDetalji",compact("book","students","librarian","book_photos","categories_of_book","authors_of_book","genres_of_book","bindings","alphabets","publishers","formats","languages","naslovna","rented_c","reservation_count","overdue_count","rent_count"));
     }
 
     /**

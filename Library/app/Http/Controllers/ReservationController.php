@@ -117,12 +117,38 @@ class ReservationController extends Controller
     }
 
     public function active_reservations($book){
+        $active=[];
+        $users=Users::all();
         $book=Book::findOrFail($book);
         $status1=StatusesOfReservations::where("name","=","Rezervisano")->get()->first();
         $status2=StatusesOfReservations::where("name","=","Odbijeno")->get()->first();
-        $active=$book->test()->where("reservation_status_id","=",$status1->id)->orWhere("reservation_status_id","=",$status2->id)->get();
+        
+        $reservation_count=$book->reservation_count();
+        $overdue_count=$book->overdue_count();
+        $rent_count=$book->rent_count()+$overdue_count;
 
-        dd($active);
-        return view("rent.iznajmljivanjeAktivne",compact('book','active'));
+        $active =$book->reservation()->join('reservation_statuses', 'reservation_statuses.reservation_id', '=', 'reservations.id') ->select('reservations.*', 'reservation_statuses.reservation_status_id')
+        ->whereIn('reservation_statuses.reservation_status_id',[$status1->id,$status2->id])->get();
+
+
+        return view("rent.iznajmljivanjeAktivne",compact('users','book','active','reservation_count','reservation_count','overdue_count','rent_count'));
+    }
+
+    public function reservations_archive($book){
+        $users=Users::all();
+        $book=Book::findOrFail($book);
+        $status3=StatusesOfReservations::where("name","=","Rezervacija istekla")->get()->first();
+        $status4=StatusesOfReservations::where("name","=","Izdato")->get()->first();
+        $status5=StatusesOfReservations::where("name","=","Rezervacija otkazana")->get()->first();
+       
+        $reservation_count=$book->reservation_count();
+        $overdue_count=$book->overdue_count();
+        $rent_count=$book->rent_count()+$overdue_count;
+       
+
+        $archive =$book->reservation()->join('reservation_statuses', 'reservation_statuses.reservation_id', '=', 'reservations.id') ->select('reservations.*', 'reservation_statuses.reservation_status_id')
+        ->whereIn('reservation_statuses.reservation_status_id',[$status3->id,$status4->id,$status5->id])->get();
+
+        return view("rent.iznajmljivanjeArhivirane",compact('users','book','archive','reservation_count','overdue_count','rent_count'));
     }
 }

@@ -55,7 +55,7 @@ class Book extends Model
     return $this->hasMany(Reservation::class);
     }
 
-    public function test(){
+    public function reservations(){
     return $this->hasManyThrough(
         ReservationStatus::class,
         Reservation::class,
@@ -64,5 +64,36 @@ class Book extends Model
         'id', // Local key on the users table...
         'id' // Local key on the categories table...
     
- );
-}}
+ );}
+
+ 
+ public function rents(){
+    return $this->hasManyThrough(
+        RentStatus::class,
+        Rent::class,
+        'book_id', // Foreign key on the types table...
+        'renting_id', // Foreign key on the items table...
+        'id', // Local key on the users table...
+        'id' // Local key on the categories table...
+    
+ );}
+
+
+ public function reservation_count(){ 
+   $status=StatusesOfReservations::where("name","=","Rezervisano")->get()->first();
+ return $this->reservations()->where("reservation_status_id","=",$status->id)->get()->count();
+}
+
+public function overdue_count(){ 
+    $status=BookStatus::where("name","=","U prekoracenju")->get()->first();
+  return $this->rents()->where("book_status_id","=",$status->id)->get()->count();
+ }
+
+ public function rent_count(){ 
+    $status=BookStatus::where("name","=","Izdato")->get()->first();
+  return $this->rents()->where("book_status_id","=",$status->id)->get()->count();
+ }
+
+
+
+}
