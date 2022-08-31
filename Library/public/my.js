@@ -30,9 +30,20 @@ const mult_link = document.getElementById("mult_link")
 const nbm = document.getElementById("new_book_multimedia");
 var book_image = document.getElementById("book_image");
 const all_images= document.getElementById("all_images");
-
+var header_span = document.getElementById("header_span")
 let url = window.location.pathname
 var radio= [];
+
+var currentDate = new Date()
+var day = currentDate.getDate()
+var month = currentDate.getMonth() + 1
+var year = currentDate.getFullYear()
+
+var trenutnidatum = + year + "/" + month + "/" + day;
+if(url.includes("dashboardaktivnost")){
+    localStorage.setItem("datum_pristupa",trenutnidatum);
+    
+}
 
 nbm.addEventListener("change",()=>{
 
@@ -44,7 +55,6 @@ nbm.addEventListener("change",()=>{
    
 });
 
-console.log(url)
 let newarray = url
     if(newarray.includes("librarian")){
        

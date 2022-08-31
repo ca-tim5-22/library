@@ -87,7 +87,7 @@
                                             class=" whitespace-nowrap w-full text-[25px] flex justify-between fill-current">
                                             <div
                                                 class="group hover:bg-[#EFF3F6] py-[15px] px-[20px] w-[268px] rounded-[10px] cursor-pointer">
-                                                <a href="vraceneKnjige.php" aria-label="Vracene knjige"
+                                                <a href="{{route('rent.returned_index');}}" aria-label="Vracene knjige"
                                                     class="flex items-center">
                                                     <i
                                                         class="transition duration-300 ease-in  text-[#707070] text-[20px] fas fa-file group-hover:text-[#576cdf]"></i>
@@ -108,7 +108,7 @@
                                             class=" whitespace-nowrap w-full text-[25px] flex justify-between fill-current">
                                             <div
                                                 class="group bg-[#EFF3F6] hover:bg-[#EFF3F6] py-[15px] px-[20px] w-[268px] rounded-[10px] cursor-pointer">
-                                                <a href="knjigePrekoracenje.php" aria-label="Knjige na raspolaganju"
+                                                <a href="#" aria-label="Knjige na raspolaganju"
                                                     class="flex items-center">
                                                     <i
                                                         class="text-[#576cdf] text-[20px] fas fa-exclamation-triangle transition duration-300 ease-in "></i>
