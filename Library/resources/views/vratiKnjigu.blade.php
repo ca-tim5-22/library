@@ -45,7 +45,7 @@
                         <div class="pl-[15px]  flex flex-col">
                             <div>
                                 <h1>
-                                    Tom Sojer
+                                   {{$book->title}}
                                 </h1>
                             </div>
                             <div>
@@ -60,16 +60,16 @@
                                             <span class="mx-2">/</span>
                                         </li>
                                         <li>
-                                            <a href="{{route('book.show');}}"
+                                            <a href="{{route('book.show',$book->id);}}"
                                                 class="text-[#2196f3] hover:text-blue-600">
-                                                KNJIGA-467
+                                                KNJIGA-{{$book->id}}
                                             </a>
                                         </li>
                                         <li>
                                             <span class="mx-2">/</span>
                                         </li>
                                         <li>
-                                            <a href="vratiKnjigu.php" class="text-[#2196f3] hover:text-blue-600">
+                                            <a href="{{route('return_index',$book->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                                 Vrati knjigu
                                             </a>
                                         </li>
@@ -87,7 +87,7 @@
                             <i class="far fa-hand-scissors mr-[3px]"></i>
                             Izdaj knjigu
                         </a>
-                        <a href="vratiKnjigu.php" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href="{{route('return_index',$book->id);}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="fas fa-redo-alt mr-[3px] "></i>
                             Vrati knjigu
                         </a>
@@ -171,7 +171,9 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white">
-                            <tr class="border-b-[1px] border-[#e4dfdf]">
+                            @foreach ($rented_book_info as $rent)
+                                                         
+                                <tr class="border-b-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-4 whitespace-no-wrap">
                                     <label class="inline-flex items-center">
                                         <input type="checkbox" class="form-checkbox">
@@ -180,8 +182,8 @@
                                 <td class="flex flex-row items-center px-4 py-4">
                                     <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
                                         alt="" />
-                                    <a href="{{route('student.show',$student->id);}}">
-                                        <span class="font-medium text-center">Pero Perovic</span>
+                                    <a href="">
+                                        <span class="font-medium text-center">{{$rent->user_who_rented_id}}</span>
                                     </a>
                                 </td>
                                 <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">21.02.2021</td>
@@ -189,86 +191,9 @@
                                 <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Nema prekoracenja</td>
                                 <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Valentina Kascelan</td>
                             </tr>
-                            <tr class="border-b-[1px] border-[#e4dfdf]">
-                                <td class="px-4 py-4 whitespace-no-wrap">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
-                                    </label>
-                                </td>
-                                <td class="flex flex-row items-center px-4 py-4">
-                                    <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
-                                        alt="" />
-                                    <a href="{{route('student.show',$student->id);}}">
-                                        <span class="font-medium text-center">Pero Perovic</span>
-                                    </a>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">15.05.2020</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">5 dana</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Nema prekoracenja</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Valentina Kascelan</td>
-                            </tr>
-                            <tr class="border-b-[1px] border-[#e4dfdf]">
-                                <td class="px-4 py-4 whitespace-no-wrap">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
-                                    </label>
-                                </td>
-                                <td class="flex flex-row items-center px-4 py-4">
-                                    <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
-                                        alt="" />
-                                    <a href="{{route('student.show',$student->id);}}">
-                                        <span class="font-medium text-center">Pero Perovic</span>
-                                    </a>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">09.04.2020</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">3 mjeseca i 2 nedelje</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
-                                    <span class="px-[6px] py-[2px] bg-red-200 text-red-800 rounded-[10px]">
-                                        75 dana
-                                    </span>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Valentina Kascelan</td>
-                            </tr>
-                            <tr class="border-b-[1px] border-[#e4dfdf]">
-                                <td class="px-4 py-4 whitespace-no-wrap">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
-                                    </label>
-                                </td>
-                                <td class="flex flex-row items-center px-4 py-4">
-                                    <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
-                                        alt="" />
-                                    <a href="{{route('student.show',$student->id);}}">
-                                        <span class="font-medium text-center">Pero Perovic</span>
-                                    </a>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">21.02.2021</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">1 mjesec i 3 dana</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
-                                    <span class="px-[6px] py-[2px] bg-red-200 text-red-800 rounded-[10px]">
-                                        13 dana
-                                    </span>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Valentina Kascelan</td>
-                            </tr>
-                            <tr class="border-b-[1px] border-[#e4dfdf]">
-                                <td class="px-4 py-4 whitespace-no-wrap">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
-                                    </label>
-                                </td>
-                                <td class="flex flex-row items-center px-4 py-4">
-                                    <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
-                                        alt="" />
-                                    <a href="{{route('student.show',$student->id);}}">
-                                        <span class="font-medium text-center">Pero Perovic</span>
-                                    </a>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">12.05.2020</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">1 nedelje i 4 dana</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Nema prekoracenja</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Valentina Kascelan</td>
-                            </tr>
+                              @endforeach
+                            
+                            
                         </tbody>
                     </table>
 

@@ -34,8 +34,11 @@ use App\Http\Controllers\StudentController;
 use App\Models\BookStatus;
 use App\Models\GlobalVariable;
 use App\Models\User;
+use App\Models\Users;
 use App\Models\UserType;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -87,6 +90,87 @@ $bindings=[ "Saddle stitch binding","PUR binding","Hardcover or case binding","S
      DB::select(DB::raw("INSERT INTO `publishers` (`id`, `name`, `created_at`, `updated_at`) VALUES (NULL, \"$publisher\",'2022-08-13 00:00:00', '2022-08-13 00:00:00');
  "));}
  
+ $user_type=UserType::find(1); 
+ if(is_null($user_type)){
+     UserType::create([
+         "name" => "bibliotekar",
+     ]);
+     UserType::create([
+         "name" => "ucenik",
+     ]);}
+
+  $global_variables= GlobalVariable::find(1); 
+
+ if(is_null($global_variables)){
+     GlobalVariable::create([
+         "variable" => "Reservation_deadline",
+         "value" => 1,
+     ]);
+     GlobalVariable::create([
+         "variable" => "Returnment_deadline",
+         "value" => 1,
+     ]);
+     GlobalVariable::create([
+         "variable" => "Conflict_deadline",
+         "value" => 1,
+     ]);
+ }
+     $book_statuses= BookStatus::find(1); 
+
+     if(is_null($book_statuses)){
+         BookStatus::create([
+             "name"=>"Rezervisano"
+         ]);
+         BookStatus::create([
+             "name"=>"Izdato"
+         ]);
+         BookStatus::create([
+             "name"=>"Vraceno"
+         ]);
+         BookStatus::create([
+             "name"=>"U prekoracenju"
+         ]);
+         BookStatus::create([
+             "name"=>"Otpisano"
+         ]);
+     
+ }
+
+ Users::create([
+    "user_type_id"=>1,
+    "first_and_last_name"=>"Admin",
+    "email"=>"adminn@gmail.com",
+    "username"=>"Admin",
+    "PIN"=>1231234,
+    "password"=>Hash::make("admin"),
+]);
+
+$book_statuses= StatusesOfReservations::find(1); 
+
+if(is_null($book_statuses)){
+    StatusesOfReservations::create([
+        "name"=>"Rezervisano"
+    ]);
+    StatusesOfReservations::create([
+        "name"=>"Odbijeno"
+    ]);
+    StatusesOfReservations::create([
+        "name"=>"Rezervacija istekla"
+    ]);
+    StatusesOfReservations::create([
+        "name"=>"Izdato"
+    ]);
+    StatusesOfReservations::create([
+        "name"=>"Rezervacija istekla"
+    ]);
+
+}
+
+
+
+
+
+
 });
 
 
@@ -99,8 +183,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-/* Route::group(['middleware' => 'auth'], function(){
-   */
+ Route::group(['middleware' => 'auth'], function(){
+   
 Route::get("book/newBookSpecification",function(){
     $bindings=DB::select(DB::raw("SELECT * FROM `bindings`"));
     $bindings = (object) $bindings;
@@ -172,7 +256,20 @@ Route::get('dashboard',function(){
     $student = (object) $student;
     $librarian= DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=2"));
     $librarian = (object) $librarian;
-    return view('dashboard.dashboard',compact("student","librarian"));
+    $rented_books = DB::select(DB::raw("SELECT COUNT(id) as rent FROM rent_statuses WHERE `book_status_id` = 2;"));
+    $rented_books = (object) $rented_books;
+    $u_preko = DB::select(DB::raw("SELECT COUNT(id) as u_preko FROM rent_statuses WHERE `book_status_id` = 4;"));
+    $u_preko = (object) $u_preko;
+
+    foreach($u_preko as $u_preko){
+        $u_preko = $u_preko->u_preko;
+    }
+    foreach($rented_books as $rent){
+        $rented = $rent->rent;
+    }
+    
+    $rented = $rented+$u_preko;
+    return view('dashboard.dashboard',compact("student","librarian","rented","u_preko"));
 })->name("dashboard");
 
 Route::get('dashboardaktivnost',function(){
@@ -235,6 +332,8 @@ Route::get("languagesort",[LanguageController::class,"sort"])->name("language.so
 
 Route::get("newrent/{book}",[RentController::class,"new"])->name("rent.new");
 
+Route::get("newreservation/{book}",[ReservationController::class,"new"])->name("reservation.new");
+
 Route::get("rented/{book}",[RentController::class,"rented_books"])->name("rent.rented");
 
 Route::get("returned/{book}",[RentController::class,"returned_books"])->name("rent.returned");
@@ -244,7 +343,16 @@ Route::get("overdue/{book}",[RentController::class,"overdue_books"])->name("rent
 Route::get("abandon/{id}",[RentController::class,"abandon_book"])->name("rent.abandon");
 
 Route::get("returnbook/{book}",[RentController::class,"return_book"])->name("rent.returnbook");
+
+Route::get("overdue",[RentStatusController::class,"overdue_index"])->name("overdue_index");
+
+Route::get("returnbookindex/{book}",[RentController::class,"return_book_index"])->name("return_index");
+
+Route::get("reservation/active/{book}",[ReservationController::class,"active_reservations"])->name("reservation.active");
+
+Route::get("reservation/archive/{book}",[ReservationController::class,"reservations_archive"])->name("reservation.archive");
+
 /*-------------------------------------------------------------------------------------------*/
 
 Route::get("bookspec",[BookController::class,"spec"])->name("book.spec");
-/*  });  */
+ }); 

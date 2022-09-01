@@ -1702,7 +1702,7 @@ function funkcijaDatumVracanja() {
   document.getElementById('datumVracanja').value = newDate;
 }
 
-//click on one and check all checkboxes (vratiKnjigu.php)
+//click on one and check all checkboxes ({{route('return_index',$book->id);}})
 $('.select-all').click(function () {
   if ($(this).is(':checked')) {
     $('.form-checkbox').prop('checked', true);
@@ -2475,7 +2475,7 @@ $('.checkOthers').change(function () {
     $('tr').children().eq(2).html('<a class="text-blue-800" href="editKnjiga.php.php"><i class="far fa-copy"></i>  Izmjeni knjigu</a>')
     $('tr').children().eq(3).html('<a class="text-blue-800 border-l-2 border-gray-200" href="otpisiKnjigu.php"><i class="fas fa-level-up-alt ml-4"></i>  Otpisi knjigu</a>')
     $('tr').children().eq(4).html('<a class="text-blue-800" href="izdajKnjigu.php"><i class="far fa-hand-scissors"></i>  Izdaj knjigu</a>')
-    $('tr').children().eq(5).html('<a class="text-blue-800" href="vratiKnjigu.php"><i class="fas fa-redo-alt"></i>  Vrati knjigu</a>')
+    $('tr').children().eq(5).html('<a class="text-blue-800" href="{{route('return_index',$book->id);}}"><i class="fas fa-redo-alt"></i>  Vrati knjigu</a>')
     $('tr').children().eq(6).html('<a class="text-blue-800" href="otpisiKnjigu.php"><i class="far fa-calendar-check"></i>  Rezervisi knjigu</a>')
     $('tr').children().eq(7).html('<a class="text-blue-800 border-l-2 border-gray-200" href="otpisiKnjigu.php"><i class="fa fa-trash ml-4"></i>  Izbrisi knjigu</a>')
     $('tr').children().eq(8).html('')

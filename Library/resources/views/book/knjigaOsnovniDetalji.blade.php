@@ -84,11 +84,11 @@
                             <i class="far fa-hand-scissors mr-[3px]"></i>
                             Izdaj knjigu
                         </a>
-                        <a href="vratiKnjigu.php" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href="{{route('return_index',$book->id);}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="fas fa-redo-alt mr-[3px] "></i>
                             Vrati knjigu
                         </a>
-                        <a href="rezervisiKnjigu.php" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href="{{route('reservation.new',$book->id);}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="far fa-calendar-check mr-[3px] "></i>
                             Rezervisi knjigu
                         </a>
@@ -432,22 +432,21 @@
                                 <p class="mt-[20px]">Ukupna kolicina:</p>
                             </div>
                             <div class="text-center pb-[30px]">
-                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">{{$book->total - $rented_c}}
-                                    primjeraka</p>
-                                <a href="iznajmljivanjeAktivne.php">
+                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">{{$book->total-($reservation_count+$rent_count)}}</p>
+                                <a href="{{route('reservation.active',$book->id);}}">
                                     <p
                                         class=" mt-[16px] bg-yellow-200 text-yellow-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                       0 primjeraka</p>
+                                        {{$reservation_count}}</p>
                                 </a>
-                                <a href="{{route('rent.rented',$book);}}">
+                                <a href="{{route('rent.rented',$book->id);}}">
                                     <p
                                         class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        {{$rented_c}} primjerka</p>
+                                        {{$rent_count}}</p>
                                 </a>
-                                <a href="{{route('rent.overdue',$book);}}">
+                                <a href="{{route('rent.overdue',$book->id);}}">
                                     <p
                                         class=" mt-[16px] bg-red-200 text-red-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        {{$preko}} primjerka</p>
+                                        {{$overdue_count}}</p>
                                 </a>
                                 <p
                                     class=" mt-[16px] border-[1px] border-green-700 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">

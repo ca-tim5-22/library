@@ -9,7 +9,9 @@ class Reservation extends Model
 {
     use HasFactory;
 
-   //datumi u fillables??
+    protected $fillable=['date_of_submission','date_of_reservation'];
+
+
 
     public function reasonForClosing(){
     return $this->hasOne(Reservation::class,"reason_of_closing_id");
@@ -24,9 +26,9 @@ class Reservation extends Model
     }
 
     public function status(){
-    return $this->belongsToMany(ReservationStatus::class,"reservation_statuses","reservation_id");
+    return $this->belongsToMany(StatusesOfReservations::class,"reservation_statuses","reservation_id","reservation_status_id");
     }
 
-    
+
     
 }

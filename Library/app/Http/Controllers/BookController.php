@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Gallery;
 use App\Models\Language;
+use App\Models\Rent;
 use App\Models\Users;
 
 class BookController extends Controller
@@ -62,7 +63,18 @@ class BookController extends Controller
         $authors_of_book =DB::select(DB::raw("SELECT * FROM book_authors;"));
         $authors = DB::select(DB::raw("SELECT * FROM authors;"));
         $categories = DB::select(DB::raw("SELECT * FROM categories;"));
-        return view("book.evidencijaKnjiga",compact("books","currentpag","url","book_headline","categories_of_book","authors_of_book","authors","categories"));
+
+        
+        $users=Users::all();
+        $preko=[];
+        $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get()->first();
+        $preko_=DB::table("rent_statuses")->where("book_status_id","=",$u_preko->id)->get(); 
+        foreach ($preko_ as $prekoo){
+            $prekoo=Rent::findOrFail($prekoo->renting_id);
+            $preko[]=$prekoo;
+        }
+
+        return view("book.evidencijaKnjiga",compact("books","currentpag","url","book_headline","categories_of_book","authors_of_book","authors","categories","preko"));
      
         
     }
@@ -250,10 +262,13 @@ class BookController extends Controller
      $renteda=DB::table("rent_statuses")->where("book_status_id","=",$izdato[0]->id)->get();
      $users=Users::all();
      $rented_c=count($renteda);
-     $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
-     $preko=DB::table("rent_statuses")->where("book_status_id","=",$u_preko[0]->id)->get(); 
-     $preko=count($preko);
-        return view("book.knjigaOsnovniDetalji",compact("book","students","librarian","book_photos","categories_of_book","authors_of_book","genres_of_book","bindings","alphabets","publishers","formats","languages","naslovna","preko","rented_c"));
+
+
+     $reservation_count=$book->reservation_count();
+         $overdue_count=$book->overdue_count();
+         $rent_count=$book->rent_count()+$overdue_count;
+
+        return view("book.knjigaOsnovniDetalji",compact("book","students","librarian","book_photos","categories_of_book","authors_of_book","genres_of_book","bindings","alphabets","publishers","formats","languages","naslovna","rented_c","reservation_count","overdue_count","rent_count"));
     }
 
     /**

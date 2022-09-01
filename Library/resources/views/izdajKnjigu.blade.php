@@ -96,7 +96,7 @@
                             <i class="far fa-hand-scissors mr-[3px]"></i>
                             Izdaj knjigu
                         </a>
-                        <a href="vratiKnjigu.php" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href="{{route('return_index',$book->id);}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="fas fa-redo-alt mr-[3px] "></i>
                             Vrati knjigu
                         </a>
@@ -206,22 +206,22 @@
                                     <div class="text-center pb-[30px]">
                                         <p
                                             class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                            X
+                                            {{$book->total-$book->rented}}
                                             primjeraka</p>
                                         <a href="aktivneRezervacije.php">
                                             <p
                                                 class=" mt-[16px] bg-yellow-200 text-yellow-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                                X primjerka</p>
+                                                0 primjerka</p>
                                         </a>
                                         <a href="{{route('rent.index');}}">
                                             <p
                                                 class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                                X primjeraka</p>
+                                                {{$book->rented}} primjeraka</p>
                                         </a>
                                         <a href="knjigePrekoracenje.php">
                                             <p
                                                 class=" mt-[16px] bg-red-200 text-red-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                                X primjerka</p>
+                                                {{$preko}} primjerka</p>
                                         </a>
                                         <p
                                             class=" mt-[16px] border-[1px] border-green-700 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">

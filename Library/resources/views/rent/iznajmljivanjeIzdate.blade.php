@@ -79,11 +79,11 @@
                             <i class="far fa-hand-scissors mr-[3px]"></i>
                             Izdaj knjigu
                         </a>
-                        <a href="vratiKnjigu.php" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href="{{route('return_index',$book->id);}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="fas fa-redo-alt mr-[3px] "></i>
                             Vrati knjigu
                         </a>
-                        <a href="rezervisiKnjigu.php" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href="{{route('reservation.new',$book->id);}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="far fa-calendar-check mr-[3px] "></i>
                             Rezervisi knjigu
                         </a>
@@ -154,12 +154,12 @@
                             <i class="text-[20px] text-[#707070] group-hover:text-[#576cdf] fas fa-exclamation-triangle mr-[3px]"></i>
                             Knjige u prekoracenju
                         </a>
-                        <a href="iznajmljivanjeAktivne.php"
+                        <a href="{{route('reservation.active',$book);}}"
                             class="inline py-[15px] rounded-[10px] group px-[20px] w-[268px] hover:text-[#576cdf] hover:bg-[#EFF3F6] ml-[20px] pr-[10px]">
                             <i class="text-[20px] text-[#707070] group-hover:text-[#576cdf] far fa-calendar-check mr-[3px]"></i>
                             Aktivne rezervacije
                         </a>
-                        <a href="iznajmljivanjeArhivirane.php"
+                        <a href="{{route('reservation.archive',$book);}}"
                             class="inline py-[15px] rounded-[10px] group px-[20px] w-[268px] hover:text-[#576cdf] hover:bg-[#EFF3F6] ml-[20px] pr-[10px]">
                             <i class="text-[20px] text-[#707070] group-hover:text-[#576cdf] fas fa-calendar-alt  mr-[3px]"></i>
                             Arhivirane rezervacije
@@ -187,10 +187,14 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white">
+                                <?php $i=0;
+                                $count = count(get_object_vars($rents))-1;
                                 
-                                @foreach($rented_book_info as $rent=>$value)
-
-                                <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
+                                
+                                ?>
+                                @foreach($rents as $rent)
+                                @if ($i < $count)
+                                  <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                     <td class="px-4 py-3 whitespace-no-wrap">
                                         <label class="inline-flex items-center">
                                             <input type="checkbox" class="form-checkbox">
@@ -198,21 +202,35 @@
                                     </td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                     @foreach ($users as $user)
-                                    @if($user->id == $value[0]->user_who_rented_id)
+                                    @if($user->id == $rent->user_who_rented_id)
                                     {{$user->first_and_last_name}}
                                     @endif
                                     @endforeach
 
                                     </td>
-                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$value[0]->rent_date}}</td>
+                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$rent->rent_date}}</td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
-                                        <div>
-                                            <span>2 nedelje i 3 dana</span>
-                                        </div>
+                                        <div> 
+                                            <?php
+                                                                                            $today=date("Y-m-d");
+                                                                                           
+                                                                                            $a= strtotime($today) - strtotime($rent->rent_date);
+                                                                                            
+                                                                                            $a= abs(round($a / 86400));
+                                            
+                                            
+                                            ?>
+                                            
+                                            
+                                            
+                                            
+                                                                                            <span>{{datum($a);}}</span>
+                                                                                        </div>
+                                        
                                     </td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                         @foreach ($users as $user)
-                                        @if($user->id==$value[0]->user_who_rented_out_id)
+                                        @if($user->id==$rent->user_who_rented_out_id)
                                         {{$user->first_and_last_name}}
                                         @endif
                                         @endforeach
@@ -230,7 +248,7 @@
                                                 id="headlessui-menu-items-117" role="menu">
                                                 <div class="py-1">
 
-                                                    <a href="{{route('rent.show',$value[0]->id);}}" tabindex="0"
+                                                    <a href="{{route('rent.show',$rent->id);}}" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="far fa-file mr-[10px] ml-[5px] py-1"></i>
@@ -244,7 +262,7 @@
                                                         <span class="px-4 py-0">Otpisi knjigu</span>
                                                     </a>
 
-                                                    <a href="{{route('rent.returnbook',$value[0]->id);}}" tabindex="0"
+                                                    <a href="{{route('rent.returnbook',$rent->id);}}" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
@@ -254,7 +272,10 @@
                                             </div>
                                         </div>
                                     </td>
-                                </tr>
+                                </tr>  
+                                @endif
+                                
+                                <?php $i++;?>
                                 @endforeach
 
 
@@ -337,22 +358,21 @@
                                 <p class="mt-[20px]">Ukupna kolicina:</p>
                             </div>
                             <div class="text-center pb-[30px]">
-                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">{{$book->total - $rented_c}}
-                                    primjeraka</p>
-                                <a href="iznajmljivanjeAktivne.php">
+                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">{{$book->total-($reservation_count+$rent_count)}}</p>
+                                <a href="{{route('reservation.active',$book->id);}}">
                                     <p
                                         class=" mt-[16px] bg-yellow-200 text-yellow-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                       0 primjeraka</p>
+                                        {{$reservation_count}}</p>
                                 </a>
-                                <a href="{{route('rent.rented',$book);}}">
+                                <a href="{{route('rent.rented',$book->id);}}">
                                     <p
                                         class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        {{$rented_c}} primjerka</p>
+                                        {{$rent_count}}</p>
                                 </a>
-                                <a href="{{route('rent.overdue',$book);}}">
+                                <a href="{{route('rent.overdue',$book->id);}}">
                                     <p
                                         class=" mt-[16px] bg-red-200 text-red-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        {{$preko}} primjerka</p>
+                                        {{$overdue_count}}</p>
                                 </a>
                                 <p
                                     class=" mt-[16px] border-[1px] border-green-700 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
@@ -470,7 +490,27 @@
     <!-- Scripts -->
     @include('includes\layout\scripts')
     <!-- End Scripts -->
+    <?php
 
+    function datum($a){
+        $value = 0;
+        if($a==0){
+            $value ="Danas";
+        }
+    
+    if($a>7){
+        $dan = $a%7;
+        $nedelja = ($a-$dan) / 7;
+        $value = $nedelja." nedelja/e ".$dan." dan/a";
+    }else if ($a != 0){
+        $dan = $a;
+        $value =$dan . " dan/a";
+    }
+       echo $value;
+    }
+    
+    
+    ?>
 </body>
 
 </html>

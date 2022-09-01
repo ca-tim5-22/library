@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Reservation;
 use App\Http\Requests\StoreReservationRequest;
 use App\Http\Requests\UpdateReservationRequest;
+use App\Models\Book;
+use App\Models\StatusesOfReservations;
+use App\Models\Users;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ReservationController extends Controller
 {
@@ -36,7 +41,25 @@ class ReservationController extends Controller
      */
     public function store(StoreReservationRequest $request)
     {
-        //
+        $reservation=Reservation::create([
+            "date_of_submission"=>Carbon::now(),
+            "date_of_reservation"=>$request->date_of_reservation,
+        ]);
+
+         $librarian=Users::findOrFail(auth()->user()->id);
+         $student=Users::findOrFail($request->foruser_id);
+         $librarian->userWhoReserved()->save($reservation);
+         $student->forUser()->save($reservation);
+
+         $book=Book::findOrFail($request->book);
+         $book->reservation()->save($reservation);
+
+         
+        $status=DB::table("statuses_of_reservations")->where("name","=","Rezervisano")->get()->first();
+        $reservation->status()->attach($status->id);
+
+       return redirect("/book");
+
     }
 
     /**
@@ -82,5 +105,50 @@ class ReservationController extends Controller
     public function destroy(Reservation $reservation)
     {
         //
+    }
+
+
+    public function new($book)
+    {
+        $users=Users::all();
+        $book=Book::findOrFail($book);
+        $book_headline=DB::select(DB::raw("SELECT * from galleries WHERE book_id=$book->id;"));
+        return view("reservation.rezervisiKnjigu",compact('users','book',"book_headline")); 
+    }
+
+    public function active_reservations($book){
+        $active=[];
+        $users=Users::all();
+        $book=Book::findOrFail($book);
+        $status1=StatusesOfReservations::where("name","=","Rezervisano")->get()->first();
+        $status2=StatusesOfReservations::where("name","=","Odbijeno")->get()->first();
+        
+        $reservation_count=$book->reservation_count();
+        $overdue_count=$book->overdue_count();
+        $rent_count=$book->rent_count()+$overdue_count;
+
+        $active =$book->reservation()->join('reservation_statuses', 'reservation_statuses.reservation_id', '=', 'reservations.id') ->select('reservations.*', 'reservation_statuses.reservation_status_id')
+        ->whereIn('reservation_statuses.reservation_status_id',[$status1->id,$status2->id])->get();
+
+
+        return view("rent.iznajmljivanjeAktivne",compact('users','book','active','reservation_count','reservation_count','overdue_count','rent_count'));
+    }
+
+    public function reservations_archive($book){
+        $users=Users::all();
+        $book=Book::findOrFail($book);
+        $status3=StatusesOfReservations::where("name","=","Rezervacija istekla")->get()->first();
+        $status4=StatusesOfReservations::where("name","=","Izdato")->get()->first();
+        $status5=StatusesOfReservations::where("name","=","Rezervacija otkazana")->get()->first();
+       
+        $reservation_count=$book->reservation_count();
+        $overdue_count=$book->overdue_count();
+        $rent_count=$book->rent_count()+$overdue_count;
+       
+
+        $archive =$book->reservation()->join('reservation_statuses', 'reservation_statuses.reservation_id', '=', 'reservations.id') ->select('reservations.*', 'reservation_statuses.reservation_status_id')
+        ->whereIn('reservation_statuses.reservation_status_id',[$status3->id,$status4->id,$status5->id])->get();
+
+        return view("rent.iznajmljivanjeArhivirane",compact('users','book','archive','reservation_count','overdue_count','rent_count'));
     }
 }

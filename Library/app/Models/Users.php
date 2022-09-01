@@ -40,6 +40,14 @@ class Users extends Model
     return $this->hasMany(Rent::class,"user_who_rented_id");
     } 
 
+    public function userWhoReserved(){
+        return $this->hasMany(Reservation::class,"user_that_reserved_id");
+        }
+    
+    public function forUser(){
+    return $this->hasMany(Reservation::class,"foruser_id");
+    } 
+
 
 }
 
