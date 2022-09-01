@@ -124,11 +124,11 @@
                                             <polyline points="21 15 16 10 5 21"></polyline>
                                         </svg>
                                         <span class="px-4 py-2 mt-2 leading-normal">Add photo</span>
-                                        <p>Image: <input type="file" name="photo" class="image" /></p>
-                                        <input type="hidden" name="x1" value="" />
-                                        <input type="hidden" name="y1" value="" />
-                                        <input type="hidden" name="w" value="" />
-                                        <input type="hidden" name="h" value="" />
+                                        <p>Image: <input type="file" name="photo" class="image"/></p>
+                                        <input type="hidden" name="x1" value=""/>
+                                        <input type="hidden" name="y1" value=""/>
+                                        <input type="hidden" name="w" value=""/>
+                                        <input type="hidden" name="h" value=""/>
                                     </div>
                                     @if (empty($librarian->photo))
                                             <img id="image-output-librarian" src="{{asset('img/profileStudent.jpg');}}"  class="absolute w-48 h-[188px] bottom-0" alt=""/>
@@ -139,7 +139,7 @@
                                 </div>
                             </label>  
                             
-                <p><img id="previewimage" style="display:none;max-width:700px; max-height:700px;"/>"/></p>
+                <p><img id="previewimage" style="display:none;max-width:700px; max-height:700px;"/></p>
                 @if ($path = Session::get('path'))
                     <img src="{{ $path }}" />
                 @endif
