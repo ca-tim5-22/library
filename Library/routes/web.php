@@ -162,7 +162,7 @@ if(is_null($book_statuses)){
         "name"=>"Izdato"
     ]);
     StatusesOfReservations::create([
-        "name"=>"Rezervacija istekla"
+        "name"=>"Rezervacija otkazana"
     ]);
 
 }
@@ -202,7 +202,7 @@ Route::get("book/newBookMultimedia",function(){
 });
 
 Route::get('dashboard',function(){
-    $all= DB::select(DB::raw("SELECT rent_statuses.renting_id,rent_statuses.book_status_id,rents.id,rents.book_id,rents.user_who_rented_out_id,rents.user_who_rented_id,rents.user_who_received_back_id,rents.rent_date,rents.return_date FROM rents INNER JOIN rent_statuses ON rents.id = rent_statuses.renting_id WHERE rent_statuses.book_status_id = 3 OR rent_statuses.book_status_id = 4 OR rent_statuses.book_status_id = 2 LIMIT 10;"));
+    $all= DB::select(DB::raw("SELECT rent_statuses.renting_id,rent_statuses.book_status_id,rents.id,rents.book_id,rents.user_who_rented_out_id,rents.user_who_rented_id,rents.user_who_received_back_id,rents.rent_date,rents.return_date,rent_statuses.created_at FROM rents INNER JOIN rent_statuses ON rents.id = rent_statuses.renting_id WHERE rent_statuses.book_status_id = 3 OR rent_statuses.book_status_id = 4 OR rent_statuses.book_status_id = 2 ORDER BY rent_statuses.created_at DESC LIMIT 10;"));
     $user_type=UserType::find(1); 
     if(is_null($user_type)){
         UserType::create([
@@ -282,7 +282,7 @@ Route::get('dashboard',function(){
 })->name("dashboard");
 
 Route::get('dashboardaktivnost',function(){
-    $all= DB::select(DB::raw("SELECT rent_statuses.renting_id,rent_statuses.book_status_id,rents.id,rents.book_id,rents.user_who_rented_out_id,rents.user_who_rented_id,rents.user_who_received_back_id,rents.rent_date,rents.return_date FROM rents INNER JOIN rent_statuses ON rents.id = rent_statuses.renting_id WHERE rent_statuses.book_status_id = 3 OR rent_statuses.book_status_id = 4 OR rent_statuses.book_status_id = 2;"));
+    $all= DB::select(DB::raw("SELECT rent_statuses.renting_id,rent_statuses.book_status_id,rents.id,rents.book_id,rents.user_who_rented_out_id,rents.user_who_rented_id,rents.user_who_received_back_id,rents.rent_date,rents.return_date,rent_statuses.created_at FROM rents INNER JOIN rent_statuses ON rents.id = rent_statuses.renting_id WHERE rent_statuses.book_status_id = 3 OR rent_statuses.book_status_id = 4 OR rent_statuses.book_status_id = 2 ORDER BY rent_statuses.created_at DESC;"));
       $books=Book::all();
     $student=DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=2"));
     $student = (object) $student;
@@ -292,6 +292,7 @@ Route::get('dashboardaktivnost',function(){
     $muski = (object) $muski;
     $zenski = DB::select(DB::raw("SELECT * FROM genders WHERE name =\"Zenski\";"));
     $zenski = (object) $zenski;
+   
     return view('dashboard.dashboardAktivnost',compact("all","student","librarian","muski","zenski","books"));
 });
 Route::resource('alphabet',AlphabetController::class);

@@ -33,29 +33,17 @@
                             </div>
                         </div>
                     </a>
-<script>
-    var a = localStorage.getItem("datum_pristupa");
-    a.split("/");
-    var a_date = new Date(a[0],a[1]-1,a[2]);
-    var currentDate = new Date()
-    var day = currentDate.getDate()
-    var month = currentDate.getMonth() + 1
-    var year = currentDate.getFullYear()
-    
-    var trenutnidatum = + day + "/" + month + "/" + year;
-
-
-
-console.log(a_date);
-
-
-</script>
-
+                    
 
 
 
                     <span id="header_span"
-                        class="absolute bg-[#EF4F4C] text-[11px] font-medium text-white right-[10px] top-[-10px] pl-[4px] pr-[5px] pt-[1px] text-center"></span>
+                        class="absolute bg-[#EF4F4C] text-[11px] font-medium text-white right-[10px] top-[-10px] pl-[4px] pr-[5px] pt-[1px] text-center"><script>
+                            var i = localStorage.getItem("br");
+                            
+                            
+                            
+                            document.write(i)</script></span>
 
 
 

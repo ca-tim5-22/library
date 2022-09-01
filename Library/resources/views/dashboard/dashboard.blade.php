@@ -44,6 +44,8 @@
                     Dashboard
                 </h1>
             </div>
+           
+
             <!-- Space for content -->
             <div class="pl-[30px] scroll height-dashboard overflow-auto mt-[20px] pb-[30px]">
                 <div class="flex flex-row justify-between">
@@ -249,7 +251,36 @@ je izdala knjigu
 
     <!-- Notification for small devices -->
     @include('includes\layout\inProgress')
-
+    <?php 
+    //Mozda ce biti updated_at umjesto created_at
+                        foreach($all as $one){
+    
+                        
+                            $only_date = explode(" ",$one->created_at);
+                            $only_date[0] = date_create($only_date[0]);
+                            $only_date[0] = date_format($only_date[0],"m/d/Y");
+    
+                            echo '<input id="rent_date" type="hidden" value='."$only_date[0]".'>';
+                           } ?>
+    <script defer>
+        var fromstorage = localStorage.getItem("datum_pristupa");
+        var all_rents = document.querySelectorAll("#rent_date");
+        
+        var i = 0;
+    
+        var a_date = Date.parse(fromstorage) / (1000 * 60 * 60 * 24);
+        all_rents.forEach(date =>{
+            var b_date = Date.parse(date.value) / (1000 * 60 * 60 * 24);
+            
+            if(b_date - a_date > 0){
+                i++;
+            }
+        })
+    
+       localStorage.setItem("br",i);
+    
+     console.log(i)
+    </script>
 
     <!-- Scripts -->
     @include('includes\layout\scripts')

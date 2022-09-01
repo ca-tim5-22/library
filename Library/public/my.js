@@ -39,7 +39,7 @@ var day = currentDate.getDate()
 var month = currentDate.getMonth() + 1
 var year = currentDate.getFullYear()
 
-var trenutnidatum = + year + "/" + month + "/" + day;
+var trenutnidatum = month + "/" + day + "/" + year;
 if(url.includes("dashboardaktivnost")){
     localStorage.setItem("datum_pristupa",trenutnidatum);
     
