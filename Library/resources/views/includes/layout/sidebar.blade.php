@@ -111,7 +111,7 @@
                         </span>
                     </div>
                 </li>
-                <!-- Expand menu example -->
+                {{--  <!-- Expand menu example -->
                 <li id="-li" class="pt-[18px] pb-[14px] mb-[4px] group hover:bg-[#EAEAEA]">
                     <div style="margin-left:25px;">
                         <span class="flex justify-between w-full whitespace-nowrap">
@@ -162,7 +162,7 @@
                             </a>
                         </div>
                     </li>
-                </ul>
+                </ul>  --}}
             </ul>
         </div>
     </div>

@@ -258,10 +258,10 @@ input:checked+svg {
 
 .number-green {
   opacity: 0;
-  -webkit-animation: number-yellow 0.5s ease-in forwards;
-          animation: number-yellow 0.5s ease-in forwards;
-  -webkit-animation-delay: 2s;
-          animation-delay: 2s;
+  -webkit-animation: number-yellow 0.4s ease-in forwards;
+          animation: number-yellow 0.4s ease-in forwards;
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
 }
 
 @-webkit-keyframes number-green {
@@ -316,10 +316,10 @@ input:checked+svg {
 
 .number-yellow {
   opacity: 0;
-  -webkit-animation: number-yellow 0.5s ease-in forwards;
-          animation: number-yellow 0.5s ease-in forwards;
-  -webkit-animation-delay: 2.2s;
-          animation-delay: 2.2s;
+  -webkit-animation: number-yellow 0.3s ease-in forwards;
+          animation: number-yellow 0.3s ease-in forwards;
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
 }
 
 @-webkit-keyframes number-yellow {
@@ -374,10 +374,10 @@ input:checked+svg {
 
 .number-red {
   opacity: 0;
-  -webkit-animation: number-red 0.5s ease-in forwards;
-          animation: number-red 0.5s ease-in forwards;
-  -webkit-animation-delay: 2.4s;
-          animation-delay: 2.4s;
+  -webkit-animation: number-red 0.3s ease-in forwards;
+          animation: number-red 0.3s ease-in forwards;
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
 }
 
 @-webkit-keyframes number-red {
@@ -492,6 +492,13 @@ Text-level semantics
 /**
 Add the correct text decoration in Chrome, Edge, and Safari.
 */
+.none{
+  display: none;
+}
+
+.druga{
+
+}
 
 abbr[title] {
 	-webkit-text-decoration: underline dotted;

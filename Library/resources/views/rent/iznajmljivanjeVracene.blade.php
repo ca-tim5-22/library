@@ -81,7 +81,7 @@
                             <i class="far fa-hand-scissors mr-[3px]"></i>
                             Izdaj knjigu
                         </a>
-                        <a href="vratiKnjigu.php" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href="{{route('return_index',$book->id);}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="fas fa-redo-alt mr-[3px] "></i>
                             Vrati knjigu
                         </a>
@@ -185,8 +185,13 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white">
+                        
+                                   
+                            
+                                @foreach ($rented_book_info as $returned)
+                                @if (!empty($rented))
+                                    
                                
-                                @foreach ($rented_book_info as $rent=>$value)
                                 <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                     <td class="px-4 py-3 whitespace-no-wrap">
                                         <label class="inline-flex items-center">
@@ -195,21 +200,42 @@
                                     </td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                         @foreach ($users as $user)
-                                        @if($user->id == $value[0]->user_who_rented_id)
+                                        @if($user->id == $returned->user_who_rented_id)
                                         {{$user->first_and_last_name}}
                                         @endif
                                         @endforeach
                                     </td>
-                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$value[0]->rent_date}}</td>
-                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$value[0]->return_date}}</td>
+                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$returned->rent_date}}</td>
+                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$returned->return_date}}</td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                         <div>
-                                            <span>2 nedelje i 3 dana</span>
+                                            <?php
+                                            foreach ($rented as $rent=>$value){
+                                                
+                                          if ($value->renting_id == $returned->id ){
+
+                                          
+                                            $today=date("Y-m-d");
+                                           
+                                            $a= strtotime($today) - strtotime($value->updated_at);
+                                            
+                                            $a= round($a / 86400);
+                                          
+                                            
+                                          
+                                           
+
+
+                                           echo  "<span>".datum($a)."</span>";
+                                            }
+                                            
+                                              }
+                                              ?>
                                         </div>
                                     </td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                         @foreach ($users as $user)
-                                        @if($user->id==$value[0]->user_who_rented_out_id)
+                                        @if($user->id==$returned->user_who_rented_out_id)
                                         {{$user->first_and_last_name}}
                                         @endif
                                         @endforeach
@@ -226,7 +252,7 @@
                                                 aria-labelledby="headlessui-menu-button-1"
                                                 id="headlessui-menu-items-117" role="menu">
                                                 <div class="py-1">
-                                                    <a href="{{route('rent.show',$value[0]->id);}}" tabindex="0"
+                                                    <a href="{{route('rent.show',$returned->id);}}" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="far fa-file mr-[10px] ml-[5px] py-1"></i>
@@ -240,7 +266,7 @@
                                                         <span class="px-4 py-0">Izdaj knjigu</span>
                                                     </a>
 
-                                                    <a href="{{route('rent.returnbook',$value[0]->id);}}" tabindex="0"
+                                                    <a href="{{route('rent.returnbook',$returned->id);}}" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
@@ -254,14 +280,14 @@
                                                         <span class="px-4 py-0">Rezervisi knjigu</span>
                                                     </a>
 
-                                                    <a href="{{route('rent.abandon',$value[0]->id)}}" tabindex="0"
+                                                    <a href="{{route('rent.abandon',$returned->id)}}" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="fas fa-level-up-alt mr-[14px] ml-[5px] py-1"></i>
                                                         <span class="px-4 py-0">Otpisi knjigu</span>
                                                     </a>
 
-                                                    <form method="POST" action="{{route("book.destroy",$book->id)}}">
+                                                    <form method="POST" action="{{route('book.destroy',$book->id)}}">
                                                         @csrf
                                                         @method("DELETE")
                                                         <button type="submit" name="submit" tabindex="0"
@@ -276,6 +302,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @endif
                                 @endforeach
                             </tbody>
                         </table>
@@ -354,7 +381,7 @@
                                 <p class="mt-[20px]">Ukupna kolicina:</p>
                             </div>
                             <div class="text-center pb-[30px]">
-                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">{{$book->total - $rented_c}}
+                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">{{$book->total - $book->rented}}
                                     primjeraka</p>
                                 <a href="iznajmljivanjeAktivne.php">
                                     <p
@@ -364,7 +391,7 @@
                                 <a href="{{route('rent.rented',$book);}}">
                                     <p
                                         class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                        {{$rented_c}} primjerka</p>
+                                        {{$book->rented}} primjerka</p>
                                 </a>
                                 <a href="{{route('rent.overdue',$book);}}">
                                     <p
@@ -487,7 +514,27 @@
     <!-- Scripts -->
     @include('includes\layout\scripts')
     <!-- End Scripts -->
+    <?php
 
+    function datum($a){
+        $value = 0;
+        if($a==0){
+            $value ="Danas";
+        }
+    
+    if($a>7){
+        $dan = $a%7;
+        $nedelja = ($a-$dan) / 7;
+        $value = $nedelja." nedelja/e ".$dan." dan/a";
+    }else {
+        $dan = $a;
+        $value =$dan . " dan/a";
+    }
+       echo $value;
+    }
+    
+    
+    ?>
 </body>
 
 </html>

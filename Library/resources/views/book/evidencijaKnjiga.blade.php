@@ -212,7 +212,7 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white">
-                                
+                                <?php $prekoracenje=0;?>
                                 @foreach ($books as $book)
                                     <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                     <td class="px-4 py-4 whitespace-no-wrap">
@@ -259,13 +259,24 @@
 
 
                                     </td>
-                                    <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Na raspolaganju</td>
+                                    <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$book->total - $book->rented}}</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
                                             href="aktivneRezervacije.php">Rezervisano</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
-                                            href="{{route('rent.index');}}">Izdato</td>
+                                            href="{{route('rent.index');}}">{{$book->rented}}</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
-                                            href="knjigePrekoracenje.php">U prekoracenju</td>
+                                            href="knjigePrekoracenje.php">
+
+                                           @foreach($preko as $prekoo)
+                                        @if($book->id==$prekoo->book_id)
+                                        <?php $prekoracenje++; ?>
+                                        @endif
+                                        @endforeach
+                                        {{$prekoracenje}}
+                                        
+                                        
+                                        
+                                        </td>
                                     <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$book->total}}</td>
                                     <td class="px-6 py-4 text-sm leading-5 text-right whitespace-no-wrap">
                                         <p style="position:relative;" class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsKnjige hover:text-[#606FC7]">
@@ -307,14 +318,14 @@
                                                         <span class="px-4 py-0">Izdaj knjigu</span>
                                                     </a>
 
-                                                    <a href="vratiKnjigu.php" tabindex="0"
+                                                    <a href="{{route('return_index',$book->id);}}" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
                                                         <span class="px-4 py-0">Vrati knjigu</span>
                                                     </a>
 
-                                                    <a href="rezervisiKnjigu.php" tabindex="0"
+                                                    <a href="{{route('reservation.new',$book->id)}}" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="far fa-calendar-check mr-[10px] ml-[5px] py-1"></i>

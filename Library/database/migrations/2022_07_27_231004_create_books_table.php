@@ -56,8 +56,8 @@ return new class extends Migration
             $table->integer("release_date")->nullable();
             $table->string("ISBN",20)->nullable();
             $table->integer("total")->nullable();
-            $table->integer("rented")->nullable();
-            $table->integer("reserved")->nullable();
+            $table->integer("rented")->nullable()->default(0);
+            $table->integer("reserved")->nullable()->default(0);
             $table->string("content",4128)->nullable();
             $table->timestamps();
         });

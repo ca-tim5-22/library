@@ -33,8 +33,33 @@
                             </div>
                         </div>
                     </a>
-                    <span
-                        class="absolute bg-[#EF4F4C] text-[11px] font-medium text-white right-[10px] top-[-10px] pl-[4px] pr-[5px] pt-[1px] text-center">12</span>
+<script>
+    var a = localStorage.getItem("datum_pristupa");
+    a.split("/");
+    var a_date = new Date(a[0],a[1]-1,a[2]);
+    var currentDate = new Date()
+    var day = currentDate.getDate()
+    var month = currentDate.getMonth() + 1
+    var year = currentDate.getFullYear()
+    
+    var trenutnidatum = + day + "/" + month + "/" + year;
+
+
+
+console.log(a_date);
+
+
+</script>
+
+
+
+
+                    <span id="header_span"
+                        class="absolute bg-[#EF4F4C] text-[11px] font-medium text-white right-[10px] top-[-10px] pl-[4px] pr-[5px] pt-[1px] text-center"></span>
+
+
+
+
                 </div>
                 <!-- Add Icon -->
                 <a class="inline-block border-l-[1px] border-gray-300 px-3" href="#" aria-label="Add something" id="dropdownCreate">
@@ -137,7 +162,7 @@
                     <div class="absolute right-[12px] w-56 mt-[35px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                         aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                         <div class="py-1">
-                            <a href="{{url('bibliotekarprofile')}}" tabindex="0"
+                            <a href="{{route("librarian.show",auth()->user()->id);}}" tabindex="0"
                                 class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                 role="menuitem">
                                 <i class="fas fa-file mr-[8px] ml-[5px] py-1"></i>

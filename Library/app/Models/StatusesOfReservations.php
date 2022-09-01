@@ -10,4 +10,10 @@ class StatusesOfReservations extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+
+    public function reservation(){
+    return $this->belongsToMany(Reservation::class,"reservation_statuses","reservation_status_id","reservation_id");
+    }
+
+
 }

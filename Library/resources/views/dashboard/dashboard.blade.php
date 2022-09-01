@@ -51,7 +51,7 @@
                         <h3 class="uppercase mb-[20px]">Aktivnosti</h3>
                         <!-- Activity Cards -->
 
-                        @foreach ($librarian as $librarian)
+                        @foreach ($all as $rent)
                             <div class="activity-card flex flex-row mb-[30px]">
                             <div class="w-[60px] h-[60px]">
                                 <img class="rounded-full" src="img/profileExample.jpg" alt="">
@@ -61,21 +61,62 @@
                                     <p class="uppercase">
                                         Izdavanje knjige
                                         <span class="inline lowercase">
-                                            - 4 mounths ago
+                                            - Izracunacemo
                                         </span>
                                     </p>
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
-                                            Valentina K.
-                                        </a>
-                                        je izdala knjigu <span class="font-medium">Robinson Kruso</span>
-                                        <a href="" class="text-[#2196f3] hover:text-blue-600">
+                                        
+                                            @foreach ($librarian as $l)
+                                           @if ($l->id == $rent->user_who_rented_out_id)
+                                           <a href="{{route('librarian.show',$l->id);}}" class="text-[#2196f3] hover:text-blue-600">
+{{$l->first_and_last_name}}                           
+</a>                    
+@foreach ($muski as $m)
+    
+@if ($l->gender_id == $m->id)
+je izdao knjigu 
+@endif
+@endforeach
 
-                                            Petru Njegosu
-                                        </a>
-                                        dana <span class="font-medium">12.03.2020.</span>
+@foreach ($zenski as $z)
+    
+
+@if ($l->gender_id == $z->id)
+je izdala knjigu 
+@endif
+@endforeach
+
+
+                                           @endif
+                                               
+                                          
+                                       
+                                            
+                                        
+                                       
+                                        
+                                        @endforeach<span class="font-medium">
+                                            @foreach ($books as $book)
+                                            @if ($book->id == $rent->book_id)
+                                                {{$book->title}}
+                                            @endif
+                                        @endforeach</span>
+                                        korisniku
+
+                                           @foreach ($student as $s)
+                                           @if ($s->id == $rent->user_who_rented_id)
+                                           <a href="{{route('student.show',$s->id);}}" class="text-[#2196f3] hover:text-blue-600">
+{{$s->first_and_last_name}}                   
+    </a>                          
+                                           @endif
+                                               
+                                           @endforeach
+                                      
+                                        dana 
+                                        
+                                        <span class="font-medium">{{$rent->rent_date}}</span>
                                         <a href="izdavanjeDetalji.php" class="text-[#2196f3] hover:text-blue-600">
                                             pogledaj detaljnije >>
                                         </a>
@@ -145,54 +186,57 @@
                                     <a class="w-[145px] text-[#2196f3] hover:text-blue-600" href="{{route('rent.index');}}">
                                         Izdate knjige
                                     </a>
-                                    <div class="ml-[30px] bg-green-600 transition duration-200 ease-in  hover:bg-green-900 stats-bar-green h-[26px]">
+                                    <div style="background: green;width:{{$rented}}px;" class="ml-[30px] bg-green-600 transition duration-200 ease-in hover:bg-green-900 h-[26px]">
                                     
                                     </div>
                                     <p class="ml-[10px] number-green text-[#2196f3] hover:text-blue-600">
-                                        73
+                                        {{$rented}}
+                                      
                                     </p>
                                 </div>
                                 <div class="flex pb-[30px]">
                                     <a class="w-[145px] text-[#2196f3] hover:text-blue-600" href="aktivneRezervacije.php">
                                         Rezervisane knjige
                                     </a>
-                                    <div class="ml-[30px] bg-yellow-600 transition duration-200 ease-in  hover:bg-yellow-900 stats-bar-yellow  h-[26px]">
+                                    <div style="background: yellow;width:0px;" class="ml-[30px] bg-yellow-600 transition duration-200 ease-in  hover:bg-yellow-900   h-[26px]">
                                     
                                     </div>
                                     <p class="ml-[10px] text-[#2196f3] hover:text-blue-600 number-yellow">
-                                        44
+                                        Rezervisano
                                     </p>
                                 </div>
                                 <div class="flex pb-[30px]">
                                     <a class="w-[145px] text-[#2196f3] hover:text-blue-600" href="knjigePrekoracenje.php">
                                         Knjige u prekoracenju
                                     </a>
-                                    <div class="ml-[30px] bg-red-600 transition duration-200 ease-in hover:bg-red-900 stats-bar-red h-[26px]">
+                                    <div style="background: red;width:{{$u_preko}}px;" class="ml-[30px] bg-red-600 transition duration-200 ease-in hover:bg-red-900  h-[26px]">
                                     
                                     </div>
                                     <p class="ml-[10px] text-[#2196f3] hover:text-blue-600 number-red">
-                                        25
+                                        {{$u_preko}}
                                     </p>
                                 </div>
                             </div>
                             <div class="absolute h-[220px] w-[1px] bg-black top-[78px] left-[174px]">
                             </div>
                             <div class="absolute flex conte left-[175px] border-t-[1px] border-[#e4dfdf] top-[248px] pr-[87px]">
-                                <p class="ml-[-13px]">
+                                <p style="margin-left:-13px">
                                     0
                                 </p>
-                                <p class="ml-[57px]">
-                                    20
+                                <p style="margin-left:47px">
+                                    50
                                 </p>
-                                <p class="ml-[57px]">
-                                    40
+                                <p style="margin-left:47px">
+                                    100
                                 </p>
-                                <p class="ml-[57px]">
-                                    60
+                                <p style="margin-left:47px">
+                                    150
                                 </p>
-                                <p class="ml-[57px]">
-                                    80
+                                <p style="margin-left:47px">
+                                    200
                                 </p>
+                           
+                             
                             </div>
                         </div>
                     </div>

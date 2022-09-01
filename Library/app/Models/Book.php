@@ -48,6 +48,21 @@ class Book extends Model
     }
 
     public function rent(){
-        return $this->hasMany(Rent::class);
-        }
-}
+    return $this->hasMany(Rent::class);
+    }
+
+    public function reservation(){
+    return $this->hasMany(Reservation::class);
+    }
+
+    public function test(){
+    return $this->hasManyThrough(
+        ReservationStatus::class,
+        Reservation::class,
+        'book_id', // Foreign key on the types table...
+        'reservation_id', // Foreign key on the items table...
+        'id', // Local key on the users table...
+        'id' // Local key on the categories table...
+    
+ );
+}}
