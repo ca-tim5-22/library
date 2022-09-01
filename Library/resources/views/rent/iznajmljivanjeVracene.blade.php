@@ -209,7 +209,28 @@
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$returned->return_date}}</td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                         <div>
-                                            <span>2 nedelje i 3 dana</span>
+                                            <?php
+                                            foreach ($rented as $rent=>$value){
+                                                
+                                          if ($value->renting_id == $returned->id ){
+
+                                          
+                                            $today=date("Y-m-d");
+                                           
+                                            $a= strtotime($today) - strtotime($value->updated_at);
+                                            
+                                            $a= round($a / 86400);
+                                          
+                                            
+                                          
+                                           
+
+
+                                           echo  "<span>".datum($a)."</span>";
+                                            }
+                                            
+                                              }
+                                              ?>
                                         </div>
                                     </td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
@@ -492,7 +513,27 @@
     <!-- Scripts -->
     @include('includes\layout\scripts')
     <!-- End Scripts -->
+    <?php
 
+    function datum($a){
+        $value = 0;
+        if($a==0){
+            $value ="Danas";
+        }
+    
+    if($a>7){
+        $dan = $a%7;
+        $nedelja = ($a-$dan) / 7;
+        $value = $nedelja." nedelja/e ".$dan." dan/a";
+    }else {
+        $dan = $a;
+        $value =$dan . " dan/a";
+    }
+       echo $value;
+    }
+    
+    
+    ?>
 </body>
 
 </html>

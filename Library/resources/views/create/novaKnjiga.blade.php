@@ -79,7 +79,7 @@
             </div>
             <!-- Space for content -->
             <div class="scroll height-content section-content">
-                <form class="text-gray-700" method="POST" action="{{route('book.store');}}" enctype="multipart/form-data">
+                <form id="test" class="text-gray-700" method="POST" action="{{route('book.store');}}" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
                     <div id="new_book_information" class="">
@@ -524,9 +524,9 @@
                 </div>
             </div>
 <div id="new_book_multimedia" class="nonactive-form">
-                
+  
                 <div class="w-9/12 mx-auto bg-white rounded p7 mt-[40px] mb-[150px]">
-                    <div x-data="dataFileDnD()"
+                    <div id="forchange" x-data="dataFileDnD()"
                         class="relative flex flex-col p-4 text-gray-400 border border-gray-200 rounded">
                         <div x-ref="dnd"
                             class="relative flex flex-col text-gray-400 border border-gray-200 border-dashed rounded cursor-pointer">
@@ -536,7 +536,7 @@
                                 @dragover="$refs.dnd.classList.add('border-blue-400'); $refs.dnd.classList.add('ring-4'); $refs.dnd.classList.add('ring-inset');"
                                 @dragleave="$refs.dnd.classList.remove('border-blue-400'); $refs.dnd.classList.remove('ring-4'); $refs.dnd.classList.remove('ring-inset');"
                                 @drop="$refs.dnd.classList.remove('border-blue-400'); $refs.dnd.classList.remove('ring-4'); $refs.dnd.classList.remove('ring-inset');"
-                                title="" multiple required/>
+                                title="" required/>
                           
                             <div class="flex flex-col items-center justify-center py-10 text-center">
                                 <svg class="w-6 h-6 mr-1 text-current-50" xmlns="http://www.w3.org/2000/svg"
@@ -549,19 +549,23 @@
                         </div>
 
                         <template x-if="files.length > 0">
-                            <div class="grid grid-cols-4 gap-4 mt-4" @drop.prevent="drop($event)"
+                            <div  class="grid grid-cols-4 gap-4 mt-4" @drop.prevent="drop($event)"
                                 @dragover.prevent="$event.dataTransfer.dropEffect = 'move'">
                                 <template x-for="(_, index) in Array.from({ length: files.length })">
-                                    <div class="relative flex flex-col items-center overflow-hidden text-center bg-gray-100 border rounded cursor-move select-none"
+
+
+                                    <div id="slika_up" class="relative flex flex-col items-center overflow-hidden text-center bg-gray-100 border rounded cursor-move select-none"
                                         style="padding-top: 100%;" @dragstart="dragstart($event)"
                                         @dragend="fileDragging = null"
                                         :class="{ 'border-blue-600': fileDragging == index }" draggable="true"
                                         :data-index="index">
                                         <!-- Checkbox -->
-                                        <input id="chosen_image"
+
+                                        <input id="chosen_image_new_book" value=""
                                             class="absolute top-0 right-0 z-50 p-1 bg-white rounded-bl focus:outline-none"
-                                            type="radio" name="chosen_image" />
+                                            type="radio" name="chosen_image_new_book" required/>
                                         <!-- End checkbox -->
+                                        
                                         <button
                                             class="absolute bottom-0 right-0 z-50 p-1 bg-white rounded-bl focus:outline-none"
                                             type="button" @click="remove(index)">

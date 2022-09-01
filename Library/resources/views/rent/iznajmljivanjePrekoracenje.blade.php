@@ -242,9 +242,9 @@
                                             $today=date("Y-m-d");
                                            
                                             $a= strtotime($today) - strtotime($overdue->rent_date);
-                                            
-                                            $a= abs(round($a / 86400));
-
+                                        
+                                            $a= round($a / 86400);
+                                           
 
 ?>
                                             
@@ -543,7 +543,7 @@
         $dan = $a%7;
         $nedelja = ($a-$dan) / 7;
         $value = $nedelja." nedelja/e ".$dan." dan/a";
-    }else if ($a != 0){
+    }else {
         $dan = $a;
         $value =$dan . " dan/a";
     }

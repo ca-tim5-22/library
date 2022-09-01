@@ -44,6 +44,8 @@
                     Dashboard
                 </h1>
             </div>
+           
+
             <!-- Space for content -->
             <div class="pl-[30px] scroll height-dashboard overflow-auto mt-[20px] pb-[30px]">
                 <div class="flex flex-row justify-between">
@@ -51,7 +53,7 @@
                         <h3 class="uppercase mb-[20px]">Aktivnosti</h3>
                         <!-- Activity Cards -->
 
-                        @foreach ($librarian as $librarian)
+                        @foreach ($all as $rent)
                             <div class="activity-card flex flex-row mb-[30px]">
                             <div class="w-[60px] h-[60px]">
                                 <img class="rounded-full" src="img/profileExample.jpg" alt="">
@@ -61,21 +63,62 @@
                                     <p class="uppercase">
                                         Izdavanje knjige
                                         <span class="inline lowercase">
-                                            - 4 mounths ago
+                                            - Izracunacemo
                                         </span>
                                     </p>
                                 </div>
                                 <div class="">
                                     <p>
-                                        <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
-                                            Valentina K.
-                                        </a>
-                                        je izdala knjigu <span class="font-medium">Robinson Kruso</span>
-                                        <a href="" class="text-[#2196f3] hover:text-blue-600">
+                                        
+                                            @foreach ($librarian as $l)
+                                           @if ($l->id == $rent->user_who_rented_out_id)
+                                           <a href="{{route('librarian.show',$l->id);}}" class="text-[#2196f3] hover:text-blue-600">
+{{$l->first_and_last_name}}                           
+</a>                    
+@foreach ($muski as $m)
+    
+@if ($l->gender_id == $m->id)
+je izdao knjigu 
+@endif
+@endforeach
 
-                                            Petru Njegosu
-                                        </a>
-                                        dana <span class="font-medium">12.03.2020.</span>
+@foreach ($zenski as $z)
+    
+
+@if ($l->gender_id == $z->id)
+je izdala knjigu 
+@endif
+@endforeach
+
+
+                                           @endif
+                                               
+                                          
+                                       
+                                            
+                                        
+                                       
+                                        
+                                        @endforeach<span class="font-medium">
+                                            @foreach ($books as $book)
+                                            @if ($book->id == $rent->book_id)
+                                                {{$book->title}}
+                                            @endif
+                                        @endforeach</span>
+                                        korisniku
+
+                                           @foreach ($student as $s)
+                                           @if ($s->id == $rent->user_who_rented_id)
+                                           <a href="{{route('student.show',$s->id);}}" class="text-[#2196f3] hover:text-blue-600">
+{{$s->first_and_last_name}}                   
+    </a>                          
+                                           @endif
+                                               
+                                           @endforeach
+                                      
+                                        dana 
+                                        
+                                        <span class="font-medium">{{$rent->rent_date}}</span>
                                         <a href="izdavanjeDetalji.php" class="text-[#2196f3] hover:text-blue-600">
                                             pogledaj detaljnije >>
                                         </a>
@@ -208,7 +251,36 @@
 
     <!-- Notification for small devices -->
     @include('includes\layout\inProgress')
-
+    <?php 
+    //Mozda ce biti updated_at umjesto created_at
+                        foreach($all as $one){
+    
+                        
+                            $only_date = explode(" ",$one->created_at);
+                            $only_date[0] = date_create($only_date[0]);
+                            $only_date[0] = date_format($only_date[0],"m/d/Y");
+    
+                            echo '<input id="rent_date" type="hidden" value='."$only_date[0]".'>';
+                           } ?>
+    <script defer>
+        var fromstorage = localStorage.getItem("datum_pristupa");
+        var all_rents = document.querySelectorAll("#rent_date");
+        
+        var i = 0;
+    
+        var a_date = Date.parse(fromstorage) / (1000 * 60 * 60 * 24);
+        all_rents.forEach(date =>{
+            var b_date = Date.parse(date.value) / (1000 * 60 * 60 * 24);
+            
+            if(b_date - a_date > 0){
+                i++;
+            }
+        })
+    
+       localStorage.setItem("br",i);
+    
+     console.log(i)
+    </script>
 
     <!-- Scripts -->
     @include('includes\layout\scripts')

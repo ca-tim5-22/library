@@ -492,6 +492,13 @@ Text-level semantics
 /**
 Add the correct text decoration in Chrome, Edge, and Safari.
 */
+.none{
+  display: none;
+}
+
+.druga{
+
+}
 
 abbr[title] {
 	-webkit-text-decoration: underline dotted;

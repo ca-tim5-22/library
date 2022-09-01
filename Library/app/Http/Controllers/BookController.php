@@ -148,7 +148,7 @@ class BookController extends Controller
     public function store(StoreBookRequest $request)
     {
 
-
+dd($request);
    if ($request->hasFile('book_photo')) {
     
     $categories=$request->valuesCategories[0];
