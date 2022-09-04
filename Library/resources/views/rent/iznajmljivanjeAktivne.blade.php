@@ -194,7 +194,7 @@
                                         </label>
                                     </td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$one_active->date_of_reservation}}</td>
-                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">X</td>
+                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$one_active->datum_isteka}}</td>
 
                                  
                                     <td class="flex flex-row items-center px-4 py-3">

@@ -95,7 +95,7 @@ class RentStatusController extends Controller
          $overdue_book_info = (object) $overdue_book_info;
          $users=Users::all();
         
-                                        
+                     
       foreach($overdue_book_info as $rent=>$value){
             $date= Carbon::parse( $value[0]->rent_date);
             $newdate=$date->format("d-m-Y");
@@ -105,7 +105,7 @@ $value[0]->rent_date= $newdate;
             $value[0]->return_date= $newdate;
             
          }
-        
+         
         
          $today=date("d-m-Y");
 
@@ -116,7 +116,7 @@ $value[0]->rent_date= $newdate;
          $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
          $preko=DB::table("rent_statuses")->where("book_status_id","=",$u_preko[0]->id)->get(); 
          $preko=count($preko); 
-
+        
          return view("knjigePrekoracenje",compact('rented','users','book',"overdue_book_info","today","preko","rented_c"));
     } 
     /**

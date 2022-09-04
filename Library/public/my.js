@@ -32,7 +32,6 @@ var book_image = document.getElementById("book_image");
 const all_images= document.getElementById("all_images");
 var header_span = document.getElementById("header_span")
 let url = window.location.pathname
-var radio= [];
 
 var currentDate = new Date()
 var day = currentDate.getDate()

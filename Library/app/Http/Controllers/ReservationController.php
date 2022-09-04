@@ -126,11 +126,19 @@ class ReservationController extends Controller
         $reservation_count=$book->reservation_count();
         $overdue_count=$book->overdue_count();
         $rent_count=$book->rent_count()+$overdue_count;
-
+       
         $active =$book->reservation()->join('reservation_statuses', 'reservation_statuses.reservation_id', '=', 'reservations.id') ->select('reservations.*', 'reservation_statuses.reservation_status_id')
         ->whereIn('reservation_statuses.reservation_status_id',[$status1->id,$status2->id])->get();
+         $res = DB::select(DB::raw("SELECT * FROM global_variables WHERE id = 1"));
+        $res_value = $res[0]->value;
+        foreach ($active as $one ) {
+            
+            $date = Carbon::createFromFormat("Y-m-d",$one->date_of_submission)->addDays($res_value)->format("Y-m-d");
+         
+            $one->datum_isteka = $date;
 
-
+            
+        }
         return view("rent.iznajmljivanjeAktivne",compact('users','book','active','reservation_count','reservation_count','overdue_count','rent_count'));
     }
 
@@ -148,6 +156,16 @@ class ReservationController extends Controller
 
         $archive =$book->reservation()->join('reservation_statuses', 'reservation_statuses.reservation_id', '=', 'reservations.id') ->select('reservations.*', 'reservation_statuses.reservation_status_id')
         ->whereIn('reservation_statuses.reservation_status_id',[$status3->id,$status4->id,$status5->id])->get();
+        $res = DB::select(DB::raw("SELECT * FROM global_variables WHERE id = 1"));
+        $res_value = $res[0]->value;
+        foreach ($archive as $one ) {
+            
+            $date = Carbon::createFromFormat("Y-m-d",$one->date_of_submission)->addDays($res_value)->format("Y-m-d");
+         
+            $one->datum_isteka = $date;
+
+            
+        }
 
         return view("rent.iznajmljivanjeArhivirane",compact('users','book','archive','reservation_count','overdue_count','rent_count'));
     }
