@@ -12,8 +12,11 @@ class BookStatus extends Model
 
     protected $fillable=["name"];
 
-    public function rent(){
-        return $this->belongsToMany(Rent::class,"rent_statuses","book_status_id","renting_id")->withPivotValue("date",Carbon::now())->withTimestamps();
-        }
+   public function rent(){
+        return $this->belongsToMany(Rent::class,"rent_statuses","book_status_id","renting_id")->withTimestamps();
+        } 
+
+
+        
     
 }

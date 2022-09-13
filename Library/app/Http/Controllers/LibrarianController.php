@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Librarian;
 use App\Http\Requests\StoreLibrarianRequest;
 use App\Http\Requests\UpdateLibrarianRequest;
+use App\Models\UserLogin;
 use Illuminate\Support\Facades\DB;
 use App\Models\Users;
 use App\Models\UserType;
@@ -173,8 +174,26 @@ class LibrarianController extends Controller
     public function show(Librarian $librarian)
     {
         $librarian = Users::findOrFail($librarian->id);
-        $number_of_logins = DB::select(DB::raw("SELECT COUNT(id) as number_of_logins from user_logins WHERE user_id = $librarian->id"));
+
+/*         $number_of_logins = DB::select(DB::raw("SELECT COUNT(id) as number_of_logins from user_logins WHERE user_id = $librarian->id"));
         $last_login = DB::select(DB::raw("SELECT time as last_login from user_logins WHERE user_id = $librarian->id ORDER BY user_logins.time DESC LIMIT 1"));
+ */
+
+            $number_of_logins="Nema loginova";
+                
+            $student=Users::findOrFail($librarian->id);
+
+            $last_login=UserLogin::where('user_id','=',$librarian->id)->orderBy('time','desc')->get()->first();
+
+            if($last_login)
+            $last_login = $last_login->time;
+            else
+            $last_login="Nema loginova";
+
+            $number_of_logins = DB::select(DB::raw("SELECT * FROM `user_logins` WHERE user_id = $librarian->id;"));
+            $number_of_logins = count($number_of_logins);
+
+
         return view("the_librarian.bibliotekarProfile",compact("librarian","number_of_logins","last_login"));
     }
 

@@ -22,49 +22,43 @@ class RentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($request)
     {    
-        
-        $status=DB::table("book_statuses")->where("name","=","Izdato")->get();
-        
-        $rented=DB::table("rent_statuses")->where("book_status_id","=",$status[0]->id)->get();
-
-        $rented_book_info = [];
-        foreach ($rented as $one_rent=>$value) {
        
-        $rented_book_info[] = DB::table("rents")->where("id","=",$value->renting_id)->get();
-        }
-        
-        $rented_book_info = (object) $rented_book_info;
-        $books = Book::all();
-        $users=Users::all();
+        $status1=BookStatus::where("name","=","U prekoracenju")->get()->first();
+        $status2=BookStatus::where("name","=","Izdato")->get()->first();
+    
 
+       
 
+        $rents =Rent::join('rent_statuses', 'rent_statuses.renting_id', '=', 'rents.id')
+        ->join('users as u1','u1.id','=','rents.user_who_rented_id')
+        ->join('users as u2','u2.id','=','rents.user_who_rented_out_id')
+        ->join('books','books.id','=','rents.book_id')
+        ->join('galleries','galleries.book_id','=','rents.book_id')
+        ->select('rents.*', 'rent_statuses.book_status_id as status','u1.first_and_last_name as student','u2.first_and_last_name as librarian','books.title','galleries.photo')
+        ->whereIn('rent_statuses.book_status_id',[$status1->id,$status2->id])->get();
+      
 
-        return view("izdateKnjige",compact("books","rented","rented_book_info","users"));
+        return view("izdateKnjige",compact("rents"));
     }
+
 
     public function returned_index()
     {    
         
-        $status=DB::table("book_statuses")->where("name","=","Vraceno")->get();
-        
-        $rented=DB::table("rent_statuses")->where("book_status_id","=",$status[0]->id)->get();
-
-        $returned_book_info = [];
-        foreach ($rented as $one_rent=>$value) {
-       
-        $returned_book_info[] = DB::table("rents")->where("id","=",$value->renting_id)->get();
-        }
-        
-        $returned_book_info = (object) $returned_book_info;
-        $books = Book::all();
-        $users=Users::all();
+        $status=BookStatus::where("name","=","Vraceno")->get()->first();    
+        $returned =$status->rent()->join('users as u1','u1.id','=','rents.user_who_rented_id')
+        ->join('users as u2','u2.id','=','rents.user_who_received_back_id')
+        ->join('books','books.id','=','rents.book_id')->join('galleries','galleries.book_id','=','rents.book_id')
+        ->select('rents.*', 'u1.first_and_last_name as student','u2.first_and_last_name as librarian','rent_statuses.updated_at','books.title','galleries.photo')->get();
 
 
-
-        return view("vraceneKnjige",compact("books","rented","returned_book_info","users"));
+        return view("vraceneKnjige",compact("returned"));
     }
+
+
+    
 
     /**
      * Show the form for creating a new resource.

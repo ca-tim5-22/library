@@ -128,7 +128,7 @@
                                             class=" whitespace-nowrap w-full text-[25px] flex justify-between fill-current">
                                             <div
                                                 class="group hover:bg-[#EFF3F6] py-[15px] px-[20px] w-[268px] rounded-[10px] cursor-pointer">
-                                                <a href="aktivneRezervacije.php" aria-label="Rezervacije"
+                                                <a href="{{route('active');}}" aria-label="Rezervacije"
                                                     class="flex items-center">
                                                     <i
                                                         class="text-[#707070] text-[20px] far fa-calendar-check transition duration-300 ease-in group-hover:text-[#576cdf]"></i>
@@ -148,7 +148,7 @@
                                             class=" whitespace-nowrap w-full text-[25px] flex justify-between fill-current">
                                             <div
                                                 class="group hover:bg-[#EFF3F6] py-[15px] px-[20px] w-[268px] rounded-[10px] cursor-pointer">
-                                                <a href="arhiviraneRezervacije.php" aria-label="Rezervacije"
+                                                <a href="{{route('archive');}}" aria-label="Rezervacije"
                                                     class="flex items-center">
                                                     <i
                                                         class="text-[#707070] text-[20px] fas fa-calendar-alt transition duration-300 ease-in group-hover:text-[#576cdf]"></i>
@@ -572,9 +572,8 @@
                                 </thead>
                                 <tbody class="bg-white">
                                    
-                                    @foreach ($returned_book_info as $returned)
+                                    @foreach ($returned as $return)
                                         
-                                    
                                     
                                     <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                         <td class="px-4 py-3 whitespace-no-wrap">
@@ -583,86 +582,43 @@
                                             </label>
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
-                                            <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
-                                            <a href="#">
+                                            <img class="object-cover w-8 mr-2 h-11" src="{{asset('storage/book_images/'.$return->photo);}}" alt="" />
+                                            <a href="{{route('book.show',$return->book_id);}}"> 
                                                
-                                                <span class="font-medium text-center"> @foreach ($books as $book)
-                                                    @if ($book->id == $returned[0]->book_id)
-                                                        {{$book->title}}
-                                                    @endif
-                                                @endforeach</span>
+                                                <span class="font-medium text-center"> {{$return->title}}
                                             </a>
                                         </td>
-                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">@foreach ($users as $user)
-                                            @if ($user->id == $returned[0]->user_who_rented_id)
-                                                {{$user->first_and_last_name}}
-                                            @endif
-                                        @endforeach</td>
-                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$returned[0]->rent_date}}</td>
+                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$return->student}}</td>
+                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$return->rent_date}}</td>
                                         <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
 
-@foreach ($rented as $rent=>$value)
-<?php
+                                        <?php
 
-$c= explode(" ", $value->updated_at);
+                                        $c= explode(" ", $return->updated_at);
+                                        ?>
 
-
-?>
-@if($value->renting_id == $returned[0]->id)
-
-{{$c[0]}}
-
-    @endif
-@endforeach
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                        {{$c[0]}}
 
                                         </td>
                                         <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                             <div>
-                                                <?php
-                                                foreach ($rented as $rent=>$value){
-                                                    
-                                              if ($value->renting_id == $returned[0]->id ){
-
-                                              
-                                                $today=date("Y-m-d");
+                                     <?php
+                                      
+                                        $today=date("Y-m-d");
                                                
-                                                $a= strtotime($today) - strtotime($value->updated_at);
+                                        $a= strtotime($return->updated_at) - strtotime($return->rent_date);
                                                 
-                                                $a= round($a / 86400);
+                                        $a= round($a / 86400);
                                               
                                                 
-                                              
-                                               
-
-
-                                               echo  "<span>".datum($a)."</span>";
-                                                }
-                                                
-                                                  }
-                                                  ?>
+                                        echo  "<span>".datum($a)."</span>";
+                                                          
+                                                  ?>  
                                             </div>
                                         </td>
-                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">@foreach ($users as $user)
-                                            @if ($user->id == $returned[0]->user_who_received_back_id )
-                                                {{$user->first_and_last_name}}
-                                            @endif
-                                        @endforeach
+                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$return->librarian}}
+                                            
+                        
                                         </td>
                                         <td class="px-6 py-3 text-sm leading-5 text-right whitespace-no-wrap">
                                             <p
@@ -675,28 +631,28 @@ $c= explode(" ", $value->updated_at);
                                                     aria-labelledby="headlessui-menu-button-1"
                                                     id="headlessui-menu-items-117" role="menu">
                                                     <div class="py-1">
-                                                        <a href="izdavanjeDetalji.php" tabindex="0"
+                                                        <a href="{{ route('rent.show',$return->id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="far fa-file mr-[10px] ml-[5px] py-1"></i>
                                                             <span class="px-4 py-0">Pogledaj detalje</span>
                                                         </a>
 
-                                                        <a href="izdajKnjigu.php" tabindex="0"
+                                                        <a href="{{ route('rent.new',$return->book_id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="far fa-hand-scissors mr-[10px] ml-[5px] py-1"></i>
                                                             <span class="px-4 py-0">Izdaj knjigu</span>
                                                         </a>
 
-                                                        <a href="#" tabindex="0"
+                                                        <a href="{{ route('rent.returnbook',$return->book_id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
                                                             <span class="px-4 py-0">Vrati knjigu</span>
                                                         </a>
 
-                                                        <a href="rezervisiKnjigu.php" tabindex="0"
+                                                        <a href="{{ route('reservation.new',$return->book_id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i
@@ -711,12 +667,16 @@ $c= explode(" ", $value->updated_at);
                                                             <span class="px-4 py-0">Otpisi knjigu</span>
                                                         </a>
 
-                                                        <a href="#" tabindex="0"
+                                                        <form action="{{route('book.destroy',$return->book_id);}}" method="POST">
+                                                            @csrf
+                                                            @method("DELETE")
+                                                        <buttpn type="submit" name="submit" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
-                                                            <i class="fa fa-trash mr-[10px] ml-[5px] py-1"></i>
+                                                            <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
                                                             <span class="px-4 py-0">Izbrisi knjigu</span>
-                                                        </a>
+                                                        </button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>

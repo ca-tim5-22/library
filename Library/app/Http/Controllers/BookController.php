@@ -23,6 +23,7 @@ use App\Models\Gallery;
 use App\Models\Language;
 use App\Models\Rent;
 use App\Models\Users;
+use Carbon\Carbon;
 
 class BookController extends Controller
 {
@@ -148,7 +149,6 @@ class BookController extends Controller
     public function store(StoreBookRequest $request)
     {
 
-dd($request);
    if ($request->hasFile('book_photo')) {
     
     $categories=$request->valuesCategories[0];

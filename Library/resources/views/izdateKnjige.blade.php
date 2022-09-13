@@ -126,7 +126,7 @@
                                             class=" whitespace-nowrap w-full text-[25px] flex justify-between fill-current">
                                             <div
                                                 class="group hover:bg-[#EFF3F6] py-[15px] px-[20px] w-[268px] rounded-[10px] cursor-pointer">
-                                                <a href="aktivneRezervacije.php" aria-label="Rezervacije"
+                                                <a href="{{route('active');}}" aria-label="Rezervacije"
                                                     class="flex items-center">
                                                     <i
                                                         class="text-[#707070] text-[20px] far fa-calendar-check transition duration-300 ease-in group-hover:text-[#576cdf]"></i>
@@ -146,7 +146,7 @@
                                             class=" whitespace-nowrap w-full text-[25px] flex justify-between fill-current">
                                             <div
                                                 class="group hover:bg-[#EFF3F6] py-[15px] px-[20px] w-[268px] rounded-[10px] cursor-pointer">
-                                                <a href="arhiviraneRezervacije.php" aria-label="Rezervacije"
+                                                <a href="{{route('archive');}}" aria-label="Rezervacije"
                                                     class="flex items-center">
                                                     <i
                                                         class="text-[#707070] text-[20px] fas fa-calendar-alt transition duration-300 ease-in group-hover:text-[#576cdf]"></i>
@@ -180,6 +180,8 @@
                        
                             <table class="overflow-hidden shadow-lg rounded-xl w-full border-[1px] border-[#e4dfdf]" id="myTable">
                                 <thead class="bg-[#EFF3F6]">
+                                   
+                                   
                                     <tr class="border-b-[1px] border-[#e4dfdf]">
                                         <th class="px-4 py-4 leading-4 tracking-wider text-left text-blue-500">
                                             <label class="inline-flex items-center">
@@ -554,7 +556,8 @@
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white">
-                                    @foreach ($rented_book_info as $rent)
+
+                                    @foreach ($rents as $rent)
                                     <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                         <td class="px-4 py-3 whitespace-no-wrap">
                                             <label class="inline-flex items-center">
@@ -562,45 +565,33 @@
                                             </label>
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
-                                            <img class="object-cover w-8 mr-2 h-11" src="img/tomsojer.jpg" alt="" />
+                                            <img class="object-cover w-8 mr-2 h-11" src="{{asset('storage/book_images/'.$rent->photo);}}" alt="" />
                                             <a href="">
-                                                @foreach ($books as $book)
-                                                    @if ($book->id == $rent[0]->book_id)
-                                                        {{$book->title}}
-                                                    @endif
-                                                @endforeach
+                                             {{$rent->title}}
                                             </a>
                                         </td>
-                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">@foreach ($users as $user)
-                                            @if ($user->id == $rent[0]->user_who_rented_id)
-                                                {{$user->first_and_last_name}}
-                                            @endif
-                                        @endforeach</td>
-                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$rent[0]->rent_date}}</td>
+                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap"> {{$rent->student}}</td>
+                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$rent->rent_date}}</td>
                                         <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                             <div> 
-<?php
-                                                $today=date("Y-m-d");
-                                               
-                                                $a= strtotime($today) - strtotime($rent[0]->rent_date);
-                                                
+
+                                                <?php
+                                                $today=date("Y-m-d");                                               
+                                                $a= strtotime($today) - strtotime($rent->rent_date);
                                                 $a= round($a / 86400);
-                                               
+                                                ?>
 
-?>
-
-
-
-
+                                                @if($rent->status==2)
                                                 <span>{{datum($a);}}</span>
+                                                @else
+                                                <div class="inline-block px-[6px] py-[2px] font-medium bg-red-200 rounded-[10px]">
+                                                    <span class="text-xs text-red-800">{{datum($a);}}</span>
+                                                </div>
+                                                @endif
+                                               
                                             </div>
                                         </td>
-                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">@foreach ($users as $user)
-                                            @if ($user->id == $rent[0]->user_who_rented_out_id)
-                                                {{$user->first_and_last_name}}
-                                            @endif
-                                        @endforeach
-                                        </td>
+                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$rent->librarian}} </td>
                                         <td class="px-6 py-3 text-sm leading-5 text-right whitespace-no-wrap">
                                             <p style="position: relative;" class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsIzdateKnjige hover:text-[#606FC7]">
                                                 <i
@@ -612,7 +603,7 @@
                                                     aria-labelledby="headlessui-menu-button-1"
                                                     id="headlessui-menu-items-117" role="menu">
                                                     <div class="py-1">
-                                                        <a href="{{route('rent.show',$rent[0]->id)}}" tabindex="0"
+                                                        <a href="{{ route('rent.show',$rent->id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="far fa-file mr-[10px] ml-[5px] py-1"></i>
@@ -626,7 +617,7 @@
                                                             <span class="px-4 py-0">Otpisi knjigu</span>
                                                         </a>
 
-                                                        <a href="{{route('return_index',$book->id);}}" tabindex="0"
+                                                        <a href="{{route('return_index',$rent->book_id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
@@ -638,6 +629,8 @@
                                         </td>
                                     </tr>
                                     @endforeach
+
+
 
                                 </tbody>
                             </table>

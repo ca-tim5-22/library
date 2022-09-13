@@ -34,6 +34,7 @@ use App\Http\Controllers\StudentController;
 use App\Models\Book;
 use App\Models\BookStatus;
 use App\Models\GlobalVariable;
+use App\Models\Reservation;
 use App\Models\User;
 use App\Models\Users;
 use App\Models\UserType;
@@ -140,7 +141,7 @@ $bindings=[ "Saddle stitch binding","PUR binding","Hardcover or case binding","S
  Users::create([
     "user_type_id"=>1,
     "first_and_last_name"=>"Admin",
-    "email"=>"adminn@gmail.com",
+    "email"=>"admin@gmail.com",
     "username"=>"Admin",
     "PIN"=>1231234,
     "password"=>Hash::make("admin"),
@@ -373,6 +374,10 @@ Route::get("returnbookindex/{book}",[RentController::class,"return_book_index"])
 Route::get("reservation/active/{book}",[ReservationController::class,"active_reservations"])->name("reservation.active");
 
 Route::get("reservation/archive/{book}",[ReservationController::class,"reservations_archive"])->name("reservation.archive");
+
+Route::get("reservations/active",[ReservationController::class,"active_reservation"])->name("active");
+
+Route::get("reservations/archive",[ReservationController::class,"reservation_archive"])->name("archive");
 
 /*-------------------------------------------------------------------------------------------*/
 
