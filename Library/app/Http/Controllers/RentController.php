@@ -22,7 +22,7 @@ class RentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($request)
+    public function index()
     {    
        
         $status1=BookStatus::where("name","=","U prekoracenju")->get()->first();

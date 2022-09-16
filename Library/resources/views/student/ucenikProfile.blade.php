@@ -105,7 +105,7 @@
                 <a href="{{route('student.show',$student->id);}}" class="inline active-book-nav">
                     Osnovni detalji
                 </a>
-                <a href="ucenikIzdate.php" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('student.rented',$student->id);}}" class="inline ml-[70px] hover:text-blue-800">
                     Evidencija iznajmljivanja
                 </a>
             </div>
