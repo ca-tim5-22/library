@@ -228,8 +228,7 @@ class StudentController extends Controller
         
                 @unlink( 'public/student_images/'.$old);
                 @unlink( 'public/student_images/crop/'.$old);
-        
-        
+                
                 $student->photo=$photonametostore;
                 $student->first_and_last_name=$request->first_and_last_name;
                 $student->email=$request->email;
@@ -264,6 +263,21 @@ class StudentController extends Controller
         $student->delete();
         @unlink( 'public/student_images/'.$student->photo);
         @unlink( 'public/student_images/crop/'.$student->photo);
+        return redirect("/student");
+    }
+
+    public function destroy_more($student_id)
+    {
+        
+        $student_id = explode("-",$student_id);
+        foreach($student_id as $student_id){
+             $student = Users::findOrFail($student_id);
+        $student->delete();
+        @unlink( 'public/student_images/'.$student->photo);
+        @unlink( 'public/student_images/crop/'.$student->photo);
+        }
+       
+
         return redirect("/student");
     }
 }

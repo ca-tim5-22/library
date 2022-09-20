@@ -45,8 +45,8 @@ class LibrarianController extends Controller
             $librarians = DB::table("users")->where("user_type_id","=",1)->orderBy("first_and_last_name","ASC")->paginate($currentpag,"*","page");
             
         }
-        
-        return view("the_librarian.bibliotekari",compact("librarians","url","currentpag"));
+        $last_login = Librarian::lastLogin();
+        return view("the_librarian.bibliotekari",compact("librarians","url","currentpag","last_login"));
     }
 
     public function sort(Request $request)
@@ -73,8 +73,8 @@ class LibrarianController extends Controller
             $librarians = DB::table("users")->where("user_type_id","=",1)->orderBy("first_and_last_name","DESC")->paginate($currentpag,"*","page");
             
         }
-        
-        return view("the_librarian.bibliotekari",compact("librarians","url","currentpag"));
+        $last_login = Librarian::lastLogin();
+        return view("the_librarian.bibliotekari",compact("librarians","url","currentpag","last_login"));
     }
 
     /**
@@ -175,6 +175,8 @@ class LibrarianController extends Controller
         $librarian = Users::findOrFail($librarian->id);
         $number_of_logins = DB::select(DB::raw("SELECT COUNT(id) as number_of_logins from user_logins WHERE user_id = $librarian->id"));
         $last_login = DB::select(DB::raw("SELECT time as last_login from user_logins WHERE user_id = $librarian->id ORDER BY user_logins.time DESC LIMIT 1"));
+
+        
         return view("the_librarian.bibliotekarProfile",compact("librarian","number_of_logins","last_login"));
     }
 
@@ -273,5 +275,19 @@ class LibrarianController extends Controller
         return redirect("/librarian");
     }
 
+    public function destroy_more($lib_id)
+    {
+        
+        $lib_id = explode("-",$lib_id);
+        foreach($lib_id as $lib_id){
+             $librarian = Users::findOrFail($lib_id);
+        $librarian->delete();
+        @unlink( 'public/librarian_images/'.$librarian->photo);
+        @unlink( 'public/librarian_images/crop/'.$librarian->photo);
+        }
+       
+
+        return redirect("/librarian");
+    }
     
 }

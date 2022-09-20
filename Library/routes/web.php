@@ -374,6 +374,9 @@ Route::get("reservation/active/{book}",[ReservationController::class,"active_res
 
 Route::get("reservation/archive/{book}",[ReservationController::class,"reservations_archive"])->name("reservation.archive");
 
+Route::get("rentsort",[RentController::class,"sort"])->name("rent.sort");
+Route::get("deletemore/{lib_id}",[LibrarianController::class,"destroy_more"])->name("deletemorelib");
+Route::get("deletemore/{student_id}",[StudentController::class,"destroy_more"])->name("deletemorestu");
 /*-------------------------------------------------------------------------------------------*/
 
 Route::get("bookspec",[BookController::class,"spec"])->name("book.spec");

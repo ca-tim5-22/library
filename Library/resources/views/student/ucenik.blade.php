@@ -22,7 +22,7 @@
     <!-- End Styles -->
 </head>
 
-<body class="overflow-hidden small:bg-gradient-to-r small:from-green-400 small:to-blue-500">
+<body onload="load();" class="overflow-hidden small:bg-gradient-to-r small:from-green-400 small:to-blue-500">
     <!-- Header -->
     @include('includes\layout\header')
     <!-- Header -->
@@ -65,10 +65,10 @@
                             <tr class="border-b-[1px] border-[#e4dfdf]">
                                 <th class="px-4 py-3 leading-4 tracking-wider text-left text-blue-500">
                                     <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
+                                        <input type="checkbox" id="all_checked" class="form-checkbox">
                                     </label>
                                 </th>
-                                <th class="px-4 py-4 leading-4 tracking-wider text-left">Ime i prezime
+                                <th id="default_checked" class="px-4 py-4 leading-4 tracking-wider text-left">Ime i prezime
                                  <a 
                                 @if (Route::current()->getName() == "student.index")
                                     href="{{route('student.sort');}}"
@@ -89,10 +89,59 @@
                                 </a>
                                 
                                 </th>
-                                <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Email</th>
-                                <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Tip korisnika</th>
-                                <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Zadnji pristup sistemu</th>
-                                <th class="px-4 py-4"> </th>
+                                <th id="default_checked" class=" px-4 py-4 text-sm leading-4 tracking-wider text-left">Email</th>
+                                <th id="default_checked" class=" px-4 py-4 text-sm leading-4 tracking-wider text-left">Tip korisnika</th>
+                                <th id="default_checked" class=" px-4 py-4 text-sm leading-4 tracking-wider text-left">Zadnji pristup sistemu
+                                </th>
+
+                                
+                                <th id="default_checked" class=" px-4 py-4"> </th>
+                              
+
+
+                               
+                                <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                    <form id="student_delete_all" action="" method="POST">
+                                        @csrf
+                                        @method("get")
+                                        <button style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" type="submit" name="submit">
+                                            Izbrišite sve korisnike
+                                        </button>
+
+
+                                    </form>
+                                </th>
+                                <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+
+
+                                <th style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                    <a id="student_show" href="">
+                                        Pogledaj detalje
+                                    </a>
+                                    
+                                </th>
+                                <th style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                    <a id="student_edit" href="">
+                                    Izmijeni učenika</a>
+                                </th>
+                                <th style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                    <form id="student_delete" method="POST" action="">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" type="submit" name="submit">
+                                            Izbrišite učenika
+                                        </button>
+                                        
+                                        </button>
+                                        </form>
+                                    
+                                
+                                </th>
+                                <th id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                <th id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
                             </tr>
                         </thead>
                         <tbody class="bg-white">
@@ -103,7 +152,7 @@
                               <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-4 whitespace-no-wrap">
                                     <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
+                                        <input type="checkbox" id="table_checkboxes" class="form-checkbox" data-student-id="{{$student->id}}">
                                     </label>
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-4">
@@ -242,7 +291,110 @@
         <!-- End Content -->
     </main>
     <!-- End Main content -->
+    <script>
 
+        const checkboxes = document.querySelectorAll("#table_checkboxes");
+        var if_checked = document.querySelectorAll("#if_checked");
+        var default_checked = document.querySelectorAll("#default_checked");
+        var if_one_checked =  document.querySelectorAll("#if_one_checked");
+        var all_checked = document.getElementById("all_checked");
+        
+       function load(){
+        const checkboxes = document.querySelectorAll("#table_checkboxes");
+        
+        var all_checked = document.getElementById("all_checked");
+        if(all_checked.checked == true){
+            all_checked.click();
+        }
+        checkboxes.forEach(e=>{
+            if(e.checked == true){
+                e.click();
+            }
+        })
+       }
+           
+       all_checked.addEventListener("change",()=>{
+    var nmb_of_checked = document.querySelectorAll("#table_checkboxes:checked").length
+    var is = document.getElementById("all_checked");
+   if(is.checked == true){
+    checkboxes.forEach(e => {
+        if(e.checked == false){
+            e.click();
+        }
+    })
+   }else{
+    checkboxes.forEach(e => {
+        if(e.checked == true){
+            e.click();
+        }
+    })
+   }
+    
+})   
+        checkboxes.forEach(e => {
+            e.addEventListener("change",()=>{
+                
+                var is = document.getElementById("all_checked");
+                var nmb_of_checked = document.querySelectorAll("#table_checkboxes:checked").length
+              
+                if(nmb_of_checked == 1){
+                  
+                    var  student_show = document.getElementById("student_show");
+                    var student_edit = document.getElementById("student_edit");
+                    var  student_delete = document.getElementById("student_delete");
+        
+                    var id = e.dataset.studentId;
+                    
+                   
+                    student_show.setAttribute("href","http://127.0.0.1:8000/student/"+id);
+                    student_edit.setAttribute("href","http://127.0.0.1:8000/student/"+id+"/edit");
+                    student_delete.setAttribute("action","http://127.0.0.1:8000/student/"+id);
+                    default_checked.forEach(l =>{
+                        l.classList.add("none");
+                    });
+                    if_checked.forEach(p =>{
+                        p.classList.add("none")
+                    })
+                    if_one_checked.forEach(o =>{
+                        o.classList.remove("none");
+                    })
+                }else if(nmb_of_checked > 1){
+                    var stu_delete_more = document.getElementById("student_delete_all");
+                    var checked = document.querySelectorAll("#table_checkboxes:checked");
+                    var ids="";
+                    checked.forEach(checked =>{
+                        ids += "-"+checked.dataset.studentId;
+                    })
+                    
+                    ids = ids.slice(1);
+                    stu_delete_more.setAttribute("action","http://127.0.0.1:8000/deletemore/"+ids)
+                    default_checked.forEach(l =>{
+                        l.classList.add("none");
+                    });
+                    if_one_checked.forEach(o =>{
+                        o.classList.add("none");
+                    })
+                    if_checked.forEach(p =>{
+                        p.classList.remove("none")
+                    })
+                }else if (nmb_of_checked == 0){
+                    default_checked.forEach(l =>{
+                        l.classList.remove("none");
+                    });
+                    if_one_checked.forEach(o =>{
+                        o.classList.add("none");
+                    })
+                    if_checked.forEach(p =>{
+                        p.classList.add("none")
+                    })
+                
+                }
+            })
+          
+        });
+        
+        
+                </script>
     <!-- Notification for small devices -->
     @include('includes\layout\inProgress')
 

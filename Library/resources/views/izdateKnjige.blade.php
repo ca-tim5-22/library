@@ -230,101 +230,7 @@
                                                                 Ucenik Ucenikovic
                                                             </p>
                                                         </li>
-                                                        <li class="flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200 dropdown-item-ucenik">
-                                                            <label class="flex items-center justify-start">
-                                                                <div
-                                                                    class="flex items-center justify-center flex-shrink-0 w-[16px] h-[16px] mr-2 bg-white border-2 border-gray-400 rounded focus-within:border-blue-500">
-                                                                    <input type="checkbox" class="absolute opacity-0">
-                                                                    <svg class="hidden w-4 h-4 text-green-500 pointer-events-none fill-current"
-                                                                        viewBox="0 0 20 20">
-                                                                        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-                                                                    </svg>
-                                                                </div>
-                                                            </label>
-                                                            <img width="40px" height="30px"
-                                                                class="ml-[15px] rounded-full"
-                                                                src="img/profileStudent.jpg">
-                                                            <p
-                                                                class="block p-2 text-black cursor-pointer group-hover:text-blue-600">
-                                                                Pero Perovic
-                                                            </p>
-                                                        </li>
-                                                        <li class="flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200 dropdown-item-ucenik">
-                                                            <label class="flex items-center justify-start">
-                                                                <div
-                                                                    class="flex items-center justify-center flex-shrink-0 w-[16px] h-[16px] mr-2 bg-white border-2 border-gray-400 rounded focus-within:border-blue-500">
-                                                                    <input type="checkbox" class="absolute opacity-0">
-                                                                    <svg class="hidden w-4 h-4 text-green-500 pointer-events-none fill-current"
-                                                                        viewBox="0 0 20 20">
-                                                                        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-                                                                    </svg>
-                                                                </div>
-                                                            </label>
-                                                            <img width="40px" height="30px"
-                                                                class="ml-[15px] rounded-full"
-                                                                src="img/profileStudent.jpg">
-                                                            <p
-                                                                class="block p-2 text-black cursor-pointer group-hover:text-blue-600">
-                                                                Marko Markovic
-                                                            </p>
-                                                        </li>
-                                                        <li class="flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200 dropdown-item-ucenik">
-                                                            <label class="flex items-center justify-start">
-                                                                <div
-                                                                    class="flex items-center justify-center flex-shrink-0 w-[16px] h-[16px] mr-2 bg-white border-2 border-gray-400 rounded focus-within:border-blue-500">
-                                                                    <input type="checkbox" class="absolute opacity-0">
-                                                                    <svg class="hidden w-4 h-4 text-green-500 pointer-events-none fill-current"
-                                                                        viewBox="0 0 20 20">
-                                                                        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-                                                                    </svg>
-                                                                </div>
-                                                            </label>
-                                                            <img width="40px" height="30px"
-                                                                class="ml-[15px] rounded-full"
-                                                                src="img/profileStudent.jpg">
-                                                            <p
-                                                                class="block p-2 text-black cursor-pointer group-hover:text-blue-600">
-                                                                Nikola Nikolic
-                                                            </p>
-                                                        </li>
-                                                        <li class="flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200 dropdown-item-ucenik">
-                                                            <label class="flex items-center justify-start">
-                                                                <div
-                                                                    class="flex items-center justify-center flex-shrink-0 w-[16px] h-[16px] mr-2 bg-white border-2 border-gray-400 rounded focus-within:border-blue-500">
-                                                                    <input type="checkbox" class="absolute opacity-0">
-                                                                    <svg class="hidden w-4 h-4 text-green-500 pointer-events-none fill-current"
-                                                                        viewBox="0 0 20 20">
-                                                                        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-                                                                    </svg>
-                                                                </div>
-                                                            </label>
-                                                            <img width="40px" height="30px"
-                                                                class="ml-[15px] rounded-full"
-                                                                src="img/profileStudent.jpg">
-                                                            <p
-                                                                class="block p-2 text-black cursor-pointer group-hover:text-blue-600">
-                                                                Zivko Zivkovic
-                                                            </p>
-                                                        </li>
-                                                        <li class="flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200 dropdown-item-ucenik">
-                                                            <label class="flex items-center justify-start">
-                                                                <div
-                                                                    class="flex items-center justify-center flex-shrink-0 w-[16px] h-[16px] mr-2 bg-white border-2 border-gray-400 rounded focus-within:border-blue-500">
-                                                                    <input type="checkbox" class="absolute opacity-0">
-                                                                    <svg class="hidden w-4 h-4 text-green-500 pointer-events-none fill-current"
-                                                                        viewBox="0 0 20 20">
-                                                                        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-                                                                    </svg>
-                                                                </div>
-                                                            </label>
-                                                            <img width="40px" height="30px"
-                                                                class="ml-[15px] rounded-full"
-                                                                src="img/profileStudent.jpg">
-                                                            <p
-                                                                class="block p-2 text-black cursor-pointer group-hover:text-blue-600">
-                                                                Petar Petrovic
-                                                            </p>
-                                                        </li>
+                                                        
                                                     </div>
                                                 </ul>
                                                 <div class="flex pt-[10px] text-white ">
@@ -441,101 +347,8 @@
                                                                 Bibliotekar Bulatovic
                                                             </p>
                                                         </li>
-                                                        <li class="flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200 dropdown-item-bibliotekar">
-                                                            <label class="flex items-center justify-start">
-                                                                <div
-                                                                    class="flex items-center justify-center flex-shrink-0 w-[16px] h-[16px] mr-2 bg-white border-2 border-gray-400 rounded focus-within:border-blue-500">
-                                                                    <input type="checkbox" class="absolute opacity-0">
-                                                                    <svg class="hidden w-4 h-4 text-green-500 pointer-events-none fill-current"
-                                                                        viewBox="0 0 20 20">
-                                                                        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-                                                                    </svg>
-                                                                </div>
-                                                            </label>
-                                                            <img width="40px" height="30px"
-                                                                class="ml-[15px] rounded-full"
-                                                                src="img/profileExample.jpg">
-                                                            <p
-                                                                class="block p-2 text-black cursor-pointer group-hover:text-blue-600">
-                                                                Pero Perovic
-                                                            </p>
-                                                        </li>
-                                                        <li class="flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200 dropdown-item-bibliotekar">
-                                                            <label class="flex items-center justify-start">
-                                                                <div
-                                                                    class="flex items-center justify-center flex-shrink-0 w-[16px] h-[16px] mr-2 bg-white border-2 border-gray-400 rounded focus-within:border-blue-500">
-                                                                    <input type="checkbox" class="absolute opacity-0">
-                                                                    <svg class="hidden w-4 h-4 text-green-500 pointer-events-none fill-current"
-                                                                        viewBox="0 0 20 20">
-                                                                        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-                                                                    </svg>
-                                                                </div>
-                                                            </label>
-                                                            <img width="40px" height="30px"
-                                                                class="ml-[15px] rounded-full"
-                                                                src="img/profileExample.jpg">
-                                                            <p
-                                                                class="block p-2 text-black cursor-pointer group-hover:text-blue-600">
-                                                                Marko Markovic
-                                                            </p>
-                                                        </li>
-                                                        <li class="flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200 dropdown-item-bibliotekar">
-                                                            <label class="flex items-center justify-start">
-                                                                <div
-                                                                    class="flex items-center justify-center flex-shrink-0 w-[16px] h-[16px] mr-2 bg-white border-2 border-gray-400 rounded focus-within:border-blue-500">
-                                                                    <input type="checkbox" class="absolute opacity-0">
-                                                                    <svg class="hidden w-4 h-4 text-green-500 pointer-events-none fill-current"
-                                                                        viewBox="0 0 20 20">
-                                                                        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-                                                                    </svg>
-                                                                </div>
-                                                            </label>
-                                                            <img width="40px" height="30px"
-                                                                class="ml-[15px] rounded-full"
-                                                                src="img/profileExample.jpg">
-                                                            <p
-                                                                class="block p-2 text-black cursor-pointer group-hover:text-blue-600">
-                                                                Nikola Nikolic
-                                                            </p>
-                                                        </li>
-                                                        <li class="flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200 dropdown-item-bibliotekar">
-                                                            <label class="flex items-center justify-start">
-                                                                <div
-                                                                    class="flex items-center justify-center flex-shrink-0 w-[16px] h-[16px] mr-2 bg-white border-2 border-gray-400 rounded focus-within:border-blue-500">
-                                                                    <input type="checkbox" class="absolute opacity-0">
-                                                                    <svg class="hidden w-4 h-4 text-green-500 pointer-events-none fill-current"
-                                                                        viewBox="0 0 20 20">
-                                                                        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-                                                                    </svg>
-                                                                </div>
-                                                            </label>
-                                                            <img width="40px" height="30px"
-                                                                class="ml-[15px] rounded-full"
-                                                                src="img/profileExample.jpg">
-                                                            <p
-                                                                class="block p-2 text-black cursor-pointer group-hover:text-blue-600">
-                                                                Zivko Zivkovic
-                                                            </p>
-                                                        </li>
-                                                        <li class="flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200 dropdown-item-bibliotekar">
-                                                            <label class="flex items-center justify-start">
-                                                                <div
-                                                                    class="flex items-center justify-center flex-shrink-0 w-[16px] h-[16px] mr-2 bg-white border-2 border-gray-400 rounded focus-within:border-blue-500">
-                                                                    <input type="checkbox" class="absolute opacity-0">
-                                                                    <svg class="hidden w-4 h-4 text-green-500 pointer-events-none fill-current"
-                                                                        viewBox="0 0 20 20">
-                                                                        <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-                                                                    </svg>
-                                                                </div>
-                                                            </label>
-                                                            <img width="40px" height="30px"
-                                                                class="ml-[15px] rounded-full"
-                                                                src="img/profileExample.jpg">
-                                                            <p
-                                                                class="block p-2 text-black cursor-pointer group-hover:text-blue-600">
-                                                                Petar Petrovic
-                                                            </p>
-                                                        </li>
+                                                        
+                                                        
                                                     </div>
                                                 </ul>
                                                 <div class="flex pt-[10px] text-white ">
@@ -642,66 +455,79 @@
                                 </tbody>
                             </table>
 
-                            <div class="flex flex-row items-center justify-end my-2">
-                                <div>
-                                    <p class="inline text-md">
-                                        Rows per page:
-                                    </p>
-                                    <select
+                            <div class="flex flex-row items-center justify-end my-3">
+                    
+                       
+                                
+                                <div> 
+                                @if (URL::current() == "http://127.0.0.1:8000/rent")
+                                     <form style="margin-right:20px;" id="formica" method="POST" action="{{route("rent.sort")}}">
+                                     @else
+                                    <form style="margin-right:20px;" id="formica" method="POST" action="{{route("rent.index")}}">
+                                @endif
+                               
+                                @csrf
+                                @method("GET")
+                                 <select onchange="this.form.submit()" id="selectica" form="formica" 
                                         class=" text-gray-700 bg-white rounded-md w-[46px] focus:outline-none focus:ring-primary-500 focus:border-primary-500 text-md"
-                                        name="ucenici">
-                                        <option value="">
-                                            20
-                                        </option>
-                                        <option value="">
-                                            Option1
-                                        </option>
-                                        <option value="">
-                                            Option2
-                                        </option>
-                                        <option value="">
-                                            Option3
-                                        </option>
-                                        <option value="">
-                                            Option4
-                                        </option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <nav class="relative z-0 inline-flex">
-                                        <div>
-                                            <a href="#"
-                                                class="relative inline-flex items-center px-4 py-2 -ml-px font-medium leading-5 transition duration-150 ease-in-out bg-white text-md focus:z-10 focus:outline-none">
-                                                1 of 1
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a href="#"
-                                                class="relative inline-flex items-center px-2 py-2 font-medium leading-5 text-gray-500 transition duration-150 ease-in-out bg-white text-md rounded-l-md hover:text-gray-400 focus:z-10 focus:outline-none"
-                                                aria-label="Previous"
-                                                v-on:click.prevent="changePage(pagination.current_page - 1)">
-                                                <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd"
-                                                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                        <div v-if="pagination.current_page < pagination.last_page">
-                                            <a href="#"
-                                                class="relative inline-flex items-center px-2 py-2 -ml-px font-medium leading-5 text-gray-500 transition duration-150 ease-in-out bg-white text-md rounded-r-md hover:text-gray-400 focus:z-10 focus:outline-none"
-                                                aria-label="Next">
-                                                <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd"
-                                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </nav>
-                                </div>
-                            </div>
+                                        name="paginate">
+        
+                                        @if (isset($currentpag))
+                                        @if ($currentpag == 2)
+                                        <option id="selecticaoption" value="2" disabled selected>2</option>
+                                        <option id="selecticaoption" value="4">4</option>
+                                        <option id="selecticaoption" value="6">6</option>
+                                        <option id="selecticaoption" value="8">8</option>
+                                        <option id="selecticaoption" value="10">10</option>
+                                        @endif
+                                        @if ($currentpag == 4)
+                                        <option id="selecticaoption" value="2" >2</option>
+                                        <option id="selecticaoption" value="4" disabled selected>4</option>
+                                        <option id="selecticaoption" value="6">6</option>
+                                        <option id="selecticaoption" value="8">8</option>
+                                        <option id="selecticaoption" value="10">10</option>
+                                        @endif
+        
+                                        @if ($currentpag == 6)
+                                            <option id="selecticaoption" value="2" >2</option>
+                                        <option id="selecticaoption" value="4">4</option>
+                                        <option id="selecticaoption" value="6"  disabled selected>6</option>
+                                        <option id="selecticaoption" value="8">8</option>
+                                        <option id="selecticaoption" value="10">10</option>
+                                        @endif
+        
+                                        @if ($currentpag == 8)
+                                            <option id="selecticaoption" value="2" >2</option>
+                                        <option id="selecticaoption" value="4">4</option>
+                                        <option id="selecticaoption" value="6" >6</option>
+                                        <option id="selecticaoption" value="8"  disabled selected>8</option>
+                                        <option id="selecticaoption" value="10">10</option>
+                                        @endif
+        
+                                        @if ($currentpag == 10)
+                                            <option id="selecticaoption" value="2" >2</option>
+                                        <option id="selecticaoption" value="4" >4</option>
+                                        <option id="selecticaoption" value="6">6</option>
+                                        <option id="selecticaoption" value="8">8</option>
+                                        <option id="selecticaoption" value="10" disabled selected>10</option>
+                                        @endif
+        
+                                            @else
+                                    
+                                        @endif
+                                      
+                                    </select> 
+                                    
+                                    </form>
+                                  
+         
+                            </div>  
+                                    {{-- <p class="inline text-md">
+                                    
+                                      {{ $rented_book_info->onEachSide($currentpag)->links("vendor\pagination.tailwind") }}
+                                    </p> --}}
+        
+                        </div>
 
                         </div>
                     </div>

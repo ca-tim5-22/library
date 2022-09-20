@@ -134,7 +134,12 @@
                         </div>
                         <div class="mt-[40px]">
                             <span class="text-gray-500">Poslednji put logovan/a</span>
+                            @if (isset($last_login[0]))
                             <p class="font-medium">{{$last_login[0]->last_login}}</p>
+                            @else
+                            <p class="font-medium">Nikad nije logovan</p>
+                            @endif
+                            
                         </div>
 
                     </div>

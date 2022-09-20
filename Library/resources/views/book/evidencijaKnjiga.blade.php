@@ -74,7 +74,7 @@
                                 <tr class="border-b-[1px] border-[#e4dfdf]">
                                     <th class="px-4 py-4 leading-4 tracking-wider text-left text-blue-500">
                                         <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox checkAll">
+                                            <input type="checkbox" id="all_checked" class="form-checkbox">
                                         </label>
                                     </th>
                                     <th class="flex items-center px-4 py-4 leading-4 tracking-wider text-left">
@@ -217,7 +217,7 @@
                                     <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                     <td class="px-4 py-4 whitespace-no-wrap">
                                         <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox checkOthers">
+                                            <input type="checkbox" id="table_checkboxes" class="form-checkbox">
                                         </label>
                                     </td>
                                     <td class="flex flex-row items-center px-4 py-4">
@@ -432,7 +432,7 @@
         <!-- End Content -->
     </main>
     <!-- End Main content -->
-
+    
     <!-- Notification for small devices -->
     @include('includes\layout\inProgress')
 

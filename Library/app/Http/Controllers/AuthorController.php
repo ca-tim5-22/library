@@ -151,4 +151,17 @@ class AuthorController extends Controller
         $a->delete();
         return redirect('/author');
     }
+    public function destroy_more($aut_id)
+    {
+        
+        $aut_id = explode("-",$aut_id);
+        foreach($aut_id as $aut_id){
+             $author = Author::findOrFail($aut_id);
+        $author->delete();
+        
+        }
+       
+
+        return redirect("/author");
+    }
 }

@@ -14,6 +14,8 @@ use App\Models\Users;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\URL;
 class RentController extends Controller
 {
 
@@ -22,7 +24,7 @@ class RentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {    
         
         $status=DB::table("book_statuses")->where("name","=","Izdato")->get();
@@ -30,19 +32,92 @@ class RentController extends Controller
         $rented=DB::table("rent_statuses")->where("book_status_id","=",$status[0]->id)->get();
 
         $rented_book_info = [];
-        foreach ($rented as $one_rent=>$value) {
        
-        $rented_book_info[] = DB::table("rents")->where("id","=",$value->renting_id)->get();
-        }
         
-        $rented_book_info = (object) $rented_book_info;
+       
         $books = Book::all();
         $users=Users::all();
 
+        $url= URL::previous();
+        if($request->paginate != null){
+            $librarians = DB::table("users")->where("user_type_id","=",1)->orderBy("users.first_and_last_name","ASC")->paginate($request->paginate,"*","page");
+            foreach ($rented as $one_rent=>$value) {
+       
+                $rented_book_info[] = DB::table("rents")->where("id","=",$value->renting_id)->paginate($request->paginate,"*","page");
+                }
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
 
-
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            foreach ($rented as $one_rent=>$value) {
+       
+                $rented_book_info[] = DB::table("rents")->where("id","=",$value->renting_id)->paginate($currentpag,"*","page");
+                }
+            
+            
+        }
+        $rented_book_info = (object) $rented_book_info;
         return view("izdateKnjige",compact("books","rented","rented_book_info","users"));
     }
+
+    public function sort(Request $request)
+    {    
+        
+        $status=DB::table("book_statuses")->where("name","=","Izdato")->get();
+        
+        $rented=DB::table("rent_statuses")->where("book_status_id","=",$status[0]->id)->get();
+
+        $rented_book_info = [];
+       
+        
+       
+        $books = Book::all();
+        $users=Users::all();
+
+        $url= URL::previous();
+        if($request->paginate != null){
+            
+            foreach ($rented as $one_rent=>$value) {
+       
+                $rented_book_info[] = DB::table("rents")->where("id","=",$value->renting_id)->paginate($request->paginate,"*","page");
+                }
+            
+            session(["currentpag"=>$request->paginate]);
+            $currentpag=$request->paginate;
+
+            
+          
+        }else{
+           
+            if(session("currentpag") != null){
+                $currentpag=session("currentpag");
+         
+                
+            }else{
+                $currentpag=2;
+            }
+            foreach ($rented as $one_rent=>$value) {
+       
+                $rented_book_info[] = DB::table("rents")->where("id","=",$value->renting_id)->paginate($currentpag,"*","page");
+                }
+            
+            
+        }
+        $rented_book_info = (object) $rented_book_info;
+        return view("izdateKnjige",compact("books","rented","rented_book_info","users"));
+    }
+
 
     public function returned_index()
     {    
