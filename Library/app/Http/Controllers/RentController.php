@@ -122,24 +122,18 @@ class RentController extends Controller
     public function returned_index()
     {    
         
-        $status=DB::table("book_statuses")->where("name","=","Vraceno")->get();
-        
-        $rented=DB::table("rent_statuses")->where("book_status_id","=",$status[0]->id)->get();
-
-        $returned_book_info = [];
-        foreach ($rented as $one_rent=>$value) {
-       
-        $returned_book_info[] = DB::table("rents")->where("id","=",$value->renting_id)->get();
-        }
-        
-        $returned_book_info = (object) $returned_book_info;
-        $books = Book::all();
-        $users=Users::all();
+        $status=BookStatus::where("name","=","Vraceno")->get()->first();    
+        $returned =$status->rent()->join('users as u1','u1.id','=','rents.user_who_rented_id')
+        ->join('users as u2','u2.id','=','rents.user_who_received_back_id')
+        ->join('books','books.id','=','rents.book_id')->join('galleries','galleries.book_id','=','rents.book_id')
+        ->select('rents.*', 'u1.first_and_last_name as student','u2.first_and_last_name as librarian','rent_statuses.updated_at','books.title','galleries.photo')->get();
 
 
-
-        return view("vraceneKnjige",compact("books","rented","returned_book_info","users"));
+        return view("vraceneKnjige",compact("returned"));
     }
+
+
+    
 
     /**
      * Show the form for creating a new resource.

@@ -7,7 +7,13 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\BookStatus;
+use App\Models\GlobalVariable;
+use App\Models\Rent;
+use App\Models\Reservation;
+use App\Models\StatusesOfReservations;
 use App\Models\User;
+use App\Models\UserLogin;
 use App\Models\Users;
 use App\Models\UserType;
 use Illuminate\Support\Facades\DB;
@@ -163,18 +169,23 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        
+        $number_of_logins="Nema loginova";
+      
         $student=Users::findOrFail($student->id);
-        $last_login = DB::select(DB::raw("SELECT * FROM `user_logins` ORDER BY `user_logins`.`time` DESC;"));
-        $last_login = $last_login[0]->time;
+
+        $last_login=UserLogin::where('user_id','=',$student->id)->orderBy('time','desc')->get()->first();
+       
+        if($last_login)
+        $last_login = $last_login->time;
+        else
+        $last_login="Nema loginova";
+
         $number_of_logins = DB::select(DB::raw("SELECT * FROM `user_logins` WHERE user_id = $student->id;"));
         $number_of_logins = count($number_of_logins);
 
-        if($number_of_logins == 0){
-            return view("student.ucenikProfile",compact("student"));
-        }else{
+      
             return view("student.ucenikProfile",compact("student","number_of_logins","last_login")); 
-        }
+        
         
     }
 
@@ -279,5 +290,97 @@ class StudentController extends Controller
        
 
         return redirect("/student");
+
+    }
+    public function rented($student)
+    {
+        $student=Users::findOrFail($student);
+
+        $status1=BookStatus::where("name","=","U prekoracenju")->get()->first();
+        $status2=BookStatus::where("name","=","Izdato")->get()->first();
+    
+
+        $rents =$student->userWhoRented()->join('rent_statuses', 'rent_statuses.renting_id', '=', 'rents.id')
+        ->join('users as u1','u1.id','=','rents.user_who_rented_id')
+        ->join('users as u2','u2.id','=','rents.user_who_rented_out_id')
+        ->join('books','books.id','=','rents.book_id')
+        ->join('galleries','galleries.book_id','=','rents.book_id')
+        ->select('rents.*', 'rent_statuses.book_status_id as status','u1.first_and_last_name as student','u2.first_and_last_name as librarian','books.title','galleries.photo')
+        ->whereIn('rent_statuses.book_status_id',[$status1->id,$status2->id])->get();
+      
+ 
+        return view('student.ucenikIzdate',compact('student','rents'));
+    }
+
+    public function overdue($student)
+    {
+        $student=Users::findOrFail($student);
+
+        $status=BookStatus::where("name","=","U prekoracenju")->get()->first();    
+
+        $overdues =$student->userWhoRented()
+        ->join('rent_statuses', 'rent_statuses.renting_id', '=', 'rents.id')
+        ->join('users','users.id','=','rents.user_who_rented_id')
+        ->join('books','books.id','=','rents.book_id')->join('galleries','galleries.book_id','=','rents.book_id')
+        ->select('rents.*', 'users.first_and_last_name as student','books.title','galleries.photo')
+        ->whereIn('rent_statuses.book_status_id',[$status->id])->get();
+    
+        return view('student.ucenikPrekoracenje',compact('student','overdues'));
+    }
+
+    public function returned($student)
+    {
+        $student=Users::findOrFail($student);
+          
+        $status=BookStatus::where("name","=","Vraceno")->get()->first();    
+        $returned =$student->userWhoRented()
+        ->join('rent_statuses', 'rent_statuses.renting_id', '=', 'rents.id')
+        ->join('users as u1','u1.id','=','rents.user_who_rented_id')
+        ->join('users as u2','u2.id','=','rents.user_who_received_back_id')
+        ->join('books','books.id','=','rents.book_id')->join('galleries','galleries.book_id','=','rents.book_id')
+        ->select('rents.*', 'u1.first_and_last_name as student','u2.first_and_last_name as librarian','rent_statuses.updated_at','books.title','galleries.photo')
+        ->whereIn('rent_statuses.book_status_id',[$status->id])->get();
+
+        return view('student.ucenikVracene',compact('student','returned'));
+    }
+
+    public function active($student)
+    {
+        $student=Users::findOrFail($student);
+
+        $status1=StatusesOfReservations::where("name","=","Rezervisano")->get()->first();
+        $status2=StatusesOfReservations::where("name","=","Odbijeno")->get()->first();
+        
+        $deadline=GlobalVariable::where('variable','=','Reservation_deadline')->get()->first()->value;
+           
+        $active =$student->forUser()->join('reservation_statuses', 'reservation_statuses.reservation_id', '=', 'reservations.id')
+        ->join('users','users.id','=','reservations.foruser_id')
+        ->join('books','books.id','=','reservations.book_id')
+        ->join('galleries','galleries.book_id','=','reservations.book_id')
+        ->select('reservations.*', 'reservation_statuses.reservation_status_id as status','users.photo as student_img','users.first_and_last_name as student','books.title','galleries.photo')
+        ->whereIn('reservation_statuses.reservation_status_id',[$status1->id,$status2->id])->get();
+
+        return view('student.ucenikAktivne',compact('student','active','deadline'));
+    }
+
+    public function archive($student)
+    {
+        $student=Users::findOrFail($student);
+
+        $status1=StatusesOfReservations::where("name","=","Rezervacija istekla")->get()->first();
+        $status2=StatusesOfReservations::where("name","=","Izdato")->get()->first();
+        $status3=StatusesOfReservations::where("name","=","Rezervacija otkazana")->get()->first();
+        
+        $deadline=GlobalVariable::where('variable','=','Reservation_deadline')->get()->first()->value;
+           
+        $archive =$student->forUser()->join('reservation_statuses', 'reservation_statuses.reservation_id', '=', 'reservations.id')
+        ->join('users','users.id','=','reservations.foruser_id')
+        ->join('books','books.id','=','reservations.book_id')
+        ->join('galleries','galleries.book_id','=','reservations.book_id')
+        ->select('reservations.*', 'reservation_statuses.reservation_status_id as status','users.photo as student_img','users.first_and_last_name as student','books.title','galleries.photo')
+        ->whereIn('reservation_statuses.reservation_status_id',[$status1->id,$status2->id,$status3->id])->get();
+
+
+        return view('student.ucenikArhivirane',compact('student','archive','deadline'));
     }
 }

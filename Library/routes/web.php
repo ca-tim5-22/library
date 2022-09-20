@@ -34,6 +34,8 @@ use App\Http\Controllers\StudentController;
 use App\Models\Book;
 use App\Models\BookStatus;
 use App\Models\GlobalVariable;
+use App\Models\Reservation;
+use App\Models\Student;
 use App\Models\User;
 use App\Models\Users;
 use App\Models\UserType;
@@ -140,7 +142,7 @@ $bindings=[ "Saddle stitch binding","PUR binding","Hardcover or case binding","S
  Users::create([
     "user_type_id"=>1,
     "first_and_last_name"=>"Admin",
-    "email"=>"adminn@gmail.com",
+    "email"=>"admin@gmail.com",
     "username"=>"Admin",
     "PIN"=>1231234,
     "password"=>Hash::make("admin"),
@@ -377,6 +379,22 @@ Route::get("reservation/archive/{book}",[ReservationController::class,"reservati
 Route::get("rentsort",[RentController::class,"sort"])->name("rent.sort");
 Route::get("deletemore/{lib_id}",[LibrarianController::class,"destroy_more"])->name("deletemorelib");
 Route::get("deletemore/{student_id}",[StudentController::class,"destroy_more"])->name("deletemorestu");
+Route::get("reservations/active",[ReservationController::class,"active_reservation"])->name("active");
+
+Route::get("reservations/archive",[ReservationController::class,"reservation_archive"])->name("archive");
+
+Route::get("student/rented/{student}",[StudentController::class,"rented"])->name("student.rented");
+
+Route::get("student/overdue/{student}",[StudentController::class,"overdue"])->name("student.overdue");
+
+Route::get("student/returned/{student}",[StudentController::class,"returned"])->name("student.returned");
+
+Route::get("student/archive/{student}",[StudentController::class,"archive"])->name("student.archive");
+
+Route::get("student/active/{student}",[StudentController::class,"active"])->name("student.active");
+
+
+
 /*-------------------------------------------------------------------------------------------*/
 
 Route::get("bookspec",[BookController::class,"spec"])->name("book.spec");

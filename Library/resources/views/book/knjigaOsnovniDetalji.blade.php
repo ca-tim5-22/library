@@ -115,7 +115,7 @@
                                         role="menuitem">
                                         <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
                                         <span class="px-4 py-0">Izbrisi knjigu</span>
-                                    </buttpn>
+                                    </button>
                                     </form>
                                 </div>
                             </div>
