@@ -212,7 +212,9 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white">
-                                <?php $prekoracenje=0;?>
+                                <?php $prekoracenje=0;
+                                $rentedd=0;
+                                $reserved=0;?>
                                 @foreach ($books as $book)
                                     <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                     <td class="px-4 py-4 whitespace-no-wrap">
@@ -257,15 +259,39 @@
                                         @endforeach
                                      @endforeach
 
+                                     @foreach($rented as $rent)
+                                     @if($book->id==$rent->book_id)
+                                     <?php $rentedd++; ?>
+                                     @endif
+                                     @endforeach
+
+                                     @foreach($reservations as $reservation)
+                                     @if($book->id==$reservation->book_id)
+                                     <?php $reserved++; ?>
+                                     @endif
+                                     @endforeach
+
 
                                     </td>
-                                    <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$book->total - $book->rented}}</td>
+                                    <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$book->total-($reserved+$rentedd)}}</td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
-                                            href="aktivneRezervacije.php">Rezervisano</td>
+                                        href="{{route('reservation.active',$book->id)}}" >
+
+                                    
+                                            {{$reserved}}
+                                        
+                                        
+                                        
+                                        </td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
-                                            href="{{route('rent.index');}}">{{$book->rented}}</td>
+                                            href="{{route('rent.rented',$book->id);}}">
+
+                                 
+                                            {{$rentedd}}
+                                            
+                                        </td>
                                     <td class="px-4 py-4 text-sm leading-5 text-blue-800 whitespace-no-wrap"><a
-                                            href="knjigePrekoracenje.php">
+                                            href="{{route('rent.overdue',$book->id)}}" >
 
                                            @foreach($preko as $prekoo)
                                         @if($book->id==$prekoo->book_id)

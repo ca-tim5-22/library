@@ -248,8 +248,10 @@ Route::get('dashboard',function(){
             BookStatus::create([
                 "name"=>"Otpisano"
             ]);
-        
-
+            BookStatus::create([
+                "name"=>"Vraceno sa prekoracenjem"
+            ]);
+    
 
 
     }
@@ -389,6 +391,8 @@ Route::get("student/returned/{student}",[StudentController::class,"returned"])->
 Route::get("student/archive/{student}",[StudentController::class,"archive"])->name("student.archive");
 
 Route::get("student/active/{student}",[StudentController::class,"active"])->name("student.active");
+
+Route::get("rent/reservation/{book}",[RentController::class,"rent_from_reservation"])->name("rent.reservation");
 
 
 

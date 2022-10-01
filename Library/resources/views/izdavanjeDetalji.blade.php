@@ -136,10 +136,41 @@
                             <div class="mr-[30px]">
                                 <div class="mt-[20px]">
                                     <span class="text-gray-500">Tip transakcije</span><br>
-                                    <p
-                                        class="inline-block bg-blue-200 text-blue-800 rounded-[10px] text-center px-[6px] py-[2px]">
-                                        Izdavanje knjiga
-                                    </p>
+                                    
+                                        @switch($rented->book_status_id)
+                                            @case(1)
+                                            <p class="inline-block bg-yellow-200 text-yellow-800 rounded-[10px] text-center px-[6px] py-[2px]">
+                                                Rezervacija
+                                            </p>
+                                            @break
+                                        @case(2)
+                                        <p class="inline-block bg-blue-200 text-blue-800 rounded-[10px] text-center px-[6px] py-[2px]">
+                                        Izdavanje
+                                        </p>
+                                        @break
+                                        @case(3)
+                                        <p class="inline-block bg-green-200 text-green-800 rounded-[10px] text-center px-[6px] py-[2px]">
+                                        Vraceno
+                                        </p>
+                                         @break
+                                         @case(4)
+                                         <p class="inline-block bg-red-200 text-red-800 rounded-[10px] text-center px-[6px] py-[2px]">
+                                        U prekoracenju
+                                         </p> 
+                                        @break
+                                         @case(5)
+                                         <p class="inline-block bg-red-200 text-red-800 rounded-[10px] text-center px-[6px] py-[2px]">
+                                        Otpisano
+                                         </p>
+                                         @break
+                                         @case(6)
+                                         <p class="inline-block bg-red-200 text-red-800 rounded-[10px] text-center px-[6px] py-[2px]">
+                                            Vraceno sa prekoracenjem
+                                             </p>
+                                         @break
+                                        
+                                        @endswitch
+                                    
                                 </div>
                                 <div class="mt-[40px]">
                                     <span class="text-gray-500">Datum akcije</span>
@@ -155,7 +186,7 @@
                                 <div class="mt-[40px]">
                                     <span class="text-gray-500">Prekoracenje</span>
                                     <p class="font-medium">
-                                        @if($rent->book_status_id != $overdue[0]->id)
+                                        @if($rented->book_status_id!=4)
                                         Nije u prekoracenju
                                         @else
                                         U prekoracenju

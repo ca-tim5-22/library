@@ -207,8 +207,8 @@
                                     </td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$returned->rent_date}}</td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$returned->return_date}}</td>
+                                 
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
-                                        <div>
                                             <?php
                                             foreach ($rented as $rent=>$value){
                                                 
@@ -220,19 +220,39 @@
                                             $a= strtotime($today) - strtotime($value->updated_at);
                                             
                                             $a= round($a / 86400);
-                                          
+                                        
+                                            if ($value->book_status_id == 3 ){
+                                                ?>
+                                                
+                                                
+                                                    <div>
+                                                       <span> <?php echo datum($a) ?> </span>
+                                                    </div>
                                             
-                                          
                                            
 
-
-                                           echo  "<span>".datum($a)."</span>";
-                                            }
+                                            <?php
+                                                }else{
+                                             ?>
                                             
-                                              }
-                                              ?>
-                                        </div>
-                                    </td>
+                                             <div
+                                                class="inline-block px-[6px] py-[2px] font-medium bg-red-200 rounded-[10px]">
+                                                <span class="text-xs text-red-800"><?php echo datum($a) ?></span>
+                                            </div>
+                                                
+                                                
+                                                <?php
+                                                }
+                                        }}
+                                            ?>
+                                          
+                                        </td>
+                                          
+                                        
+                                            
+                                            
+                                              
+                                   
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                         @foreach ($users as $user)
                                         @if($user->id==$returned->user_who_rented_out_id)

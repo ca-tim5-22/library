@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateBookRequest;
 use App\Models\Alphabet;
 use App\Models\Author;
 use App\Models\Binding;
+use App\Models\BookStatus;
 use App\Models\Category;
 use App\Models\Format;
 use App\Models\Genre;
@@ -22,6 +23,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Gallery;
 use App\Models\Language;
 use App\Models\Rent;
+use App\Models\RentStatus;
+use App\Models\Reservation;
 use App\Models\Users;
 use Carbon\Carbon;
 
@@ -65,7 +68,16 @@ class BookController extends Controller
         $authors = DB::select(DB::raw("SELECT * FROM authors;"));
         $categories = DB::select(DB::raw("SELECT * FROM categories;"));
 
-        
+        $reservations=Reservation::all();
+         $status1=BookStatus::where('name','=','Izdato')->get()->first();
+         $status2=BookStatus::where('name','=','U prekoracenju')->get()->first();
+        $rent=RentStatus::where('book_status_id','=',$status1->id)->orWhere('book_status_id','=',$status2->id)->get();
+        $rented=[];
+
+        foreach($rent as $rentt){
+            $rented[]=Rent::findOrFail($rentt->renting_id);
+        }
+
         $users=Users::all();
         $preko=[];
         $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get()->first();
@@ -75,7 +87,7 @@ class BookController extends Controller
             $preko[]=$prekoo;
         }
 
-        return view("book.evidencijaKnjiga",compact("books","currentpag","url","book_headline","categories_of_book","authors_of_book","authors","categories","preko"));
+        return view("book.evidencijaKnjiga",compact("books","reservations","rented","currentpag","url","book_headline","categories_of_book","authors_of_book","authors","categories","preko"));
      
         
     }

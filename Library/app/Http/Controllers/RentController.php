@@ -9,6 +9,8 @@ use App\Models\Book;
 use App\Models\BookStatus;
 use App\Models\GlobalVariable;
 use App\Models\RentStatus;
+use App\Models\Reservation;
+use App\Models\StatusesOfReservations;
 use App\Models\Student;
 use App\Models\Users;
 use Illuminate\Support\Facades\Auth;
@@ -47,11 +49,17 @@ class RentController extends Controller
     public function returned_index()
     {    
         
-        $status=BookStatus::where("name","=","Vraceno")->get()->first();    
-        $returned =$status->rent()->join('users as u1','u1.id','=','rents.user_who_rented_id')
+        $status1=BookStatus::where("name","=","Vraceno")->get()->first();    
+        
+        $status2=BookStatus::where("name","=","Vraceno sa prekoracenjem")->get()->first();    
+        
+        $returned =Rent::join('rent_statuses', 'rent_statuses.renting_id', '=', 'rents.id')
+        ->join('users as u1','u1.id','=','rents.user_who_rented_id')
         ->join('users as u2','u2.id','=','rents.user_who_received_back_id')
         ->join('books','books.id','=','rents.book_id')->join('galleries','galleries.book_id','=','rents.book_id')
-        ->select('rents.*', 'u1.first_and_last_name as student','u2.first_and_last_name as librarian','rent_statuses.updated_at','books.title','galleries.photo')->get();
+        ->select('rents.*', 'u1.first_and_last_name as student','u2.first_and_last_name as librarian','rent_statuses.updated_at','rent_statuses.book_status_id','books.title','galleries.photo')
+        ->whereIn('rent_statuses.book_status_id',[$status1->id,$status2->id])->get();
+    
 
 
         return view("vraceneKnjige",compact("returned"));
@@ -145,7 +153,7 @@ class RentController extends Controller
         $book=Book::findOrFail($rent->book_id);
         $id = $book->id;
         $overdue = DB::table('book_statuses')->where("name","=","U prekoracenju")->get();
-        $rented=DB::table("rent_statuses")->where("renting_id","=",$rent->id)->get();
+        $rented=DB::table("rent_statuses")->where("renting_id","=",$rent->id)->get()->first();
         $naslovna =DB::table("galleries")->where("book_id", "=",$id)->where("headline","=",1)->get();
 $librarian =Users::findOrFail($rent->user_who_rented_out_id);
 $student =Users::findOrFail($rent->user_who_rented_id);
@@ -160,7 +168,7 @@ $a= abs(round($a / 86400));
 
 
 
-        return view("izdavanjeDetalji",compact("rent","book","naslovna","librarian","student","newdate","overdue","a"));
+        return view("izdavanjeDetalji",compact("rent","rented","book","naslovna","librarian","student","newdate","overdue","a"));
     }
 
     /**
@@ -220,13 +228,14 @@ $a= abs(round($a / 86400));
     {
     $book=Book::findOrFail($book);
     $status=DB::table("book_statuses")->where("name","=","Vraceno")->get();
+
+    $status2=DB::table("book_statuses")->where("name","=","Vraceno sa prekoracenjem")->get()->first();
+
     $status_id = $status[0]->id;
-    $rented=DB::select(DB::raw("SELECT * FROM rent_statuses WHERE book_status_id = $status_id"));
+    $rented=DB::select(DB::raw("SELECT * FROM rent_statuses WHERE book_status_id = $status_id OR book_status_id = $status2->id"));
   
     $rented_book_info = [];
      foreach ($rented as $returned) {
-  
-       /*  $rented_book_info[] = DB::select(DB::raw("SELECT * FROM rents WHERE id = $value->renting_id AND book_id = $book->id;"));  */
 
        $one_returned=Rent::findOrFail($returned->renting_id);
         if($book->id==$one_returned->book_id)
@@ -238,6 +247,7 @@ $a= abs(round($a / 86400));
      $rent_count=$book->rent_count()+$overdue_count;
      
      $users=Users::all();
+ 
 
      return view("rent.IznajmljivanjeVracene",compact('rented','users','book',"rented_book_info","reservation_count","overdue_count","rent_count"));
     } 
@@ -358,10 +368,23 @@ return view("vratiKnjigu",compact("rent","book","naslovna","librarian","student"
 
     public function return_book($id) {
     $status=DB::table("book_statuses")->where("name","=","Vraceno")->get()->first();
+    $status2=DB::table("book_statuses")->where("name","=","U prekoracenju")->get()->first();
+    $status3=DB::table("book_statuses")->where("name","=","Vraceno sa prekoracenjem")->get()->first();
     $rent=Rent::findOrFail($id);
-    $rent_status=DB::table("rent_statuses")->where("renting_id","=",$rent->id)->get();
+    $rent_status=DB::table("rent_statuses")->where("renting_id","=",$rent->id)->get()->first();
+
+    if($rent_status->book_status_id==$status2->id){
+
+        DB::select(DB::raw("UPDATE rent_statuses SET book_status_id = $status3->id WHERE renting_id = $id"));
+    }
+    else{
+        DB::select(DB::raw("UPDATE rent_statuses SET book_status_id = $status->id WHERE renting_id = $id"));
+    }
+
+
+
     $user_id = Auth()->user()->id;
-    DB::select(DB::raw("UPDATE rent_statuses SET book_status_id = $status->id WHERE renting_id = $id"));
+  
     
     
     DB::select(DB::raw("UPDATE rents SET user_who_received_back_id = $user_id WHERE id = $id"));
@@ -408,5 +431,29 @@ return view("vratiKnjigu",compact("rent","book","naslovna","librarian","student"
         return view("vratiKnjigu",compact("book","students","rented","rented_book_info","preko"));
     }
 
+
+
+
+    public function rent_from_reservation($book)
+    {
+        $status=StatusesOfReservations::where('name','=','Izdato')->get()->first();
+        $reservation=Reservation::where('book_id','=',$book)->get()->first();
+        $reservation->status()->sync($status->id);
+          
+        $users=Users::all();
+        $deadline=GlobalVariable::where('variable','=','Returnment_deadline')->get()->first();
+        $book=Book::findOrFail($book);
+        $book_headline=DB::select(DB::raw("SELECT * from galleries;"));
+        $book_headline=(object) $book_headline;
+    
+
+   
+        $reservation_count=$book->reservation_count();
+        $overdue_count=$book->overdue_count();
+        $rent_count=$book->rent_count()+$overdue_count;
+    
+
+        return view("izdajKnjigu",compact('users','deadline','book',"book_headline","reservation_count","overdue_count","rent_count"));
+    }
 
 }
