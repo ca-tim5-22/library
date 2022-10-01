@@ -107,6 +107,23 @@ class LibrarianController extends Controller
         if($password === $password2){
             $widthofpre=$request->widthofpre;
             $heightofpre=$request->heightofpre;
+            $genders = DB::select(DB::raw("SELECT * from genders"));
+           
+            foreach($genders as $gender){
+               
+                if($gender->name == "Muski"){
+                    $m_id = $gender->id;
+                }else if($gender->name == "Zenski"){
+                    $f_id = $gender->id;
+                }
+               
+            }
+
+            if($request->gender == "m"){
+                $gender_id = $m_id;
+            }else if($request->gender == "f"){
+                $gender_id = $f_id;
+            }
             if ($request->hasFile('photo')) {
               
                 $photo=$request->file('photo');
@@ -123,10 +140,11 @@ class LibrarianController extends Controller
                 $img = Image::make($cropimage)->resize($widthofpre,$heightofpre)->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'))->save($cropimage);
 
                 $path = asset('storage/librarian_images/crop/'.$photonametostore);
-         
+              
             $user=Users::create([
                 "user_type_id"=>$user_type->id,
                     'first_and_last_name'=>$first_and_last_name,
+                    'gender_id'=>$gender_id,
                     'email'=>$request->email,
                     'username'=>$request->username,
                     'PIN'=>$request->PIN,
@@ -145,6 +163,7 @@ class LibrarianController extends Controller
             $user=Users::create([
                 "user_type_id"=>$user_type->id,
                 'first_and_last_name'=>$first_and_last_name,
+                'gender_id'=>$gender_id,
                 'email'=>$request->email,
                 'username'=>$request->username,
                 'PIN'=>$request->PIN,
@@ -185,10 +204,7 @@ class LibrarianController extends Controller
 
             $last_login=UserLogin::where('user_id','=',$librarian->id)->orderBy('time','desc')->get()->first();
 
-            if($last_login)
-            $last_login = $last_login->time;
-            else
-            $last_login="Nema loginova";
+            
 
             $number_of_logins = DB::select(DB::raw("SELECT * FROM `user_logins` WHERE user_id = $librarian->id;"));
             $number_of_logins = count($number_of_logins);

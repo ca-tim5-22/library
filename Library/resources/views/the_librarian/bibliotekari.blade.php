@@ -11,7 +11,7 @@
     <meta name="keywords" content="ict cortex, cortex, bild, bildstudio, highschool, students, coding" />
     <meta name="author" content="bildstudio" />
     <!-- End Meta -->
-
+    
     <!-- Title -->
     <title>Library - ICT Cortex student project</title>
     @include('includes\layout\icon')
@@ -57,7 +57,7 @@
                                     </svg>
                                 </button>
                             </span>
-                            <input type="search" name="q"
+                            <input type="text" name="search" id="filter"
                                 class="py-2 pl-10 text-sm text-white bg-white rounded-md focus:outline-none focus:bg-white focus:text-gray-900"
                                 placeholder="Search..." autocomplete="off">
                         </div>
@@ -160,23 +160,23 @@
                         
                         <tbody class="bg-white">
                             @foreach ($librarians as $librarian)
-                                <tr class="hover:bg-gray-200 hover:shadow-md border-[1px] border-[#e4dfdf]">
+                                <tr class="trazi hover:bg-gray-200 hover:shadow-md border-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-4 whitespace-no-wrap">
                                     <label class="inline-flex items-center">
                                         <input type="checkbox" class="form-checkbox" id="table_checkboxes" data-librarian-id="{{$librarian->id}}">
                                     </label>
                                 </td>
-                                <td class="flex flex-row items-center px-4 py-4">
+                                <td  class="flex flex-row items-center px-4 py-4">
                                     @if (empty($librarian->photo))
                                             <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg" alt=""/>
 
                                            @else <img class="object-cover w-8 h-8 mr-2 rounded-full" src="{{asset('storage/librarian_images/crop/'.$librarian->photo)}}" alt=""/>
                                         @endif
                                     <a href="{{route('librarian.show',$librarian->id)}}">
-                                        <span class="font-medium text-center">{{$librarian->first_and_last_name}}</span>
+                                        <span  class="font-medium text-center">{{$librarian->first_and_last_name}}</span>
                                     </a>
                                 </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$librarian->email}}
+                                <td  class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$librarian->email}}
                                 </td>
                                 <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Bibliotekar</td>
                                 <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
@@ -363,7 +363,7 @@ checkboxes.forEach(e => {
           
             var lib_show = document.getElementById("lib_show");
             var lib_edit = document.getElementById("lib_edit");
-            var lib_edit = document.getElementById("lib_delete");
+            var lib_delete = document.getElementById("lib_delete");
 
             var id = e.dataset.librarianId;
             

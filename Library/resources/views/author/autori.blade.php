@@ -61,7 +61,7 @@
                                     </svg>
                                 </button>
                             </span>
-                            <input type="search" name="q"
+                            <input type="text" name="search" id="filter"
                                 class="py-2 pl-10 text-sm text-white bg-white rounded-md focus:outline-none focus:bg-white focus:text-gray-900"
                                 placeholder="Search..." autocomplete="off">
                         </div>
@@ -152,7 +152,7 @@
                         </thead>
                         <tbody class="bg-white">
                             @foreach($authors as $a)
-                            <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
+                            <tr class="trazi hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-3 whitespace-no-wrap">
                                     <label class="inline-flex items-center">
                                         <input type="checkbox" id="table_checkboxes" class="form-checkbox" data-author-id="{{$a->id}}">

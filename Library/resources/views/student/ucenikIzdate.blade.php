@@ -274,43 +274,24 @@
                                         </td>
                                         <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$rent->librarian}} </td>
                                         <td class="px-6 py-3 text-sm leading-5 text-right whitespace-no-wrap">
-                                            <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsStudentProfileBookRecord hover:text-[#606FC7]">
+                                            <p class=" relative inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsStudentProfileBookRecord hover:text-[#606FC7]">
                                                 <i
                                                     class="fas fa-ellipsis-v"></i>
                                             </p>
-                                            <div
-                                                class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-student-profile-evidencija-knjige">
+                                            <div style="margin-left:90px"
+                                                class="absolute z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-student-profile-evidencija-knjige">
                                                 <div class="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                                     aria-labelledby="headlessui-menu-button-1"
                                                     id="headlessui-menu-items-117" role="menu">
                                                     <div class="py-1">
-                                                        <a href="{{route('book.show',$rent->book_id);}}" tabindex="0"
+                                                        <a href="{{route('rent.show',$rent->id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="far fa-file mr-[10px] ml-[5px] py-1"></i>
                                                             <span class="px-4 py-0">Pogledaj detalje</span>
                                                         </a>
 
-                                                        <a href="{{route('book.edit',$rent->book_id);}}" tabindex="0"
-                                                            class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                            role="menuitem">
-                                                            <i class="fas fa-edit mr-[6px] ml-[5px] py-1"></i>
-                                                            <span class="px-4 py-0">Izmijeni knjigu</span>
-                                                        </a>
-
-                                                        <a href="{{route('rent.new',$rent->book_id);}}" tabindex="0"
-                                                            class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                            role="menuitem">
-                                                            <i class="far fa-hand-scissors mr-[10px] ml-[5px] py-1"></i>
-                                                            <span class="px-4 py-0">Izdaj knjigu</span>
-                                                        </a>
-
-                                                        <a href="{{route('reservation.new',$rent->book_id);}}" tabindex="0"
-                                                            class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                            role="menuitem">
-                                                            <i class="far fa-calendar-check mr-[10px] ml-[5px] py-1"></i>
-                                                            <span class="px-4 py-0">Rezervisi knjigu</span>
-                                                        </a>
+                                                       
 
                                                         <a href="{{route('rent.returnbook',$rent->book_id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
@@ -326,16 +307,7 @@
                                                             <span class="px-4 py-0">Otpisi knjigu</span>
                                                         </a>
 
-                                                        <form action="{{route('book.destroy',$rent->book_id);}}" method="POST">
-                                                            @csrf
-                                                            @method("DELETE")
-                                                        <buttpn type="submit" name="submit" tabindex="0"
-                                                            class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                            role="menuitem">
-                                                            <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                                            <span class="px-4 py-0">Izbrisi knjigu</span>
-                                                        </button>
-                                                        </form>
+                                                       
                                                     </div>
                                                 </div>
                                             </div>
@@ -475,6 +447,8 @@
         $value = 0;
         if($a==0){
             $value ="Danas";
+        }else{
+            
         }
     
     if($a>7){

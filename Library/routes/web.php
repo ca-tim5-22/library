@@ -368,6 +368,10 @@ Route::get("abandon/{id}",[RentController::class,"abandon_book"])->name("rent.ab
 
 Route::get("returnbook/{book}",[RentController::class,"return_book"])->name("rent.returnbook");
 
+Route::get("abandonmore",[RentController::class,"abandon_more"])->name("rent.abandon_more");
+
+Route::get("returnmore",[RentController::class,"return_more"])->name("rent.return_more");
+
 Route::get("overdue",[RentStatusController::class,"overdue_index"])->name("overdue_index");
 
 Route::get("returnbookindex/{book}",[RentController::class,"return_book_index"])->name("return_index");

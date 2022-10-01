@@ -350,20 +350,26 @@ function validacijaBibliotekar() {
 
   $("#validateNameBibliotekar").empty();
   $("#validateJmbgBibliotekar").empty();
+  $("#validateGenderBibliotekar").empty();
   $("#validateEmailBibliotekar").empty();
   $("#validateUsernameBibliotekar").empty();
   $("#validatePwBibliotekar").empty();
   $("#validatePw2Bibliotekar").empty();
 
   let nameBibliotekar = $("#imePrezimeBibliotekar").val();
+  let genderBibliotekar = $("#polBibliotekar").val();
   let jmbgBibliotekar = $("#jmbgBibliotekar").val();
   let emailBibliotekar = $("#emailBibliotekar").val();
   let usernameBibliotekar = $("#usernameBibliotekar").val();
   let pwBibliotekar = $("#pwBibliotekar").val();
   let pw2Bibliotekar = $("#pw2Bibliotekar").val();
-
+  console.log(genderBibliotekar);
   if (nameBibliotekar.length == 0) {
     $('#validateNameBibliotekar').append('<p style="color:red;font-size:13px;">Morate unijeti ime i prezime!</p>');
+  }
+  
+  if (genderBibliotekar == "") {
+    $('#validateGenderBibliotekar').append('<p style="color:red;font-size:13px;">Morate izabrati pol!</p>');
   }
 
   if (jmbgBibliotekar.length == 0) {
@@ -386,9 +392,9 @@ function validacijaBibliotekar() {
     $('#validatePw2Bibliotekar').append('<p style="color:red;font-size:13px;">Morate ponoviti sifru!</p>');
   }
 
-  if(nameBibliotekar.length == 0 || jmbgBibliotekar.lenth == 0 || emailBibliotekar.length == 0 ||usernameBibliotekar.length == 0 || pwBibliotekar.length == 0 ||pw2Bibliotekar.length == 0){
+  if(nameBibliotekar.length == 0 || jmbgBibliotekar.lenth == 0 || emailBibliotekar.length == 0 ||usernameBibliotekar.length == 0 || pwBibliotekar.length == 0 || pw2Bibliotekar.length == 0 || genderBibliotekar == ""){
     return false;
-  }else if(nameBibliotekar.length > 0 && jmbgBibliotekar.lenth > 0 && emailBibliotekar.length > 0 && usernameBibliotekar.length > 0 && pwBibliotekar.length > 0 && pw2Bibliotekar.length > 0){
+  }else if(nameBibliotekar.length > 0 && jmbgBibliotekar.lenth > 0 && emailBibliotekar.length > 0 && usernameBibliotekar.length > 0 && pwBibliotekar.length > 0 && pw2Bibliotekar.length > 0 && genderBibliotekar != ""){
     return true;
   }
 
@@ -396,6 +402,9 @@ function validacijaBibliotekar() {
 
 function clearErrorsNameBibliotekar() {
   $("#validateNameBibliotekar").empty();
+}
+function clearErrorsGenderBibliotekar() {
+  $("#validateGenderBibliotekar").empty();
 }
 
 function clearErrorsJmbgBibliotekar() {
@@ -511,9 +520,10 @@ $("#sacuvajBibliotekaraEdit").click(function () {
 // Form validation for new student
 let falser=0;
 let truer=0;
-function validacijaUcenik(falser,truer) {
+function validacijaUcenik() {
 
   $("#validateNameUcenik").empty();
+  $("#validateGenderUcenik").empty();
   $("#validateJmbgUcenik").empty();
   $("#validateEmailUcenik").empty();
   $("#validateUsernameUcenik").empty();
@@ -521,6 +531,7 @@ function validacijaUcenik(falser,truer) {
   $("#validatePw2Ucenik").empty();
 
   let nameUcenik = $("#imePrezimeUcenik").val();
+  let genderUcenik = $("#polUcenik").val();
   let jmbgUcenik = $("#jmbgUcenik").val();
   let emailUcenik = $("#emailUcenik").val();
   let usernameUcenik = $("#usernameUcenik").val();
@@ -529,6 +540,11 @@ function validacijaUcenik(falser,truer) {
 
   if (nameUcenik.length == 0) {
     $('#validateNameUcenik').append('<p style="color:red;font-size:13px;">Morate unijeti ime i prezime!</p>');
+    
+  }
+
+  if (genderUcenik == "") {
+    $('#validateGenderUcenik').append('<p style="color:red;font-size:13px;">Morate izabrati pol!</p>');
     
   }
 
@@ -557,15 +573,18 @@ function validacijaUcenik(falser,truer) {
    
   }
   
-  if(nameUcenik.length == 0 || jmbgUcenik.lenth == 0 || emailUcenik.length == 0 ||usernameUcenik.length == 0 || pwUcenik.length == 0 ||pw2Ucenik.length == 0){
+  if(nameUcenik.length == 0 || jmbgUcenik.lenth == 0 || emailUcenik.length == 0 ||usernameUcenik.length == 0 || pwUcenik.length == 0 ||pw2Ucenik.length == 0 || genderUcenik == ""){
     return false;
-  }else if(nameUcenik.length > 0 && jmbgUcenik.lenth > 0 && emailUcenik.length > 0 && usernameUcenik.length > 0 && pwUcenik.length > 0 && pw2Ucenik.length > 0){
+  }else if(nameUcenik.length > 0 && jmbgUcenik.lenth > 0 && emailUcenik.length > 0 && usernameUcenik.length > 0 && pwUcenik.length > 0 && pw2Ucenik.length > 0 && genderUcenik != ""){
     return true;
   }
 }
 
 function clearErrorsNameUcenik() {
   $("#validateNameUcenik").empty();
+}
+function clearErrorsGenderUcenik() {
+  $("#validateGenderUcenik").empty();
 }
 
 function clearErrorsJmbgUcenik() {
@@ -1589,7 +1608,7 @@ function sortTableDate(row) {
 }
 
 $('#autoriMenu').on('click', function () {
-  $('.autoriMenu').toggle();
+  $('.autoriMenu').show();
 })
 
 $(document).on('mouseup', function (e) {
@@ -1602,7 +1621,7 @@ $(document).on('mouseup', function (e) {
 });
 
 $('#kategorijeMenu').on('click', function () {
-  $('.kategorijeMenu').toggle();
+  $('.kategorijeMenu').show();
 })
 
 $(document).on('mouseup', function (e) {

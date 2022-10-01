@@ -39,6 +39,7 @@
 
                     <span id="header_span"
                         class="absolute bg-[#EF4F4C] text-[11px] font-medium text-white right-[10px] top-[-10px] pl-[4px] pr-[5px] pt-[1px] text-center"><script>
+                            
                             var i = localStorage.getItem("br");
                             
                             

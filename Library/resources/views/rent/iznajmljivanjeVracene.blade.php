@@ -158,7 +158,7 @@
                             <i class="text-[20px] text-[#707070] group-hover:text-[#576cdf] far fa-calendar-check mr-[3px]"></i>
                             Aktivne rezervacije
                         </a>
-                        <a href=href="{{route('reservation.archive',$book);}}"
+                        <a href="{{route('reservation.archive',$book);}}"
                             class="inline py-[15px] rounded-[10px] group px-[20px] w-[268px] hover:text-[#576cdf] hover:bg-[#EFF3F6] ml-[20px] pr-[10px]">
                             <i class="text-[20px] text-[#707070] group-hover:text-[#576cdf] fas fa-calendar-alt  mr-[3px]"></i>
                             Arhivirane rezervacije
@@ -170,9 +170,7 @@
                             <thead class="bg-[#EFF3F6]">
                                 <tr class="border-b-[1px] border-[#e4dfdf]">
                                     <th class="px-4 py-4 leading-4 tracking-wider text-left text-blue-500">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox">
-                                        </label>
+                                        
                                     </th>
                                     <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Izdato uceniku</th>
                                     <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Datum izdavanja
@@ -194,9 +192,7 @@
                                
                                 <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                     <td class="px-4 py-3 whitespace-no-wrap">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox">
-                                        </label>
+                                       
                                     </td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                         @foreach ($users as $user)
@@ -221,11 +217,6 @@
                                             
                                             $a= round($a / 86400);
                                           
-                                            
-                                          
-                                           
-
-
                                            echo  "<span>".datum($a)."</span>";
                                             }
                                             
@@ -259,7 +250,7 @@
                                                         <span class="px-4 py-0">Pogledaj detalje</span>
                                                     </a>
 
-                                                    <a href="{{route('rent.new',$book->id);}}" tabindex="0"
+                                                    {{-- <a href="{{route('rent.new',$book->id);}}" tabindex="0"
                                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                         role="menuitem">
                                                         <i class="far fa-hand-scissors mr-[10px] ml-[5px] py-1"></i>
@@ -296,7 +287,7 @@
                                                         <i class="fa fa-trash mr-[10px] ml-[5px] py-1"></i>
                                                         <span class="px-4 py-0">Izbrisi knjigu</span>
                                                         </button>
-                                                        </form>
+                                                        </form> --}}
                                                 </div>
                                             </div>
                                         </div>

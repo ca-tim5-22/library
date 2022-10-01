@@ -109,7 +109,23 @@ class StudentController extends Controller
         $password=$request->password;
         $password2=$request->password2;
         if($password === $password2){
+            $genders = DB::select(DB::raw("SELECT * from genders"));
+           
+            foreach($genders as $gender){
+               
+                if($gender->name == "Muski"){
+                    $m_id = $gender->id;
+                }else if($gender->name == "Zenski"){
+                    $f_id = $gender->id;
+                }
+               
+            }
 
+            if($request->gender == "m"){
+                $gender_id = $m_id;
+            }else if($request->gender == "f"){
+                $gender_id = $f_id;
+            }
 
             if ($request->hasFile('photo')) {
                 $widthofpre=$request->widthofpre;
@@ -133,6 +149,7 @@ class StudentController extends Controller
             $user=Users::create([
                     "user_type_id"=>$user_type->id,
                     'first_and_last_name'=>$first_and_last_name,
+                    'gender_id'=>$gender_id,
                     'email'=>$request->email,
                     'username'=>$request->username,
                     'PIN'=>$request->PIN,
@@ -147,6 +164,7 @@ class StudentController extends Controller
             $user=Users::create([
                 "user_type_id"=>$user_type->id,
                 'first_and_last_name'=>$first_and_last_name,
+                'gender_id'=>$gender_id,
                 'email'=>$request->email,
                 'username'=>$request->username,
                 'PIN'=>$request->PIN,

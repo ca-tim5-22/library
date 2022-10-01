@@ -84,6 +84,15 @@
                                 <div id="validateNameBibliotekar"></div>
                             </div>
 
+                            <div class="mt-[20px]">
+                                <span>Pol <span class="text-red-500">*</span></span>
+                                <select name="gender" id="polBibliotekar" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsGenderBibliotekar()">
+                                <option value="">Izaberite pol</option>
+                                <option value="m">Muški</option>
+                                <option value="f">Ženski</option>
+                                </select>
+                                <div id="validateGenderBibliotekar"></div>
+                            </div>
 
                             <div class="mt-[20px]">
                                 <span>JMBG <span class="text-red-500">*</span></span>

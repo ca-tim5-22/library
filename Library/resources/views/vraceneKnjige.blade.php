@@ -46,7 +46,7 @@
                 <div class="flex items-center px-6 py-4 space-x-3 rounded-lg ml-[292px]">
                     <div class="flex items-center">
                         <div class="relative text-gray-600 focus-within:text-gray-400">
-                            <input type="search" name="q"
+                            <input type="text" name="search" id="filter"
                                 class="py-2 pl-2 text-sm text-white bg-white border-2 border-gray-200 rounded-md focus:outline-none focus:bg-white focus:text-gray-900"
                                 placeholder="Pretrazi knjige..." autocomplete="off">
                         </div>
@@ -169,11 +169,7 @@
                             <table class="overflow-hidden shadow-lg rounded-xl w-full border-[1px] border-[#e4dfdf]" id="myTable">
                                 <thead class="bg-[#EFF3F6]">
                                     <tr class="border-b-[1px] border-[#e4dfdf]">
-                                        <th class="px-4 py-4 leading-4 tracking-wider text-left text-blue-500">
-                                            <label class="inline-flex items-center">
-                                                <input type="checkbox" class="form-checkbox">
-                                            </label>
-                                        </th>
+                                       
                                         <th class="px-4 py-4 leading-4 tracking-wider text-left">
                                             Naziv knjige
                                             <a href="#"><i class="ml-2 fa-lg fas fa-long-arrow-alt-down"
@@ -575,12 +571,8 @@
                                     @foreach ($returned as $return)
                                         
                                     
-                                    <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
-                                        <td class="px-4 py-3 whitespace-no-wrap">
-                                            <label class="inline-flex items-center">
-                                                <input type="checkbox" class="form-checkbox">
-                                            </label>
-                                        </td>
+                                    <tr class="trazi hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
+                                        
                                         <td class="flex flex-row items-center px-4 py-3">
                                             <img class="object-cover w-8 mr-2 h-11" src="{{asset('storage/book_images/'.$return->photo);}}" alt="" />
                                             <a href="{{route('book.show',$return->book_id);}}"> 
@@ -621,13 +613,14 @@
                         
                                         </td>
                                         <td class="px-6 py-3 text-sm leading-5 text-right whitespace-no-wrap">
-                                            <p
+                                            <p   
                                                 class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsVraceneKnjige hover:text-[#606FC7]">
                                                 <i class="fas fa-ellipsis-v"></i>
+
                                             </p>
-                                            <div
-                                                class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 vracene-knjige">
-                                                <div class="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
+                                            <div 
+                                                class="relative z-20 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 vracene-knjige">
+                                                <div  class="absolute z-20 right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                                     aria-labelledby="headlessui-menu-button-1"
                                                     id="headlessui-menu-items-117" role="menu">
                                                     <div class="py-1">
@@ -638,45 +631,7 @@
                                                             <span class="px-4 py-0">Pogledaj detalje</span>
                                                         </a>
 
-                                                        <a href="{{ route('rent.new',$return->book_id);}}" tabindex="0"
-                                                            class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                            role="menuitem">
-                                                            <i class="far fa-hand-scissors mr-[10px] ml-[5px] py-1"></i>
-                                                            <span class="px-4 py-0">Izdaj knjigu</span>
-                                                        </a>
-
-                                                        <a href="{{ route('rent.returnbook',$return->book_id);}}" tabindex="0"
-                                                            class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                            role="menuitem">
-                                                            <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
-                                                            <span class="px-4 py-0">Vrati knjigu</span>
-                                                        </a>
-
-                                                        <a href="{{ route('reservation.new',$return->book_id);}}" tabindex="0"
-                                                            class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                            role="menuitem">
-                                                            <i
-                                                                class="far fa-calendar-check mr-[10px] ml-[5px] py-1"></i>
-                                                            <span class="px-4 py-0">Rezervisi knjigu</span>
-                                                        </a>
-
-                                                        <a href="otpisiKnjigu.php" tabindex="0"
-                                                            class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                            role="menuitem">
-                                                            <i class="fas fa-level-up-alt mr-[14px] ml-[5px] py-1"></i>
-                                                            <span class="px-4 py-0">Otpisi knjigu</span>
-                                                        </a>
-
-                                                        <form action="{{route('book.destroy',$return->book_id);}}" method="POST">
-                                                            @csrf
-                                                            @method("DELETE")
-                                                        <buttpn type="submit" name="submit" tabindex="0"
-                                                            class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                            role="menuitem">
-                                                            <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                                            <span class="px-4 py-0">Izbrisi knjigu</span>
-                                                        </button>
-                                                        </form>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -686,7 +641,7 @@
                                 </tbody>
                             </table>
 
-                            <div class="flex flex-row items-center justify-end my-2">
+                            <div style="margin: 2em 0 0 0 " class="  flex flex-row items-center justify-end my-2">
                                 <div>
                                     <p class="inline text-md">
                                         Rows per page:

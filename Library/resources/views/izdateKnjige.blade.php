@@ -46,7 +46,7 @@
                 <div class="flex items-center px-6 py-4 space-x-3 rounded-lg ml-[292px]">
                     <div class="flex items-center">
                         <div class="relative text-gray-600 focus-within:text-gray-400">
-                            <input type="search" name="q"
+                            <input type="text" name="search" id="filter"
                                 class="py-2 pl-2 text-sm text-white bg-white border-2 border-gray-200 rounded-md focus:outline-none focus:bg-white focus:text-gray-900"
                                 placeholder="Pretrazi knjige..." autocomplete="off">
                         </div>
@@ -177,7 +177,9 @@
                                 ?>
                             </pre>
 </div>  --}}
-                       
+<form id="r_a_form" action="" method="POST">
+    @csrf
+    @method("GET")
                             <table class="overflow-hidden shadow-lg rounded-xl w-full border-[1px] border-[#e4dfdf]" id="myTable">
                                 <thead class="bg-[#EFF3F6]">
                                    
@@ -185,17 +187,17 @@
                                     <tr class="border-b-[1px] border-[#e4dfdf]">
                                         <th class="px-4 py-4 leading-4 tracking-wider text-left text-blue-500">
                                             <label class="inline-flex items-center">
-                                                <input type="checkbox" class="form-checkbox">
+                                                <input type="checkbox" class="form-checkbox" id="all_checked">
                                             </label>
                                         </th>
-                                        <th class="px-4 py-4 leading-4 tracking-wider text-left">
+                                        <th id="default_checked" class="px-4 py-4 leading-4 tracking-wider text-left">
                                             Naziv knjige
                                             <a href="#"><i class="ml-2 fa-lg fas fa-long-arrow-alt-down"
                                                     onclick="sortTable()"></i>
                                             </a>
                                         </th>
                                         <!-- Izdato uceniku + dropdown filter for ucenik -->
-                                        <th
+                                        <th id="default_checked"
                                             class="relative px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer uceniciDrop-toggle">
                                             Izdato uceniku <i class="ml-2 fas fa-filter"></i>
                                             <div id="uceniciDropdown"
@@ -249,7 +251,7 @@
                                         </th>
 
                                         <!-- Datum izdavanja + dropdown filter for datum -->
-                                        <th
+                                        <th id="default_checked"
                                             class="relative px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer datumDrop-toggle">
                                             Datum izdavanja <i class="fas fa-filter"></i>
                                             <div id="datumDropdown"
@@ -281,7 +283,7 @@
                                         </th>
 
                                         <!-- Trenutno zadrzavanje + dropdown filter for zadrzavanje -->
-                                        <th
+                                        <th id="default_checked"
                                             class="relative px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer zadrzavanjeDrop-toggle">
                                             Trenutno zadrzavanje knjige <i class="fas fa-filter"></i>
                                             <div id="zadrzavanjeDropdown"
@@ -312,7 +314,7 @@
                                             </div>
                                         </th>
                                         <!-- Knjigu izdao + dropdown filter for bibliotekar -->
-                                        <th
+                                        <th id="default_checked"
                                             class="relative px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer bibliotekariDrop-toggle">
                                             Knjigu izdao <i class="fas fa-filter"></i>
                                             <div id="bibliotekariDropdown"
@@ -365,72 +367,141 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th class="px-4 py-4"> </th>
+                                        <th id="default_checked" class="px-4 py-4"> </th>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        <th id="if_checked" style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                            <button style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="return_more" type="submit" name="submit">
+                                            Vrati
+                                            </button>
+                                        </th>
+                                        <th id="if_checked" style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                        <button style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="abandon_more" type="submit" name="submit">    
+                                            Otpiši
+                                        </a>
+                                        </th>
+                                        <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                        <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                        <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                        <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                        
+                                        <th style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                            <a id="rent_show" href="">
+                                                Pogledaj detalje
+                                            </a>
+                                            
+                                        </th>
+                                        <th style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                            <a id="abandon" href="">
+                                            Otpisi knjigu</a>
+                                        </th>
+                                        <th style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                           
+                                                
+                                                <a id="return" style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" href="">
+                                                    Vrati knjigu
+                                                </a>
+                                                
+                                          
+                                            
+                                        
+                                        </th>
+                                        <th id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                        <th id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                        <th id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+
+
+
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white">
 
-                                    @foreach ($rents as $rent)
-                                    <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
+                                    @foreach ($rented_book_info as $rent)
+                                    <tr  class="trazi hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                         <td class="px-4 py-3 whitespace-no-wrap">
                                             <label class="inline-flex items-center">
-                                                <input type="checkbox" class="form-checkbox">
+                                                <input value="{{$rent[0]->renting_id}}" name="rent_id[]" type="checkbox" id="table_checkboxes" class="form-checkbox" data-rent-id="{{$rent[0]->renting_id}}">
                                             </label>
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
-                                            <img class="object-cover w-8 mr-2 h-11" src="{{asset('storage/book_images/'.$rent->photo);}}" alt="" />
+                                            {{-- <img class="object-cover w-8 mr-2 h-11" src="{{asset('storage/book_images/'.$rent[0]->photo);}}" alt="" /> --}}
                                             <a href="">
-                                             {{$rent->title}}
+                                             {{$rent[0]->title}}
                                             </a>
                                         </td>
-                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap"> {{$rent->student}}</td>
-                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$rent->rent_date}}</td>
+                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">@foreach ($users as $student)
+                                            @if($student->id == $rent[0]->user_who_rented_id)
+                                                {{$student->first_and_last_name}}
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$rent[0]->rent_date}}</td>
                                         <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                             <div> 
 
                                                 <?php
-                                                $today=date("Y-m-d");                                               
-                                                $a= strtotime($today) - strtotime($rent->rent_date);
+                                                $today=date("Y-m-d H:i:s");                                               
+                                                $a= strtotime($today) - strtotime($rent[0]->created_at);
+                                                $sec = $a;
                                                 $a= round($a / 86400);
                                                 ?>
+                                                
+                                                   
+                                                
 
-                                                @if($rent->status==2)
-                                                <span>{{datum($a);}}</span>
+                                                @if($rent[0]->book_status_id==2)
+                                                <span>{{datum($a,$sec);}}</span>
                                                 @else
                                                 <div class="inline-block px-[6px] py-[2px] font-medium bg-red-200 rounded-[10px]">
-                                                    <span class="text-xs text-red-800">{{datum($a);}}</span>
+                                                    <span class="text-xs text-red-800">{{datum($a,$sec);}}</span>
                                                 </div>
                                                 @endif
                                                
                                             </div>
                                         </td>
-                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$rent->librarian}} </td>
-                                        <td class="px-6 py-3 text-sm leading-5 text-right whitespace-no-wrap">
+                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">@foreach ($users as $librarian)
+                                            @if($librarian->id == $rent[0]->user_who_rented_out_id)
+                                                {{$librarian->first_and_last_name}}
+                                            @endif
+                                        @endforeach</td>
+                                        <td  class="px-6 py-3 text-sm leading-5 text-right whitespace-no-wrap">
                                             <p style="position: relative;" class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsIzdateKnjige hover:text-[#606FC7]">
-                                                <i
+                                                <i 
                                                     class="fas fa-ellipsis-v"></i>
-                                            </p>
-                                            <div style="position: absolute;margin-left:135px;"
-                                                class="hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 izdate-knjige">
-                                                <div style="position: absolute;" class=" right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
+                                                </p>
+                                            <div style="position:absolute;z-index: 9999;right:75px;"
+                                           
+                                               class="hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 izdate-knjige">
+                                                <div class=" right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                                     aria-labelledby="headlessui-menu-button-1"
                                                     id="headlessui-menu-items-117" role="menu">
-                                                    <div class="py-1">
-                                                        <a href="{{ route('rent.show',$rent->id);}}" tabindex="0"
+                                                    <div class="py-1" >
+                                                        <a href="{{ route('rent.show',$rent[0]->renting_id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="far fa-file mr-[10px] ml-[5px] py-1"></i>
                                                             <span class="px-4 py-0">Pogledaj detalje</span>
                                                         </a>
                                                         
-                                                        <a href="otpisiKnjigu.php" tabindex="0"
+                                                        <a href="{{route('rent.abandon',$rent[0]->renting_id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="fas fa-level-up-alt mr-[14px] ml-[5px] py-1"></i>
                                                             <span class="px-4 py-0">Otpisi knjigu</span>
                                                         </a>
 
-                                                        <a href="{{route('return_index',$rent->book_id);}}" tabindex="0"
+                                                        <a href="{{route('rent.returnbook',$rent[0]->renting_id);}}" tabindex="0"
                                                             class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                             role="menuitem">
                                                             <i class="fas fa-redo-alt mr-[10px] ml-[5px] py-1"></i>
@@ -439,6 +510,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                       
                                         </td>
                                     </tr>
                                     @endforeach
@@ -447,7 +519,7 @@
 
                                 </tbody>
                             </table>
-
+                        </form>
                             <div class="flex flex-row items-center justify-end my-3">
                     
                        
@@ -538,26 +610,148 @@
 
     <!-- Scripts -->
     @include('includes\layout\scripts')
-    <!-- End Scripts -->
+    <!-- End Scripts --><script>
+
+    const checkboxes = document.querySelectorAll("#table_checkboxes");
+    var if_checked = document.querySelectorAll("#if_checked");
+    var default_checked = document.querySelectorAll("#default_checked");
+    var if_one_checked =  document.querySelectorAll("#if_one_checked");
+    var all_checked = document.getElementById("all_checked");
+    
+    var i = 0;
+    function load(){
+            const checkboxes = document.querySelectorAll("#table_checkboxes");
+            
+            var all_checked = document.getElementById("all_checked");
+            if(all_checked.checked == true){
+                all_checked.click();
+            }
+            checkboxes.forEach(e=>{
+                if(e.checked == true){
+                    e.click();
+                }
+            })
+           }
+    all_checked.addEventListener("change",()=>{
+        var nmb_of_checked = document.querySelectorAll("#table_checkboxes:checked").length
+        var is = document.getElementById("all_checked");
+       if(is.checked == true){
+        checkboxes.forEach(e => {
+            if(e.checked == false){
+                e.click();
+            }
+        })
+       }else{
+        checkboxes.forEach(e => {
+            if(e.checked == true){
+                e.click();
+            }
+        })
+       }
+        
+    })
+    checkboxes.forEach(e => {
+        e.addEventListener("change",()=>{
+            
+            var is = document.getElementById("all_checked");
+            var nmb_of_checked = document.querySelectorAll("#table_checkboxes:checked").length
+          
+            if(nmb_of_checked == 1){
+              
+                var rent_show = document.getElementById("rent_show");
+                var rent_abandon = document.getElementById("abandon");
+                var rent_return = document.getElementById("return");
+                
+                var id = e.dataset.rentId;
+                
+               
+                rent_show.setAttribute("href","http://127.0.0.1:8000/rent/"+id);
+                rent_abandon.setAttribute("href","http://127.0.0.1:8000/abandon/"+id);
+                rent_return.setAttribute("href","http://127.0.0.1:8000/returnbook/"+id);
+
+                default_checked.forEach(l =>{
+                    l.classList.add("none");
+                });
+                if_checked.forEach(p =>{
+                    p.classList.add("none")
+                })
+                if_one_checked.forEach(o =>{
+                    o.classList.remove("none");
+                })
+            }else if(nmb_of_checked > 1){
+                var return_more = document.getElementById("return_more");
+                var abandon_more = document.getElementById("abandon_more");
+                var checked = document.querySelectorAll("#table_checkboxes:checked");
+                var r_a_form = document.getElementById("r_a_form")
+
+                return_more.addEventListener("click",()=>{
+                    r_a_form.setAttribute("action","http://127.0.0.1:8000/returnmore/");
+                })
+
+                abandon_more.addEventListener("click",()=>{
+                    r_a_form.setAttribute("action","http://127.0.0.1:8000/abandonmore/");
+                })
+                default_checked.forEach(l =>{
+                    l.classList.add("none");
+                });
+                if_one_checked.forEach(o =>{
+                    o.classList.add("none");
+                })
+                if_checked.forEach(p =>{
+                    p.classList.remove("none")
+                })
+            }else if (nmb_of_checked == 0){
+                default_checked.forEach(l =>{
+                    l.classList.remove("none");
+                });
+                if_one_checked.forEach(o =>{
+                    o.classList.add("none");
+                })
+                if_checked.forEach(p =>{
+                    p.classList.add("none")
+                })
+            
+            }
+        })
+      
+    });
+    
+    
+            </script>
                                        <?php
 
-    function datum($a){
+function datum($a,$sec){
         $value = 0;
-        if($a==0){
-            $value ="Danas";
+        $end = "";
+        if($a==0 && ($sec/60 <= 60)){
+            for($i=1;$i<=60;$i++){
+                if(round($sec/60) == $i){
+                    $value = "$i minuta";
+                }
+            }
+        }else {
+            if((round($sec/3600) == 2) || (round($sec/3600) == 3) || (round($sec/3600) == 4) || (round($sec/3600) == 22) || (round($sec/3600) == 23) || (round($sec/3600) == 24)){
+                $end=" sata";
+            }else{
+                $end = " sati";
+            }
+            for($i=1;$i<=24;$i++){
+                if(round($sec/3600) == $i){
+                    $value="$i".$end;
+                }
+            }
         }
     
     if($a>7){
         $dan = $a%7;
         $nedelja = ($a-$dan) / 7;
         $value = $nedelja." nedelja/e ".$dan." dan/a";
-    }else {
-        $dan = $a;
-        $value =$dan . " dan/a";
     }
        echo $value;
     }
     
+    
+    ?>
     
     ?>
 </body>
