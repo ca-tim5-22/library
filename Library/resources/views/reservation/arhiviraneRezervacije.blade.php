@@ -46,7 +46,7 @@
                 <div class="flex items-center px-6 py-4 space-x-3 rounded-lg ml-[292px]">
                     <div class="flex items-center">
                         <div class="relative text-gray-600 focus-within:text-gray-400">
-                            <input type="search" name="q"
+                            <input type="text" name="search" id="filter"
                                 class="py-2 pl-2 text-sm text-white bg-white border-2 border-gray-200 rounded-md focus:outline-none focus:bg-white focus:text-gray-900"
                                 placeholder="Pretrazi knjige..." autocomplete="off">
                         </div>
@@ -496,7 +496,7 @@
                                   
                                   
                                   @foreach($archive as $reservation)
-                                    <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
+                                    <tr class="trazi hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                         <td class="px-4 py-3 whitespace-no-wrap">
                                             <label class="inline-flex items-center">
                                                 <input type="checkbox" class="form-checkbox">

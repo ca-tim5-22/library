@@ -22,7 +22,7 @@
     <!-- End Styles -->
 </head>
 
-<body class="small:bg-gradient-to-r small:from-green-400 small:to-blue-500">
+<body onload="load();" class="small:bg-gradient-to-r small:from-green-400 small:to-blue-500">
     <!-- Header -->
     @include('includes\layout\header')
     <!-- Header -->
@@ -167,23 +167,66 @@
                         </a>
                     </div>
                     <!-- Space for content -->
+                    <form id="r_a_form" action="" method="POST">
+                        @csrf
+                        @method("GET")
+                   
                     <div class="w-full mt-[10px] ml-2 px-4">
                         <table class="overflow-hidden shadow-lg rounded-xl w-full border-[1px] border-[#e4dfdf]" id="myTable">
                             <thead class="bg-[#EFF3F6]">
                                 <tr class="border-b-[1px] border-[#e4dfdf]">
                                     <th class="px-4 py-4 leading-4 tracking-wider text-left text-blue-500">
                                         <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox">
+                                            <input id="all_checked" type="checkbox" class="form-checkbox">
                                         </label>
                                     </th>
-                                    <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Datum izdavanja
+                                    <th id="default_checked" class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Datum izdavanja
                                     </th>
-                                    <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Izdato uceniku</th>
-                                    <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Prekoracenje u
+                                    <th id="default_checked" class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Izdato uceniku</th>
+                                    <th id="default_checked" class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Prekoracenje u
                                         danima</th>
-                                    <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Trenutno
+                                    <th id="default_checked" class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Trenutno
                                         zadrzavanje knjige</th>
-                                    <th class="px-4 py-4"> </th>
+                                    <th id="default_checked" class="px-4 py-4"> </th>
+
+
+                                    <th id="if_checked" style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                        <button style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="return_more" type="submit" name="submit">
+                                        Vrati
+                                        </button>
+                                    </th>
+                                    <th id="if_checked" style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                    <button style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="abandon_more" type="submit" name="submit">    
+                                        Otpiši
+                                    </a>
+                                    </th>
+                                    <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                    <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                    <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+
+                                    <th style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                        <a id="rent_show" href="">
+                                            Pogledaj detalje
+                                        </a>
+                                        
+                                    </th>
+                                    <th style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                        <a id="abandon" href="">
+                                        Otpisi knjigu</a>
+                                    </th>
+                                    <th style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                       
+                                            
+                                            <a id="return" style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" href="">
+                                                Vrati knjigu
+                                            </a>
+                                            
+                                      
+                                        
+                                    
+                                    </th>
+                                    <th id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                    <th id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white">
@@ -193,7 +236,8 @@
                                 <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                     <td class="px-4 py-3 whitespace-no-wrap">
                                         <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox">
+                                            <input type="checkbox" id="table_checkboxes" class="form-checkbox" data-rent-id="{{$overdue->id}}"
+                                            name="rent_id[]" value="{{$overdue->id}}">
                                         </label>
                                     </td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$overdue->rent_date}}</td>
@@ -301,7 +345,7 @@
                                                     </a>
 
                                     
-
+{{-- 
                                                     <form method="POST" action="{{route('book.destroy',$book->id)}}">
                                                         @csrf
                                                         @method("DELETE")
@@ -311,7 +355,7 @@
                                                         <i class="fa fa-trash mr-[10px] ml-[5px] py-1"></i>
                                                         <span class="px-4 py-0">Izbrisi knjigu</span>
                                                         </button>
-                                                        </form>
+                                                        </form> --}}
 
 
                                                 </div>
@@ -322,7 +366,7 @@
                                @endforeach
                             </tbody>
                         </table>
-
+                    </form>
                         <div class="flex flex-row items-center justify-end my-2">
                             <div>
                                 <p class="inline text-md">
@@ -385,6 +429,8 @@
                         </div>
 
                     </div>
+
+
                 </div>
                 <div class="min-w-[20%] border-l-[1px] border-[#e4dfdf] ">
                     <div class="border-b-[1px] border-[#e4dfdf]">
@@ -552,6 +598,115 @@
     
     
     ?>
+
+<script>
+
+    const checkboxes = document.querySelectorAll("#table_checkboxes");
+    var if_checked = document.querySelectorAll("#if_checked");
+    var default_checked = document.querySelectorAll("#default_checked");
+    var if_one_checked =  document.querySelectorAll("#if_one_checked");
+    var all_checked = document.getElementById("all_checked");
+    
+    var i = 0;
+    function load(){
+            const checkboxes = document.querySelectorAll("#table_checkboxes");
+            
+            var all_checked = document.getElementById("all_checked");
+            if(all_checked.checked == true){
+                all_checked.click();
+            }
+            checkboxes.forEach(e=>{
+                if(e.checked == true){
+                    e.click();
+                }
+            })
+           }
+    all_checked.addEventListener("change",()=>{
+        var nmb_of_checked = document.querySelectorAll("#table_checkboxes:checked").length
+        var is = document.getElementById("all_checked");
+       if(is.checked == true){
+        checkboxes.forEach(e => {
+            if(e.checked == false){
+                e.click();
+            }
+        })
+       }else{
+        checkboxes.forEach(e => {
+            if(e.checked == true){
+                e.click();
+            }
+        })
+       }
+        
+    })
+    checkboxes.forEach(e => {
+        e.addEventListener("change",()=>{
+            
+            var is = document.getElementById("all_checked");
+            var nmb_of_checked = document.querySelectorAll("#table_checkboxes:checked").length
+          
+            if(nmb_of_checked == 1){
+              
+                var rent_show = document.getElementById("rent_show");
+                var rent_abandon = document.getElementById("abandon");
+                var rent_return = document.getElementById("return");
+                
+                var id = e.dataset.rentId;
+                
+               
+                rent_show.setAttribute("href","http://127.0.0.1:8000/rent/"+id);
+                rent_abandon.setAttribute("href","http://127.0.0.1:8000/abandon/"+id);
+                rent_return.setAttribute("href","http://127.0.0.1:8000/returnbook/"+id);
+
+                default_checked.forEach(l =>{
+                    l.classList.add("none");
+                });
+                if_checked.forEach(p =>{
+                    p.classList.add("none")
+                })
+                if_one_checked.forEach(o =>{
+                    o.classList.remove("none");
+                })
+            }else if(nmb_of_checked > 1){
+                var return_more = document.getElementById("return_more");
+                var abandon_more = document.getElementById("abandon_more");
+                var checked = document.querySelectorAll("#table_checkboxes:checked");
+                var r_a_form = document.getElementById("r_a_form")
+
+                return_more.addEventListener("click",()=>{
+                    r_a_form.setAttribute("action","http://127.0.0.1:8000/returnmore/");
+                })
+
+                abandon_more.addEventListener("click",()=>{
+                    r_a_form.setAttribute("action","http://127.0.0.1:8000/abandonmore/");
+                })
+                default_checked.forEach(l =>{
+                    l.classList.add("none");
+                });
+                if_one_checked.forEach(o =>{
+                    o.classList.add("none");
+                })
+                if_checked.forEach(p =>{
+                    p.classList.remove("none")
+                })
+            }else if (nmb_of_checked == 0){
+                default_checked.forEach(l =>{
+                    l.classList.remove("none");
+                });
+                if_one_checked.forEach(o =>{
+                    o.classList.add("none");
+                })
+                if_checked.forEach(p =>{
+                    p.classList.add("none")
+                })
+            
+            }
+        })
+      
+    });
+    
+    
+            </script>
 </body>
 
 </html>

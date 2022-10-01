@@ -43,7 +43,7 @@ class RentController extends Controller
             $librarians = DB::table("users")->where("user_type_id","=",1)->orderBy("users.first_and_last_name","ASC")->paginate($request->paginate,"*","page");
             foreach ($rented as $one_rent=>$value) {
        
-                $rented_book_info[] = DB::table("rents")->where("id","=",$value->renting_id)->paginate($request->paginate,"*","page");
+                $rented_book_info[] = DB::table("rents")->join("rent_statuses","rents.id","=","rent_statuses.renting_id")->join("books","rents.book_id","=","books.id")->where("rents.id","=",$value->renting_id)->paginate($request->paginate,"*","page");
                 }
             
             session(["currentpag"=>$request->paginate]);
@@ -62,12 +62,14 @@ class RentController extends Controller
             }
             foreach ($rented as $one_rent=>$value) {
        
-                $rented_book_info[] = DB::table("rents")->where("id","=",$value->renting_id)->paginate($currentpag,"*","page");
+                $rented_book_info[] = DB::table("rents")->join("rent_statuses","rents.id","=","rent_statuses.renting_id")->join("books","rents.book_id","=","books.id")->where("rents.id","=",$value->renting_id)->paginate($currentpag,"*","page");
                 }
             
             
         }
+        
         $rented_book_info = (object) $rented_book_info;
+      
         return view("izdateKnjige",compact("books","rented","rented_book_info","users"));
     }
 
@@ -90,7 +92,7 @@ class RentController extends Controller
             
             foreach ($rented as $one_rent=>$value) {
        
-                $rented_book_info[] = DB::table("rents")->where("id","=",$value->renting_id)->paginate($request->paginate,"*","page");
+                $rented_book_info[] = DB::table("rents")->join("rent_statuses","rents.id","=","rent_statuses.renting_id")->join("books","rents.book_id","=","books.id")->where("rents.id","=",$value->renting_id)->paginate($request->paginate,"*","page");
                 }
             
             session(["currentpag"=>$request->paginate]);
@@ -109,13 +111,17 @@ class RentController extends Controller
             }
             foreach ($rented as $one_rent=>$value) {
        
-                $rented_book_info[] = DB::table("rents")->where("id","=",$value->renting_id)->paginate($currentpag,"*","page");
+                $rented_book_info[] = DB::table("rents")->join("rent_statuses","rents.id","=","rent_statuses.renting_id")->join("books","rents.book_id","=","books.id")->where("rents.id","=",$value->renting_id)->paginate($currentpag,"*","page");
                 }
             
             
         }
         $rented_book_info = (object) $rented_book_info;
+
+      
+        
         return view("izdateKnjige",compact("books","rented","rented_book_info","users"));
+       
     }
 
 
@@ -224,18 +230,20 @@ class RentController extends Controller
         $naslovna =DB::table("galleries")->where("book_id", "=",$id)->where("headline","=",1)->get();
 $librarian =Users::findOrFail($rent->user_who_rented_out_id);
 $student =Users::findOrFail($rent->user_who_rented_id);
-$date= Carbon::parse($rent->rent_date);
-                                        
-$newdate=$date->format("d-m-Y");
-$today=date("d-m-Y");
 
-$a= strtotime($newdate) - strtotime($today);
+$date= Carbon::parse($rented[0]->created_at);
+                                        
+$newdate=$date->format("d-m-Y H:i:s");
+$today=date("d-m-Y H:i:s");
+
+$a= strtotime($today) - strtotime($newdate);
+$sec = $a;
 
 $a= abs(round($a / 86400));
 
 
 
-        return view("izdavanjeDetalji",compact("rent","book","naslovna","librarian","student","newdate","overdue","a"));
+        return view("izdavanjeDetalji",compact("rent","book","naslovna","librarian","student","newdate","overdue","a","sec"));
     }
 
     /**
@@ -296,7 +304,7 @@ $a= abs(round($a / 86400));
     $book=Book::findOrFail($book);
     $status=DB::table("book_statuses")->where("name","=","Vraceno")->get();
     $status_id = $status[0]->id;
-    $rented=DB::select(DB::raw("SELECT * FROM rent_statuses WHERE book_status_id = $status_id"));
+    $rented=DB::select(DB::raw("SELECT * FROM rent_statuses WHERE book_status_id = $status_id ORDER BY rent_statuses.updated_at DESC"));
   
     $rented_book_info = [];
      foreach ($rented as $returned) {
@@ -432,8 +440,10 @@ return view("vratiKnjigu",compact("rent","book","naslovna","librarian","student"
 
 
     public function return_book($id) {
+      
     $status=DB::table("book_statuses")->where("name","=","Vraceno")->get()->first();
-    $rent=Rent::findOrFail($id);
+  
+          $rent=Rent::findOrFail($id);
     $rent_status=DB::table("rent_statuses")->where("renting_id","=",$rent->id)->get();
     $user_id = Auth()->user()->id;
     DB::select(DB::raw("UPDATE rent_statuses SET book_status_id = $status->id WHERE renting_id = $id"));
@@ -441,6 +451,10 @@ return view("vratiKnjigu",compact("rent","book","naslovna","librarian","student"
     
     DB::select(DB::raw("UPDATE rents SET user_who_received_back_id = $user_id WHERE id = $id"));
     DB::select(DB::raw("UPDATE rent_statuses SET updated_at = now() WHERE renting_id = $id"));
+    
+    
+    
+   
     /* foreach($niz as $clan){
     $rent=Rent::findOrFail($clan);
     $rent->rent_status()->sync([$status->id]);
@@ -450,7 +464,47 @@ return view("vratiKnjigu",compact("rent","book","naslovna","librarian","student"
     return redirect('/rented/'.$rent->book_id);
     } 
 
+    public function return_more(Request $request){
+        
+        $status=DB::table("book_statuses")->where("name","=","Vraceno")->get()->first();
+        $ids = $request->rent_id;
+foreach($ids as $id){
+         $rent=Rent::findOrFail($id);
+    $rent_status=DB::table("rent_statuses")->where("renting_id","=",$rent->id)->get();
+    $user_id = Auth()->user()->id;
+    DB::select(DB::raw("UPDATE rent_statuses SET book_status_id = $status->id WHERE renting_id = $id"));
+    
+    
+    DB::select(DB::raw("UPDATE rents SET user_who_received_back_id = $user_id WHERE id = $id"));
+    DB::select(DB::raw("UPDATE rent_statuses SET updated_at = now() WHERE renting_id = $id"));
+    }
+    return redirect('/rented/'.$rent->book_id);
+} 
+public function abandon_more(Request $request) {
    
+    $status=DB::table("book_statuses")->where("name","=","Otpisano")->get()->first();
+    $ids = $request->rent_id;
+    foreach($ids as $id){
+    $rent=Rent::findOrFail($id);
+    $rent_status=DB::table("rent_statuses")->where("renting_id","=",$rent->id)->get();
+    $book = Book::findOrFail($rent->book_id);
+    $new_book_total = $book->total - 1;
+    DB::select(DB::raw("UPDATE rent_statuses SET book_status_id = $status->id WHERE renting_id = $id"));
+    DB::select(DB::raw("UPDATE books SET total = $new_book_total WHERE id = $book->id"));
+}
+
+    /* foreach($niz as $clan){
+    $rent=Rent::findOrFail($clan);
+    $rent->rent_status()->sync([$status->id]);
+} */
+    return redirect('/rented/'.$rent->book_id);
+
+
+}
+
+
+
+
     public function return_book_index($book){
         $book=Book::findOrFail($book);
         $status=DB::table("book_statuses")->where("name","=","Izdato")->get();
@@ -480,6 +534,7 @@ return view("vratiKnjigu",compact("rent","book","naslovna","librarian","student"
           $preko++;
         }
         $students=Users::all()->where("user_type_id","=",2);
+      
         return view("vratiKnjigu",compact("book","students","rented","rented_book_info","preko"));
     }
 

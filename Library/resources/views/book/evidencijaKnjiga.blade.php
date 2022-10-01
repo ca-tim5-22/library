@@ -58,7 +58,7 @@
                                     </svg>
                                 </button>
                             </span>
-                            <input type="search" name="q"
+                            <input type="text" name="search" id="filter"
                                 class="py-2 pl-10 text-sm text-white bg-white rounded-md focus:outline-none focus:bg-white focus:text-gray-900"
                                 placeholder="Search..." autocomplete="off">
                         </div>
@@ -104,26 +104,26 @@
                                         class=" px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer ">
                                         Autor<i class="ml-2 fas fa-filter"></i>
 
-                                        <div id="autoriDropdown" style="top:298px;"
+                                        <div id="autoriDropdown" style="top:298px;z-index:100;"
                                             class="autoriMenu hidden absolute rounded bg-white min-w-[310px] p-[10px] shadow-md top-[42px] pin-t pin-l border-2 border-gray-300">
                                             <ul class="border-b-2 border-gray-300 list-reset">
                                                 <li class="p-2 pb-[15px] border-b-[2px] relative border-gray-300">
-                                                    <input class="w-full h-10 px-2 border-2 rounded focus:outline-none"
+                                                    <input  class="w-full h-10 px-2 border-2 rounded focus:outline-none"
                                                         placeholder="Search"
-                                                        onkeyup="filterFunction('searchAutori', 'autoriDropdown')"
+                                                        
                                                         id="searchAutori"><br>
-                                                    <button
-                                                        class="absolute block text-xl text-center text-gray-400 transition-colors w-7 h-7 leading-0 top-[14px] right-4 focus:outline-none hover:text-gray-900">
-                                                        <i class="fas fa-search"></i>
-                                                    </button>
+                                                    
                                                 </li>
                                                 <div class="h-[200px] scroll font-normal">
                                                    
-                                                    <li class="flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200">
+                                                    @foreach ($authors as $auth)
+                                                        
+                                                   
+                                                    <li class="filter_trazi flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200">
                                                         <label class="flex items-center justify-start">
                                                             <div
                                                                 class="flex items-center justify-center flex-shrink-0 w-[16px] h-[16px] mr-2 bg-white border-2 border-gray-400 rounded focus-within:border-blue-500">
-                                                                <input type="checkbox" class="absolute opacity-0">
+                                                                <input id="autor" type="checkbox" class="absolute opacity-0 filter_name" value="{{$auth->first_and_last_name}}" >
                                                                 <svg class="hidden w-4 h-4 text-green-500 pointer-events-none fill-current"
                                                                     viewBox="0 0 20 20">
                                                                     <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
@@ -132,23 +132,14 @@
                                                         </label>
                                                         <p
                                                             class="block p-2 text-black cursor-pointer group-hover:text-blue-600">
-                                                            Autor Autorovic 6
+                                                            {{$auth->first_and_last_name}}
                                                         </p>
                                                     </li>
 
-
+                                                        @endforeach
                                                 </div>
                                             </ul>
-                                            <div class="flex pt-[10px] text-white ">
-                                                <a href="#"
-                                                    class="py-2 px-[20px] transition duration-300 ease-in hover:bg-[#46A149] bg-[#4CAF50] rounded-[5px]">
-                                                    Sacuvaj <i class="fas fa-check ml-[4px]"></i>
-                                                </a>
-                                                <a href="#"
-                                                    class="ml-[20px] py-2 px-[20px] transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
-                                                    Ponisti <i class="fas fa-times ml-[4px]"></i>
-                                                </a>
-                                            </div>
+                                            
                                         </div>
                                     </th>
 
@@ -160,20 +151,19 @@
                                                 <li class="p-2 pb-[15px] border-b-[2px] relative border-gray-300">
                                                     <input class="w-full h-10 px-2 border-2 rounded focus:outline-none"
                                                         placeholder="Search"
-                                                        onkeyup="filterFunction('searchKategorije', 'kategorijeDropdown')"
+                                                        onkeyup=""
                                                         id="searchKategorije"><br>
-                                                    <button
-                                                        class="absolute block text-xl text-center text-gray-400 transition-colors w-7 h-7 leading-0 top-[14px] right-4 focus:outline-none hover:text-gray-900">
-                                                        <i class="fas fa-search"></i>
-                                                    </button>
+                                                   
                                                 </li>
                                                 <div class="h-[200px] scroll font-normal">
+                                                    @foreach ($categories as $category)
+                                                        
                                                     
-                                                    <li class="flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200">
+                                                    <li class="filter_trazi flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200">
                                                         <label class="flex items-center justify-start">
                                                             <div
                                                                 class="flex items-center justify-center flex-shrink-0 w-[16px] h-[16px] mr-2 bg-white border-2 border-gray-400 rounded focus-within:border-blue-500">
-                                                                <input type="checkbox" class="absolute opacity-0">
+                                                                <input id="kategorija" type="checkbox" class="absolute opacity-0 filter_name" value="{{$category->name}}">
                                                                 <svg class="hidden w-4 h-4 text-green-500 pointer-events-none fill-current"
                                                                     viewBox="0 0 20 20">
                                                                     <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
@@ -182,23 +172,14 @@
                                                         </label>
                                                         <p
                                                             class="block p-2 text-black cursor-pointer group-hover:text-blue-600">
-                                                            Trileri
+                                                            {{$category->name}}
                                                         </p>
                                                     </li>
-
+@endforeach
                                                     
                                                 </div>
                                             </ul>
-                                            <div class="flex pt-[10px] text-white ">
-                                                <a href="#"
-                                                    class="py-2 px-[20px] transition duration-300 ease-in hover:bg-[#46A149] bg-[#4CAF50] rounded-[5px]">
-                                                    Sacuvaj <i class="fas fa-check ml-[4px]"></i>
-                                                </a>
-                                                <a href="#"
-                                                    class="ml-[20px] py-2 px-[20px] transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
-                                                    Ponisti <i class="fas fa-times ml-[4px]"></i>
-                                                </a>
-                                            </div>
+                                           
                                         </div>
                                     </th>
                                     <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Na raspolaganju
@@ -211,16 +192,16 @@
                                     <th class="px-4 py-4"> </th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white">
+                            <tbody id="grid-knjige" class="bg-white">
                                 <?php $prekoracenje=0;?>
                                 @foreach ($books as $book)
-                                    <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
+                                    <tr id="trazi" class="trazi hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                     <td class="px-4 py-4 whitespace-no-wrap">
                                         <label class="inline-flex items-center">
                                             <input type="checkbox" id="table_checkboxes" class="form-checkbox">
                                         </label>
                                     </td>
-                                    <td class="flex flex-row items-center px-4 py-4">
+                                    <td id="naslov" class="flex flex-row items-center px-4 py-4">
                                         @foreach ($book_headline as $photo)
                                         @if ($photo->book_id == $book->id && $photo->headline == 1)
                                         <img class="object-cover w-8 mr-2 h-11" src="{{asset('storage/book_images/'.$photo->photo);}}" alt="" />
@@ -232,16 +213,16 @@
                                             <span class="font-medium text-center">{{$book->title}}</span>
                                         </a>
                                     </td>
-                                    <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
+                                    <td id="aut" class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
                                     @foreach ($authors as $author)
                                        @foreach ($authors_of_book as $author_of_book)
                                            @if ($author->id == $author_of_book->author_id && $author_of_book->book_id == $book->id)
-                                               <p>{{$author->first_and_last_name}}</p>
+                                               <p class="autor_ime">{{$author->first_and_last_name}}</p>
                                            @endif
                                        @endforeach
                                     @endforeach
                                 </td>
-                                    <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
+                                    <td id="kat" class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
                                     
                                         @foreach ($categories as $category)
                                       
@@ -249,7 +230,7 @@
                                             @if ($category->id == $category_of_book->category_id && $category_of_book->book_id == $book->id )
                                                
                                                 
-                                                {{$category->name}}
+                                                <span  class="kategorija_ime">{{$category->name}}</span>
                                                 &nbsp;
                                             @endif
                                            

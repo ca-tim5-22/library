@@ -128,6 +128,9 @@
                     <h3>
                         Vrati knjigu
                     </h3>
+                    <form action="{{route('rent.returnbook',$book->id);}}" method="post">
+                        @csrf
+                        @method("GET")
                     <div class="relative text-gray-600 focus-within:text-gray-400">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                             <button type="submit" class="p-1 focus:outline-none focus:shadow-outline">
@@ -137,7 +140,7 @@
                                 </svg>
                             </button>
                         </span>
-                        <input type="search" name="q"
+                        <input type="text" name="search" id="filter"
                             class="py-2 pl-10 border-[#e4dfdf] text-sm text-white border-[1px] bg-white rounded-md focus:outline-none focus:bg-white focus:text-gray-900"
                             placeholder="Search..." autocomplete="off">
                     </div>
@@ -173,10 +176,10 @@
                         <tbody class="bg-white">
                             @foreach ($rented_book_info as $rent)
                                                          
-                                <tr class="border-b-[1px] border-[#e4dfdf]">
+                                <tr class="trazi border-b-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-4 whitespace-no-wrap">
                                     <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
+                                        <input name="rent_id[]" type="checkbox" class="form-checkbox" value="{{$rent->id}}">
                                     </label>
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-4">
@@ -267,7 +270,7 @@
                             class="btn-animation shadow-lg mr-[15px] w-[150px] focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
                             Ponisti <i class="fas fa-times ml-[4px]"></i>
                         </button>
-                        <button type="submit"
+                        <button type="submit" name="submit"
                             class="btn-animation disabled-btn shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]"
                             disabled>
                             Vrati knjigu <i class="fas fa-check ml-[4px]"></i>
@@ -275,6 +278,8 @@
                     </div>
                 </div>
             </div>
+
+        </form>
         </section>
         <!-- End Content -->
     </main>

@@ -4,6 +4,8 @@
 
 <script src="{{asset('my.js');}}" defer=""></script>
 
+<script src="{{asset('search.js');}}" defer></script>
+
 <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 
 <!-- File upload -->

@@ -47,7 +47,7 @@
                 <div class="flex items-center px-6 py-4 space-x-3 rounded-lg ml-[292px]">
                     <div class="flex items-center">
                         <div class="relative text-gray-600 focus-within:text-gray-400">
-                            <input type="search" name="q"
+                            <input type="text" name="search" id="filter"
                                 class="py-2 pl-2 text-sm text-white bg-white border-2 border-gray-200 rounded-md focus:outline-none focus:bg-white focus:text-gray-900"
                                 placeholder="Pretrazi knjige..." autocomplete="off">
                         </div>
@@ -171,16 +171,16 @@
                                     <tr class="border-b-[1px] border-[#e4dfdf]">
                                         <th class="px-4 py-4 leading-4 tracking-wider text-left text-blue-500">
                                             <label class="inline-flex items-center">
-                                                <input type="checkbox" class="form-checkbox">
+                                                <input id="all_checked" type="checkbox" class="form-checkbox">
                                             </label>
                                         </th>
-                                        <th class="flex items-center px-4 py-4 leading-4 tracking-wider text-left">Naziv
-                                            knjige<a href="#"><i class="ml-2 fa-lg fas fa-long-arrow-alt-down"
+                                        <th id="default_checked" class="flex items-center px-4 py-4 leading-4 tracking-wider text-left">Naziv
+                                            knjige<a href="#"><i  class="ml-2 fa-lg fas fa-long-arrow-alt-down"
                                                     onclick="sortTable()"></i></a>
                                         </th>
 
                                         <!-- Datum rezervacije + dropdown filter for date -->
-                                        <th
+                                        <th id="default_checked"
                                             class="relative px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer datumDrop-toggle">
                                             Datum rezervacije<i class="ml-2 fas fa-filter"></i>
                                             <div id="datumDropdown"
@@ -212,7 +212,7 @@
                                         </th>
 
                                         <!-- Rezervacija istice + dropdown filter for date -->
-                                        <th
+                                        <th id="default_checked"
                                             class="relative px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer zadrzavanjeDrop-toggle">
                                             Rezervacija
                                             istice<i class="ml-2 fas fa-filter"></i>
@@ -245,7 +245,7 @@
                                         </th>
 
                                         <!-- Rezervaciju podnio + dropdown filter for ucenik -->
-                                        <th
+                                        <th id="default_checked"
                                             class="relative px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer uceniciDrop-toggle">
                                             Rezervaciju
                                             podnio<i class="ml-2 fas fa-filter"></i>
@@ -394,7 +394,7 @@
                                         </th>
 
                                         <!-- Status + dropdown filter for status -->
-                                        <th
+                                        <th id="default_checked"
                                             class="relative px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer statusDrop-toggle">
                                             Status<i class="ml-2 fas fa-filter"></i>
                                             <div id="statusDropdown"
@@ -458,7 +458,38 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th class="px-4 py-4"> </th>
+                                        <th id="default_checked" class="px-4 py-4"> </th>
+                                        <th id="if_checked" style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                            <button style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="rent_more" type="submit" name="submit">
+                                            Izdaj 
+                                            </button>
+                                        </th>
+                                        <th id="if_checked" style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                        <button style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="decline_more" type="submit" name="submit">    
+                                            Otkaži rezervacije
+                                        </a>
+                                        </th>
+                                        <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                        <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                        <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                        <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                        
+                                        <th style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                            <a id="rent_out" href="">
+                                                Izdaj knjigu
+                                            </a>
+                                            
+                                        </th>
+                                        <th style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                            <a id="decline" href="">
+                                            Otkaži rezervaciju</a>
+                                        </th>
+                                        
+                                        <th id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                        <th id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                        <th id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                        <th id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white">
@@ -466,10 +497,10 @@
                                 
                                 @foreach ($active as $reservation)
                                 
-                                    <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
+                                    <tr class="trazi hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                         <td class="px-4 py-3 whitespace-no-wrap">
                                             <label class="inline-flex items-center">
-                                                <input type="checkbox" class="form-checkbox">
+                                                <input type="checkbox" class="form-checkbox" id="table_checkboxes">
                                             </label>
                                         </td>
                                         <td class="flex flex-row items-center px-4 py-3">
@@ -621,7 +652,114 @@
     <!-- Scripts -->
     @include('includes\layout\scripts')
     <!-- End Scripts -->
+    <script>
 
+        const checkboxes = document.querySelectorAll("#table_checkboxes");
+        var if_checked = document.querySelectorAll("#if_checked");
+        var default_checked = document.querySelectorAll("#default_checked");
+        var if_one_checked =  document.querySelectorAll("#if_one_checked");
+        var all_checked = document.getElementById("all_checked");
+        
+        var i = 0;
+        function load(){
+                const checkboxes = document.querySelectorAll("#table_checkboxes");
+                
+                var all_checked = document.getElementById("all_checked");
+                if(all_checked.checked == true){
+                    all_checked.click();
+                }
+                checkboxes.forEach(e=>{
+                    if(e.checked == true){
+                        e.click();
+                    }
+                })
+               }
+        all_checked.addEventListener("change",()=>{
+            var nmb_of_checked = document.querySelectorAll("#table_checkboxes:checked").length
+            var is = document.getElementById("all_checked");
+           if(is.checked == true){
+            checkboxes.forEach(e => {
+                if(e.checked == false){
+                    e.click();
+                }
+            })
+           }else{
+            checkboxes.forEach(e => {
+                if(e.checked == true){
+                    e.click();
+                }
+            })
+           }
+            
+        })
+        checkboxes.forEach(e => {
+            e.addEventListener("change",()=>{
+                
+                var is = document.getElementById("all_checked");
+                var nmb_of_checked = document.querySelectorAll("#table_checkboxes:checked").length
+              
+                if(nmb_of_checked == 1){
+                  
+                   
+                   
+                    default_checked.forEach(l =>{
+                        l.classList.add("none");
+                    });
+                    if_checked.forEach(p =>{
+                        p.classList.add("none")
+                    })
+                    if_one_checked.forEach(o =>{
+                        o.classList.remove("none");
+                    })
+                }else if(nmb_of_checked > 1){
+                  
+                    default_checked.forEach(l =>{
+                        l.classList.add("none");
+                    });
+                    if_one_checked.forEach(o =>{
+                        o.classList.add("none");
+                    })
+                    if_checked.forEach(p =>{
+                        p.classList.remove("none")
+                    })
+                }else if (nmb_of_checked == 0){
+                    default_checked.forEach(l =>{
+                        l.classList.remove("none");
+                    });
+                    if_one_checked.forEach(o =>{
+                        o.classList.add("none");
+                    })
+                    if_checked.forEach(p =>{
+                        p.classList.add("none")
+                    })
+                
+                }
+            })
+          
+        });
+         /* var rent_decline = document.getElementById("decline");
+                    var rent = document.getElementById("rent_out");
+                    
+                    var id = e.dataset.rentId;
+                    
+                   
+                   
+                    rent_decline.setAttribute("href","http://127.0.0.1:8000/povezi/"+id);
+                    rent_out.setAttribute("href","http://127.0.0.1:8000/povezi/"+id); */
+    
+         /*  var rent_more = document.getElementById("rent_more");
+                    var decline_more = document.getElementById("decline_more");
+                    var checked = document.querySelectorAll("#table_checkboxes:checked");
+                    var r_a_form = document.getElementById("r_a_form")
+    
+                    rent_more.addEventListener("click",()=>{
+                        r_a_form.setAttribute("action","http://127.0.0.1:8000/rentmore/");
+                    })
+    
+                    decline_more.addEventListener("click",()=>{
+                        r_a_form.setAttribute("action","http://127.0.0.1:8000/declinemore/");
+                    }) */
+                </script>
 </body>
 
 </html>

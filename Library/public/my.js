@@ -17,8 +17,13 @@ var currentDate = new Date()
 var day = currentDate.getDate()
 var month = currentDate.getMonth() + 1
 var year = currentDate.getFullYear()
-
-var trenutnidatum = month + "/" + day + "/" + year;
+var hour = currentDate.getHours();
+var minutes = currentDate.getMinutes();
+if(minutes < 10){
+    minutes="0"+minutes;
+}
+var secs = currentDate.getSeconds();
+var trenutnidatum = month + "/" + day + "/" + year + " " + hour +":"+minutes+":"+secs;
 if(url.includes("dashboardaktivnost")){
     localStorage.setItem("datum_pristupa",trenutnidatum);
     

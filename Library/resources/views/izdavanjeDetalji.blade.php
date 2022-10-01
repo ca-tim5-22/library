@@ -148,9 +148,8 @@
                                 
                                 <div class="mt-[40px]">
                                     <span class="text-gray-500">Trenutno zadrzavanje knjige</span>
-                                    <p id="trenutno_zad" class="font-medium"><input type="hidden" value="{{$a}}" id="broj_dana">
-                                        <script>
-                                          datum("{{$a}}");</script></p>
+                                    <p id="trenutno_zad" class="font-medium">
+                                        <span>{{datum($a,$sec);}}</span></p>
                                 </div>
                                 <div class="mt-[40px]">
                                     <span class="text-gray-500">Prekoracenje</span>
@@ -264,7 +263,7 @@
                     Ponisti <i class="fas fa-times ml-[4px]"></i>
                 </button>
                 <button type="submit"
-                    class="shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]"">
+                    class="shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]">
                     Potvrdi <i class="fas fa-check ml-[4px]"></i>
                 </button>
             </div>
@@ -278,31 +277,40 @@
     <!-- Scripts -->
     @include('includes\layout\scripts')
     <!-- End Scripts -->
-    <script>
-    const trenutno_zad = document.getElementById("trenutno_zad");
-    var br_dana = document.getElementById("broj_dana").value;
-    function datum(a){
-       
-      
-        let value = 0
-      if(a==0){
-      value = "Danas";}
-      
-      if(a>7){
-      let dan=a%7;
-      let nedelja=(a-dan)/7;
-      value = nedelja+" nedelja/e "+dan+" dan/a";
-      }
-      else{
-          let dan=a;
-          
-          value = dan + " dan/a";
+    <?php
+
+    function datum($a,$sec){
+        $value = 0;
+        $end = "";
+        if($a==0 && ($sec/60 <= 60)){
+            for($i=1;$i<=60;$i++){
+                if(round($sec/60) == $i){
+                    $value = "$i minuta";
+                }
+            }
+        }else {
+            if((round($sec/3600) == 2) || (round($sec/3600) == 3) || (round($sec/3600) == 4) || (round($sec/3600) == 22) || (round($sec/3600) == 23) || (round($sec/3600) == 24)){
+                $end=" sata";
+            }else{
+                $end = " sati";
+            }
+            for($i=1;$i<=24;$i++){
+                if(round($sec/3600) == $i){
+                    $value="$i".$end;
+                }
+            }
+        }
     
-      }
-      trenutno_zad.innerText=value;
-      
-      }
-    </script>
+    if($a>7){
+        $dan = $a%7;
+        $nedelja = ($a-$dan) / 7;
+        $value = $nedelja." nedelja/e ".$dan." dan/a";
+    }
+       echo $value;
+    }
+    
+    
+    ?>
 </body>
 
 </html>
