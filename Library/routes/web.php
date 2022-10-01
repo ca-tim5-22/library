@@ -392,7 +392,7 @@ Route::get("student/archive/{student}",[StudentController::class,"archive"])->na
 
 Route::get("student/active/{student}",[StudentController::class,"active"])->name("student.active");
 
-Route::get("rent/reservation/{book}",[RentController::class,"rent_from_reservation"])->name("rent.reservation");
+Route::get("rent/reservation/{reservation}",[RentController::class,"rent_from_reservation"])->name("rent.reservation");
 
 
 

@@ -40,7 +40,11 @@
                 <div class="flex flex-row justify-between border-b-[1px] border-[#e4dfdf]">
                     <div class="py-[10px] flex flex-row">
                         <div class="w-[77px] pl-[30px]">
+                            @if ($photo)
+                            <img style="width:77px; height:100%" src="{{asset('storage/book_images/'.$photo);}}" alt="">
+                            @else
                             <img src="img/tomsojer.jpg" alt="">
+                            @endif
                         </div>
                         <div class="pl-[15px]  flex flex-col">
                             <div>
@@ -194,7 +198,14 @@
                                         </label>
                                     </td>
                                     <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$one_active->date_of_reservation}}</td>
-                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">X</td>
+                                    <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
+
+                                        <?php
+                                        $date=date('Y-m-d', strtotime($one_active->date_of_reservation. ' + '.$deadline.' day'));
+                                        echo $date;
+                                        ?>
+
+                                    </td>
 
                                  
                                     <td class="flex flex-row items-center px-4 py-3">
@@ -356,97 +367,61 @@
                             </div>
                         </div>
                     </div>
+                    <?php $i=0?>
                     <div class="mt-[40px] mx-[30px]">
-                        <div class="flex flex-col max-w-[304px]">
-                            <div class="text-gray-500 ">
-                                <p class="inline uppercase">
-                                    Izdavanja knjige
-                                </p>
-                                <span>
-                                    - 4 days ago
-                                </span>
-                            </div>
-                            <div>
-                       {{--           <p>
-                                    <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
-                                        Valentina K.
-                                    </a>
-                                    je izdala knjigu
-                                    <a href="" class="text-[#2196f3] hover:text-blue-600">
-                                        Peru Perovicu
-                                    </a>
-                                    dana
-                                    <span class="font-medium">
-                                        21.02.2021.
-                                    </span>
-                                </p>  --}}
-                            </div>
-                            <div>
-                                <a href="izdavanjeDetalji.php" class="text-[#2196f3] hover:text-blue-600">
-                                    pogledaj detaljnije >>
-                                </a>
-                            </div>
-                        </div>
+                        @foreach($notifications as $notification)
+                        <?php $i++ ?>
                         <div class="mt-[40px] flex flex-col max-w-[304px]">
                             <div class="text-gray-500 ">
                                 <p class="inline uppercase">
                                     Izdavanja knjige
                                 </p>
-                                <span>
-                                    - 4 days ago
+                                <span> prije
+                                    <?php 
+                                    $date = date_create($notification->created_at);
+
+
+                                    $newdate=date_format($date,"d-m-Y H:i:s");
+                                     $today=date("d-m-Y H:i:s");
+                                     
+                                    $a= strtotime($today) - strtotime($newdate);
+                                    $sec = $a;
+                                   $a= abs(round($a / 86400));
+                                   
+                                   echo datumm($a,$sec);
+                                      ?>
                                 </span>
                             </div>
                             <div>
-                    {{--              <p>
-                                    <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
-                                        Valentina K.
+                                <p>
+                                    <a href="{{route('librarian.show',$notification->librarian_id);}}" class="text-[#2196f3] hover:text-blue-600">
+                                        {{$notification->librarian}}
                                     </a>
+
+                                    @if($notification->gender==1)
+                                    je izdao knjigu
+                                    @else
                                     je izdala knjigu
-                                    <a href="" class="text-[#2196f3] hover:text-blue-600">
-                                        Peru Perovicu
+                                    @endif
+                                    <a href="{{route('student.show',$notification->student_id);}}" class="text-[#2196f3] hover:text-blue-600">
+                                        {{$notification->student}}
                                     </a>
                                     dana
                                     <span class="font-medium">
-                                        21.02.2021.
+                                       {{$notification->rent_date}}
                                     </span>
-                                </p>  --}}
-                            </div>
-                            <div>
-                                <a href="izdavanjeDetalji.php" class="text-[#2196f3] hover:text-blue-600">
-                                    pogledaj detaljnije >>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="mt-[40px] flex flex-col max-w-[304px]">
-                            <div class="text-gray-500 ">
-                                <p class="inline uppercase">
-                                    Izdavanja knjige
                                 </p>
-                                <span>
-                                    - 4 days ago
-                                </span>
                             </div>
                             <div>
-                   {{--               <p>
-                                    <a href="{{route('librarian.show',$librarian->id);}}" class="text-[#2196f3] hover:text-blue-600">
-                                        Valentina K.
-                                    </a>
-                                    je izdala knjigu
-                                    <a href="" class="text-[#2196f3] hover:text-blue-600">
-                                        Peru Perovicu
-                                    </a>
-                                    dana
-                                    <span class="font-medium">
-                                        21.02.2021.
-                                    </span>
-                                </p>  --}}
-                            </div>
-                            <div>
-                                <a href="izdavanjeDetalji.php" class="text-[#2196f3] hover:text-blue-600">
+                                <a href="{{route('rent.show',$notification->id);}}" class="text-[#2196f3] hover:text-blue-600">
                                     pogledaj detaljnije >>
                                 </a>
                             </div>
                         </div>
+                        @if($i>=3)
+                        @break
+                        @endif
+                        @endforeach
                         <div class="mt-[40px]">
                             <a href="dashboardAktivnost.php?knjiga=Tom Sojer" class="text-[#2196f3] hover:text-blue-600">
                                 <i class="fas fa-history"></i> Prikazi sve
@@ -459,7 +434,40 @@
         <!-- End Content -->
     </main>
     <!-- End Main content -->
+    <?php
 
+    function datumm($a,$sec){
+        $value = 0;
+        $end = "";
+        if($a==0 && ($sec/60 <= 60)){
+            for($i=1;$i<=60;$i++){
+                if(round($sec/60) == $i){
+                    $value = "$i minuta";
+                }
+            }
+        }else {
+            if((round($sec/3600) == 2)||(round($sec/3600) == 3)||(round($sec/3600) == 4)||(round($sec/3600) == 22)||(round($sec/3600) == 23) || (round($sec/3600) == 24)){
+                $end=" sata";
+            }else{
+                $end = " sati";
+            }
+            for($i=1;$i<=24;$i++){
+                if(round($sec/3600) == $i){
+                    $value="$i".$end;
+                }
+            }
+        }
+
+    if($a>7){
+        $dan = $a%7;
+        $nedelja = ($a-$dan) / 7;
+        $value = $nedelja." nedelja/e ".$dan." dan/a";
+    }
+       echo $value;
+    }
+
+
+    ?>
     <!-- Notification for small devices -->
     @include('includes\layout\inProgress')
 

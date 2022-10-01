@@ -206,19 +206,18 @@
                                     <div class="text-center pb-[30px]">
                                         <p
                                             class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                         
-                                            primjeraka</p>
-                                        <a href="aktivneRezervacije.php">
+                                            {{$book->total-($rent_count+$reservation_count)}} primjeraka</p>
+                                        <a href="{{route('reservation.active',$book->id);}}">
                                             <p
                                                 class=" mt-[16px] bg-yellow-200 text-yellow-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                                0 primjerka</p>
+                                                {{$reservation_count}} primjerka</p>
                                         </a>
-                                        <a href="{{route('rent.index');}}">
+                                        <a href="{{route('rent.rented',$book->id);}}">
                                             <p
                                                 class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
                                                 {{$rent_count}} primjeraka</p>
                                         </a>
-                                        <a href="knjigePrekoracenje.php">
+                                        <a href="{{route('rent.overdue',$book->id);}}">
                                             <p
                                                 class=" mt-[16px] bg-red-200 text-red-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
                                                 {{$overdue_count}} primjerka</p>

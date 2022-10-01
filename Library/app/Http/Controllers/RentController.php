@@ -7,6 +7,7 @@ use App\Http\Requests\StoreRentRequest;
 use App\Http\Requests\UpdateRentRequest;
 use App\Models\Book;
 use App\Models\BookStatus;
+use App\Models\Gallery;
 use App\Models\GlobalVariable;
 use App\Models\RentStatus;
 use App\Models\Reservation;
@@ -138,7 +139,12 @@ class RentController extends Controller
                      $preko++;
                    }
 
-                return view("izdajKnjigu",compact('users','deadline','book',"book_headline","preko"));
+
+                   $reservation_count=$book->reservation_count();
+                   $overdue_count=$book->overdue_count();
+                   $rent_count=$book->rent_count()+$overdue_count;
+
+                return view("izdajKnjigu",compact('users','deadline','book',"book_headline","preko","reservation_count","overdue_count","rent_count"));
             }
 
     /**
@@ -212,14 +218,24 @@ $a= abs(round($a / 86400));
         $rents= new RentStatus();
         $rents= $rents->all_rented_pieces_of_books($book);
          
+        $photo=Gallery::where('book_id','=',$book->id)->get()->first()->photo;
+
         $reservation_count=$book->reservation_count();
         $overdue_count=$book->overdue_count();
         $rent_count=$book->rent_count()+$overdue_count;
 
+        $status3=BookStatus::where('name','=','Izdato')->get()->first();
+
+        $notifications=$book->rent()->join('rent_statuses','rent_statuses.renting_id','=','rents.id')
+        ->join('users as librarians','librarians.id','=','rents.user_who_rented_out_id')
+        ->join('users as students','students.id','=','rents.user_who_rented_id')
+        ->select('rents.*','rent_statuses.created_at','librarians.id as librarian_id','students.id as student_id','librarians.first_and_last_name as librarian','librarians.gender_id as gender','students.first_and_last_name as student')
+        ->whereIn('rent_statuses.book_status_id',[$status3->id])
+        ->orderBy("return_date","desc")->get();
 
         $users=Users::all();
     
-    return view("rent.IznajmljivanjeIzdate",compact('rents','users','book','reservation_count', 'overdue_count' , 'rent_count'));
+    return view("rent.IznajmljivanjeIzdate",compact('rents','photo','notifications','users','book','reservation_count', 'overdue_count' , 'rent_count'));
     }
 
 
@@ -247,9 +263,21 @@ $a= abs(round($a / 86400));
      $rent_count=$book->rent_count()+$overdue_count;
      
      $users=Users::all();
+
+     $status3=BookStatus::where('name','=','Izdato')->get()->first();
+
+     $photo=Gallery::where('book_id','=',$book->id)->get()->first()->photo;
+
+     $notifications=$book->rent()->join('rent_statuses','rent_statuses.renting_id','=','rents.id')
+     ->join('users as librarians','librarians.id','=','rents.user_who_rented_out_id')
+     ->join('users as students','students.id','=','rents.user_who_rented_id')
+     ->select('rents.*','rent_statuses.created_at','librarians.id as librarian_id','students.id as student_id','librarians.first_and_last_name as librarian','librarians.gender_id as gender','students.first_and_last_name as student')
+     ->orderBy("return_date","desc")
+     ->whereIn('rent_statuses.book_status_id',[$status3->id])
+     ->get();
  
 
-     return view("rent.IznajmljivanjeVracene",compact('rented','users','book',"rented_book_info","reservation_count","overdue_count","rent_count"));
+     return view("rent.IznajmljivanjeVracene",compact('rented','photo','notifications','users','book',"rented_book_info","reservation_count","overdue_count","rent_count"));
     } 
 
 
@@ -293,13 +321,22 @@ $a= abs(round($a / 86400));
          $overdue_count=$book->overdue_count();
          $rent_count=$book->rent_count()+$overdue_count;
 
-         
+         $photo=Gallery::where('book_id','=',$book->id)->get()->first()->photo;
+
+         $status3=BookStatus::where('name','=','Izdato')->get()->first();
+
+         $notifications=$book->rent()->join('rent_statuses','rent_statuses.renting_id','=','rents.id')
+         ->join('users as librarians','librarians.id','=','rents.user_who_rented_out_id')
+         ->join('users as students','students.id','=','rents.user_who_rented_id')
+         ->select('rents.*','rent_statuses.created_at','librarians.id as librarian_id','students.id as student_id','librarians.first_and_last_name as librarian','librarians.gender_id as gender','students.first_and_last_name as student')
+         ->whereIn('rent_statuses.book_status_id',[$status3->id])
+         ->orderBy("return_date","desc")->get();
       
         /*  $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
          $preko=DB::table("rent_statuses")->where("book_status_id","=",$u_preko[0]->id)->get(); 
          $preko=count($preko); */
 
-         return view("rent.IznajmljivanjePrekoracenje",compact('rented','users','book',"overdue_book_info","today","preko","reservation_count","overdue_count","rent_count"));
+         return view("rent.IznajmljivanjePrekoracenje",compact('rented','photo','notifications','users','book',"overdue_book_info","today","preko","reservation_count","overdue_count","rent_count"));
     } 
 
 
@@ -434,26 +471,39 @@ return view("vratiKnjigu",compact("rent","book","naslovna","librarian","student"
 
 
 
-    public function rent_from_reservation($book)
+    public function rent_from_reservation(Reservation $reservation)
     {
+        $deadline=GlobalVariable::where('variable','=','Returnment_deadline')->get()->first();
         $status=StatusesOfReservations::where('name','=','Izdato')->get()->first();
-        $reservation=Reservation::where('book_id','=',$book)->get()->first();
+      
         $reservation->status()->sync($status->id);
           
-        $users=Users::all();
-        $deadline=GlobalVariable::where('variable','=','Returnment_deadline')->get()->first();
-        $book=Book::findOrFail($book);
-        $book_headline=DB::select(DB::raw("SELECT * from galleries;"));
-        $book_headline=(object) $book_headline;
+        $rent_date = Carbon::now();
+        $return_date=Carbon::now()->addDays($deadline->value);
+        $rent=Rent::create([
+            "rent_date"=>$rent_date,
+            "return_date"=>$return_date
+        ]);
+
+
+         $librarian=Users::findOrFail(auth()->user()->id);
+         $librarian->userWhoRentedOut()->save($rent);
+
+         $student=Users::findOrFail($reservation->foruser_id);
+         $book=Book::findOrFail($reservation->book_id);
+         $book->rented++;
+         $book->save();
+         
+         $student->userWhoRented()->save($rent);
+         $book->rent()->save($rent);
+        $status=DB::table("book_statuses")->where("name","=","Izdato")->get()->first();
+
+         $rent->rent_status()->attach($status->id);
+
+     
+       return redirect("/rent");
     
 
-   
-        $reservation_count=$book->reservation_count();
-        $overdue_count=$book->overdue_count();
-        $rent_count=$book->rent_count()+$overdue_count;
-    
-
-        return view("izdajKnjigu",compact('users','deadline','book',"book_headline","reservation_count","overdue_count","rent_count"));
     }
 
 }

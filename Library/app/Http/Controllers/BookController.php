@@ -25,6 +25,8 @@ use App\Models\Language;
 use App\Models\Rent;
 use App\Models\RentStatus;
 use App\Models\Reservation;
+use App\Models\ReservationStatus;
+use App\Models\StatusesOfReservations;
 use App\Models\Users;
 use Carbon\Carbon;
 
@@ -68,7 +70,16 @@ class BookController extends Controller
         $authors = DB::select(DB::raw("SELECT * FROM authors;"));
         $categories = DB::select(DB::raw("SELECT * FROM categories;"));
 
-        $reservations=Reservation::all();
+
+        $status3=StatusesOfReservations::where("name","=","Rezervisano")->get()->first();
+        $all_reservations=ReservationStatus::where("reservation_status_id","=",$status3->id)->get();
+        $reservations=[];
+        foreach($all_reservations as $reservation){
+            $reservations[]=Reservation::findOrFail($reservation->reservation_id);
+        }
+
+
+
          $status1=BookStatus::where('name','=','Izdato')->get()->first();
          $status2=BookStatus::where('name','=','U prekoracenju')->get()->first();
         $rent=RentStatus::where('book_status_id','=',$status1->id)->orWhere('book_status_id','=',$status2->id)->get();
@@ -247,6 +258,14 @@ class BookController extends Controller
     {
         $book=Book::findOrFail($book->id);
         $id = $book->id;
+
+       $notifications=$book->rent()->join('rent_statuses','rent_statuses.renting_id','=','rents.id')
+       ->join('users as librarians','librarians.id','=','rents.user_who_rented_out_id')
+       ->join('users as students','students.id','=','rents.user_who_rented_id')
+       ->select('rents.*','rent_statuses.created_at','librarians.id as librarian_id','students.id as student_id','librarians.first_and_last_name as librarian','librarians.gender_id as gender','students.first_and_last_name as student')
+       ->orderBy("return_date","desc")->get();
+
+
         $students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=2 ORDER BY `users`.`first_and_last_name` ASC;"));
         $students = (object) $students;
         $librarian=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=1 ORDER BY `users`.`first_and_last_name` ASC;"));
@@ -276,11 +295,11 @@ class BookController extends Controller
      $rented_c=count($renteda);
 
 
-     $reservation_count=$book->reservation_count();
+        $reservation_count=$book->reservation_count();
          $overdue_count=$book->overdue_count();
          $rent_count=$book->rent_count()+$overdue_count;
 
-        return view("book.knjigaOsnovniDetalji",compact("book","students","librarian","book_photos","categories_of_book","authors_of_book","genres_of_book","bindings","alphabets","publishers","formats","languages","naslovna","rented_c","reservation_count","overdue_count","rent_count"));
+        return view("book.knjigaOsnovniDetalji",compact("book","notifications","students","librarian","book_photos","categories_of_book","authors_of_book","genres_of_book","bindings","alphabets","publishers","formats","languages","naslovna","rented_c","reservation_count","overdue_count","rent_count"));
     }
 
     /**

@@ -79,7 +79,15 @@ class StudentController extends Controller
             $all_students = DB::table("users")->where("user_type_id","=",2)->orderBy("first_and_last_name","DESC")->paginate($currentpag,"*","page");
             
         }
-        return view("student.ucenik",compact("all_students","currentpag","url"));
+
+
+        $logins=UserLogin::all();
+      
+
+
+
+
+        return view("student.ucenik",compact("all_students","logins","currentpag","url"));
     }
 
     /**
