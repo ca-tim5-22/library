@@ -115,13 +115,14 @@
                                         <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
                                         <span class="px-4 py-0">Izmijeni knjigu</span>
                                     </a>
-                                    <form action="{{route('book.destroy',$book->id);}}"
-                                    <a href="#" tabindex="0"
+                                    <form action="{{route('book.destroy',$book->id);}}">
+                                    <button href="#" tabindex="0"
                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                         role="menuitem">
                                         <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
                                         <span class="px-4 py-0">Izbrisi knjigu</span>
-                                    </a>
+                                    </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

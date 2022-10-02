@@ -148,4 +148,13 @@ class FormatController extends Controller
         $f->delete();
         return redirect('/format');
     }
+
+    public function destroy_format($form_id)
+    {   
+        foreach($form_id as $form_id){
+        $f=Format::findOrFail($form_id);
+        $f->delete();
+        }
+        return redirect('/format');
+    }
 }

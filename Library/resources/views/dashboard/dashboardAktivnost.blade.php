@@ -641,14 +641,37 @@
                         @foreach ($all as $one)
                             <div class="activity-card flex flex-row mb-[30px]">
                             <div class="w-[60px] h-[60px]">
-                                <img class="rounded-full" src="img/profileExample.jpg" alt="">
+                                
+                                @foreach ($librarian as $l)
+                                    @if ($l->id == $one->user_who_rented_out_id)
+                                    @if ($l->photo != null)
+                                         <img class="w-[60px] h-[60px] rounded-full" src="{{asset('storage/librarian_images/'.$l->photo)}}" alt="">
+                                         @else
+                                         <img class="rounded-full" src="img/profileExample.jpg" alt="">
+                                    @endif
+                                   
+                                    @endif
+                                @endforeach
+                                
                             </div>
                             <div class="ml-[15px] mt-[5px] flex flex-col">
                                 <div class="text-gray-500 mb-[5px]">
                                     <p class="uppercase">
                                         Izdavanje knjige
                                         <span class="inline lowercase">
-                                            - Izracunacemo
+                                            Prije <?php 
+                                            $date = date_create($one->created_at);
+                                            
+                                        
+$newdate=date_format($date,"d-m-Y H:i:s");
+$today=date("d-m-Y H:i:s");
+
+$a= strtotime($today) - strtotime($newdate);
+$sec = $a;
+
+$a= abs(round($a / 86400));
+echo datum($a,$sec);
+?>
                                         </span>
                                     </p>
                                 </div>
@@ -705,7 +728,7 @@ je izdala knjigu
                                         
                                         <span class="font-medium">{{$one->rent_date}}</span>
                                         <a href="{{route('rent.show',$one->id);}}" class="text-[#2196f3] hover:text-blue-600">
-                                            pogledaj detaljnije >>
+                                            |DETALJNIJE|
                                         </a>
                                     </p>
                                 </div>
@@ -727,7 +750,42 @@ je izdala knjigu
         <!-- End Content -->
     </main>
     <!-- End Main content -->
+    <?php
 
+    function datum($a,$sec){
+        $value = $a. " dana";;
+        $end = "";
+        if($a==0 && ($sec/60 <= 60)){
+            for($i=1;$i<=60;$i++){
+                if(round($sec/60) == $i){
+                    $value = "$i minuta";
+                }
+            }
+        }else {
+            if((round($sec/3600) == 2) || (round($sec/3600) == 3) || (round($sec/3600) == 4) || (round($sec/3600) == 22) || (round($sec/3600) == 23) || (round($sec/3600) == 24)){
+                $end=" sata";
+            }else if((round($sec/3600) == 1) ||  (round($sec/3600) == 21)){
+                $end = " sat";
+            }else{
+                $end = " sati";
+            }
+            for($i=1;$i<=24;$i++){
+                if(round($sec/3600) == $i){
+                    $value="$i".$end;
+                }
+            }
+        }
+    
+    if($a>7){
+        $dan = $a%7;
+        $nedelja = ($a-$dan) / 7;
+        $value = $nedelja." nedelja/e ".$dan." dan/a";
+    }
+       echo $value;
+    }
+    
+    
+    ?>
     <!-- Notification for small devices -->
     @include('includes\layout\inProgress')
 

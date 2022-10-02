@@ -153,4 +153,17 @@ class PublisherController extends Controller
 
         return redirect('/publisher');
     }
+
+    public function delete_izd($izd_id)
+    {
+        $izd_id = explode("-",$izd_id);
+        foreach($izd_id as $izd_id){
+            $publisher = Publisher::findOrFail($izd_id);
+
+            $publisher->delete();
+        }
+     return redirect('/publisher');
+    }
+
+
 }

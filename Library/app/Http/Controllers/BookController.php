@@ -90,7 +90,7 @@ class BookController extends Controller
         $book_headline=DB::select(DB::raw("SELECT * from galleries;"));
         
         if($request->paginate != null){
-            $books = DB::table("books")->orderBy("title","ASC")->paginate($request->paginate,"*","page");
+            $books = DB::table("books")->orderBy("title","DESC")->paginate($request->paginate,"*","page");
 
             
             session(["currentpag"=>$request->paginate]);
@@ -107,7 +107,7 @@ class BookController extends Controller
             }else{
                 $currentpag=2;
             }
-            $books = DB::table("books")->orderBy("title","ASC")->paginate($currentpag,"*","page");
+            $books = DB::table("books")->orderBy("title","DESC")->paginate($currentpag,"*","page");
             
         }
         $categories_of_book = DB::select(DB::raw("SELECT * FROM book_categories;"));
@@ -116,7 +116,16 @@ class BookController extends Controller
         $categories = DB::select(DB::raw("SELECT * FROM categories;"));
         $book_headline=(object) $book_headline;
     
-        return view("book.evidencijaKnjiga",compact("books","currentpag","url","book_headline","categories_of_book","authors_of_book","authors","categories"));
+        $users=Users::all();
+        $preko=[];
+        $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get()->first();
+        $preko_=DB::table("rent_statuses")->where("book_status_id","=",$u_preko->id)->get(); 
+        foreach ($preko_ as $prekoo){
+            $prekoo=Rent::findOrFail($prekoo->renting_id);
+            $preko[]=$prekoo;
+        }
+
+        return view("book.evidencijaKnjiga",compact("books","currentpag","url","book_headline","categories_of_book","authors_of_book","authors","categories","preko"));
      
      
         
@@ -421,6 +430,21 @@ class BookController extends Controller
         $book->categories()->sync([]);
         $book->gallery()->delete();
         $book->delete();
+
+        return redirect("/book");
+    }
+
+    public function delete_more($ids)
+    {
+        foreach($ids as $id){
+            $book=Book::findOrFail($id);
+        $book->authors()->sync([]);
+        $book->genres()->sync([]);
+        $book->categories()->sync([]);
+        $book->gallery()->delete();
+        $book->delete();
+        }
+        
 
         return redirect("/book");
     }

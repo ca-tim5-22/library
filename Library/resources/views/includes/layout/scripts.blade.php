@@ -4,6 +4,7 @@
 
 <script src="{{asset('my.js');}}" defer=""></script>
 
+
 <script src="{{asset('search.js');}}" defer></script>
 
 <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
@@ -18,7 +19,7 @@ const bibliotekari = document.getElementById("bibliotekari-i")
 const ucenici = document.getElementById("ucenici-i")
 const knjige = document.getElementById("knjige-i")
 const autori = document.getElementById("autori-i")
-const izdavanjeknjige = document.getElementById("izdavanjeknjige-i")
+const izdavanjeknjige = document.getElementById("izdavanjeknjiga-i")
 
 const dashboard_div = document.getElementById("dashboard-i")
 const bibliotekari_div = document.getElementById("bibliotekari-i")
@@ -96,7 +97,7 @@ let newarray = url
         knjige.classList.add("text-[#707070]")
         izdavanjeknjige.classList.remove("bg-[#3F51B5]")
         izdavanjeknjige.classList.add("text-[#707070]")
-    }else if(newarray.includes("rent")){
+    }else if(newarray.includes("rent") || newarray.includes("returned") || newarray.includes("overdue") || newarray.includes("reservations")){
         izdavanjeknjige.classList.add("bg-[#3F51B5]","text-white","rounded-[3px]")
         izdavanjeknjige.classList.remove("text-[#707070]","group-hover:text-[#576cdf]")
         izdavanjeknjige_li.classList.add("bg-[#EAEAEA]")

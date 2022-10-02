@@ -188,8 +188,9 @@ class ReservationController extends Controller
         ->select('reservations.*', 'reservation_statuses.reservation_status_id as status','users.photo as student_img','users.first_and_last_name as student','books.title','galleries.photo')
         ->whereIn('reservation_statuses.reservation_status_id',[$status1->id,$status2->id])->get();
 
+        $students=Users::where("user_type_id","=",2)->get();
 
-        return view("reservation.aktivneRezervacije",compact('active','deadline'));
+        return view("reservation.aktivneRezervacije",compact('active','deadline',"students"));
 
     }
 
@@ -200,7 +201,7 @@ class ReservationController extends Controller
         $status3=StatusesOfReservations::where("name","=","Rezervacija otkazana")->get()->first();
         
         $deadline=GlobalVariable::where('variable','=','Reservation_deadline')->get()->first()->value;
-           
+        $students=Users::where("user_type_id","=",2)->get();
         $archive =Reservation::join('reservation_statuses', 'reservation_statuses.reservation_id', '=', 'reservations.id')
         ->join('users','users.id','=','reservations.foruser_id')
         ->join('books','books.id','=','reservations.book_id')
@@ -209,7 +210,7 @@ class ReservationController extends Controller
         ->whereIn('reservation_statuses.reservation_status_id',[$status1->id,$status2->id,$status3->id])->get();
 
 
-        return view("reservation.arhiviraneRezervacije",compact('archive','deadline'));
+        return view("reservation.arhiviraneRezervacije",compact('archive','deadline',"students"));
 
     }
 

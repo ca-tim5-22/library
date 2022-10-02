@@ -76,11 +76,11 @@
                         </div>
                     </div>
                     <div class="pt-[24px] mr-[30px]">
-                        <a href="otpisiKnjigu.php" class="inline hover:text-blue-600">
+                        <a href="{{route("abandon_index",$book->id);}}" class="inline hover:text-blue-600">
                             <i class="fas fa-level-up-alt mr-[3px]"></i>
                             Otpisi knjigu
                         </a>
-                        <a href="{{route('rent.new',$book->id);}}" class="inline hover:text-blue-600 ml-[20px] pr-[10px]">
+                        <a href="{{route("rent.new",$book->id);}}" class="inline hover:text-blue-600 ml-[20px] pr-[10px]">
                             <i class="far fa-hand-scissors mr-[3px]"></i>
                             Izdaj knjigu
                         </a>
@@ -88,10 +88,11 @@
                             <i class="fas fa-redo-alt mr-[3px] "></i>
                             Vrati knjigu
                         </a>
-                        <a href="{{route('reservation.new',$book->id);}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href="{{route('reservation.new',$book->id)}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="far fa-calendar-check mr-[3px] "></i>
                             Rezervisi knjigu
                         </a>
+                        
                         <p class="inline cursor-pointer text-[25px] py-[10px] pl-[30px] border-l-[1px] border-[#e4dfdf] dotsKnjigaOsnovniDetalji hover:text-[#606FC7]">
                             <i
                                 class="fas fa-ellipsis-v"></i>
@@ -110,7 +111,7 @@
                                     <form action="{{route('book.destroy',$book->id);}}" method="POST">
                                         @csrf
                                         @method("DELETE")
-                                    <buttpn type="submit" name="submit" tabindex="0"
+                                    <button type="submit" name="submit" tabindex="0"
                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                         role="menuitem">
                                         <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>

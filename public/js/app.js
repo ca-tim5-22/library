@@ -1304,8 +1304,26 @@ function validacijaPismoEdit() {
   }
 }
 
+function validacijaJezikEdit() {
+
+  $("#validateNazivJezikEdit").empty();
+
+  let nazivJezikEdit = $("#nazivJezikEdit").val();
+
+  if (nazivJezikEdit == 0) {
+    $('#validateNazivJezikEdit').append('<p style="color:red;font-size:13px;">Morate unijeti naziv jezika!</p>');
+    return false;
+  }else{
+    return true;
+  }
+}
+
 function clearErrorsNazivPismoEdit() {
   $("#validateNazivPismoEdit").empty();
+}
+
+function clearErrorsNazivJezikEdit() {
+  $("#validateNazivJezikEdit").empty();
 }
 
 $("#sacuvajPismoEdit").keypress(function (e) {

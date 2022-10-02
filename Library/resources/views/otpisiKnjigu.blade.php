@@ -40,12 +40,17 @@
                 <div class="flex flex-row justify-between border-b-[1px] border-[#e4dfdf]">
                     <div class="py-[10px] flex flex-row">
                         <div class="w-[77px] pl-[30px]">
-                            <img src="img/tomsojer.jpg" alt="">
+                            @foreach ($gall as $pic)
+                                    @if ($pic->book_id == $book->id)
+                                        <img src="{{asset('storage/book_images/'.$pic->photo);}}"
+                                    alt="" />
+                                    @endif
+                                @endforeach
                         </div>
                         <div class="pl-[15px]  flex flex-col">
                             <div>
                                 <h1>
-                                    Tom Sojer
+                                    {{$book->title}}
                                 </h1>
                             </div>
                             <div>
@@ -60,16 +65,16 @@
                                             <span class="mx-2">/</span>
                                         </li>
                                         <li>
-                                            <a href="{{route('book.show');}}"
+                                            <a href="{{route('book.show',$book->id);}}"
                                                 class="text-[#2196f3] hover:text-blue-600">
-                                                KNJIGA-467
+                                                KNJIGA-{{$book->id}}
                                             </a>
                                         </li>
                                         <li>
                                             <span class="mx-2">/</span>
                                         </li>
                                         <li>
-                                            <a href="otpisiKnjigu.php" class="text-[#2196f3] hover:text-blue-600">
+                                            <a href="{{route("abandon_index",$book->id)}}" class="text-[#2196f3] hover:text-blue-600">
                                                 Otpisi knjigu
                                             </a>
                                         </li>
@@ -79,11 +84,11 @@
                         </div>
                     </div>
                     <div class="pt-[24px] mr-[30px]">
-                        <a href="otpisiKnjigu.php" class="inline hover:text-blue-600">
+                        <a href="{{route("abandon_index",$book->id);}}" class="inline hover:text-blue-600">
                             <i class="fas fa-level-up-alt mr-[3px]"></i>
                             Otpisi knjigu
                         </a>
-                        <a href="izdajKnjigu.php" class="inline hover:text-blue-600 ml-[20px] pr-[10px]">
+                        <a href="{{route("rent.new",$book->id);}}" class="inline hover:text-blue-600 ml-[20px] pr-[10px]">
                             <i class="far fa-hand-scissors mr-[3px]"></i>
                             Izdaj knjigu
                         </a>
@@ -91,7 +96,7 @@
                             <i class="fas fa-redo-alt mr-[3px] "></i>
                             Vrati knjigu
                         </a>
-                        <a href="rezervisiKnjigu.php" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href="{{route('reservation.new',$book->id)}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="far fa-calendar-check mr-[3px] "></i>
                             Rezervisi knjigu
                         </a>
@@ -104,18 +109,22 @@
                             <div class="absolute right-0 w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                 aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                 <div class="py-1">
-                                    <a href="editKnjiga.php" tabindex="0"
+                                    <a href="{{route('book.edit',$book->id);}}" tabindex="0"
                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                         role="menuitem">
                                         <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
                                         <span class="px-4 py-0">Izmijeni knjigu</span>
                                     </a>
-                                    <a href="#" tabindex="0"
+                                    <form action="{{route('book.destroy',$book->id);}}" method="POST">
+                                        @csrf
+                                        @method("DELETE")
+                                    <button type="submit" name="submit" tabindex="0"
                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                         role="menuitem">
                                         <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
                                         <span class="px-4 py-0">Izbrisi knjigu</span>
-                                    </a>
+                                    </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -142,7 +151,9 @@
                             placeholder="Search..." autocomplete="off">
                     </div>
                 </div>
-
+                <form id="fos" action="" method="post">
+                    @csrf
+                    @method("GET")
                 <div
                     class="inline-block min-w-full pt-3 align-middle bg-white rounded-bl-lg rounded-br-lg shadow-dashboard">
                     <table class="min-w-full border-[1px] border-[#e4dfdf]" id="vratiKnjiguTable">
@@ -171,119 +182,98 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white">
+                            @foreach ($rented_book_info as $rent)
+
                             <tr class="border-b-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-4 whitespace-no-wrap">
                                     <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
+                                        <input name="rent_id[]" type="checkbox" id="c" class="form-checkbox" value="{{$rent->id}}">
                                     </label>
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-4">
-                                    <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
-                                        alt="" />
-                                    <a href="{{route('student.show',$student->id);}}">
-                                        <span class="font-medium text-center">Pero Perovic</span>
-                                    </a>
+                                    @foreach ($gall as $pic)
+                                    @if ($pic->book_id == $rent->book_id)
+                                        <img class="object-cover w-8 h-8 mr-2 rounded-full" src="{{asset('storage/book_images/'.$pic->photo);}}"
+                                    alt="" />
+                                    @endif
+                                @endforeach
+                                
+                                <a href="">
+                                    <span class="font-medium text-center">@foreach ($users as $u)
+                                        @if ($u->id == $rent->user_who_rented_id)
+                                            {{$u->first_and_last_name}}
+                                        @endif
+                                    @endforeach</span>
+                                </a>
                                 </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">21.02.2021</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">2 mjeseca i 15 dana</td>
+                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$rent->rent_date}}</td>
                                 <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
-                                    <span class="px-[6px] py-[2px] bg-red-200 text-red-800 rounded-[10px]">
-                                        75 dana
+                                    
+                                    <?php 
+
+                                    foreach ($rented as $rentt) {
+                                        $date = date_create($rentt->created_at);
+                                    
+                              
+                                    $newdate=date_format($date,"d-m-Y H:i:s");
+                                    
+                                    $today=date("d-m-Y H:i:s");
+                                    $a= strtotime($today) - strtotime($newdate);
+                                    
+                                    $sec = $a;
+                                    
+                                    $a= round($a / 86400);
+                                    
+                                   
+                                    echo datum($a,$sec);
+                                    break;
+                                    }
+                                    
+?></td>
+                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
+                                    
+                                        <?php 
+
+                                    foreach ($rented as $rentt) {
+                                        $date = date_create($rent->return_date);
+                                    
+                              
+                                    $newdate=date_format($date,"d-m-Y H:i:s");
+                                    
+                                    $today=date("d-m-Y H:i:s");
+                                    $a= strtotime($today) - strtotime($newdate);
+                                    
+                                    $sec = $a;
+                                    
+                                    $a= round($a / 86400);
+                                    if($a > 0){
+                                        echo "<span class='px-[6px] py-[2px] bg-red-200 text-red-800 rounded-[10px]'>";
+                                            echo datum($a,$sec);
+                                            echo "</span>";
+                                    break;
+                                    }else{
+                                        echo "<span>".datum($a,$sec)."</span>";
+                                        break;
+                                    }
+                                   
+                                    
+                                    }
+                                    
+?>
                                     </span>
                                 </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Valentina Kascelan</td>
+                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">@foreach ($users as $u)
+                                    @if ($u->id == $rent->user_who_rented_out_id)
+                                        {{$u->first_and_last_name}}
+                                    @endif
+                                @endforeach</td>
                             </tr>
-                            <tr class="border-b-[1px] border-[#e4dfdf]">
-                                <td class="px-4 py-4 whitespace-no-wrap">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
-                                    </label>
-                                </td>
-                                <td class="flex flex-row items-center px-4 py-4">
-                                    <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
-                                        alt="" />
-                                    <a href="{{route('student.show',$student->id);}}">
-                                        <span class="font-medium text-center">Pero Perovic</span>
-                                    </a>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">15.05.2020</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">2 mjeseca i 5 dana</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
-                                    <span class="px-[6px] py-[2px] bg-red-200 text-red-800 rounded-[10px]">
-                                        60 dana
-                                    </span>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Valentina Kascelan</td>
-                            </tr>
-                            <tr class="border-b-[1px] border-[#e4dfdf]">
-                                <td class="px-4 py-4 whitespace-no-wrap">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
-                                    </label>
-                                </td>
-                                <td class="flex flex-row items-center px-4 py-4">
-                                    <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
-                                        alt="" />
-                                    <a href="{{route('student.show',$student->id);}}">
-                                        <span class="font-medium text-center">Pero Perovic</span>
-                                    </a>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">09.04.2020</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">2 mjeseca i 2 dana</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
-                                    <span class="px-[6px] py-[2px] bg-red-200 text-red-800 rounded-[10px]">
-                                        31 dan
-                                    </span>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Valentina Kascelan</td>
-                            </tr>
-                            <tr class="border-b-[1px] border-[#e4dfdf]">
-                                <td class="px-4 py-4 whitespace-no-wrap">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
-                                    </label>
-                                </td>
-                                <td class="flex flex-row items-center px-4 py-4">
-                                    <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
-                                        alt="" />
-                                    <a href="{{route('student.show',$student->id);}}">
-                                        <span class="font-medium text-center">Pero Perovic</span>
-                                    </a>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">21.02.2021</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">2 mjeseca i 2 dana</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
-                                    <span class="px-[6px] py-[2px] bg-red-200 text-red-800 rounded-[10px]">
-                                        31 dan
-                                    </span>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Valentina Kascelan</td>
-                            </tr>
-                            <tr class="border-b-[1px] border-[#e4dfdf]">
-                                <td class="px-4 py-4 whitespace-no-wrap">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
-                                    </label>
-                                </td>
-                                <td class="flex flex-row items-center px-4 py-4">
-                                    <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg"
-                                        alt="" />
-                                    <a href="{{route('student.show',$student->id);}}">
-                                        <span class="font-medium text-center">Pero Perovic</span>
-                                    </a>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">12.05.2020</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">1 mjesec i 3 dana</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
-                                    <span class="px-[6px] py-[2px] bg-red-200 text-red-800 rounded-[10px]">
-                                        10 dana
-                                    </span>
-                                </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Valentina Kascelan</td>
-                            </tr>
+                            @endforeach
+                           
+                           
                         </tbody>
                     </table>
-
+                
                     <div class="flex flex-row items-center justify-end my-2">
                         <div>
                             <p class="inline text-md">
@@ -354,14 +344,15 @@
                             class="btn-animation shadow-lg mr-[15px] w-[150px] focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
                             Ponisti <i class="fas fa-times ml-[4px]"></i>
                         </button>
-                        <button type="submit"
+                        <button type="submit" name="submit"
                             class="btn-animation disabled-btn shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]"
-                            disabled onclick="validacijaUcenik()">
-                            Otpisi knjigu <i class="fas fa-check ml-[4px]"></i>
+                            disabled>
+                            Otpiši knjigu <i class="fas fa-check ml-[4px]"></i>
                         </button>
                     </div>
                 </div>
             </div>
+        </form>
         </section>
         <!-- End Content -->
     </main>
@@ -374,7 +365,73 @@
     <!-- Scripts -->
     @include('includes\layout\scripts')
     <!-- End Scripts -->
+    <?php
 
+    function datum($a,$sec){
+        $value = $a. " dana";
+        $end = "";
+        if($a==0 && ($sec/60 <= 60)){
+            for($i=1;$i<=60;$i++){
+                if(round($sec/60) == $i){
+                    $value = "$i minuta";
+                }
+            }
+        }else {
+            if((round($sec/3600) == 2) || (round($sec/3600) == 3) || (round($sec/3600) == 4) || (round($sec/3600) == 22) || (round($sec/3600) == 23) || (round($sec/3600) == 24)){
+                $end=" sata";
+            }else{
+                $end = " sati";
+            }
+            for($i=1;$i<=24;$i++){
+                if(round($sec/3600) == $i){
+                    $value="$i".$end;
+                }
+            }
+        }
+    
+    if($a>7){
+        $dan = $a%7;
+        $nedelja = ($a-$dan) / 7;
+        $value = $nedelja." nedelja/e ".$dan." dan/a";
+    }
+       echo $value;
+    }
+    
+    
+    ?>
+
+    <script
+    src="https://code.jquery.com/jquery-3.6.1.js"
+    integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+    crossorigin="anonymous"></script>
+    <script >
+        $(document).ready(function(){
+         $("input[type='checkbox']").change(function(){
+         console.log("SSADA");
+         var ids="";
+         if($("input#c:checked").length > 1){
+             $("input#c:checked").each(function(){
+             ids += "-" + $(this).val();
+             
+             
+             console.log($("#fos").attr("action"));
+         });
+         ids = ids.slice(1);
+         $("#fos").attr("action","http://127.0.0.1:8000/abandonmorebooks/"+ids);
+         }else if($("input#c:checked").length == 1 ){
+             var id = $("input#c:checked").val();
+             $("#fos").attr("action","http://127.0.0.1:8000/abandon/"+id);
+         }else{
+             $("input[type='checkbox']").each(function(i,e){
+                 if(e.checked == true){
+                     $(this).click();
+                 }
+             })
+         }
+         
+     });
+        });
+     </script>
 </body>
 
 </html>

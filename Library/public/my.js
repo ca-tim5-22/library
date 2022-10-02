@@ -39,5 +39,5 @@ nbm.addEventListener("change",()=>{
    
 });
 
-    var array= [];
-    var i = 0;
+var array= [];
+var i = 0;

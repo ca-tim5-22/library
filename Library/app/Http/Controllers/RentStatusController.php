@@ -86,8 +86,8 @@ class RentStatusController extends Controller
          $overdues =$status->rent()->join('users','users.id','=','rents.user_who_rented_id')
          ->join('books','books.id','=','rents.book_id')->join('galleries','galleries.book_id','=','rents.book_id')
          ->select('rents.*', 'users.first_and_last_name as student','books.title','galleries.photo')->get();
-     
-         return view("knjigePrekoracenje",compact('overdues'));
+        $students = Users::where("user_type_id","=",2)->get();
+         return view("knjigePrekoracenje",compact('overdues',"students"));
     } 
 
 
