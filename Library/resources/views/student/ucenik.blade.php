@@ -168,7 +168,25 @@
                                 </td>
                                 <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$student->email}}</td>
                                 <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Ucenik</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Kada bude povezano</td>
+                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
+                               
+                    {{--                 <?php $last_login="Nema loginova";?>
+      
+                                @foreach($logins as $login)
+                                @if($login->user_id==$user->id)
+                                $last_login=[];
+                                $last_login[]=$login->time;
+
+                                @endif
+                                @endforeach
+                            
+                                      --}}
+                                   
+                                
+
+
+
+                                </td>
                                 <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
                                     <p style="position:relative;" class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsStudent hover:text-[#606FC7]">
                                         <i class="fas fa-ellipsis-v"></i>

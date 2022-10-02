@@ -79,7 +79,15 @@ class StudentController extends Controller
             $all_students = DB::table("users")->where("user_type_id","=",2)->orderBy("first_and_last_name","DESC")->paginate($currentpag,"*","page");
             
         }
-        return view("student.ucenik",compact("all_students","currentpag","url"));
+
+
+        $logins=UserLogin::all();
+      
+
+
+
+
+        return view("student.ucenik",compact("all_students","logins","currentpag","url"));
     }
 
     /**
@@ -350,14 +358,15 @@ class StudentController extends Controller
     {
         $student=Users::findOrFail($student);
           
-        $status=BookStatus::where("name","=","Vraceno")->get()->first();    
+        $status1=BookStatus::where("name","=","Vraceno")->get()->first();
+        $status2=BookStatus::where("name","=","Vraceno sa prekoracenjem")->get()->first();       
         $returned =$student->userWhoRented()
         ->join('rent_statuses', 'rent_statuses.renting_id', '=', 'rents.id')
         ->join('users as u1','u1.id','=','rents.user_who_rented_id')
         ->join('users as u2','u2.id','=','rents.user_who_received_back_id')
         ->join('books','books.id','=','rents.book_id')->join('galleries','galleries.book_id','=','rents.book_id')
-        ->select('rents.*', 'u1.first_and_last_name as student','u2.first_and_last_name as librarian','rent_statuses.updated_at','books.title','galleries.photo')
-        ->whereIn('rent_statuses.book_status_id',[$status->id])->get();
+        ->select('rents.*', 'u1.first_and_last_name as student','u2.first_and_last_name as librarian','rent_statuses.updated_at','rent_statuses.book_status_id','books.title','galleries.photo')
+        ->whereIn('rent_statuses.book_status_id',[$status1->id,$status2->id])->get();
 
         return view('student.ucenikVracene',compact('student','returned'));
     }
