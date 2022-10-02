@@ -120,7 +120,9 @@ class LanguageController extends Controller
      */
     public function edit(Language $language)
     {
-        //
+        
+        $f=Language::findOrFail($language->id);
+        return view('edit.editJezik',compact('f'));
     }
 
     /**
@@ -132,7 +134,14 @@ class LanguageController extends Controller
      */
     public function update(UpdateLanguageRequest $request, Language $language)
     {
-        //
+    
+        $f=Language::findOrFail($language->id);
+    
+        $f->name=$request->name;
+        
+        $f->save();
+    
+    return redirect('/language');  
     }
 
     /**
@@ -143,6 +152,18 @@ class LanguageController extends Controller
      */
     public function destroy(Language $language)
     {
-        //
+        $f=Language::findOrFail($language->id);
+        $f->delete();
+        return redirect('/language');
+    }
+
+    public function delete_lang($lang_id)
+    {
+        foreach($lang_id as $lang_id){
+            $f=Language::findOrFail($lang_id);
+        $f->delete();
+        }
+        
+        return redirect('/language');
     }
 }

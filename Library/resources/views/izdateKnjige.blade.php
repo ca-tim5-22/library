@@ -192,22 +192,37 @@
                                         </th>
                                         <th id="default_checked" class="px-4 py-4 leading-4 tracking-wider text-left">
                                             Naziv knjige
-                                            <a href="#"><i class="ml-2 fa-lg fas fa-long-arrow-alt-down"
-                                                    onclick="sortTable()"></i>
-                                            </a>
+                                            <a 
+                                @if (Route::current()->getName() == "rent.index")
+                                    href="{{route('rent.sort');}}"
+                                    @elseif(Route::current()->getName() == "rent.sort")
+                                    href="{{route('rent.index');}}"
+                                @endif
+                                >
+
+                                @if (Route::current()->getName() == "rent.index")
+                                    <i class="ml-3 fa-lg fas fa-long-arrow-alt-down"></i>
+
+                                    @elseif(Route::current()->getName() == "rent.sort")
+                                     <i class="ml-3 fa-lg fas fa-long-arrow-alt-up"></i>
+                                @endif
+                                
+                                
+                                
+                                </a>
                                         </th>
                                         <!-- Izdato uceniku + dropdown filter for ucenik -->
-                                        <th id="default_checked"
-                                            class="relative px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer uceniciDrop-toggle">
-                                            Izdato uceniku <i class="ml-2 fas fa-filter"></i>
-                                            <div id="uceniciDropdown"
-                                                class="uceniciMenu hidden absolute rounded bg-white min-w-[310px] p-[10px] shadow-md top-[42px] pin-t pin-l border-2 border-gray-300">
+                                        <th id="default_checked" 
+                                            class=" px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer uceniciDrop-toggle">
+                                            Izdato uceniku <i style="position:relative;" class="ml-2 fas fa-filter"></i>
+                                            <div id="uceniciDropdown" style="position:absolute;z-index: 999;top:300px;"
+                                                class="uceniciMenu hidden rounded bg-white min-w-[310px] p-[10px] shadow-md top-[42px] pin-t pin-l border-2 border-gray-300">
                                                 <ul class="border-b-2 border-gray-300 list-reset">
                                                     <li class="p-2 pb-[15px] border-b-[2px] relative border-gray-300">
                                                         <input
                                                             class="w-full h-10 px-2 border-2 rounded focus:outline-none"
                                                             placeholder="Search"
-                                                            onkeyup="filterFunction('searchUcenici', 'uceniciDropdown', 'dropdown-item-ucenik')"
+                                                            id="searchUcenika"
                                                             id="searchUcenici"><br>
                                                         <button
                                                             class="absolute block text-xl text-center text-gray-400 transition-colors w-7 h-7 leading-0 top-[14px] right-4 focus:outline-none hover:text-gray-900">
@@ -215,116 +230,84 @@
                                                         </button>
                                                     </li>
                                                     <div class="h-[200px] scroll font-normal">
-                                                        <li class="flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200 dropdown-item-ucenik">
+                                                        
+
+                                                        @foreach ($s as $student)
+                                                        
+                                                          <li class="u_trazi flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200 dropdown-item-ucenik">
                                                             <label class="flex items-center justify-start">
                                                                 <div
                                                                     class="flex items-center justify-center flex-shrink-0 w-[16px] h-[16px] mr-2 bg-white border-2 border-gray-400 rounded focus-within:border-blue-500">
-                                                                    <input type="checkbox" class="absolute opacity-0">
+                                                                    <input id="zaucenika" type="checkbox" class="izdato absolute opacity-0" value="{{$student->first_and_last_name}}">
                                                                     <svg class="hidden w-4 h-4 text-green-500 pointer-events-none fill-current"
                                                                         viewBox="0 0 20 20">
                                                                         <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
                                                                     </svg>
                                                                 </div>
                                                             </label>
-                                                            <img width="40px" height="30px"
+                                                            @if ($student->photo != null)
+                                                                <img  style="max-width:40px;max-height:30px;border-radius:50%;"
                                                                 class="ml-[15px] rounded-full"
-                                                                src="img/profileStudent.jpg">
+                                                                src="{{asset('storage/student_images/crop/'.$student->photo);}}">
+                                                                @else
+                                                                <img width="40px" height="30px"
+                                                                class="ml-[15px] rounded-full"
+                                                                src="profileExample.jpg">
+                                                            @endif
+                                                            
                                                             <p
                                                                 class="block p-2 text-black cursor-pointer group-hover:text-blue-600">
-                                                                Ucenik Ucenikovic
+                                                                {{$student->first_and_last_name}}
                                                             </p>
                                                         </li>
                                                         
+                                                        @endforeach
+                                                        
                                                     </div>
                                                 </ul>
-                                                <div class="flex pt-[10px] text-white ">
-                                                    <a href="#"
-                                                        class="btn-animation py-2 px-[20px] transition duration-300 ease-in hover:bg-[#46A149] bg-[#4CAF50] rounded-[5px]">
-                                                        Sacuvaj <i class="fas fa-check ml-[4px]"></i>
-                                                    </a>
-                                                    <a href="#"
-                                                        class="btn-animation ml-[20px] py-2 px-[20px] transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
-                                                        Ponisti <i class="fas fa-times ml-[4px]"></i>
-                                                    </a>
-                                                </div>
+                                                
                                             </div>
                                         </th>
 
                                         <!-- Datum izdavanja + dropdown filter for datum -->
                                         <th id="default_checked"
-                                            class="relative px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer datumDrop-toggle">
+                                            class="px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer datumDrop-toggle">
                                             Datum izdavanja <i class="fas fa-filter"></i>
-                                            <div id="datumDropdown"
-                                                class="datumMenu hidden absolute rounded bg-white min-w-[310px] p-[10px] shadow-md top-[42px] pin-l border-2 border-gray-300">
+                                            <div id="datumDropdown" style="position: absolute;z-index:9999;top:300px;"
+                                                class="datumMenu hidden rounded bg-white min-w-[310px] p-[10px] shadow-md top-[42px] pin-l border-2 border-gray-300">
                                                 <div
                                                     class="flex justify-between flex-row p-2 pb-[15px] border-b-[2px] relative border-gray-300">
                                                     <div>
                                                         <label class="font-medium text-gray-500">Period od:</label>
-                                                        <input type="date"
-                                                            class="border-[1px] border-[#e4dfdf]  cursor-pointer focus:outline-none">
+                                                        <input id="periodod" type="date"
+                                                            class="border-[1px] border-[#e4dfdf] period cursor-pointer focus:outline-none">
                                                     </div>
                                                     <div class="ml-[50px]">
                                                         <label class="font-medium text-gray-500">Period do:</label>
-                                                        <input type="date"
-                                                            class="border-[1px] border-[#e4dfdf]  cursor-pointer focus:outline-none">
+                                                        <input id="perioddo" type="date"
+                                                            class="border-[1px] border-[#e4dfdf] period cursor-pointer focus:outline-none">
                                                     </div>
                                                 </div>
-                                                <div class="flex pt-[10px] text-white ">
-                                                    <a href="#"
-                                                        class="btn-animation py-2 px-[20px] transition duration-300 ease-in hover:bg-[#46A149] bg-[#4CAF50] rounded-[5px]">
-                                                        Sacuvaj <i class="fas fa-check ml-[4px]"></i>
-                                                    </a>
-                                                    <a href="#"
-                                                        class="btn-animation ml-[20px] py-2 px-[20px] transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
-                                                        Ponisti <i class="fas fa-times ml-[4px]"></i>
-                                                    </a>
-                                                </div>
+                                               
                                             </div>
                                         </th>
 
                                         <!-- Trenutno zadrzavanje + dropdown filter for zadrzavanje -->
-                                        <th id="default_checked"
-                                            class="relative px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer zadrzavanjeDrop-toggle">
-                                            Trenutno zadrzavanje knjige <i class="fas fa-filter"></i>
-                                            <div id="zadrzavanjeDropdown"
-                                                class="zadrzavanjeMenu hidden absolute rounded bg-white min-w-[310px] p-[10px] shadow-md top-[42px] right-0 border-2 border-gray-300">
-                                                <div
-                                                    class="flex justify-between flex-row p-2 pb-[15px] border-b-[2px] relative border-gray-300">
-                                                    <div>
-                                                        <label class="font-medium text-gray-500">Period od:</label>
-                                                        <input type="date"
-                                                            class="border-[1px] border-[#e4dfdf]  cursor-pointer focus:outline-none">
-                                                    </div>
-                                                    <div class="ml-[50px]">
-                                                        <label class="font-medium text-gray-500">Period do:</label>
-                                                        <input type="date"
-                                                            class="border-[1px] border-[#e4dfdf]  cursor-pointer focus:outline-none">
-                                                    </div>
-                                                </div>
-                                                <div class="flex pt-[10px] text-white ">
-                                                    <a href="#"
-                                                        class="btn-animation py-2 px-[20px] transition duration-300 ease-in hover:bg-[#46A149] bg-[#4CAF50] rounded-[5px]">
-                                                        Sacuvaj <i class="fas fa-check ml-[4px]"></i>
-                                                    </a>
-                                                    <a href="#"
-                                                        class="btn-animation ml-[20px] py-2 px-[20px] transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
-                                                        Ponisti <i class="fas fa-times ml-[4px]"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
+                                        <th id="default_checked" class="px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer">
+                                            Trenutno zadrzavanje knjige
                                         </th>
                                         <!-- Knjigu izdao + dropdown filter for bibliotekar -->
                                         <th id="default_checked"
-                                            class="relative px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer bibliotekariDrop-toggle">
+                                            class=" px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer bibliotekariDrop-toggle">
                                             Knjigu izdao <i class="fas fa-filter"></i>
-                                            <div id="bibliotekariDropdown"
+                                            <div id="bibliotekariDropdown"  style="position: absolute;z-index:9999;top:300px;right:5%;"
                                                 class="bibliotekariMenu hidden absolute rounded bg-white min-w-[310px] p-[10px] shadow-md top-[42px] right-0 border-2 border-gray-300">
                                                 <ul class="border-b-2 border-gray-300 list-reset">
                                                     <li class="p-2 pb-[15px] border-b-[2px] relative border-gray-300">
                                                         <input
                                                             class="w-full h-10 px-2 border-2 rounded focus:outline-none"
                                                             placeholder="Search"
-                                                            onkeyup="filterFunction('searchBibliotekari', 'bibliotekariDropdown', 'dropdown-item-bibliotekar')"
+                                                            id="searchBibliotekara"
                                                             id="searchBibliotekari"><br>
                                                         <button
                                                             class="absolute block text-xl text-center text-gray-400 transition-colors w-7 h-7 leading-0 top-[14px] right-4 focus:outline-none hover:text-gray-900">
@@ -332,11 +315,13 @@
                                                         </button>
                                                     </li>
                                                     <div class="h-[200px] scroll font-normal">
-                                                        <li class="flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200 dropdown-item-bibliotekar">
+
+                                                        @foreach ($l as $l)
+                                                        <li class="b_trazi flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200 dropdown-item-bibliotekar">
                                                             <label class="flex items-center justify-start">
                                                                 <div
                                                                     class="flex items-center justify-center flex-shrink-0 w-[16px] h-[16px] mr-2 bg-white border-2 border-gray-400 rounded focus-within:border-blue-500">
-                                                                    <input type="checkbox" class="absolute opacity-0">
+                                                                    <input id="odbibliotekara" type="checkbox" class="izdato absolute opacity-0" value="{{$l->first_and_last_name}}">
                                                                     <svg class="hidden w-4 h-4 text-green-500 pointer-events-none fill-current"
                                                                         viewBox="0 0 20 20">
                                                                         <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
@@ -348,23 +333,16 @@
                                                                 src="img/profileExample.jpg">
                                                             <p
                                                                 class="block p-2 text-black cursor-pointer group-hover:text-blue-600">
-                                                                Bibliotekar Bulatovic
+                                                                {{$l->first_and_last_name}}
                                                             </p>
                                                         </li>
+                                                        @endforeach
+                                                        
                                                         
                                                         
                                                     </div>
                                                 </ul>
-                                                <div class="flex pt-[10px] text-white ">
-                                                    <a href="#"
-                                                        class="btn-animation py-2 px-[20px] transition duration-300 ease-in hover:bg-[#46A149] bg-[#4CAF50] rounded-[5px]">
-                                                        Sacuvaj <i class="fas fa-check ml-[4px]"></i>
-                                                    </a>
-                                                    <a href="#"
-                                                        class="btn-animation ml-[20px] py-2 px-[20px] transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
-                                                        Ponisti <i class="fas fa-times ml-[4px]"></i>
-                                                    </a>
-                                                </div>
+                                               
                                             </div>
                                         </th>
                                         <th id="default_checked" class="px-4 py-4"> </th>
@@ -440,14 +418,14 @@
                                              {{$rent[0]->title}}
                                             </a>
                                         </td>
-                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">@foreach ($users as $student)
+                                        <td id="ucenik_ime" class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">@foreach ($users as $student)
                                             @if($student->id == $rent[0]->user_who_rented_id)
                                                 {{$student->first_and_last_name}}
                                             @endif
                                         @endforeach
                                     </td>
-                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$rent[0]->rent_date}}</td>
-                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
+                                        <td id="datum_izdavanja" class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{{$rent[0]->rent_date}}</td>
+                                        <td id="zadrzavanje" class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
                                             <div> 
 
                                                 <?php
@@ -470,7 +448,7 @@
                                                
                                             </div>
                                         </td>
-                                        <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">@foreach ($users as $librarian)
+                                        <td id="bibliotekar_ime" class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">@foreach ($users as $librarian)
                                             @if($librarian->id == $rent[0]->user_who_rented_out_id)
                                                 {{$librarian->first_and_last_name}}
                                             @endif
@@ -520,79 +498,7 @@
                                 </tbody>
                             </table>
                         </form>
-                            <div class="flex flex-row items-center justify-end my-3">
-                    
-                       
-                                
-                                <div> 
-                                @if (URL::current() == "http://127.0.0.1:8000/rent")
-                                     <form style="margin-right:20px;" id="formica" method="POST" action="{{route("rent.sort")}}">
-                                     @else
-                                    <form style="margin-right:20px;" id="formica" method="POST" action="{{route("rent.index")}}">
-                                @endif
-                               
-                                @csrf
-                                @method("GET")
-                                 <select onchange="this.form.submit()" id="selectica" form="formica" 
-                                        class=" text-gray-700 bg-white rounded-md w-[46px] focus:outline-none focus:ring-primary-500 focus:border-primary-500 text-md"
-                                        name="paginate">
-        
-                                        @if (isset($currentpag))
-                                        @if ($currentpag == 2)
-                                        <option id="selecticaoption" value="2" disabled selected>2</option>
-                                        <option id="selecticaoption" value="4">4</option>
-                                        <option id="selecticaoption" value="6">6</option>
-                                        <option id="selecticaoption" value="8">8</option>
-                                        <option id="selecticaoption" value="10">10</option>
-                                        @endif
-                                        @if ($currentpag == 4)
-                                        <option id="selecticaoption" value="2" >2</option>
-                                        <option id="selecticaoption" value="4" disabled selected>4</option>
-                                        <option id="selecticaoption" value="6">6</option>
-                                        <option id="selecticaoption" value="8">8</option>
-                                        <option id="selecticaoption" value="10">10</option>
-                                        @endif
-        
-                                        @if ($currentpag == 6)
-                                            <option id="selecticaoption" value="2" >2</option>
-                                        <option id="selecticaoption" value="4">4</option>
-                                        <option id="selecticaoption" value="6"  disabled selected>6</option>
-                                        <option id="selecticaoption" value="8">8</option>
-                                        <option id="selecticaoption" value="10">10</option>
-                                        @endif
-        
-                                        @if ($currentpag == 8)
-                                            <option id="selecticaoption" value="2" >2</option>
-                                        <option id="selecticaoption" value="4">4</option>
-                                        <option id="selecticaoption" value="6" >6</option>
-                                        <option id="selecticaoption" value="8"  disabled selected>8</option>
-                                        <option id="selecticaoption" value="10">10</option>
-                                        @endif
-        
-                                        @if ($currentpag == 10)
-                                            <option id="selecticaoption" value="2" >2</option>
-                                        <option id="selecticaoption" value="4" >4</option>
-                                        <option id="selecticaoption" value="6">6</option>
-                                        <option id="selecticaoption" value="8">8</option>
-                                        <option id="selecticaoption" value="10" disabled selected>10</option>
-                                        @endif
-        
-                                            @else
-                                    
-                                        @endif
-                                      
-                                    </select> 
-                                    
-                                    </form>
-                                  
-         
-                            </div>  
-                                    {{-- <p class="inline text-md">
-                                    
-                                      {{ $rented_book_info->onEachSide($currentpag)->links("vendor\pagination.tailwind") }}
-                                    </p> --}}
-        
-                        </div>
+                            
 
                         </div>
                     </div>

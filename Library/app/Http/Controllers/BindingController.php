@@ -150,4 +150,13 @@ class BindingController extends Controller
         $b->delete();
         return redirect('/binding');
     }
+
+    public function destroy_bind($bind_id)
+    {
+        foreach($bind_id as $bind_id){
+             $b=Binding::findOrFail($bind_id);
+        $b->delete();
+        }
+        return redirect('/binding');
+    }
 }

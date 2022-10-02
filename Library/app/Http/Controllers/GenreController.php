@@ -212,5 +212,18 @@ class GenreController extends Controller
         $genre->delete();
 
         return redirect('/genre');
+
     }
+    public function delete_zanr($zanr_id)
+    {
+        $zanr_id = explode("-",$zanr_id);
+        foreach($zanr_id as $zanr_id){
+            $genre = Genre::findOrFail($zanr_id);
+            @unlink( 'public/genre_icons/'.$genre->icon);
+            @unlink( 'public/genre_icons/crop/'.$genre->icon);
+            $genre->delete();
+        }
+     return redirect('/genre');
+    }
+    
 }

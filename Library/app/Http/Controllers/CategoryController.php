@@ -214,4 +214,16 @@ return redirect('/category');
     $c->delete();
      return redirect('/category');
     }
+
+    public function delete_kat($kat_id)
+    {
+        $kat_id = explode("-",$kat_id);
+        foreach($kat_id as $kat_id){
+    $c=Category::findOrFail($kat_id);
+    @unlink( 'public/category_icons/'.$c->icon);
+    @unlink( 'public/category_icons/crop/'.$c->icon);
+    $c->delete();
+        }
+     return redirect('/category');
+    }
 }

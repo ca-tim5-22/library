@@ -22,7 +22,7 @@
     <!-- End Styles -->
 </head>
 
-<body class="small:bg-gradient-to-r small:from-green-400 small:to-blue-500">
+<body onload="load();" class="small:bg-gradient-to-r small:from-green-400 small:to-blue-500">
     <!-- Header -->
     @include('includes\layout\header')
     <!-- Header -->
@@ -86,10 +86,10 @@
                             <tr class="border-b-[1px] border-[#e4dfdf]">
                                 <th class="px-4 py-4 leading-4 tracking-wider text-left text-blue-500">
                                     <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
+                                        <input id="all_checked" type="checkbox" class="form-checkbox">
                                     </label>
                                 </th>
-                                <th class="px-4 py-4 leading-4 tracking-wider text-left">Naziv kategorije
+                                <th id="default_checked"  class="px-4 py-4 leading-4 tracking-wider text-left">Naziv kategorije
                                 <a 
                                 @if (Route::current()->getName() == "category.index")
                                     href="{{route('category.sort');}}"
@@ -109,8 +109,47 @@
                                 
                                 </a>
                                 </th>
-                                <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Opis</th>
-                                <th class="px-4 py-4"> </th>
+                                <th id="default_checked"  class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Opis</th>
+                                <th id="default_checked" class="px-4 py-4"> </th>
+
+                                <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                    <form id="kat_delete_all" action="" method="POST">
+                                        @csrf
+                                        @method("get")
+                                        <button style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" type="submit" name="submit">
+                                            Izbrišite kategorije
+                                        </button>
+
+
+                                    </form>
+                                </th>
+                                <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                <th id="if_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left"></th>
+                                
+
+
+                                
+                                <th style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                    <a id="kat_edit" href="">
+                                    Izmijeni kategoriju</a>
+                                </th>
+                                <th style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                    <form id="kat_delete" method="POST" action="">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" type="submit" name="submit">
+                                            Izbrišite kategoriju
+                                        </button>
+                                        
+                                        </button>
+                                        </form>
+                                    
+                                
+                                </th>
+                                <th style="color: rgb(58, 26, 152);font-weight:600;font-style:italic;" id="if_one_checked" class="none px-4 py-4 text-sm leading-4 tracking-wider text-left">
+                                    
+                                    
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="bg-white">
@@ -118,7 +157,7 @@
                             <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-4 whitespace-no-wrap">
                                     <label class="inline-flex items-center">
-                                        <input type="checkbox" class="form-checkbox">
+                                        <input id="table_checkboxes" type="checkbox" class="form-checkbox" data-kat-id="{{$c->id}}">
                                     </label>
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-4">
@@ -258,7 +297,109 @@
         <!-- End Content -->
     </main>
     <!-- End Main content -->
-
+    <script>
+        const checkboxes = document.querySelectorAll("#table_checkboxes");
+        var if_checked = document.querySelectorAll("#if_checked");
+        var default_checked = document.querySelectorAll("#default_checked");
+        var if_one_checked =  document.querySelectorAll("#if_one_checked");
+        var all_checked = document.getElementById("all_checked");
+        
+        var i = 0;
+        function load(){
+                const checkboxes = document.querySelectorAll("#table_checkboxes");
+                
+                var all_checked = document.getElementById("all_checked");
+                if(all_checked.checked == true){
+                    all_checked.click();
+                }
+                checkboxes.forEach(e=>{
+                    if(e.checked == true){
+                        e.click();
+                    }
+                })
+               }
+        all_checked.addEventListener("change",()=>{
+            var nmb_of_checked = document.querySelectorAll("#table_checkboxes:checked").length
+            var is = document.getElementById("all_checked");
+           if(is.checked == true){
+            checkboxes.forEach(e => {
+                if(e.checked == false){
+                    e.click();
+                }
+            })
+           }else{
+            checkboxes.forEach(e => {
+                if(e.checked == true){
+                    e.click();
+                }
+            })
+           }
+            
+        })
+        checkboxes.forEach(e => {
+            e.addEventListener("change",()=>{
+                
+                var is = document.getElementById("all_checked");
+                var nmb_of_checked = document.querySelectorAll("#table_checkboxes:checked").length
+              
+                if(nmb_of_checked == 1){
+                  
+                    
+                    var kat_edit = document.getElementById("kat_edit");
+                    var kat_delete = document.getElementById("kat_delete");
+                    
+                    var id = e.dataset.katId;
+                   
+                   
+                    
+                    kat_edit.setAttribute("href","http://127.0.0.1:8000/category/"+id+"/edit");
+                    kat_delete.setAttribute("action","http://127.0.0.1:8000/category/"+id);
+                    default_checked.forEach(l =>{
+                        l.classList.add("none");
+                    });
+                    if_checked.forEach(p =>{
+                        p.classList.add("none")
+                    })
+                    if_one_checked.forEach(o =>{
+                        o.classList.remove("none");
+                    })
+                }else if(nmb_of_checked > 1){
+                    var kat_delete_more = document.getElementById("kat_delete_all");
+                    var checked = document.querySelectorAll("#table_checkboxes:checked");
+                    var ids="";
+                    checked.forEach(checked =>{
+                        ids += "-"+checked.dataset.katId;
+                    })
+                    
+                    ids = ids.slice(1);
+                    kat_delete_more.setAttribute("action","http://127.0.0.1:8000/deletekat/"+ids)
+                    default_checked.forEach(l =>{
+                        l.classList.add("none");
+                    });
+                    if_one_checked.forEach(o =>{
+                        o.classList.add("none");
+                    })
+                    if_checked.forEach(p =>{
+                        p.classList.remove("none")
+                    })
+                }else if (nmb_of_checked == 0){
+                    default_checked.forEach(l =>{
+                        l.classList.remove("none");
+                    });
+                    if_one_checked.forEach(o =>{
+                        o.classList.add("none");
+                    })
+                    if_checked.forEach(p =>{
+                        p.classList.add("none")
+                    })
+                
+                }
+            })
+          
+        });
+        
+        
+                </script>
     <!-- Notification for small devices -->
     @include('includes\layout\inProgress')
 

@@ -1215,7 +1215,7 @@ $("#sacuvajAutoraEdit").click(function (e) {
 });
 
 // Form validation for new genre
-function validacijaZanr() {
+function validacijaJezik() {
 
   $("#validateNazivJezika").empty();
 
@@ -1230,7 +1230,7 @@ function validacijaZanr() {
   }
 }
 
-function validacijaJezik() {
+function validacijaZanr() {
 
   $("#validateNazivZanra").empty();
 
@@ -1634,7 +1634,8 @@ $(document).on('mouseup', function (e) {
 });
 
 $('.uceniciDrop-toggle').on('click', function () {
-  $('.uceniciMenu').toggle();
+  $('.uceniciMenu').show();
+  
 })
 
 $(document).on('mouseup', function (e) {
@@ -1647,7 +1648,7 @@ $(document).on('mouseup', function (e) {
 });
 
 $('.bibliotekariDrop-toggle').on('click', function () {
-  $('.bibliotekariMenu').toggle();
+  $('.bibliotekariMenu').show();
 })
 
 $(document).on('mouseup', function (e) {
@@ -1686,7 +1687,7 @@ $(document).on('mouseup', function (e) {
 });
 
 $('.datumDrop-toggle').on('click', function () {
-  $('.datumMenu').toggle();
+  $('.datumMenu').show();
 })
 
 $(document).on('mouseup', function (e) {
@@ -1699,7 +1700,7 @@ $(document).on('mouseup', function (e) {
 });
 
 $('.zadrzavanjeDrop-toggle').on('click', function () {
-  $('.zadrzavanjeMenu').toggle();
+  $('.zadrzavanjeMenu').show();
 })
 
 $(document).on('mouseup', function (e) {
@@ -1725,7 +1726,7 @@ $(document).on('mouseup', function (e) {
 });
 
 $('.statusDrop-toggle').on('click', function () {
-  $('.statusMenu').toggle();
+  $('.statusMenu').show();
 })
 
 $(document).on('mouseup', function (e) {

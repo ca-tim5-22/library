@@ -248,8 +248,10 @@ Route::get('dashboard',function(){
             BookStatus::create([
                 "name"=>"Otpisano"
             ]);
-        
-
+            BookStatus::create([
+                "name"=>"Vraceno sa prekoracenjem"
+            ]);
+    
 
 
     }
@@ -277,7 +279,7 @@ Route::get('dashboard',function(){
     foreach($rented_books as $rent){
         $rented = $rent->rent;
     }
-    
+    $slike = DB::select(DB::raw("SELECT * FROM galleries"));
     
    
     return view('dashboard.dashboard',compact("student","librarian","rented","u_preko","all","books","muski","zenski"));
@@ -294,8 +296,8 @@ Route::get('dashboardaktivnost',function(){
     $muski = (object) $muski;
     $zenski = DB::select(DB::raw("SELECT * FROM genders WHERE name =\"Zenski\";"));
     $zenski = (object) $zenski;
-   
-    return view('dashboard.dashboardAktivnost',compact("all","student","librarian","muski","zenski","books"));
+    $slike = DB::select(DB::raw("SELECT * FROM galleries"));
+    return view('dashboard.dashboardAktivnost',compact("slike","all","student","librarian","muski","zenski","books"));
 });
 Route::resource('alphabet',AlphabetController::class);
 Route::resource('author',AuthorController::class);
@@ -366,23 +368,27 @@ Route::get("overdue/{book}",[RentController::class,"overdue_books"])->name("rent
 
 Route::get("abandon/{id}",[RentController::class,"abandon_book"])->name("rent.abandon");
 
-Route::get("returnbook/{book}",[RentController::class,"return_book"])->name("rent.returnbook");
+Route::get("returnbook/{id}",[RentController::class,"return_book"])->name("rent.returnbook");
 
 Route::get("abandonmore",[RentController::class,"abandon_more"])->name("rent.abandon_more");
-
+Route::get("abandonmorebooks/{ids}",[RentController::class,"abandon_more_2"])->name("rent.abandon_more_2");
 Route::get("returnmore",[RentController::class,"return_more"])->name("rent.return_more");
-
+Route::get("returnmore/{ids}",[RentController::class,"return_more_2"])->name("rent.return_more_2");
 Route::get("overdue",[RentStatusController::class,"overdue_index"])->name("overdue_index");
 
 Route::get("returnbookindex/{book}",[RentController::class,"return_book_index"])->name("return_index");
+Route::get("abandonbookindex/{book}",[RentController::class,"abandon_book_index"])->name("abandon_index");
 
 Route::get("reservation/active/{book}",[ReservationController::class,"active_reservations"])->name("reservation.active");
 
 Route::get("reservation/archive/{book}",[ReservationController::class,"reservations_archive"])->name("reservation.archive");
 
 Route::get("rentsort",[RentController::class,"sort"])->name("rent.sort");
+
 Route::get("deletemore/{lib_id}",[LibrarianController::class,"destroy_more"])->name("deletemorelib");
+
 Route::get("deletemore/{student_id}",[StudentController::class,"destroy_more"])->name("deletemorestu");
+
 Route::get("reservations/active",[ReservationController::class,"active_reservation"])->name("active");
 
 Route::get("reservations/archive",[ReservationController::class,"reservation_archive"])->name("archive");
@@ -397,8 +403,17 @@ Route::get("student/archive/{student}",[StudentController::class,"archive"])->na
 
 Route::get("student/active/{student}",[StudentController::class,"active"])->name("student.active");
 
+Route::get("deletekat/{kat_id}",[CategoryController::class,"delete_kat"])->name("delete_kat");
+Route::get("rent/reservation/{reservation}",[RentController::class,"rent_from_reservation"])->name("rent.reservation");
 
 
+Route::get("deleteizd/{izd_id}",[PublisherController::class,"delete_izd"])->name("delete_izd");
+
+Route::get("deletezanr/{zanr_id}",[GenreController::class,"delete_zanr"])->name("delete_zanr");
+Route::get("deleteformat/{form_id}",[FormatController::class,"delete_form"])->name("delete_format");
+Route::get("deletebinding/{bind_id}",[BindingController::class,"delete_bind"])->name("delete_bind");
+Route::get("deletebooks/{ids}",[BookController::class,"delete_more"])->name("delete_books");
+Route::get("deletelang/{lang_id}",[LanguageController::class,"delete_lang"])->name("delete_lang");
 /*-------------------------------------------------------------------------------------------*/
 
 Route::get("bookspec",[BookController::class,"spec"])->name("book.spec");
