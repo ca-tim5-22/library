@@ -180,23 +180,59 @@ $l = Users::where("user_type_id","=",1)->get();
      */
     public function store(StoreRentRequest $request)
     {
-        
-                $rent=Rent::create([
-                    "rent_date"=>$request->rent_date,
-                    "return_date"=>$request->return_date]);
+       
+        $id=$request->user_who_rented_id;
+        $book=Book::findOrFail($request->book);
+        if($book->user_active_reservations_number($id)>0){
+            $rent=Rent::create([
+                "rent_date"=>$request->rent_date,
+                "return_date"=>$request->return_date]);
 
-        
-                 $librarian=Users::findOrFail(auth()->user()->id);
-                 $student=Users::findOrFail($request->user_who_rented_id);
-                 $book=Book::findOrFail($request->book);
-                 $book->rented++;
-                 $book->save();
-                 $librarian->userWhoRentedOut()->save($rent);
-                 $student->userWhoRented()->save($rent);
-                 $book->rent()->save($rent);
-                    $status=DB::table("book_statuses")->where("name","=","Izdato")->get()->first();
+                $librarian=Users::findOrFail(auth()->user()->id);
+                $student=Users::findOrFail($request->user_who_rented_id);
+                $book->rented++;
+                $book->save();
+                $librarian->userWhoRentedOut()->save($rent);
+                $student->userWhoRented()->save($rent);
+                $book->rent()->save($rent);
+                $status=DB::table("book_statuses")->where("name","=","Izdato")->get()->first();
+    
+                $rent->rent_status()->attach($status->id);
 
-                 $rent->rent_status()->attach($status->id);
+               $res=$book->user_active_reservations($request->user_who_rented_id)->reservation_id;
+
+               $r=Reservation::where('id','=',$res)->first();
+               $status=StatusesOfReservations::where('name','Izdato')->first()->id;
+               $r->status()->sync($status);
+                 
+                 
+                 
+            }else{
+
+                $total=$book->total-($book->rent_count()+$book->reservation_count()+$book->overdue_count());
+                if($total!=0){
+                    $rent=Rent::create([
+                        "rent_date"=>$request->rent_date,
+                        "return_date"=>$request->return_date]);
+    
+            
+                     $librarian=Users::findOrFail(auth()->user()->id);
+                     $student=Users::findOrFail($request->user_who_rented_id);
+                     $book=Book::findOrFail($request->book);
+                     $book->rented++;
+                     $book->save();
+                     $librarian->userWhoRentedOut()->save($rent);
+                     $student->userWhoRented()->save($rent);
+                     $book->rent()->save($rent);
+                        $status=DB::table("book_statuses")->where("name","=","Izdato")->get()->first();
+    
+                     $rent->rent_status()->attach($status->id);
+
+                 }else{
+
+                   return redirect()->back();
+
+                 }}
 
              
                return redirect("/book");
@@ -224,12 +260,17 @@ $l = Users::where("user_type_id","=",1)->get();
                      $preko++;
                    }
 
+                   $rented=[];
+                   foreach($users as $u){
+                     $rented[$u->id]=Rent::all_user_rents($u->id);
+                   }
+
 
                    $reservation_count=$book->reservation_count();
                    $overdue_count=$book->overdue_count();
                    $rent_count=$book->rent_count()+$overdue_count;
 
-                return view("izdajKnjigu",compact('users','deadline','book',"book_headline","preko","reservation_count","overdue_count","rent_count"));
+                return view("izdajKnjigu",compact('users','rented','deadline','book',"book_headline","preko","reservation_count","overdue_count","rent_count"));
             }
 
     /**

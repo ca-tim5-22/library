@@ -79,6 +79,8 @@ class Book extends Model
  );}
 
 
+
+
  public function reservation_count(){ 
    $status=StatusesOfReservations::where("name","=","Rezervisano")->get()->first();
  return $this->reservations()->where("reservation_status_id","=",$status->id)->get()->count();
@@ -94,6 +96,39 @@ public function overdue_count(){
   return $this->rents()->where("book_status_id","=",$status->id)->get()->count();
  }
 
+ public function user_active_rented($id){
+  return $this->rent()
+  ->join('rent_statuses','rents.id','=','renting_id')
+  ->whereRaw('rent_statuses.book_status_id ='.BookStatus::where('name','Izdato')->first()->id
+  .' and rents.user_who_rented_id ='.$id)
+  ->orderBy('rent_date','desc')
+  ->groupBy('rents.user_who_rented_id')
+  ->count();
+}
+
+public function user_active_reservations_number($id){
+
+  $status=StatusesOfReservations::where('name','Rezervisano')->first()->id;
+  return $this->reservation()
+  ->join('reservation_statuses','reservations.id','=','reservation_id')
+  ->where("reservation_statuses.reservation_status_id", "=",$status)
+  ->where("reservations.foruser_id","=", $id)
+  ->orderBy('date_of_reservation','desc')
+  ->groupBy('reservations.foruser_id')
+  ->count();
+  
+}
+
+public function user_active_reservations($id){
+  $status=StatusesOfReservations::where('name','Rezervisano')->first()->id;
+  return $this->reservation()
+  ->join('reservation_statuses','reservations.id','=','reservation_statuses.reservation_id')
+  ->where("reservation_statuses.reservation_status_id","=",$status)
+  ->where("reservations.foruser_id","=",$id)
+  ->orderBy('reservations.date_of_reservation','desc')
+  ->get()
+  ->first();
+}
 
 
 }

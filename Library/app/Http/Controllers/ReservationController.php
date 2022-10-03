@@ -44,6 +44,11 @@ class ReservationController extends Controller
      */
     public function store(StoreReservationRequest $request)
     {
+        
+        $book=Book::findOrFail($request->book);
+        $total=$book->total-($book->rent_count()+$book->reservation_count()+$book->overdue_count());
+
+        if($total!=0){
         $reservation=Reservation::create([
             "date_of_submission"=>Carbon::now(),
             "date_of_reservation"=>$request->date_of_reservation,
@@ -54,14 +59,22 @@ class ReservationController extends Controller
          $librarian->userWhoReserved()->save($reservation);
          $student->forUser()->save($reservation);
 
-         $book=Book::findOrFail($request->book);
          $book->reservation()->save($reservation);
 
          
         $status=DB::table("statuses_of_reservations")->where("name","=","Rezervisano")->get()->first();
         $reservation->status()->attach($status->id);
+    
+        return redirect("/book");
 
-       return redirect("/book");
+    }else{
+        return redirect()->back();
+    }
+        
+
+
+        
+
 
     }
 
