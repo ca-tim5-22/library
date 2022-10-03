@@ -14,16 +14,16 @@
 
     <!-- Title -->
     <title>Login | Library - ICT Cortex student project</title>
-    @include('includes\layout\icon')
+    @include('includes.layout.icon')
     <!--
-    @include('includes\layout\icon')
+    @include('includes.layout.icon')
     Na svakoj stranici
     -->
 
     <!-- End Title -->
 
     <!-- Styles -->
-    @include('includes\layout\styles')
+    @include('includes.layout.styles')
     <!-- End Styles -->
 </head>
 
@@ -76,10 +76,10 @@
     <!-- End Main content -->
 
     <!-- Notification for small devices -->
-    @include('includes\layout\inProgress')
+    @include('includes.layout.inProgress')
 
     <!-- Scripts -->
-    @include('includes\layout\scripts')
+    @include('includes.layout.scripts')
     <!-- End Scripts -->
 
 </body>
