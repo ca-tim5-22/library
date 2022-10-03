@@ -525,7 +525,7 @@
                         @endif
                         @endforeach
                         <div class="mt-[40px]">
-                            <a href="dashboardAktivnost.php?knjiga=Tom Sojer" class="text-[#2196f3] hover:text-blue-600">
+                            <a href="{{url("dashboardaktivnost")}}" data-book-name="{{$book->title}}" class="text-[#2196f3] hover:text-blue-600">
                                 <i class="fas fa-history"></i> Prikazi sve
                             </a>
                         </div>
@@ -539,9 +539,8 @@
     </main>
     <!-- End Main content -->
     <?php
-
     function datumm($a,$sec){
-        $value = 0;
+        $value = $a. " dana";
         $end = "";
         if($a==0 && ($sec/60 <= 60)){
             for($i=1;$i<=60;$i++){
@@ -550,7 +549,7 @@
                 }
             }
         }else {
-            if((round($sec/3600) == 2)||(round($sec/3600) == 3)||(round($sec/3600) == 4)||(round($sec/3600) == 22)||(round($sec/3600) == 23) || (round($sec/3600) == 24)){
+            if((round($sec/3600) == 2) || (round($sec/3600) == 3) || (round($sec/3600) == 4) || (round($sec/3600) == 22) || (round($sec/3600) == 23) || (round($sec/3600) == 24)){
                 $end=" sata";
             }else{
                 $end = " sati";
@@ -561,7 +560,7 @@
                 }
             }
         }
-
+    
     if($a>7){
         $dan = $a%7;
         $nedelja = ($a-$dan) / 7;
@@ -569,8 +568,8 @@
     }
        echo $value;
     }
-
-
+    
+    
     ?>
     <!-- Notification for small devices -->
     @include('includes\layout\inProgress')

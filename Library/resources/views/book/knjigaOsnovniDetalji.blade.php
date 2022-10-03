@@ -470,15 +470,16 @@
                                 <span>
                                     <?php 
                                     $date = date_create($notification->created_at);
-
+                                  
 
                                     $newdate=date_format($date,"d-m-Y H:i:s");
+                                    
                                      $today=date("d-m-Y H:i:s");
                                      
                                     $a= strtotime($today) - strtotime($newdate);
                                     $sec = $a;
                                    $a= abs(round($a / 86400));
-                                   
+                                 
                                    echo datum($a,$sec);
                                       ?>
                                 </span>
@@ -514,7 +515,7 @@
                         @endif
                         @endforeach
                         <div class="mt-[40px]">
-                            <a href="dashboardAktivnost.php?knjiga=Tom Sojer" class="text-[#2196f3] hover:text-blue-600">
+                            <a href="{{url("dashboardaktivnost")}}" data-book-name="{{$book->title}}" class="text-[#2196f3] hover:text-blue-600">
                                 <i class="fas fa-history"></i> Prikazi sve
                             </a>
                         </div>
@@ -531,37 +532,39 @@
 
     <?php
 
-    function datum($a,$sec){
-        $value = 0;
-        $end = "";
-        if($a==0 && ($sec/60 <= 60)){
-            for($i=1;$i<=60;$i++){
-                if(round($sec/60) == $i){
+function datum($a, $sec)
+    {
+        $value = $a . ' dana';
+        $end = '';
+        if ($a == 0 && $sec / 60 <= 60) {
+            for ($i = 1; $i <= 60; $i++) {
+                if (round($sec / 60) == $i) {
                     $value = "$i minuta";
                 }
             }
-        }else {
-            if((round($sec/3600) == 2)||(round($sec/3600) == 3)||(round($sec/3600) == 4)||(round($sec/3600) == 22)||(round($sec/3600) == 23) || (round($sec/3600) == 24)){
-                $end=" sata";
-            }else{
-                $end = " sati";
+        } else {
+            if (round($sec / 3600) == 2 || round($sec / 3600) == 3 || round($sec / 3600) == 4 || round($sec / 3600) == 22 || round($sec / 3600) == 23 || round($sec / 3600) == 24) {
+                $end = ' sata';
+            } elseif (round($sec / 3600) == 1 || round($sec / 3600) == 21) {
+                $end = ' sat';
+            } else {
+                $end = ' sati';
             }
-            for($i=1;$i<=24;$i++){
-                if(round($sec/3600) == $i){
-                    $value="$i".$end;
+            for ($i = 1; $i <= 24; $i++) {
+                if (round($sec / 3600) == $i) {
+                    $value = "$i" . $end;
                 }
             }
         }
-
-    if($a>7){
-        $dan = $a%7;
-        $nedelja = ($a-$dan) / 7;
-        $value = $nedelja." nedelja/e ".$dan." dan/a";
+    
+        if ($a > 7) {
+            $dan = $a % 7;
+            $nedelja = ($a - $dan) / 7;
+            $value = $nedelja . ' nedelja/e ' . $dan . ' dan/a';
+        }
+        echo $value;
     }
-       echo $value;
-    }
-
-
+    
     ?>
     <!-- Notification for small devices -->
     @include('includes\layout\inProgress')

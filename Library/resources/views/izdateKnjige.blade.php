@@ -430,7 +430,7 @@
 
                                                 <?php
                                                 $today=date("Y-m-d H:i:s");                                               
-                                                $a= strtotime($today) - strtotime($rent[0]->created_at);
+                                                $a= strtotime($today) - strtotime($rent[0]->rent_date);
                                                 $sec = $a;
                                                 $a= round($a / 86400);
                                                 ?>

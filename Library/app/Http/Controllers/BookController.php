@@ -292,7 +292,7 @@ class BookController extends Controller
        ->join('users as librarians','librarians.id','=','rents.user_who_rented_out_id')
        ->join('users as students','students.id','=','rents.user_who_rented_id')
        ->select('rents.*','rent_statuses.created_at','librarians.id as librarian_id','students.id as student_id','librarians.first_and_last_name as librarian','librarians.gender_id as gender','students.first_and_last_name as student')
-       ->orderBy("return_date","desc")->get();
+       ->orderBy("created_at","desc")->get();
 
 
         $students=DB::select(DB::raw("SELECT * FROM users WHERE user_type_id=2 ORDER BY `users`.`first_and_last_name` ASC;"));
@@ -327,6 +327,8 @@ class BookController extends Controller
         $reservation_count=$book->reservation_count();
          $overdue_count=$book->overdue_count();
          $rent_count=$book->rent_count()+$overdue_count;
+
+    
 
         return view("book.knjigaOsnovniDetalji",compact("book","notifications","students","librarian","book_photos","categories_of_book","authors_of_book","genres_of_book","bindings","alphabets","publishers","formats","languages","naslovna","rented_c","reservation_count","overdue_count","rent_count"));
     }

@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    if(!$(location).attr("href").includes("dashboardaktivnost")){
+        localStorage.removeItem("ime");
+    }
     $("#filter").keyup(function(){
         
         // Retrieve the input field text and reset the count to zero
@@ -3709,6 +3712,9 @@ $(document).ready(function(){
             }
         }
   });
+$("a[data-book-name]").click(function(){
+    localStorage.setItem("ime",$(this).data("bookName"));
+})
 
   document.getElementById("resetallfilters").addEventListener("click",()=>{
             document.querySelectorAll("input").forEach(e=>{

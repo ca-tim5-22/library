@@ -355,11 +355,10 @@ $a= abs(round($a / 86400));
         $status3=BookStatus::where('name','=','Izdato')->get()->first();
 
         $notifications=$book->rent()->join('rent_statuses','rent_statuses.renting_id','=','rents.id')
-        ->join('users as librarians','librarians.id','=','rents.user_who_rented_out_id')
-        ->join('users as students','students.id','=','rents.user_who_rented_id')
-        ->select('rents.*','rent_statuses.created_at','librarians.id as librarian_id','students.id as student_id','librarians.first_and_last_name as librarian','librarians.gender_id as gender','students.first_and_last_name as student')
-        ->whereIn('rent_statuses.book_status_id',[$status3->id])
-        ->orderBy("return_date","desc")->get();
+       ->join('users as librarians','librarians.id','=','rents.user_who_rented_out_id')
+       ->join('users as students','students.id','=','rents.user_who_rented_id')
+       ->select('rents.*','rent_statuses.created_at','librarians.id as librarian_id','students.id as student_id','librarians.first_and_last_name as librarian','librarians.gender_id as gender','students.first_and_last_name as student')
+       ->orderBy("created_at","desc")->get();
 
         $users=Users::all();
     
@@ -400,9 +399,7 @@ $a= abs(round($a / 86400));
      ->join('users as librarians','librarians.id','=','rents.user_who_rented_out_id')
      ->join('users as students','students.id','=','rents.user_who_rented_id')
      ->select('rents.*','rent_statuses.created_at','librarians.id as librarian_id','students.id as student_id','librarians.first_and_last_name as librarian','librarians.gender_id as gender','students.first_and_last_name as student')
-     ->orderBy("return_date","desc")
-     ->whereIn('rent_statuses.book_status_id',[$status3->id])
-     ->get();
+     ->orderBy("created_at","desc")->get();
  
 
      return view("rent.IznajmljivanjeVracene",compact('rented','photo','notifications','users','book',"rented_book_info","reservation_count","overdue_count","rent_count"));
@@ -457,8 +454,7 @@ $a= abs(round($a / 86400));
          ->join('users as librarians','librarians.id','=','rents.user_who_rented_out_id')
          ->join('users as students','students.id','=','rents.user_who_rented_id')
          ->select('rents.*','rent_statuses.created_at','librarians.id as librarian_id','students.id as student_id','librarians.first_and_last_name as librarian','librarians.gender_id as gender','students.first_and_last_name as student')
-         ->whereIn('rent_statuses.book_status_id',[$status3->id])
-         ->orderBy("return_date","desc")->get();
+         ->orderBy("created_at","desc")->get();
       
         /*  $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get();
          $preko=DB::table("rent_statuses")->where("book_status_id","=",$u_preko[0]->id)->get(); 

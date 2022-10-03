@@ -79,11 +79,11 @@
                         </div>
                     </div>
                     <div class="pt-[24px] mr-[30px]">
-                        <a href="otpisiKnjigu.php" class="inline hover:text-blue-600">
+                        <a href="{{route("abandon_index");}}" class="inline hover:text-blue-600">
                             <i class="fas fa-level-up-alt mr-[3px]"></i>
                             Otpisi knjigu
                         </a>
-                        <a href="izdajKnjigu.php" class="inline hover:text-blue-600 ml-[20px] pr-[10px]">
+                        <a href="{{route("rent.new");}}" class="inline hover:text-blue-600 ml-[20px] pr-[10px]">
                             <i class="far fa-hand-scissors mr-[3px]"></i>
                             Izdaj knjigu
                         </a>
