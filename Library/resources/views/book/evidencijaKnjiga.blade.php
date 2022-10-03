@@ -100,9 +100,9 @@
                                     </th>
 
                                     <!-- Autor + dropdown filter for autor -->
-                                    <th id="default_checked"  id="autoriMenu"
+                                    <th id="default_checked" id="autoriMenu"
                                         class=" px-4 py-4 text-sm leading-4 tracking-wider text-left cursor-pointer ">
-                                        Autor<i class="ml-2 fas fa-filter"></i>
+                                        Autor<i id="autoriMenu" class="ml-2 fas fa-filter"></i>
 
                                         <div id="autoriDropdown" style="top:298px;z-index:100;"
                                             class="autoriMenu hidden absolute rounded bg-white min-w-[310px] p-[10px] shadow-md top-[42px] pin-t pin-l border-2 border-gray-300">
@@ -144,14 +144,14 @@
                                     </th>
 
                                     <!-- Kategorija + dropdown filter for kategorija -->
-                                    <th id="default_checked"  id="kategorijeMenu" class=" px-4 py-4 text-sm leading-4 tracking-wider text-left">Kategorija<i
+                                    <th id="default_checked" id="kategorijeMenu" class=" px-4 py-4 text-sm leading-4 tracking-wider text-left">Kategorija<i style="cursor: pointer;" id="kategorijeMenu"
                                             class="ml-2 fas fa-filter"></i>
                                         <div style="top:298px;" id="kategorijeDropdown" style="z-index:999;" class="kategorijeMenu hidden absolute rounded bg-white min-w-[310px] p-[10px] shadow-md top-[42px] pin-t pin-l border-2 border-gray-300">
                                             <ul class="border-b-2 border-gray-300 list-reset">
                                                 <li class="p-2 pb-[15px] border-b-[2px] relative border-gray-300">
                                                     <input class="w-full h-10 px-2 border-2 rounded focus:outline-none"
                                                         placeholder="Search"
-                                                        onkeyup=""
+                                                        
                                                         id="searchKategorije"><br>
                                                    
                                                 </li>

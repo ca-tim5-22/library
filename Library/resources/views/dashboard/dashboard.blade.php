@@ -69,10 +69,10 @@
                     <span id="header_span"
                         class="absolute bg-[#EF4F4C] text-[11px] font-medium text-white right-[10px] top-[-10px] pl-[4px] pr-[5px] pt-[1px] text-center"><?php 
                         //Mozda ce biti updated_at umjesto created_at
-                                            foreach($all as $one){
+                                            foreach($all as $rent){
                         
                                             
-                                                $only_date = $one->created_at;
+                                                $only_date = $rent->created_at;
                                                 
                                                 $only_date = date_create($only_date);
                                                 $only_date = date_format($only_date,"m/d/Y H:i:s");
@@ -265,12 +265,12 @@
                             <div class="activity-card flex flex-row mb-[30px]">
                             <div class="w-[60px] h-[60px]">
                                 @foreach ($librarian as $l)
-                                    @if ($l->id == $one->user_who_rented_out_id)
-                                    @if ($l->photo != null)
+                                    @if ($l->id == $rent->user_who_rented_out_id)
+                                        @if ($l->photo != null)
                                          <img class="w-[60px] h-[60px] rounded-full" src="{{asset('storage/librarian_images/'.$l->photo)}}" alt="">
                                          @else
                                          <img class="rounded-full" src="img/profileExample.jpg" alt="">
-                                    @endif
+                                        @endif
                                    
                                     @endif
                                 @endforeach
@@ -278,7 +278,15 @@
                             <div class="ml-[15px] mt-[5px] flex flex-col">
                                 <div class="text-gray-500 mb-[5px]">
                                     <p class="uppercase">
-                                        Izdavanje knjige
+                                        @if ($rent->book_status_id == 3)
+                                                        Vracanje knjige
+                                                        @elseif($rent->book_status_id == 2 || $rent->book_status_id == 4)
+                                                        Izdavanje knjige
+                                                        @elseif($rent->book_status_id == 5)
+                                                        Otpisivanje knjige
+                                                        @elseif($rent->book_status_id == 1)
+                                                        Rezervisanje knjige
+                                        @endif
                                         <span class="inline lowercase">
                                             prije
                                             <?php 
@@ -300,56 +308,109 @@ echo datum($a,$sec);
                                 </div>
                                 <div class="">
                                     <p>
-                                        
-                                            @foreach ($librarian as $l)
-                                           @if ($l->id == $rent->user_who_rented_out_id)
-                                           <a href="{{route('librarian.show',$l->id);}}" class="text-[#2196f3] hover:text-blue-600">
-{{$l->first_and_last_name}}                           
-</a>                    
-@foreach ($muski as $m)
-    
-@if ($l->gender_id == $m->id)
+                                        @if ($rent->book_status_id == 2 || $rent->book_status_id == 4 || $rent->book_status_id == 1 || $rent->book_status_id == 5)
+                                        @foreach ($users as $l)
+                                            @if ($l->id == $rent->user_who_rented_out_id)
+                                                <a id="bibliotekar_ime"
+                                                    href="{{ route('librarian.show', $l->id) }}"
+                                                    class="text-[#2196f3] hover:text-blue-600">
+                                                    {{ $l->first_and_last_name }}
+                                                </a>
+                                                @foreach ($muski as $m)
+
+@if ($l->gender_id == $m->id && ($rent->book_status_id == 4 || $rent->book_status_id == 2))
 je izdao knjigu 
+@elseif($l->gender_id == $m->id && $rent->book_status_id == 1 )
+je rezervisao
+@elseif($l->gender_id == $m->id && $rent->book_status_id == 5 )
+je otpisao primjerak knjige
+@endif
+@endforeach
+
+@foreach ($zenski as $z)
+
+
+@if ($l->gender_id == $z->id && ($rent->book_status_id == 4 || $rent->book_status_id == 2))
+je izdala knjigu 
+@elseif($l->gender_id == $z->id && $rent->book_status_id == 1 )
+je rezervisala
+@elseif($l->gender_id == $z->id && $rent->book_status_id == 5 )
+je otpisala primjerak knjige
+@endif
+@endforeach
+                                            @endif
+                                        @endforeach
+                                        
+                                        @elseif($rent->book_status_id == 3)
+                                    
+                                        @foreach ($users as $s)
+                                           @if ($s->id == $rent->user_who_rented_id)
+                                           
+    @foreach ($muski as $m)
+    
+@if ($s->gender_id == $m->id)
+Ucenik 
+<a id="ucenik_ime" href="{{route('student.show',$s->id);}}" class="text-[#2196f3] hover:text-blue-600">
+    {{$s->first_and_last_name}} 
+</a>                          
+je vratio knjigu
+
 @endif
 @endforeach
 
 @foreach ($zenski as $z)
     
 
-@if ($l->gender_id == $z->id)
-je izdala knjigu 
+@if ($s->gender_id == $z->id)
+Ucenica
+<a id="ucenik_ime" href="{{route('student.show',$s->id);}}" class="text-[#2196f3] hover:text-blue-600">
+    {{$s->first_and_last_name}} 
+</a>                          
+je vratila knjigu
 @endif
 @endforeach
-
-
                                            @endif
                                                
-                                          
-                                       
-                                            
-                                        
-                                       
-                                        
-                                        @endforeach<span class="font-medium">
+                                           @endforeach 
+                                        @endif
+                                        <span class="font-medium">
                                             @foreach ($books as $book)
                                             @if ($book->id == $rent->book_id)
                                                 {{$book->title}}
                                             @endif
                                         @endforeach</span>
-                                        korisniku
-
-                                           @foreach ($student as $s)
-                                           @if ($s->id == $rent->user_who_rented_id)
-                                           <a href="{{route('student.show',$s->id);}}" class="text-[#2196f3] hover:text-blue-600">
-{{$s->first_and_last_name}}                   
-    </a>                          
-                                           @endif
-                                               
-                                           @endforeach
-                                      
-                                        dana 
-                                        
-                                        <span class="font-medium">{{$rent->rent_date}}</span>
+                                        @if($rent->book_status_id != 5)
+                                        @if ($rent->book_status_id != 3)
+                                             @foreach ($users as $s)
+                                            @if ($s->id == $rent->user_who_rented_id)
+                                                <a id="ucenik_ime" href="{{ route('student.show', $s->id) }}"
+                                                    class="text-[#2196f3] hover:text-blue-600">
+                                                    {{ $s->first_and_last_name }}
+                                                </a>
+                                            @endif
+                                        @endforeach
+                                        @else
+                                        @foreach ($users as $s)
+                                            @if ($s->id == $rent->user_who_rented_out_id)
+                                            bibliotekaru
+                                                <a id="bibliotekar_ime" href="{{ route('librarian.show', $s->id) }}"
+                                                    class="text-[#2196f3] hover:text-blue-600">
+                                                    {{$s->first_and_last_name}}
+                                                </a>
+                                            @endif
+                                        @endforeach
+                                        @endif
+                                       
+@endif
+                                        dana
+                                            @if($rent->book_status_id == 3 || $rent->book_status_id == 5)
+                                            <?php $datum = explode(" ",$rent->updated_at);?>
+                                        <span id="datum_izdavanja"
+                                            class="font-medium">{{ $datum[0] }} u {{$datum[1]}}</span>
+                                            @else
+                                            <span id="datum_izdavanja"
+                                            class="font-medium">{{ $rent->rent_date }}</span>
+                                            @endif
                                         <a href="izdavanjeDetalji.php" class="text-[#2196f3] hover:text-blue-600">
                                             |DETALJNIJE|
                                         </a>
@@ -428,18 +489,18 @@ je izdala knjigu
                                     </p>
                                 </div>
                                 <div class="flex pb-[30px]">
-                                    <a class="w-[145px] text-[#2196f3] hover:text-blue-600" href="aktivneRezervacije.php">
+                                    <a class="w-[145px] text-[#2196f3] hover:text-blue-600" href="{{route("active");}}">
                                         Rezervisane knjige
                                     </a>
-                                    <div style="background: yellow;width:0px;" class="ml-[30px] bg-yellow-600 transition duration-200 ease-in  hover:bg-yellow-900   h-[26px]">
+                                    <div style="background: rgb(255, 166, 0);width:{{$nor[0]->nor}}px;" class="ml-[30px] bg-yellow-600 transition duration-200 ease-in  hover:bg-yellow-900   h-[26px]">
                                     
                                     </div>
-                                    <p class="ml-[10px] text-[#2196f3] hover:text-blue-600 number-yellow">
-                                        Rezervisano
+                                    <p  class="ml-[10px] text-[#2196f3] hover:text-blue-600 number-yellow">
+                                        {{$nor[0]->nor}}
                                     </p>
                                 </div>
                                 <div class="flex pb-[30px]">
-                                    <a class="w-[145px] text-[#2196f3] hover:text-blue-600" href="knjigePrekoracenje.php">
+                                    <a class="w-[145px] text-[#2196f3] hover:text-blue-600" href="{{route('overdue_index');}}">
                                         Knjige u prekoracenju
                                     </a>
                                     <div style="background: red;width:{{$u_preko}}px;" class="ml-[30px] bg-red-600 transition duration-200 ease-in hover:bg-red-900  h-[26px]">
