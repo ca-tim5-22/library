@@ -14,23 +14,23 @@
 
     <!-- Title -->
     <title>Izdaj knjigu | Library - ICT Cortex student project</title>
-    @include('includes\layout\icon')
+    @include('includes.layout.icon')
     <!-- End Title -->
 
-   @include('includes\layout\icon') <!-- Styles -->
-    @include('includes\layout\styles')
+   @include('includes.layout.icon') <!-- Styles -->
+    @include('includes.layout.styles')
     <!-- End Styles -->
 </head>
 
 <body class="small:bg-gradient-to-r small:from-green-400 small:to-blue-500">
     <!-- Header -->
-    @include('includes\layout\header')
+    @include('includes.layout.header')
     <!-- Header -->
 
     <!-- Main content -->
     <main class="flex flex-row small:hidden">
         <!-- Sidebar -->
-        @include('includes\layout\sidebar')
+        @include('includes.layout.sidebar')
         <!-- End Sidebar -->
 
         <!-- Content -->
@@ -79,11 +79,11 @@
                         </div>
                     </div>
                     <div class="pt-[24px] mr-[30px]">
-                        <a href="otpisiKnjigu.php" class="inline hover:text-blue-600">
+                        <a href="{{route("abandon_index");}}" class="inline hover:text-blue-600">
                             <i class="fas fa-level-up-alt mr-[3px]"></i>
                             Otpisi knjigu
                         </a>
-                        <a href="izdajKnjigu.php" class="inline hover:text-blue-600 ml-[20px] pr-[10px]">
+                        <a href="{{route("rent.new");}}" class="inline hover:text-blue-600 ml-[20px] pr-[10px]">
                             <i class="far fa-hand-scissors mr-[3px]"></i>
                             Izdaj knjigu
                         </a>
@@ -187,11 +187,11 @@
     <!-- End Main content -->
 
     <!-- Notification for small devices -->
-    @include('includes\layout\inProgress')
+    @include('includes.layout.inProgress')
 
 
     <!-- Scripts -->
-    @include('includes\layout\scripts')
+    @include('includes.layout.scripts')
     <!-- End Scripts -->
 
 </body>

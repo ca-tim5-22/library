@@ -14,13 +14,13 @@
 
     <!-- Title -->
     <title>Dashboard | Library - ICT Cortex student project</title>
-    @include('includes\layout\icon')
+    @include('includes.layout.icon')
     <!-- End Title -->
 
 
-   @include('includes\layout\icon') <!-- Styles -->
+   @include('includes.layout.icon') <!-- Styles -->
 
-    @include('includes\layout\styles')
+    @include('includes.layout.styles')
     <!-- End Styles -->
 </head>
 
@@ -241,7 +241,7 @@
     <!-- Main content -->
     <main class="flex flex-row small:hidden">
         <!-- Sidebar -->
-        @include('includes\layout\sidebar')
+        @include('includes.layout.sidebar')
         <!-- End Sidebar -->
 
         <!-- Content -->
@@ -575,11 +575,11 @@ je vratila knjigu
     
     ?>
     <!-- Notification for small devices -->
-    @include('includes\layout\inProgress')
+    @include('includes.layout.inProgress')
     
 
     <!-- Scripts -->
-    @include('includes\layout\scripts')
+    @include('includes.layout.scripts')
     <!-- End Scripts -->
 
 </body>

@@ -14,23 +14,23 @@
 
     <!-- Title -->
     <title>Izdaj knjigu | Library - ICT Cortex student project</title>
-    @include('includes\layout\icon')
+    @include('includes.layout.icon')
     <!-- End Title -->
 
-   @include('includes\layout\icon') <!-- Styles -->
-    @include('includes\layout\styles')
+   @include('includes.layout.icon') <!-- Styles -->
+    @include('includes.layout.styles')
     <!-- End Styles -->
 </head>
 
-<body class="small:bg-gradient-to-r small:from-green-400 small:to-blue-500">
+<body  onload="funkcijaDatumVracanja({{$deadline->value}});"  class="small:bg-gradient-to-r small:from-green-400 small:to-blue-500">
     <!-- Header -->
-    @include('includes\layout\header')
+    @include('includes.layout.header')
     <!-- Header -->
 
     <!-- Main content -->
     <main class="flex flex-row small:hidden">
         <!-- Sidebar -->
-        @include('includes\layout\sidebar')
+        @include('includes.layout.sidebar')
         <!-- End Sidebar -->
 
         <!-- Content -->
@@ -88,7 +88,7 @@
                         </div>
                     </div>
                     <div class="pt-[24px] mr-[30px]">
-                        <a href="otpisiKnjigu.php" class="inline hover:text-blue-600">
+                        <a href="{{route("abandon_index",$book->id);}}" class="inline hover:text-blue-600">
                             <i class="fas fa-level-up-alt mr-[3px]"></i>
                             Otpisi knjigu
                         </a>
@@ -100,7 +100,7 @@
                             <i class="fas fa-redo-alt mr-[3px] "></i>
                             Vrati knjigu
                         </a>
-                        <a href="rezervisiKnjigu.php" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href="{{route("reservation.new",$book->id)}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="far fa-calendar-check mr-[3px] "></i>
                             Rezervisi knjigu
                         </a>
@@ -177,10 +177,11 @@
                                     <p>Datum izdavanja <span class="text-red-500">*</span></p>
                                     <label class="text-gray-700" for="date">
 
-                                        <input type="date" name="rent_date" id="datumIzdavanja"
-                                            class="flex w-[90%] mt-2 px-4 py-2 text-base placeholder-gray-400 bg-white border border-gray-300 appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
+                                        <input type="date" name="rent_date" id="datumIzdavanja" value="<?php echo date("Y-m-d");?>" min="2022-01-01"
+                                            class="flex w-[90%] mt-2 px-4 py-2 text-base placeholder-gray-400 bg-white border border-gray-300 appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" max="<?php echo date("Y-m-d");?>"
                                             onclick="clearErrorsDatumIzdavanja();"
-                                            onchange="funkcijaDatumVracanja({{$deadline->value}});" />
+                                            onchange="funkcijaDatumVracanja({{$deadline->value}});"
+                                           />
 
                                     </label>
                                     <div id="validateDatumIzdavanja"></div>
@@ -188,7 +189,7 @@
                                 <div class="w-[50%]">
                                     <p>Datum vracanja</p>
                                     <label class="text-gray-700" for="date">
-                                        <input name="return_date" id="datumVracanja"
+                                        <input name="return_date" id="datumVracanja" readonly
                                             class="flex w-[90%] mt-2 px-2 py-2 text-base text-gray-400 bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
                                              />
                                     </label>
@@ -261,11 +262,11 @@
     <!-- End Main content -->
 
     <!-- Notification for small devices -->
-    @include('includes\layout\inProgress')
+    @include('includes.layout.inProgress')
 
 
     <!-- Scripts -->
-    @include('includes\layout\scripts')
+    @include('includes.layout.scripts')
     <!-- End Scripts -->
 
 </body>
