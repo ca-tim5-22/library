@@ -145,10 +145,10 @@ $l = Users::where("user_type_id","=",1)->get();
         ->join('books','books.id','=','rents.book_id')->join('galleries','galleries.book_id','=','rents.book_id')
         ->select('rents.*', 'u1.first_and_last_name as student','u2.first_and_last_name as librarian','rent_statuses.updated_at','rent_statuses.book_status_id','books.title','galleries.photo')
         ->whereIn('rent_statuses.book_status_id',[$status1->id,$status2->id])->get();
-    
+        $students = Users::where("user_type_id","=",2);
+        $librarians = Users::where("user_type_id","=",1);
 
-
-        return view("vraceneKnjige",compact("returned"));
+        return view("vraceneKnjige",compact("returned","students","librarians"));
     }
 
 
@@ -290,7 +290,7 @@ $l = Users::where("user_type_id","=",1)->get();
 $librarian =Users::findOrFail($rent->user_who_rented_out_id);
 $student =Users::findOrFail($rent->user_who_rented_id);
 
-$date= Carbon::parse($rented[0]->created_at);
+$date= Carbon::parse($rented->created_at);
                                         
 $newdate=$date->format("d-m-Y H:i:s");
 $today=date("d-m-Y H:i:s");

@@ -133,12 +133,31 @@ class BookController extends Controller
             $books = DB::table("books")->orderBy("title","DESC")->paginate($currentpag,"*","page");
             
         }
+        $book_headline=(object) $book_headline;
         $categories_of_book = DB::select(DB::raw("SELECT * FROM book_categories;"));
         $authors_of_book =DB::select(DB::raw("SELECT * FROM book_authors;"));
         $authors = DB::select(DB::raw("SELECT * FROM authors;"));
         $categories = DB::select(DB::raw("SELECT * FROM categories;"));
-        $book_headline=(object) $book_headline;
-    
+
+
+        $status3=StatusesOfReservations::where("name","=","Rezervisano")->get()->first();
+        $all_reservations=ReservationStatus::where("reservation_status_id","=",$status3->id)->get();
+        $reservations=[];
+        foreach($all_reservations as $reservation){
+            $reservations[]=Reservation::findOrFail($reservation->reservation_id);
+        }
+
+
+
+         $status1=BookStatus::where('name','=','Izdato')->get()->first();
+         $status2=BookStatus::where('name','=','U prekoracenju')->get()->first();
+        $rent=RentStatus::where('book_status_id','=',$status1->id)->orWhere('book_status_id','=',$status2->id)->get();
+        $rented=[];
+
+        foreach($rent as $rentt){
+            $rented[]=Rent::findOrFail($rentt->renting_id);
+        }
+
         $users=Users::all();
         $preko=[];
         $u_preko=DB::table("book_statuses")->where("name","=","U prekoracenju")->get()->first();
@@ -148,7 +167,8 @@ class BookController extends Controller
             $preko[]=$prekoo;
         }
 
-        return view("book.evidencijaKnjiga",compact("books","currentpag","url","book_headline","categories_of_book","authors_of_book","authors","categories","preko"));
+        return view("book.evidencijaKnjiga",compact("books","reservations","rented","currentpag","url","book_headline","categories_of_book","authors_of_book","authors","categories","preko"));
+        
      
      
         
