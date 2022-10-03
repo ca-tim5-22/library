@@ -252,12 +252,55 @@ Route::get('dashboard',function(){
                 "name"=>"Vraceno sa prekoracenjem"
             ]);
     
-
-
     }
-    
+    $today = date("d-m-Y");
+    $all_rented = DB::select(DB::raw("SELECT rent_statuses.renting_id,rent_statuses.book_status_id,rents.*,rent_statuses.created_at,rent_statuses.updated_at FROM rents INNER JOIN rent_statuses ON rents.id = rent_statuses.renting_id WHERE rent_statuses.book_status_id = 2"));
+    foreach($all_rented as $rent){
+        $date = date_create($rent->return_date);
+        $newdate=date_format($date,"d-m-Y");
+        $a= strtotime($today) - strtotime($newdate);
+        
+        if($a > 0 ){
+            
+            DB::select(DB::raw("UPDATE rent_statuses SET book_status_id = 4 WHERE renting_id = ".$rent->id));
+        }
+    }
+    $status1=StatusesOfReservations::where("name","=","Rezervisano")->get()->first();
+    $active =Reservation::join('reservation_statuses', 'reservation_statuses.reservation_id', '=', 'reservations.id')
+        ->join('users','users.id','=','reservations.foruser_id')
+        ->join('books','books.id','=','reservations.book_id')
+        ->join('galleries','galleries.book_id','=','reservations.book_id')
+        ->select('reservations.*', 'reservation_statuses.reservation_status_id as status','users.photo as student_img','users.first_and_last_name as student','books.title','galleries.photo')
+        ->whereIn('reservation_statuses.reservation_status_id',[$status1->id])->get();
+    $rok = DB::select(DB::raw("SELECT * FROM `global_variables` WHERE id = 1;"));
+    $br = $rok[0]->value;
+    foreach($active as $rent){
+        
+        $date = date_create($rent->date_of_reservation);
+        $newdate=date_format($date,"d-m-Y");
+        $a= strtotime($today) - strtotime($newdate.'+'.$br.'days');
+        
+        if($a > 0 ){
+            
+            DB::select(DB::raw("UPDATE reservation_statuses SET reservation_status_id = 3 WHERE reservation_id = ".$rent->id));
+        }
+    }
+     $all_overdue = DB::select(DB::raw("SELECT rent_statuses.renting_id,rent_statuses.book_status_id,rents.*,rent_statuses.created_at,rent_statuses.updated_at FROM rents INNER JOIN rent_statuses ON rents.id = rent_statuses.renting_id WHERE rent_statuses.book_status_id = 2 OR rent_statuses.book_status_id = 4"));
+     $rok = DB::select(DB::raw("SELECT * FROM `global_variables` WHERE id = 3;"));
+     $br = $rok[0]->value;
+     foreach($all_overdue as $rent){
+         
+         $date = date_create($rent->return_date);
+         $newdate=date_format($date,"d-m-Y");
+         $a= strtotime($today) - strtotime($newdate.'+'.$br.'days');
+         
+         if($a > 0 ){
+             
+             DB::select(DB::raw("UPDATE rent_statuses SET book_status_id = 5 WHERE renting_id = ".$rent->id));
+         }
+     }
 
-     
+
     $student=DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=2"));
     $student = (object) $student;
     $librarian= DB::select(DB::raw("SELECT * FROM `users` WHERE user_type_id=1"));

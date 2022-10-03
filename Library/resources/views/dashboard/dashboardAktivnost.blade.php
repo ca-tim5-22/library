@@ -26,24 +26,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     <!-- Title -->
     <title>Activity | Library - ICT Cortex student project</title>
-    @include('includes\layout\icon')
+    @include('includes.layout.icon')
     <!-- End Title -->
 
-    @include('includes\layout\icon')
+    @include('includes.layout.icon')
     <!-- Styles -->
-    @include('includes\layout\styles')
+    @include('includes.layout.styles')
     <!-- End Styles -->
 </head>
 
-<body class="small:bg-gradient-to-r small:from-green-400 small:to-blue-500">
+<body onload="fune();" class="small:bg-gradient-to-r small:from-green-400 small:to-blue-500">
     <!-- Header -->
-    @include('includes\layout\header')
+    @include('includes.layout.header')
     <!-- Header -->
 
     <!-- Main content -->
     <main class="flex flex-row small:hidden">
         <!-- Sidebar -->
-        @include('includes\layout\sidebar')
+        @include('includes.layout.sidebar')
         <!-- End Sidebar -->
 
         <!-- Content -->
@@ -202,8 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                                 </li>
                                                 <div class="h-[200px] scroll">
                                                     @foreach ($books as $b)
-                                                        <li
-                                                            class="k_trazi flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200 dropdown-item-knjiga">
+                                                        <li class="k_trazi flex p-2 mt-[2px] pt-[15px] group hover:bg-gray-200 dropdown-item-knjiga">
                                                             <label class="flex items-center justify-start">
                                                                 <div
                                                                     class="flex items-center justify-center flex-shrink-0 w-[16px] h-[16px] mr-2 bg-white border-2 border-gray-400 rounded focus-within:border-blue-500">
@@ -485,7 +484,7 @@ je otpisala primjerak knjige
                                                    
                                                @endforeach 
                                             @endif
-                                            <span class="font-medium">
+                                            <span id="knjiga_ime" class="font-medium">
                                                 @foreach ($books as $book)
                                                 @if ($book->id == $one->book_id)
                                                     {{$book->title}}
@@ -586,12 +585,24 @@ je otpisala primjerak knjige
     }
     
     ?>
+    <script>
+        function fune(){
+    let a = localStorage.getItem("ime");
+    $(".k_trazi").each(function(i,el){
+        var b = $(this).find("input");
+       if($(this).find("input").val() == a){
+        console.log("aaa");
+            b.click();
+       }
+    });
+}
+    </script>
     <!-- Notification for small devices -->
-    @include('includes\layout\inProgress')
+    @include('includes.layout.inProgress')
 
 
     <!-- Scripts -->
-    @include('includes\layout\scripts')
+    @include('includes.layout.scripts')
     <!-- End Scripts -->
 
 </body>

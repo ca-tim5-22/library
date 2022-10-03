@@ -13,24 +13,24 @@
     <!-- End Meta -->
     <!-- Title -->
     <title>New book | Library - ICT Cortex student project</title>
-    @include('includes\layout\icon')
+    @include('includes.layout.icon')
     <!-- End Title -->
 
-    @include('includes\layout\icon')
+    @include('includes.layout.icon')
     <!-- Styles -->
-    @include('includes\layout\styles')
+    @include('includes.layout.styles')
     <!-- End Styles -->
 </head>
 
 <body class="overflow-hidden small:bg-gradient-to-r small:from-green-400 small:to-blue-500">
     <!-- Header -->
-    @include('includes\layout\header')
+    @include('includes.layout.header')
     <!-- Header -->
 
     <!-- Main content -->
     <main class="flex flex-row small:hidden">
         <!-- Sidebar -->
-        @include('includes\layout\sidebar')
+        @include('includes.layout.sidebar')
         <!-- End Sidebar -->
 
         <!-- Content -->
@@ -673,11 +673,11 @@
     <!-- End Main content -->
 
     <!-- Notification for small devices -->
-    @include('includes\layout\inProgress')
+    @include('includes.layout.inProgress')
 
 
     <!-- Scripts -->
-    @include('includes\layout\scripts')
+    @include('includes.layout.scripts')
     <!-- End Scripts -->
 
     <script>
