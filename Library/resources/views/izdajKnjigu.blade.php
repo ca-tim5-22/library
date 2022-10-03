@@ -152,16 +152,23 @@
                                     name="user_who_rented_id" id="ucenikIzdavanje" onclick="clearErrorsUcenikIzdavanje()">
                                     <option disabled selected></option>
 
-                                    @foreach ($users as $user)
-                                    <option value="{{$user->id}}">
-                                        {{$user->first_and_last_name}}
+
+                                    @foreach($users as $u)
+                                    @if($book->user_active_rented($u->id)==0 and $rented[$u->id]<=1 )
+                                   <option value="{{$u->id}}">
+                                        {{$u->first_and_last_name}}
                                     </option>
+                                    @endif
                                     @endforeach
                                 </select>
 
 
 
-                                <div id="validateUcenikIzdavanje"></div>
+                                <div id="validateUcenikIzdavanje">
+ 
+                                    @error('user_who_rented_id')@php echo 'Polje ime ucenika nije izabrano ili ucenik vec ima dvije izdate knjige'; @endphp@enderror
+
+                                </div>
 
                                 <input type="hidden"  name="book" value="{{$book->id}}">
                             </div>

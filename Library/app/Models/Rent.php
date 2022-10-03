@@ -28,6 +28,15 @@ class Rent extends Model
       return $this->belongsToMany(BookStatus::class,"rent_statuses","renting_id","book_status_id")->withTimestamps();
       }
 
-
+      public static function all_user_rents($id){
+         return self
+         ::join('rent_statuses','rents.id','=','renting_id')
+         ->whereRaw('rent_statuses.book_status_id ='.BookStatus::where('name','Izdato')->first()->id.'
+         and rents.user_who_rented_id ='.$id
+         )
+         ->orderBy('rents.rent_date','desc')
+         ->groupBy('rents.user_who_rented_id')
+         ->count();
+     }
 
 }
