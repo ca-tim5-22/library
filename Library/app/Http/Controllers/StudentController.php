@@ -9,6 +9,7 @@ use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\BookStatus;
 use App\Models\GlobalVariable;
+use App\Models\Librarian;
 use App\Models\Rent;
 use App\Models\Reservation;
 use App\Models\StatusesOfReservations;
@@ -52,7 +53,8 @@ class StudentController extends Controller
             $all_students = DB::table("users")->where("user_type_id","=",2)->orderBy("first_and_last_name","ASC")->paginate($currentpag,"*","page");
             
         }
-        return view("student.ucenik",compact("all_students","currentpag","url"));
+        $last_login = Student::lastLogin();
+        return view("student.ucenik",compact("all_students","currentpag","url","last_login"));
     }
 
     public function sort(Request $request)
@@ -81,13 +83,13 @@ class StudentController extends Controller
         }
 
 
-        $logins=UserLogin::all();
+        $last_login = Student::lastLogin();
       
 
 
 
 
-        return view("student.ucenik",compact("all_students","logins","currentpag","url"));
+        return view("student.ucenik",compact("all_students","last_login","currentpag","url"));
     }
 
     /**

@@ -169,20 +169,23 @@
                                 <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$student->email}}</td>
                                 <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Ucenik</td>
                                 <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
-                               
-                    {{--                 <?php $last_login="Nema loginova";?>
-      
-                                @foreach($logins as $login)
-                                @if($login->user_id==$user->id)
-                                $last_login=[];
-                                $last_login[]=$login->time;
-
-                                @endif
+                                    <?php $is = false;?>
+                                    @foreach ($last_login as $one)
+                                    
+                                    @if ($one->id == $student->id)
+                                    <?php 
+                                $datum = explode(" ",$one->time)
+                            ?>
+                                            {{$datum[0]}} u {{$datum[1]}}
+                                        
+                                        <?php 
+                                        $is = true;
+                                    ?>
+                                    
+                                    @elseif($is == false)
+                                    Nikad nije logovan
+                                    @endif
                                 @endforeach
-                            
-                                      --}}
-                                   
-                                
 
 
 
