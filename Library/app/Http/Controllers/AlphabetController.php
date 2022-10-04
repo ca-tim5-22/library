@@ -92,7 +92,7 @@ class AlphabetController extends Controller
             'name'             =>      $request->name
             
         ]); 
-        return redirect("/alphabet");
+        return redirect("/alphabet")->with('success','Pismo je uspjesno dodato');
     }
 
     /**
@@ -130,7 +130,7 @@ class AlphabetController extends Controller
         $pismo=Alphabet::findOrFail($alphabet->id);
         $pismo->name=$request->name;
         $pismo->save();
-        return redirect('/alphabet');
+        return redirect('/alphabet')->with('success','Pismo je uspjesno azurirano');
     }
 
     /**
@@ -143,6 +143,6 @@ class AlphabetController extends Controller
     {
         $pismo=Alphabet::findOrFail($alphabet->id);
         $pismo->delete();
-        return redirect('/alphabet');
+        return redirect('/alphabet')->with('success','Pismo je uspjesno izbrisano');
     }
 }

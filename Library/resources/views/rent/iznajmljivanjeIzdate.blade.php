@@ -74,6 +74,20 @@
                             </div>
                         </div>
                     </div>
+
+                    @if(@session('success'))
+                    <div class="bg-blue-100 mssg border-t flex items-center border-b border-green-500 text-green-700 px-4 py-3" role="alert">
+                        <p class="font-bold items-center">{{session('success')}}</p>
+                       
+                    </div>
+                    @endif
+                    @if(@session('fail'))
+                    <div class="bg-blue-100 fail border-t flex items-center border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+                        <p class="font-bold items-center">{{session('fail')}}</p>
+                       
+                    </div>
+                    @endif
+
                     <div class="pt-[24px] mr-[30px]">
                         <a href="{{route("abandon_index",$book->id);}}" class="inline hover:text-blue-600">
                             <i class="fas fa-level-up-alt mr-[3px]"></i>

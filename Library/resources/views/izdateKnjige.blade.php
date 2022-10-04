@@ -43,6 +43,18 @@
             </div>
             <!-- Space for content -->
             <div class="scroll height-dashboard">
+                @if(@session('success'))
+                <div class="bg-blue-100 mssg border-t flex items-center border-b border-green-500 text-green-700 px-4 py-3" role="alert">
+                    <p class="font-bold items-center">{{session('success')}}</p>
+                   
+                </div>
+                @endif
+                @if(@session('fail'))
+                <div class="bg-blue-100 fail border-t flex items-center border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+                    <p class="font-bold items-center">{{session('fail')}}</p>
+                   
+                </div>
+                @endif
                 <div class="flex items-center px-6 py-4 space-x-3 rounded-lg ml-[292px]">
                     <div class="flex items-center">
                         <div class="relative text-gray-600 focus-within:text-gray-400">

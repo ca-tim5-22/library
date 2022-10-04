@@ -98,7 +98,7 @@ class LanguageController extends Controller
                 "name"=>$request->name
 
         ]);
-        return redirect("/language");
+        return redirect("/language")->with('success','Jezik je uspjesno dodat');
     }
 
     /**
@@ -141,7 +141,7 @@ class LanguageController extends Controller
         
         $f->save();
     
-    return redirect('/language');  
+    return redirect('/language')->with('success','Jezik je uspjesno azuriran');
     }
 
     /**
@@ -154,7 +154,7 @@ class LanguageController extends Controller
     {
         $f=Language::findOrFail($language->id);
         $f->delete();
-        return redirect('/language');
+        return redirect('/language')->with('success','Jezik je uspjesno izbrisan');
     }
 
     public function delete_lang($lang_id)
@@ -164,6 +164,6 @@ class LanguageController extends Controller
         $f->delete();
         }
         
-        return redirect('/language');
+        return redirect('/language')->with('success','Jezici su uspjesno izbrisani');
     }
 }

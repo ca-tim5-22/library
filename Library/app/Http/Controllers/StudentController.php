@@ -184,8 +184,11 @@ class StudentController extends Controller
               
             }
             
-                 return redirect('/student');
+                 return redirect('/student')->with('success','Ucenik je uspjesno dodat');
 
+            }else{
+
+                return redirect('/student')->with('fail','Ucenik nije dodat');
             } 
     }
 
@@ -286,7 +289,9 @@ class StudentController extends Controller
             
             $student->save();
 }
-            return redirect('/student');  
+            return redirect('/student')->with('success','Ucenik je uspjesno azuriran');  
+        }else{
+            return redirect('/student')->with('fail','Ucenik nije azuriran');
         }
     }
 
@@ -302,7 +307,7 @@ class StudentController extends Controller
         $student->delete();
         @unlink( 'public/student_images/'.$student->photo);
         @unlink( 'public/student_images/crop/'.$student->photo);
-        return redirect("/student");
+        return redirect("/student")->with('success','Ucenik je obrisan');
     }
 
     public function destroy_more($student_id)
@@ -317,7 +322,7 @@ class StudentController extends Controller
         }
        
 
-        return redirect("/student");
+        return redirect("/student")->with('success','Ucenici su obrisani');
 
     }
     public function rented($student)

@@ -114,15 +114,15 @@ class GenreController extends Controller
             'icon'             =>      $iconnametostore
              ]); 
 
-             return redirect('/genre')->with(['success' => "Slika je uspjesno okacena.",'path' => $path]);  
+             
             
         }else{ 
             Genre::create([
             'name'             =>      $request->name,
         ]); 
          
-      
-         return redirect('/genre');  }
+       }
+       return redirect('/genre')->with('success','Zanr je uspjesno dodat');
     }
 
     /**
@@ -195,7 +195,7 @@ class GenreController extends Controller
     
         $genre->save();
     
-    return redirect('/genre');  
+    return redirect('/genre')->with('success','Zanr je uspjesno azuriran');  
     }
 
     /**
@@ -211,7 +211,7 @@ class GenreController extends Controller
         @unlink( 'public/genre_icons/crop/'.$genre->icon);
         $genre->delete();
 
-        return redirect('/genre');
+        return redirect('/genre')->with('success','Zanr je uspjesno izbrisan');
 
     }
     public function delete_zanr($zanr_id)
@@ -223,7 +223,7 @@ class GenreController extends Controller
             @unlink( 'public/genre_icons/crop/'.$genre->icon);
             $genre->delete();
         }
-     return redirect('/genre');
+     return redirect('/genre')->with('success','Zanrovi su uspjesno izbrisani');
     }
     
 }

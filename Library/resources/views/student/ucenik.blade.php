@@ -47,6 +47,18 @@
                     <a href="{{route('student.create');}}" class="btn-animation inline-flex items-center text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] tracking-wider text-white bg-[#3f51b5] rounded hover:bg-[#4558BE]">
                         <i class="fas fa-plus mr-[15px]"></i> Novi ucenik  
                     </a>
+                    @if(@session('success'))
+                    <div class="bg-blue-100 mssg border-t flex items-center border-b border-green-500 text-green-700 px-4 py-3" role="alert">
+                        <p class="font-bold items-center">{{session('success')}}</p>
+                       
+                    </div>
+                    @endif
+                    @if(@session('fail'))
+                    <div class="bg-blue-100 fail border-t flex items-center border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+                        <p class="font-bold items-center">{{session('fail')}}</p>
+                       
+                    </div>
+                    @endif
                     <div class="flex items-center">
                         <div class="relative text-gray-600 focus-within:text-gray-400">
                             <span class="absolute inset-y-0 left-0 flex items-center pl-2">

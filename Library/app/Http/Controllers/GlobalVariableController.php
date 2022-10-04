@@ -84,10 +84,16 @@ class GlobalVariableController extends Controller
              
              
     $c=GlobalVariable::findOrFail($id);
+    if($c->value!=$request->value){
     $c->value=$request->value;
     $c->save();
 
-return redirect('/globalvariable');  
+return redirect('/globalvariable')->with('success','Polisa je uspjesno azurirana');  }
+else{
+
+    return redirect('/globalvariable')->with('fail','Polisa je ostala ista');
+
+}
     }
 
     /**

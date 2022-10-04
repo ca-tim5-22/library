@@ -117,7 +117,7 @@ class CategoryController extends Controller
             'icon'             =>      $iconnametostore
              ]); 
 
-             return redirect('/category')->with(['success' => "Slika je uspjesno okacena.",'path' => $path]);  
+             
             
         }else{ 
     Category::create([
@@ -126,7 +126,8 @@ class CategoryController extends Controller
         ]); 
          
       
-         return redirect('/category');  }
+          }
+          return redirect('/category')->with('success','Kategorija je uspjesno dodata');
     }
 
     /**
@@ -197,7 +198,7 @@ if ($request->hasFile('icon')) {
 
     $c->save();
 
-return redirect('/category');  
+return redirect('/category')->with('success','Kategorija je uspjesno azurirana');
     }
 
     /**
@@ -212,7 +213,7 @@ return redirect('/category');
     @unlink( 'public/category_icons/'.$c->icon);
     @unlink( 'public/category_icons/crop/'.$c->icon);
     $c->delete();
-     return redirect('/category');
+     return redirect('/category')->with('success','Kategorija je uspjesno izbrisana');
     }
 
     public function delete_kat($kat_id)
@@ -224,6 +225,6 @@ return redirect('/category');
     @unlink( 'public/category_icons/crop/'.$c->icon);
     $c->delete();
         }
-     return redirect('/category');
+     return redirect('/category')->with('success','Kategorije su uspjesno izbrisane');
     }
 }

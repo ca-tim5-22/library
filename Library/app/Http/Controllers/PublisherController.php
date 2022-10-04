@@ -92,7 +92,7 @@ class PublisherController extends Controller
             "name" => $request->name
         ]);
         
-        return redirect("/publisher");
+        return redirect("/publisher")->with('success','Izdavac je uspjesno dodat');
     }
 
     /**
@@ -136,7 +136,7 @@ class PublisherController extends Controller
         
         $publisher->save();
 
-        return redirect('/publisher');
+        return redirect('/publisher')->with('success','Izdavac je uspjesno azuriran');
     }
 
     /**
@@ -151,7 +151,7 @@ class PublisherController extends Controller
 
         $publisher->delete();
 
-        return redirect('/publisher');
+        return redirect('/publisher')->with('success','Izdavac je uspjesno izbrisan');
     }
 
     public function delete_izd($izd_id)
@@ -162,7 +162,7 @@ class PublisherController extends Controller
 
             $publisher->delete();
         }
-     return redirect('/publisher');
+     return redirect('/publisher')->with('success','Izdavaci su uspjesno izbrisani');
     }
 
 

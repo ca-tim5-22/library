@@ -86,6 +86,18 @@
             
             
             <div class="height-ucenikProfile pb-[30px] scroll">
+                @if(@session('success'))
+                <div class="bg-blue-100 mssg border-t flex items-center border-b border-green-500 text-green-700 px-4 py-3" role="alert">
+                    <p class="font-bold items-center">{{session('success')}}</p>
+                   
+                </div>
+                @endif
+                @if(@session('fail'))
+                <div class="bg-blue-100 fail border-t flex items-center border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+                    <p class="font-bold items-center">{{session('fail')}}</p>
+                   
+                </div>
+                @endif
                 <!-- Space for content -->
                 <div class="section- mt-[20px]">
                     <div class="flex flex-col">

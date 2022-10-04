@@ -92,7 +92,7 @@ class FormatController extends Controller
         'name'             =>      $request->name,
         ]); 
                  
-         return redirect('/format');  
+         return redirect('/format')->with('success','Format je uspjesno dodat');
     }
 
     /**
@@ -133,7 +133,7 @@ class FormatController extends Controller
         
         $f->save();
     
-    return redirect('/format');  
+    return redirect('/format')->with('success','Format je uspjesno azuriran');  
     }
 
     /**
@@ -146,7 +146,7 @@ class FormatController extends Controller
     {
         $f=Format::findOrFail($format);
         $f->delete();
-        return redirect('/format');
+        return redirect('/format')->with('success','Format je uspjesno obrisan');
     }
 
     public function destroy_format($form_id)
@@ -155,6 +155,6 @@ class FormatController extends Controller
         $f=Format::findOrFail($form_id);
         $f->delete();
         }
-        return redirect('/format');
+        return redirect('/format')->with('success','Format je uspjesno obrisan');
     }
 }
