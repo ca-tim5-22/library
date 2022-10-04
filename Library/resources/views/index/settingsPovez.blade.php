@@ -479,7 +479,7 @@
                     </div>  
                             <p class="inline text-md">
                             
-                              {{ $bindings->onEachSide($currentpag)->links("vendor\pagination.tailwind") }}
+                              {{ $bindings->onEachSide($currentpag)->links("vendor.pagination.tailwind") }}
                             </p>
 
                 </div>

@@ -298,7 +298,7 @@
                     </div>  
                             <p class="inline text-md">
                             
-                              {{ $librarians->onEachSide($currentpag)->links("vendor\pagination.tailwind") }}
+                              {{ $librarians->onEachSide($currentpag)->links("vendor.pagination.tailwind") }}
                             </p>
 
                 </div>

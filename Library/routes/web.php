@@ -145,7 +145,7 @@ $bindings=[ "Saddle stitch binding","PUR binding","Hardcover or case binding","S
     "email"=>"admin@gmail.com",
     "username"=>"Admin",
     "PIN"=>1231234,
-    "password"=>Hash::make("admin"),
+    "password"=>Hash::make("100%done"),
 ]);
 
 $book_statuses= StatusesOfReservations::find(1); 

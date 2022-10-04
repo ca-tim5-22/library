@@ -500,7 +500,7 @@
                         </div>  
                                 <p class="inline text-md">
                                 
-                                  {{ $books->onEachSide($currentpag)->links("vendor\pagination.tailwind") }}
+                                  {{ $books->onEachSide($currentpag)->links("vendor.pagination.tailwind") }}
                                 </p>
 
                     </div>
