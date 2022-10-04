@@ -285,7 +285,7 @@
                     </div>  
                             <p class="inline text-md">
                             
-                              {{ $categories->onEachSide($currentpag)->links("vendor\pagination.tailwind") }}
+                              {{ $categories->onEachSide($currentpag)->links("vendor.pagination.tailwind") }}
                             </p>
 
                 </div>
