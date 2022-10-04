@@ -469,7 +469,7 @@
                             </div>  
                                     {{-- <p class="inline text-md">
                                     
-                                      {{ $rented_book_info->onEachSide($currentpag)->links("vendor\pagination.tailwind") }}
+                                      {{ $rented_book_info->onEachSide($currentpag)->links("vendor.pagination.tailwind") }}
                                     </p> --}}
         
                         </div>
