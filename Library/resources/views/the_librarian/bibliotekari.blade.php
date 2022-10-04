@@ -180,9 +180,20 @@
                                 </td>
                                 <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Bibliotekar</td>
                                 <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">
+                                    <?php $is = false;?>
                                     @foreach ($last_login as $one)
+                                        
                                         @if ($one->id == $librarian->id)
-                                            {{$one->time}}
+                                        <?php 
+                                $datum = explode(" ",$one->time)
+                            ?>
+                                            {{$datum[0]}} u {{$datum[1]}}
+                                            <?php 
+    $is = true;
+?>
+
+@elseif($is == false)
+                                    Nikad nije logovan
                                         @endif
                                     @endforeach
 

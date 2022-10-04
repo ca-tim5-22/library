@@ -204,7 +204,7 @@ class LibrarianController extends Controller
 
             $last_login=UserLogin::where('user_id','=',$librarian->id)->orderBy('time','desc')->get()->first();
 
-            
+         
 
             $number_of_logins = DB::select(DB::raw("SELECT * FROM `user_logins` WHERE user_id = $librarian->id;"));
             $number_of_logins = count($number_of_logins);

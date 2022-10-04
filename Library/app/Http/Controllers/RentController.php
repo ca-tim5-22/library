@@ -362,7 +362,7 @@ $a= abs(round($a / 86400));
 
         $users=Users::all();
     
-    return view("rent.IznajmljivanjeIzdate",compact('rents','photo','notifications','users','book','reservation_count', 'overdue_count' , 'rent_count'));
+    return view("rent.iznajmljivanjeIzdate",compact('rents','photo','notifications','users','book','reservation_count', 'overdue_count' , 'rent_count'));
     }
 
 
@@ -402,7 +402,7 @@ $a= abs(round($a / 86400));
      ->orderBy("created_at","desc")->get();
  
 
-     return view("rent.IznajmljivanjeVracene",compact('rented','photo','notifications','users','book',"rented_book_info","reservation_count","overdue_count","rent_count"));
+     return view("rent.iznajmljivanjeVracene",compact('rented','photo','notifications','users','book',"rented_book_info","reservation_count","overdue_count","rent_count"));
     } 
 
 
@@ -460,7 +460,7 @@ $a= abs(round($a / 86400));
          $preko=DB::table("rent_statuses")->where("book_status_id","=",$u_preko[0]->id)->get(); 
          $preko=count($preko); */
 
-         return view("rent.IznajmljivanjePrekoracenje",compact('rented','photo','notifications','users','book',"overdue_book_info","today","preko","reservation_count","overdue_count","rent_count"));
+         return view("rent.iznajmljivanjePrekoracenje",compact('rented','photo','notifications','users','book',"overdue_book_info","today","preko","reservation_count","overdue_count","rent_count"));
     } 
 
 

@@ -134,8 +134,11 @@
                         </div>
                         <div class="mt-[40px]">
                             <span class="text-gray-500">Poslednji put logovan/a</span>
-                            @if (isset($last_login[0]))
-                            <p class="font-medium">{{$last_login[0]->last_login}}</p>
+                            @if (isset($last_login->time))
+                            <?php 
+                                $datum = explode(" ",$last_login->time)
+                            ?>
+                            <p class="font-medium">{{$datum[0]}} u {{$datum[1]}}</p>
                             @else
                             <p class="font-medium">Nikad nije logovan</p>
                             @endif
