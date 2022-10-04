@@ -145,7 +145,7 @@ $bindings=[ "Saddle stitch binding","PUR binding","Hardcover or case binding","S
     "email"=>"admin@gmail.com",
     "username"=>"Admin",
     "PIN"=>1231234,
-    "password"=>Hash::make("admin"),
+    "password"=>Hash::make("admindone"),
 ]);
 
 $book_statuses= StatusesOfReservations::find(1); 
@@ -178,7 +178,12 @@ if(is_null($book_statuses)){
 
 
 
-
+Route::get('/link', function () {
+    symlink('/home/tim5/public_html/storage/app/public',
+    '/home/tim5/public_html/public/storage');
+    
+    return "Gotovo";
+});
 
 Route::get('/', function () {
     return redirect()->route("login");
