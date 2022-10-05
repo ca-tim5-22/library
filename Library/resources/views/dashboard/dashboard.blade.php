@@ -152,7 +152,7 @@
                     </div>
                 </div>
                 <!-- Bild Studio Icon -->
-                <a href="https://www.bild-studio.com/">
+                <a href="/dashboard">
                     <img class="obex" src="{{asset("obex.png");}}" alt="">
                 </a>
                 <!-- User Profile Icon -->

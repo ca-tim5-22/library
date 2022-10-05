@@ -90,8 +90,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- Bild Studio Icon -->
-                <a href="https://www.bild-studio.com/">
+                <!-- Obex Icon -->
+                <a href="/dashboard">
                     
                        <img class="obex" src="{{asset('obex.png');}}" alt="">
                 </a>
