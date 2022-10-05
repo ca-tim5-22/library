@@ -10,7 +10,10 @@
 .btn-animation {
   transition: all 0.3s;
 }
-
+.obex{
+  width:100%;
+  height:50px;
+}
 .btn-animation:hover {
   transform: scale(1.05);
 }

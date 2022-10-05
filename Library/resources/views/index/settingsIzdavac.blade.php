@@ -359,7 +359,7 @@
                     var checked = document.querySelectorAll("#table_checkboxes:checked");
                     var ids="";
                     checked.forEach(checked =>{
-                        ids += "-"+checked.dataset.izdhorId;
+                        ids += "-"+checked.dataset.izdId;
                     })
                     
                     ids = ids.slice(1);

@@ -158,7 +158,8 @@ class LanguageController extends Controller
     }
 
     public function delete_lang($lang_id)
-    {
+    {   
+        $lng_id = explode("-",$lang_id);
         foreach($lang_id as $lang_id){
             $f=Language::findOrFail($lang_id);
         $f->delete();
