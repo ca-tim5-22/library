@@ -461,8 +461,8 @@ Route::get("rent/reservation/{reservation}",[RentController::class,"rent_from_re
 Route::get("deleteizd/{izd_id}",[PublisherController::class,"delete_izd"])->name("delete_izd");
 
 Route::get("deletezanr/{zanr_id}",[GenreController::class,"delete_zanr"])->name("delete_zanr");
-Route::get("deleteformat/{form_id}",[FormatController::class,"delete_form"])->name("delete_format");
-Route::get("deletebinding/{bind_id}",[BindingController::class,"delete_bind"])->name("delete_bind");
+Route::get("deleteformat/{form_id}",[FormatController::class,"destroy_format"])->name("delete_format");
+Route::get("deletebinding/{bind_id}",[BindingController::class,"destroy_bind"])->name("delete_bind");
 Route::get("deletebooks/{ids}",[BookController::class,"delete_more"])->name("delete_books");
 Route::get("deletelang/{lang_id}",[LanguageController::class,"delete_lang"])->name("delete_lang");
 /*-------------------------------------------------------------------------------------------*/

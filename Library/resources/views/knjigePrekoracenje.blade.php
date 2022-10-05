@@ -400,79 +400,13 @@
                                 </tbody>
                             </table>
                         </form>
-                            <div class="flex flex-row items-center justify-end my-3">
-                    
-                       
-                                
-                                <div> 
-                                @if (URL::current() == "http://127.0.0.1:8000/rent")
-                                     <form style="margin-right:20px;" id="formica" method="POST" action="{{route("rent.sort")}}">
-                                     @else
-                                    <form style="margin-right:20px;" id="formica" method="POST" action="{{route("rent.index")}}">
-                                @endif
-                               
-                                @csrf
-                                @method("GET")
-                                 <select onchange="this.form.submit()" id="selectica" form="formica" 
-                                        class=" text-gray-700 bg-white rounded-md w-[46px] focus:outline-none focus:ring-primary-500 focus:border-primary-500 text-md"
-                                        name="paginate">
-        
-                                        @if (isset($currentpag))
-                                        @if ($currentpag == 2)
-                                        <option id="selecticaoption" value="2" disabled selected>2</option>
-                                        <option id="selecticaoption" value="4">4</option>
-                                        <option id="selecticaoption" value="6">6</option>
-                                        <option id="selecticaoption" value="8">8</option>
-                                        <option id="selecticaoption" value="10">10</option>
-                                        @endif
-                                        @if ($currentpag == 4)
-                                        <option id="selecticaoption" value="2" >2</option>
-                                        <option id="selecticaoption" value="4" disabled selected>4</option>
-                                        <option id="selecticaoption" value="6">6</option>
-                                        <option id="selecticaoption" value="8">8</option>
-                                        <option id="selecticaoption" value="10">10</option>
-                                        @endif
-        
-                                        @if ($currentpag == 6)
-                                            <option id="selecticaoption" value="2" >2</option>
-                                        <option id="selecticaoption" value="4">4</option>
-                                        <option id="selecticaoption" value="6"  disabled selected>6</option>
-                                        <option id="selecticaoption" value="8">8</option>
-                                        <option id="selecticaoption" value="10">10</option>
-                                        @endif
-        
-                                        @if ($currentpag == 8)
-                                            <option id="selecticaoption" value="2" >2</option>
-                                        <option id="selecticaoption" value="4">4</option>
-                                        <option id="selecticaoption" value="6" >6</option>
-                                        <option id="selecticaoption" value="8"  disabled selected>8</option>
-                                        <option id="selecticaoption" value="10">10</option>
-                                        @endif
-        
-                                        @if ($currentpag == 10)
-                                            <option id="selecticaoption" value="2" >2</option>
-                                        <option id="selecticaoption" value="4" >4</option>
-                                        <option id="selecticaoption" value="6">6</option>
-                                        <option id="selecticaoption" value="8">8</option>
-                                        <option id="selecticaoption" value="10" disabled selected>10</option>
-                                        @endif
-        
-                                            @else
-                                    
-                                        @endif
-                                      
-                                    </select> 
-                                    
-                                    </form>
-                                  
-         
-                            </div>  
+                             
                                     {{-- <p class="inline text-md">
                                     
                                       {{ $rented_book_info->onEachSide($currentpag)->links("vendor.pagination.tailwind") }}
                                     </p> --}}
         
-                        </div>
+                        
 
                             </div>
 

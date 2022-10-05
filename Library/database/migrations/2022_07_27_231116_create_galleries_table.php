@@ -23,8 +23,8 @@ return new class extends Migration
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
-            $table->string("photo",256);
-            $table->integer("headline");
+            $table->string("photo",256)->nullable();
+            $table->integer("headline")->nullable();
             $table->timestamps();
         });
     }

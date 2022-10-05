@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('book_categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("book_id");
+            $table->unsignedBigInteger("book_id")->nullable();
             $table->foreign("book_id")
             ->references("id")
             ->on("books")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
-            $table->unsignedBigInteger("category_id");
+            $table->unsignedBigInteger("category_id")->nullable();
             $table->foreign("category_id")
             ->references("id")
             ->on("categories")

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('book_genres', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger("book_id");
+            $table->unsignedBigInteger("book_id")->nullable();
             $table->foreign("book_id")
             ->references("id")
             ->on("books")
@@ -24,7 +24,7 @@ return new class extends Migration
             ->onDelete("Restrict");
 
 
-            $table->unsignedBigInteger("genre_id");
+            $table->unsignedBigInteger("genre_id")->nullable();
             $table->foreign("genre_id")
             ->references("id")
             ->on("genres")

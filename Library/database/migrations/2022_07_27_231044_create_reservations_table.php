@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger("book_id");
+            $table->unsignedBigInteger("book_id")->nullable();
             $table->foreign("book_id")
             ->references("id")
             ->on("books")
@@ -24,24 +24,24 @@ return new class extends Migration
             ->onDelete("Restrict");
 
 
-            $table->unsignedBigInteger("foruser_id");
+            $table->unsignedBigInteger("foruser_id")->nullable();
             $table->foreign("foruser_id")
             ->references("id")
             ->on("users")
             ->onUpdate("Cascade")
             ->onDelete("Restrict");
 
-            $table->unsignedBigInteger("user_that_reserved_id");
+            $table->unsignedBigInteger("user_that_reserved_id")->nullable();
             $table->foreign("user_that_reserved_id")
             ->references("id")
             ->on("users")
             ->onUpdate("Cascade")
             ->onDelete("Cascade");
 
-            $table->date("date_of_submission");
-            $table->date("date_of_reservation");
-            $table->date("date_of_closing");
-            $table->unsignedBigInteger("reason_of_closing_id");
+            $table->date("date_of_submission")->nullable();
+            $table->date("date_of_reservation")->nullable();
+            $table->date("date_of_closing")->nullable();
+            $table->unsignedBigInteger("reason_of_closing_id")->nullable();
             $table->foreign("reason_of_closing_id")
             ->references("id")
             ->on("reason_for_closing_reservations")
