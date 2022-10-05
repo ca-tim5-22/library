@@ -65,10 +65,10 @@ class ReservationController extends Controller
         $status=DB::table("statuses_of_reservations")->where("name","=","Rezervisano")->get()->first();
         $reservation->status()->attach($status->id);
     
-        return redirect("/book");
+        return redirect("/book")->with('success','Rezervacija je uspjesno dodata');
 
     }else{
-        return redirect()->back();
+        return redirect("/book")->with('fail','Rezervacija nije uspjesno dodata');
     }
         
 

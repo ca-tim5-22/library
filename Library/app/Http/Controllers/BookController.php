@@ -271,10 +271,15 @@ class BookController extends Controller
       
        
         $book->gallery()->save($gallery);
+
        }
-        }
-     
-       return redirect("/book");
+      
+
+    }
+    if($book){
+        return redirect()->route('book.index')->with('success','Nova knjiga je dodata');
+       }
+        return redirect()->route('book.index')->with('fail','Nova knjiga nije dodata');
     }
 
     /**
@@ -465,7 +470,11 @@ class BookController extends Controller
             $book->authors()->sync([]);
             $book->authors()->attach($authors);
             
-           return redirect("/book");
+            if($book){
+                return redirect()->route('book.index')->with('success','Knjiga je uspjesno azurirana');
+               }else{
+                return redirect()->route('book.index')->with('fail','Knjiga nije uspjesno azurirana');
+               }
 
     }
 
@@ -484,7 +493,11 @@ class BookController extends Controller
         $book->gallery()->delete();
         $book->delete();
 
-        return redirect("/book");
+        if($book){
+            return redirect()->route('book.index')->with('success','Knjiga je uspjesno obrisana');
+           }else{
+            return redirect()->route('book.index')->with('fail','Knjiga nije uspjesno obrisana');
+           }
     }
 
     public function delete_more($ids)

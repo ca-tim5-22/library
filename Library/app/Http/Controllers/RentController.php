@@ -230,12 +230,12 @@ $l = Users::where("user_type_id","=",1)->get();
 
                  }else{
 
-                   return redirect()->back();
+                    return redirect()->route('book.index')->with('fail','Knjiga nije uspjesno izdata');
 
                  }}
 
              
-               return redirect("/book");
+                 return  redirect()->route('book.index')->with('success','Knjiga je uspjesno izdata');
 
 
             }
@@ -362,7 +362,7 @@ $a= abs(round($a / 86400));
 
         $users=Users::all();
     
-    return view("rent.IznajmljivanjeIzdate",compact('rents','photo','notifications','users','book','reservation_count', 'overdue_count' , 'rent_count'));
+    return view("rent.iznajmljivanjeIzdate",compact('rents','photo','notifications','users','book','reservation_count', 'overdue_count' , 'rent_count'));
     }
 
 
@@ -402,7 +402,7 @@ $a= abs(round($a / 86400));
      ->orderBy("created_at","desc")->get();
  
 
-     return view("rent.IznajmljivanjeVracene",compact('rented','photo','notifications','users','book',"rented_book_info","reservation_count","overdue_count","rent_count"));
+     return view("rent.iznajmljivanjeVracene",compact('rented','photo','notifications','users','book',"rented_book_info","reservation_count","overdue_count","rent_count"));
     } 
 
 
@@ -460,7 +460,7 @@ $a= abs(round($a / 86400));
          $preko=DB::table("rent_statuses")->where("book_status_id","=",$u_preko[0]->id)->get(); 
          $preko=count($preko); */
 
-         return view("rent.IznajmljivanjePrekoracenje",compact('rented','photo','notifications','users','book',"overdue_book_info","today","preko","reservation_count","overdue_count","rent_count"));
+         return view("rent.iznajmljivanjePrekoracenje",compact('rented','photo','notifications','users','book',"overdue_book_info","today","preko","reservation_count","overdue_count","rent_count"));
     } 
 
 
@@ -489,7 +489,7 @@ $a= abs(round($a / 86400));
         $rent=Rent::findOrFail($clan);
         $rent->rent_status()->sync([$status->id]);
     } */
-        return redirect('/rented/'.$rent->book_id);
+        return redirect('/rented/'.$rent->book_id)->with('success','Knjiga uspjesno otpisana');
 
     } 
 
@@ -565,7 +565,7 @@ return view("vratiKnjigu",compact("rent","book","naslovna","librarian","student"
 } */
 
 
-    return redirect('/rented/'.$rent->book_id);
+    return redirect('/rented/'.$rent->book_id)->with('success','Knjiga uspjesno vracena');
     } 
 
     public function return_more(Request $request){
@@ -582,7 +582,7 @@ return view("vratiKnjigu",compact("rent","book","naslovna","librarian","student"
     DB::select(DB::raw("UPDATE rents SET user_who_received_back_id = $user_id WHERE id = $id"));
     DB::select(DB::raw("UPDATE rent_statuses SET updated_at = now() WHERE renting_id = $id"));
     }
-    return redirect('/rented/'.$rent->book_id);
+    return redirect('/rented/'.$rent->book_id)->with('success','Knjiga(e) uspjesno vracen(a)e');
 } 
 
 public function return_more_2($ids){
@@ -599,7 +599,7 @@ DB::select(DB::raw("UPDATE rent_statuses SET book_status_id = $status->id WHERE 
 DB::select(DB::raw("UPDATE rents SET user_who_received_back_id = $user_id WHERE id = $id"));
 DB::select(DB::raw("UPDATE rent_statuses SET updated_at = now() WHERE renting_id = $id"));
 }
-return redirect('/rented/'.$rent->book_id);
+return redirect('/rented/'.$rent->book_id)->with('success','Knjige uspjesno vracene');
 } 
 public function abandon_more(Request $request) {
    
@@ -618,7 +618,7 @@ public function abandon_more(Request $request) {
     $rent=Rent::findOrFail($clan);
     $rent->rent_status()->sync([$status->id]);
 } */
-    return redirect('/rent/');
+    return redirect('/rent/')->with('success','Knjige uspjesno otpisane');
 
 
 }
@@ -640,7 +640,7 @@ public function abandon_more_2($ids) {
     $rent=Rent::findOrFail($clan);
     $rent->rent_status()->sync([$status->id]);
 } */
-    return redirect('/rent/');
+    return redirect('/rent/')->with('success','Knjige uspjesno otpisane');
 
 
 }
@@ -750,7 +750,7 @@ $rented_book_info = [];
          $rent->rent_status()->attach($status->id);
 
      
-       return redirect("/rent");
+       return redirect("/rent")->with('success','Knjiga je usjpesno izdata na osnovu rezervacije');
     
 
     }

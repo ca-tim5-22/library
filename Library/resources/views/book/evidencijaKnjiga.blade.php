@@ -43,6 +43,18 @@
             </div>
             <!-- Space for content -->
             <div class="scroll height-evidencija">
+                @if(@session('success'))
+                <div class="bg-blue-100 mssg border-t flex items-center border-b border-green-500 text-green-700 px-4 py-3" role="alert">
+                    <p class="font-bold items-center">{{session('success')}}</p>
+                   
+                </div>
+                @endif
+                @if(@session('fail'))
+                <div class="bg-blue-100 fail border-t flex items-center border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+                    <p class="font-bold items-center">{{session('fail')}}</p>
+                   
+                </div>
+                @endif
                 <div class="flex items-center justify-between px-[30px] py-4 space-x-3 rounded-lg">
                     <a href="{{route('book.create');}}"
                         class="btn-animation inline-flex items-center text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] tracking-wider text-white bg-[#3f51b5] rounded hover:bg-[#4558BE]">

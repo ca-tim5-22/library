@@ -93,7 +93,9 @@ class AuthorController extends Controller
             ]); 
                      
                   
-            return redirect('/author');  
+            return redirect('/author')->with('success','Autor je uspjesno dodat');  
+
+       
     }
 
     /**
@@ -136,7 +138,7 @@ class AuthorController extends Controller
         
         $a->save();
     
-    return redirect('/author');  
+        return redirect('/author')->with('success','Autor je uspjesno azuriran');  
     }
 
     /**
@@ -149,7 +151,7 @@ class AuthorController extends Controller
     {
         $a=Author::findOrFail($author);
         $a->delete();
-        return redirect('/author');
+        return redirect('/author')->with('success','Autor je uspjesno obrisan');
     }
     public function destroy_more($aut_id)
     {
@@ -162,6 +164,6 @@ class AuthorController extends Controller
         }
        
 
-        return redirect("/author");
+        return redirect("/author")->with('success','Autori su uspjesno obrisani');
     }
 }

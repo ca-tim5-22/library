@@ -94,7 +94,7 @@ class BindingController extends Controller
         ]); 
                  
               
-        return redirect('/binding');  
+        return redirect('/binding')->with('success','Povez je uspjesno dodat');
     }
 
     /**
@@ -135,7 +135,7 @@ class BindingController extends Controller
         
         $b->save();
     
-    return redirect('/binding');  
+    return redirect('/binding')->with('success','Povez je uspjesno azuriran');  
     }
 
     /**
@@ -148,7 +148,7 @@ class BindingController extends Controller
     {
         $b=Binding::findOrFail($binding);
         $b->delete();
-        return redirect('/binding');
+        return redirect('/binding')->with('success','Povez je uspjesno izbrisan');
     }
 
     public function destroy_bind($bind_id)
@@ -157,6 +157,6 @@ class BindingController extends Controller
              $b=Binding::findOrFail($bind_id);
         $b->delete();
         }
-        return redirect('/binding');
+        return redirect('/binding')->with('success','Povezi su uspjesno izbrisani');
     }
 }

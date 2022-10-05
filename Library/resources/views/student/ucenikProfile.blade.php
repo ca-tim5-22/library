@@ -140,7 +140,12 @@
                             </div>
                             <div class="mt-[40px]">
                                 <span class="text-gray-500">Poslednji put logovan/a</span>
-                                <p class="font-medium">{{$last_login}}</p>
+                                <p class="font-medium">
+                                    <?php 
+                                    $datum = explode(" ",$last_login);
+                                ?>
+                                                {{$datum[0]}} u {{$datum[1]}}    
+                                </p>
                             </div>
 
                         </div>

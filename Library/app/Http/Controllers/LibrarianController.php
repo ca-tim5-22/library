@@ -155,7 +155,7 @@ class LibrarianController extends Controller
            
 
                 
-                return redirect('/librarian')->with(['success' => "Slika je uspjesno okacena.", 'path' => $path]);
+                return redirect('/librarian')->with('success','Bibliotekar uspjesno dodat');
 
             }else{ 
 
@@ -175,12 +175,15 @@ class LibrarianController extends Controller
             }
 
             
-                 return redirect('/librarian');
+            return redirect('/librarian')->with('success','Bibliotekar uspjesno dodat');
 
 
                 
      
-            } 
+            } else{
+
+                return redirect('/librarian')->with('fail','Bibliotekar nije dodat');
+            }
 
     }
 
@@ -204,7 +207,7 @@ class LibrarianController extends Controller
 
             $last_login=UserLogin::where('user_id','=',$librarian->id)->orderBy('time','desc')->get()->first();
 
-            
+         
 
             $number_of_logins = DB::select(DB::raw("SELECT * FROM `user_logins` WHERE user_id = $librarian->id;"));
             $number_of_logins = count($number_of_logins);
@@ -277,7 +280,7 @@ class LibrarianController extends Controller
         $librarian->password=Hash::make($password);
             
         $librarian->save();}
-        
+        return redirect('/librarian')->with('success','Bibliotekar uspjesno azuriran');
 }else{
     
             $librarian->first_and_last_name=$request->first_and_last_name;
@@ -288,7 +291,10 @@ class LibrarianController extends Controller
             
             $librarian->save();
 }
-            return redirect('/librarian');  
+            return redirect('/librarian')->with('success','Bibliotekar uspjesno azuriran');
+        }
+        else{
+            return redirect('/librarian')->with('fail','Bibliotekar nije azuriran');
         }
     }
 
@@ -305,7 +311,7 @@ class LibrarianController extends Controller
         @unlink( 'public/librarian_images/'.$librarian->photo);
         @unlink( 'public/librarian_images/crop/'.$librarian->photo);
 
-        return redirect("/librarian");
+        return redirect('/librarian')->with('success','Bibliotekar je obrisan');
     }
 
     public function destroy_more($lib_id)
@@ -320,7 +326,7 @@ class LibrarianController extends Controller
         }
        
 
-        return redirect("/librarian");
+        return redirect("/librarian")->with('success','Bibliotekari su obrisani');
     }
     
 }

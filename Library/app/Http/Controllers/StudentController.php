@@ -9,6 +9,7 @@ use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\BookStatus;
 use App\Models\GlobalVariable;
+use App\Models\Librarian;
 use App\Models\Rent;
 use App\Models\Reservation;
 use App\Models\StatusesOfReservations;
@@ -52,7 +53,8 @@ class StudentController extends Controller
             $all_students = DB::table("users")->where("user_type_id","=",2)->orderBy("first_and_last_name","ASC")->paginate($currentpag,"*","page");
             
         }
-        return view("student.ucenik",compact("all_students","currentpag","url"));
+        $last_login = Student::lastLogin();
+        return view("student.ucenik",compact("all_students","currentpag","url","last_login"));
     }
 
     public function sort(Request $request)
@@ -81,13 +83,13 @@ class StudentController extends Controller
         }
 
 
-        $logins=UserLogin::all();
+        $last_login = Student::lastLogin();
       
 
 
 
 
-        return view("student.ucenik",compact("all_students","logins","currentpag","url"));
+        return view("student.ucenik",compact("all_students","last_login","currentpag","url"));
     }
 
     /**
@@ -182,8 +184,11 @@ class StudentController extends Controller
               
             }
             
-                 return redirect('/student');
+                 return redirect('/student')->with('success','Ucenik je uspjesno dodat');
 
+            }else{
+
+                return redirect('/student')->with('fail','Ucenik nije dodat');
             } 
     }
 
@@ -284,7 +289,9 @@ class StudentController extends Controller
             
             $student->save();
 }
-            return redirect('/student');  
+            return redirect('/student')->with('success','Ucenik je uspjesno azuriran');  
+        }else{
+            return redirect('/student')->with('fail','Ucenik nije azuriran');
         }
     }
 
@@ -300,7 +307,7 @@ class StudentController extends Controller
         $student->delete();
         @unlink( 'public/student_images/'.$student->photo);
         @unlink( 'public/student_images/crop/'.$student->photo);
-        return redirect("/student");
+        return redirect("/student")->with('success','Ucenik je obrisan');
     }
 
     public function destroy_more($student_id)
@@ -315,7 +322,7 @@ class StudentController extends Controller
         }
        
 
-        return redirect("/student");
+        return redirect("/student")->with('success','Ucenici su obrisani');
 
     }
     public function rented($student)
